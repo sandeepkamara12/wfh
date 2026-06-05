@@ -1,0 +1,155 @@
+@import "tailwindcss";
+
+:root {
+  --color-navy: #122c4f; /* blue-500 */
+  --color-secondary: 16 185 129; /* green-500 */
+  --color-accent: 236 72 153; /* pink-500 */
+  --color-dark: 17 24 39; /* gray-900 */
+  --color-light: 249 250 251; /* gray-50 */
+
+  /* Typography */
+  --font-sans: 'Inter', sans-serif;
+  --font-heading: 'Poppins', sans-serif;
+
+  /* Spacing */
+  --radius: 0.5rem;
+  --transition: all 0.3s ease;
+}
+
+/* Dark mode variables */
+.dark {
+  --color-light: 17 24 39;
+  --color-dark: 249 250 251;
+}
+
+/* =========================
+   BASE LAYER
+========================= */
+@layer base {
+  * {
+    @apply m-0 p-0 box-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    @apply bg-[rgb(var(--color-light))] text-[rgb(var(--color-dark))];
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    @apply font-bold;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl;
+  }
+
+  a {
+    @apply text-blue-500 hover:underline;
+  }
+
+  button {
+    @apply cursor-pointer;
+  }
+}
+
+/* =========================
+   COMPONENTS LAYER
+========================= */
+@layer components {
+  /* Button */
+  .btn {
+    @apply px-4 py-2 rounded-lg font-medium transition;
+    background-color: rgb(var(--color-primary));
+    color: white;
+  }
+
+  .btn-secondary {
+    background-color: rgb(var(--color-secondary));
+    @apply text-white;
+  }
+
+  .btn-outline {
+    @apply border border-gray-300 text-gray-700;
+  }
+
+  .btn:hover {
+    opacity: 0.9;
+  }
+
+  /* Card */
+  .card {
+    @apply p-6 rounded-xl shadow-md;
+    background-color: white;
+  }
+
+  /* Input */
+  .input {
+    @apply w-full px-3 py-2 border rounded-lg outline-none;
+    @apply focus:ring-2 focus:ring-blue-400;
+  }
+
+  /* Navbar */
+  .navbar {
+    @apply flex items-center justify-between px-6 py-4 shadow;
+    background-color: white;
+  }
+
+  /* Badge */
+  .badge {
+    @apply inline-block px-2 py-1 text-xs rounded-full;
+    background-color: rgb(var(--color-accent));
+    color: white;
+  }
+}
+
+/* =========================
+   UTILITIES LAYER
+========================= */
+@layer utilities {
+  /* Text colors using variables */
+  .text-primary {
+    color: rgb(var(--color-primary));
+  }
+
+  .text-secondary {
+    color: rgb(var(--color-secondary));
+  }
+
+  /* Background utilities */
+  .bg-primary {
+    background-color: rgb(var(--color-primary));
+  }
+
+  .bg-secondary {
+    background-color: rgb(var(--color-secondary));
+  }
+
+  /* Centering utility */
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+
+  /* Glass effect */
+  .glass {
+    @apply backdrop-blur-md bg-white/30 border border-white/20;
+  }
+
+  /* Transition */
+  .transition-default {
+    transition: var(--transition);
+  }
+
+  /* Custom shadow */
+  .shadow-soft {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  }
+}
