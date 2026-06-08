@@ -8,6 +8,8 @@ import Teacher from './subAdmin/TeacherList.jsx';
 import SubAdmin from './SubAdmin.jsx';
 import ClassList from './subAdmin/ClassList.jsx';
 import SectionList from './subAdmin/SectionList.jsx';
+import SubjectList from './subAdmin/SubjectList.jsx';
+import Assignment from './subAdmin/Assignment.jsx';
 // import CreateSection from './CreateSection.jsx';
 // import About from './About.jsx';
 
@@ -46,6 +48,14 @@ const router = createBrowserRouter([
   {
     path: "/section",
     element: <SectionList />,
+  },
+  {
+    path: "/subject",
+    element: <SubjectList />,
+  },
+  {
+    path: "/assignment",
+    element: <Assignment />,
   },
 ]);
 

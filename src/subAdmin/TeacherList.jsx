@@ -70,9 +70,6 @@ const TeacherList = () => {
                                 </div>
                                 <div>
                                     <div className="inline-flex gap-x-2">
-                                        <a className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-layer border border-[#ebe6e7] text-layer-foreground shadow-2xs hover:bg-layer-hover disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-layer-focus" href="#">
-                                            View all
-                                        </a>
                                         <a onClick={() => handleOpen()} className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-primary border border-[#ebe6e7] text-primary-foreground hover:bg-primary-hover focus:outline-hidden focus:bg-primary-focus disabled:opacity-50 disabled:pointer-events-none" href="#">
                                             <svg className="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="M12 5v14" /></svg>
                                             Add teacher
@@ -153,7 +150,6 @@ const TeacherList = () => {
                                                         <img className="inline-block size-9.5 rounded-full" src="https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80" alt="Avatar" />
                                                         <div className="grow">
                                                             <span className="block text-sm font-semibold text-foreground">{teacher.name}
-                                                                <span className="text-white text-xs font-medium bg-red-400 rounded-full px-2 py-1">28 Years</span>
                                                             </span>
                                                             <span id="dismiss-badge" className="inline-flex items-center gap-x-1.5 py-1.5 ps-3 pe-2 rounded-full text-xs font-medium bg-gray-300 text-primary-800 dark:bg-primary-500/20 dark:text-primary-400">
                                                                 #0215487963
@@ -230,7 +226,10 @@ const TeacherList = () => {
                                                     <p className="hidden text-xs text-red-600 mt-2" id="teacher-error">Please include a valid email address so we can get back to you</p>
                                                 </div>
 
-
+                                                <div class="max-w-sm w-full">
+                                                    <label for="file-input" class="sr-only">Choose file</label>
+                                                    <input type="file" name="file-input" id="file-input" class="block w-full bg-layer border border-layer-line rounded-lg text-sm text-foreground placeholder:text-muted-foreground-1 focus:z-10 focus:outline-hidden focus:border-primary-focus focus:ring-1 focus:ring-primary-focus disabled:opacity-50 disabled:pointer-events-none file:bg-surface file:border-0 file:me-4 file:py-3 file:px-4" />
+                                                </div>
 
                                                 <div>
                                                     <div className="flex flex-wrap items-center gap-2">
@@ -326,7 +325,7 @@ const TeacherList = () => {
                                                 <button type="submit" className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg bg-primary border border-primary-line text-primary-foreground hover:bg-primary-hover focus:outline-hidden focus:bg-primary-focus disabled:opacity-50 disabled:pointer-events-none">Create Teacher</button>
                                             </div>
 
-                                            <div className="hs-dropdown relative inline-flex flex-col">
+                                            <div className="hs-dropdown relative flex-col hidden">
                                                 <h3>Select Class</h3>
                                                 <button id="hs-dropdown-with-header" type="button" className="hs-dropdown-toggle py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-layer border border-layer-line text-layer-foreground shadow-2xs hover:bg-layer-hover focus:outline-hidden focus:bg-layer-focus disabled:opacity-50 disabled:pointer-events-none" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
                                                     Select Class
@@ -357,11 +356,11 @@ const TeacherList = () => {
 
                                             {
                                                 !createClass &&
-                                                <a href="#" onClick={handleOpenClass}>Create new class</a>
+                                                <a href="#" onClick={handleOpenClass} className="hidden">Create new class</a>
                                             }
                                             {
                                                 createClass &&
-                                                <div>
+                                                <div className="hidden">
                                                     <a href="#" onClick={handleCloseClass}>Close class</a>
                                                     <div>
                                                         <label htmlFor="text" className="block text-sm mb-2 text-foreground">Class Name</label>
@@ -379,7 +378,7 @@ const TeacherList = () => {
                                             }
 
 
-                                            <div className="hs-dropdown relative inline-flex flex-col">
+                                            <div className="hs-dropdown relative hidden flex-col">
                                                 <h3>Select Section</h3>
                                                 <button id="hs-dropdown-with-header" type="button" className="hs-dropdown-toggle py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-layer border border-layer-line text-layer-foreground shadow-2xs hover:bg-layer-hover focus:outline-hidden focus:bg-layer-focus disabled:opacity-50 disabled:pointer-events-none" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
                                                     Actions
@@ -410,11 +409,11 @@ const TeacherList = () => {
 
                                             {
                                                 !createSection &&
-                                                <a href="#" onClick={handleOpenSection}>Create new section</a>
+                                                <a href="#" className="hidden" onClick={handleOpenSection}>Create new section</a>
                                             }
                                             {
                                                 createSection &&
-                                                <div>
+                                                <div className="hidden">
                                                     <a href="#" onClick={handleCloseSection}>Close section</a>
                                                     <div>
                                                         <label htmlFor="text" className="block text-sm mb-2 text-foreground">Section Name</label>

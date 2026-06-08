@@ -1,15 +1,15 @@
 import { useState } from "react";
-import SubAdmin from "../SubAdmin"
+import SubAdmin from "../SubAdmin";
 
-const SectionList = () => {
- const sections = [
+const SubjectList = () => {
+ const subjects = [
           {
               id: 1,
-              section: "A",
+              subject: "Math",
           },
           {
               id: 2,
-              section: "B",
+              subject: "Hindi",
           }
       ];
       const [open, setOpen] = useState(false);
@@ -43,17 +43,17 @@ const SectionList = () => {
               <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-[#ebe6e7]">
                 <div>
                   <h2 className="text-xl font-semibold text-foreground">
-                    section
+                    subject
                   </h2>
                   <p className="text-sm text-[#fbf9fa]-foreground-2">
-                    Add section, edit and more.
+                    Add subject, edit and more.
                   </p>
                 </div>
                 <div>
                   <div className="inline-flex gap-x-2">
                     <a onClick={() => handleOpen()} className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-primary border border-[#ebe6e7] text-primary-foreground hover:bg-primary-hover focus:outline-hidden focus:bg-primary-focus disabled:opacity-50 disabled:pointer-events-none" href="#">
                       <svg className="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="M12 5v14" /></svg>
-                      Add section
+                      Add subject
                     </a>
                   </div>
                 </div>
@@ -72,7 +72,7 @@ const SectionList = () => {
                     <th scope="col" className="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3 text-start">
                       <div className="flex items-center gap-x-2">
                         <span className="text-xs font-semibold uppercase text-foreground">
-                          section
+                          subject
                         </span>
                       </div>
                     </th>
@@ -87,8 +87,8 @@ const SectionList = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[#ebe6e7]">
-                  {sections.map((section) => (
-                    <tr key={section.id} style={{ marginBottom: "10px" }}>
+                  {subjects.map((subject) => (
+                    <tr key={subject.id} style={{ marginBottom: "10px" }}>
                       <td className="size-px whitespace-nowrap">
                         <div className="ps-6 pe-3 py-3">
                           <label htmlFor="hs-at-with-checkboxes-1" className="flex">
@@ -101,7 +101,7 @@ const SectionList = () => {
                         <div className="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3">
                           <div className="flex items-center gap-x-3">
                             <div className="grow">
-                              <span className="block text-sm font-semibold text-foreground">{section.section}
+                              <span className="block text-sm font-semibold text-foreground">{subject.subject}
                               </span>
                               <span id="dismiss-badge" className="inline-flex items-center gap-x-1.5 py-1.5 ps-3 pe-2 rounded-full text-xs font-medium bg-gray-300 text-primary-800 dark:bg-primary-500/20 dark:text-primary-400">
                                 #0215487963
@@ -141,7 +141,7 @@ const SectionList = () => {
                       <div className="grid gap-y-4">
 
                         <div>
-                          <label htmlFor="teacher-name" className="block text-sm mb-2 text-foreground">Section</label>
+                          <label htmlFor="teacher-name" className="block text-sm mb-2 text-foreground">subject</label>
                           <div className="relative">
                             <input type="text" id="teacher-name" name="teacher-name" className="py-2.5 sm:py-3 px-4 block w-full bg-layer border border-layer-line rounded-lg sm:text-sm text-foreground placeholder:text-muted-foreground-1 focus:border-primary-focus focus:ring-primary-focus disabled:opacity-50 disabled:pointer-events-none" required aria-describedby="teacher-error" />
                             <div className="hidden absolute inset-y-0 inset-e-0 pointer-events-none pe-3">
@@ -190,4 +190,4 @@ const SectionList = () => {
   )
 }
 
-export default SectionList
+export default SubjectList

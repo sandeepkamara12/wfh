@@ -30,8 +30,8 @@ const Sidebar = () => {
                         <nav className="hs-accordion-group p-3 w-full flex flex-col flex-wrap" data-hs-accordion-always-open>
                             <ul className="flex flex-col space-y-1">
                                 <li>
-                                    <Link to="/" className="flex items-center gap-x-3.5 py-2 px-2.5 bg-sidebar-nav-active text-sm text-sidebar-nav-foreground rounded-lg hover:bg-sidebar-nav-hover focus:outline-hidden focus:bg-sidebar-nav-focus" href="#">
-                                        Dashboard
+                                    <Link to="/assignment" className="flex items-center gap-x-3.5 py-2 px-2.5 bg-sidebar-nav-active text-sm text-sidebar-nav-foreground rounded-lg hover:bg-sidebar-nav-hover focus:outline-hidden focus:bg-sidebar-nav-focus" href="#">
+                                        assignment
                                     </Link>
                                 </li>
                                 <li>
@@ -52,6 +52,11 @@ const Sidebar = () => {
                                 <li>
                                     <Link to="/section" className="w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-sidebar-nav-foreground rounded-lg hover:bg-sidebar-nav-hover focus:outline-hidden focus:bg-sidebar-nav-focus" href="#">
                                         Sections
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="/subject" className="w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-sidebar-nav-foreground rounded-lg hover:bg-sidebar-nav-hover focus:outline-hidden focus:bg-sidebar-nav-focus" href="#">
+                                        Subjects
                                     </Link>
                                 </li>
                             </ul>
