@@ -1,15 +1,33 @@
 @import "tailwindcss";
 
+@theme {
+  --color-navy: #122c4f;
+  --color-ocean: #5b88b2;
+  --color-gold: #361413;
+  --color-red: #8c0a0d;
+  --color-black-dark: #1b1b1b;
+  --color-gray: #323232;
+  --color-peach: #ffe7d0;
+  --color-orange: #fc6e20;
+  --color-green: #1f3d33;
+  --color-beige: #85abab;
+}
+
 :root {
-  --color-navy: #122c4f; /* blue-500 */
-  --color-secondary: 16 185 129; /* green-500 */
-  --color-accent: 236 72 153; /* pink-500 */
-  --color-dark: 17 24 39; /* gray-900 */
-  --color-light: 249 250 251; /* gray-50 */
+  --color-navys: #122c4f;
+  /* blue-500 */
+  --color-secondary: 16 185 129;
+  /* green-500 */
+  --color-accent: 236 72 153;
+  /* pink-500 */
+  --color-dark: 17 24 39;
+  /* gray-900 */
+  --color-light: 249 250 251;
+  /* gray-50 */
 
   /* Typography */
-  --font-sans: 'Inter', sans-serif;
-  --font-heading: 'Poppins', sans-serif;
+  --font-sans: "Commissioner", sans-serif;
+  --font-heading: "Commissioner", sans-serif;
 
   /* Spacing */
   --radius: 0.5rem;
@@ -36,12 +54,17 @@
 
   body {
     font-family: var(--font-sans);
-    @apply bg-[rgb(var(--color-light))] text-[rgb(var(--color-dark))];
+    @apply text-navy font-sans;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-heading);
-    @apply font-bold;
+    @apply font-bold uppercase;
   }
 
   h1 {
@@ -49,7 +72,7 @@
   }
 
   h2 {
-    @apply text-3xl md:text-4xl;
+    @apply text-3xl md:text-[22px];
   }
 
   a {
@@ -65,42 +88,17 @@
    COMPONENTS LAYER
 ========================= */
 @layer components {
-  /* Button */
+  .radioCard {
+    @apply flex items-center gap-2 cursor-pointer rounded  text-navy p-3 bg-white border  border-navy text-xs font-medium uppercase transition-all duration-300 ease-in-out hover:bg-navy hover:border-navy hover:text-white peer-checked:bg-navy peer-checked:text-white;
+  }
   .btn {
-    @apply px-4 py-2 rounded-lg font-medium transition;
-    background-color: rgb(var(--color-primary));
-    color: white;
-  }
-
-  .btn-secondary {
-    background-color: rgb(var(--color-secondary));
-    @apply text-white;
-  }
-
-  .btn-outline {
-    @apply border border-gray-300 text-gray-700;
-  }
-
-  .btn:hover {
-    opacity: 0.9;
-  }
-
-  /* Card */
-  .card {
-    @apply p-6 rounded-xl shadow-md;
-    background-color: white;
+    @apply uppercase flex justify-center items-center gap-x-2 w-full py-3 px-4 text-sm font-medium rounded-lg bg-navy border border-navy text-white hover:bg-white focus:outline-hidden focus:bg-white disabled:opacity-50 disabled:pointer-events-none;
   }
 
   /* Input */
   .input {
     @apply w-full px-3 py-2 border rounded-lg outline-none;
     @apply focus:ring-2 focus:ring-blue-400;
-  }
-
-  /* Navbar */
-  .navbar {
-    @apply flex items-center justify-between px-6 py-4 shadow;
-    background-color: white;
   }
 
   /* Badge */
@@ -120,10 +118,6 @@
     color: rgb(var(--color-primary));
   }
 
-  .text-secondary {
-    color: rgb(var(--color-secondary));
-  }
-
   /* Background utilities */
   .bg-primary {
     background-color: rgb(var(--color-primary));
@@ -131,25 +125,5 @@
 
   .bg-secondary {
     background-color: rgb(var(--color-secondary));
-  }
-
-  /* Centering utility */
-  .flex-center {
-    @apply flex items-center justify-center;
-  }
-
-  /* Glass effect */
-  .glass {
-    @apply backdrop-blur-md bg-white/30 border border-white/20;
-  }
-
-  /* Transition */
-  .transition-default {
-    transition: var(--transition);
-  }
-
-  /* Custom shadow */
-  .shadow-soft {
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   }
 }

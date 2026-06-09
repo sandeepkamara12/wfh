@@ -79,13 +79,6 @@ const StudentList = () => {
                     <th scope="col" className="px-6 py-3 text-start">
                       <div className="flex items-center gap-x-2">
                         <span className="text-xs font-semibold uppercase text-foreground">
-                          Contact
-                        </span>
-                      </div>
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-start">
-                      <div className="flex items-center gap-x-2">
-                        <span className="text-xs font-semibold uppercase text-foreground">
                           Class
                         </span>
                       </div>
@@ -93,7 +86,21 @@ const StudentList = () => {
                     <th scope="col" className="px-6 py-3 text-start">
                       <div className="flex items-center gap-x-2">
                         <span className="text-xs font-semibold uppercase text-foreground">
-                          Mother Name
+                          Class Incharge
+                        </span>
+                      </div>
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-start">
+                      <div className="flex items-center gap-x-2">
+                        <span className="text-xs font-semibold uppercase text-foreground">
+                          Parent/Guardian
+                        </span>
+                      </div>
+                    </th>
+                     <th scope="col" className="px-6 py-3 text-start">
+                      <div className="flex items-center gap-x-2">
+                        <span className="text-xs font-semibold uppercase text-foreground">
+                          Parent Contact
                         </span>
                       </div>
                     </th>
@@ -137,21 +144,27 @@ const StudentList = () => {
                       </td>
                       <td className="h-px w-72 whitespace-nowrap">
                         <div className="px-6 py-3">
-                          <span className="block text-sm text-[#fbf9fa]-foreground-1">christina@site.com</span>
-                          <span className="block text-sm text-[#fbf9fa]-foreground-1">7986685426</span>
+                          <span className="block text-sm font-semibold text-foreground">3rd A</span>
                         </div>
                       </td>
-
                       <td className="h-px w-72 whitespace-nowrap">
                         <div className="px-6 py-3">
-                          <span className="block text-sm font-semibold text-foreground">3rd A</span>
+                          <span className="block text-sm text-foreground">Mrs. Sheetal devi</span>
+                          <span className="block text-sm text-foreground">798669542</span>
                         </div>
                       </td>
                       <td className="size-px whitespace-nowrap">
                         <div className="px-6 py-3">
-                          <div className="flex items-center gap-x-3">
-                            <span className="text-xs text-[#fbf9fa]-foreground-1">Mrs. Darshna Rani</span>
+                          <div className="flex flex-col gap-x-3">
+                            <span className="text-xs text-[#fbf9fa]-foreground-1">Mrs. Anita Rani</span>
+                            <span className="text-xs text-[#fbf9fa]-foreground-1">Mr. Paramjeet</span>
                           </div>
+                        </div>
+                      </td>
+                       <td className="h-px w-72 whitespace-nowrap">
+                        <div className="px-6 py-3">
+                          <span className="block text-sm text-[#fbf9fa]-foreground-1">christina@site.com</span>
+                          <span className="block text-sm text-[#fbf9fa]-foreground-1">7986685426</span>
                         </div>
                       </td>
                       <td className="size-px whitespace-nowrap">

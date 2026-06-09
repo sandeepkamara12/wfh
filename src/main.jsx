@@ -42,7 +42,7 @@ const router = createBrowserRouter([
     element: <SubAdmin />,
   },
   {
-    path: "/class",
+    path: "/ward",
     element: <ClassList />,
   },
   {
