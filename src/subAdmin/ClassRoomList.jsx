@@ -1,9 +1,10 @@
 import { useState } from "react";
 import SubAdmin from "../SubAdmin"
 import Table from "../components/common/Table";
-import { Clock, Copy, LayoutGrid, Pencil, Trash2 } from "lucide-react";
+import { Clock, Copy, Eye, GalleryThumbnails, GraduationCap, Mail, Pencil, Phone, Trash2, UserRoundPen } from "lucide-react";
 
-const SectionList = () => {
+const ClassRoomList = () => {
+ 
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -25,18 +26,17 @@ const SectionList = () => {
     zIndex: "999",
     boxShadow: "-2px 0 5px rgba(0,0,0,0.3)"
   };
-
   const columns = [
     {
-      name: "Section",
+      name: "Class Rooms",
       cell: row => (
-        <span className="text-sm font-semibold text-navy uppercase">{row.section}</span>
+        <span className="text-sm font-semibold text-navy uppercase">{row.classroom}</span>
       ),
-      selector: row => row.section,
+      selector: row => row.classroom,
       sortable: true
     },
     {
-      name: "Section ID",
+      name: "Class Room ID",
       cell: row => (
         <span className="inline-flex items-center gap-x-1.5 pt-0.5 pb-1 ps-2 pe-2 rounded-full text-xs font-medium bg-navy/10 text-navy/50 dark:bg-primary-500/20 dark:text-primary-400">
           {row.id}
@@ -71,12 +71,8 @@ const SectionList = () => {
     },
   ];
   const data = [
-    { id: "#2154879630", section: "A", createdAt: "28 Dec, 12:12" },
-    { id: "#2154879631", section: "B", createdAt: "28 Dec, 12:12" },
-    { id: "#2154879632", section: "C", createdAt: "28 Dec, 12:12" },
-    { id: "#2154879633", section: "D", createdAt: "28 Dec, 12:12" },
-    { id: "#2154879634", section: "E", createdAt: "28 Dec, 12:12" },
-    { id: "#2154879635", section: "F", createdAt: "28 Dec, 12:12" },
+    { id: "#2154879630", classroom: "3rd", createdAt: "28 Dec, 12:12" },
+    { id: "#2154879631", classroom: "3rd", createdAt: "28 Dec, 12:12" },
   ];
   return (
     <SubAdmin>
@@ -85,8 +81,7 @@ const SectionList = () => {
           <div className="min-w-full inline-block align-middle">
             <div className="">
 
-              <Table columns={columns} data={data} handleOpen={handleOpen} btnText="Add Section" btnIcon={<LayoutGrid className="w-5 h-5 mx-auto" />} label="Sections" subLabel="Add Section, edit and more." />
-
+              <Table columns={columns} data={data} handleOpen={handleOpen} btnText="Add Class Room" btnIcon={<GalleryThumbnails className="w-5 h-5 mx-auto" />} label="Class Rooms" subLabel="Add Class Room, edit and more." />
 
               {open && (
                 <div style={drawerStyle}>
@@ -96,7 +91,7 @@ const SectionList = () => {
                       <div className="grid gap-y-4">
 
                         <div>
-                          <label htmlFor="teacher-name" className="block text-sm mb-2 text-foreground">Section</label>
+                          <label htmlFor="teacher-name" className="block text-sm mb-2 text-foreground">ClassRoom</label>
                           <div className="relative">
                             <input type="text" id="teacher-name" name="teacher-name" className="py-2.5 sm:py-3 px-4 block w-full bg-layer border border-layer-line rounded-lg sm:text-sm text-foreground placeholder:text-muted-foreground-1 focus:border-primary-focus focus:ring-primary-focus disabled:opacity-50 disabled:pointer-events-none" required aria-describedby="teacher-error" />
                             <div className="hidden absolute inset-y-0 inset-e-0 pointer-events-none pe-3">
@@ -124,4 +119,4 @@ const SectionList = () => {
   )
 }
 
-export default SectionList
+export default ClassRoomList

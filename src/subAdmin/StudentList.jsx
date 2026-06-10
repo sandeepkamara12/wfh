@@ -1,191 +1,147 @@
 import { useState } from "react";
 import SubAdmin from "../SubAdmin"
+import { Clock, Copy, Eye, GraduationCap, Mail, Pencil, Phone, Trash2, UserRoundPen } from "lucide-react";
+import Table from "../components/common/Table";
 
 const StudentList = () => {
-   const students = [
-        {
-            id: 1,
-            name: "John",
-        },
-        {
-            id: 2,
-            name: "Sara",
-        }
-    ];
-    const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
-    const handleOpen = () => {
-        setOpen(true);
-    };
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
-    const handleClose = () => {
-        setOpen(false);
-    };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-    const drawerStyle = {
-        position: "fixed",
-        right: 0,
-        top: 0,
-        width: "300px",
-        height: "100%",
-        background: "#f4f4f4",
-        padding: "20px",
-        zIndex: "999",
-        boxShadow: "-2px 0 5px rgba(0,0,0,0.3)"
-    };
+  const drawerStyle = {
+    position: "fixed",
+    right: 0,
+    top: 0,
+    width: "300px",
+    height: "100%",
+    background: "#f4f4f4",
+    padding: "20px",
+    zIndex: "999",
+    boxShadow: "-2px 0 5px rgba(0,0,0,0.3)"
+  };
+  const columns = [
+    {
+      name: "Name",
+      cell: row => (
+        <div className='flex items-center gap-2'>
+          <span className='inline-flex items-center justify-center size-12 rounded-full overflow-hidden bg-navy/10'><img src={row.photo} alt="" className='h-full rounded-full max-w-full ' /></span>
+          <div className="flex flex-col gap-0.5">
+            <span className="text-sm font-semibold text-navy uppercase">{row.name}</span>
+            <span className="inline-flex items-center gap-x-1.5 pt-0.5 pb-1 ps-2 pe-2 rounded-full text-xs font-medium bg-navy/10 text-navy/50 dark:bg-primary-500/20 dark:text-primary-400">
+              {row.id}
+              <button className='shrink-0 size-3 inline-flex items-center justify-center rounded-full hover:bg-primary-200 pt-0.5'><Copy className='size-4' /></button>
+            </span>
+          </div>
+        </div>
+      ),
+      selector: row => row.name,
+      sortable: true
+    },
+    {
+      name: "Class / Section",
+       cell: row => (
+        <div className="flex flex-wrap items-center gap-1.5">
+          <span className="text-navy">
+            {row.classroom}
+          </span>
+          <span className="text-navy bg-navy/10 size-6 rounded-full flex items-center justify-center pb-0.5">
+            {row.section}
+          </span>
+        </div>
+      ),
+      selector: row => row.classroom
+    },
+    {
+      name: "Class Incharge",
+      cell: row => (
+        <div className="flex flex-wrap flex-col gap-1">
+          <span className="flex items-center gap-1 text-navy">
+            <UserRoundPen className='size-4' />
+            {row.classIncharge}
+          </span>
+          <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`tel:${row.phone}`}>
+            <Phone className="size-4" />
+            {row.classInchargePhone}
+          </a>
+        </div>
+      ),
+      selector: row => row.classIncharge, sortable: true
+    },
+    {
+      name: "Parent/Guardian",
+      cell: row => (
+        <div className="flex flex-wrap flex-col gap-1">
+          <span className="text-navy">
+            {row.motherName}
+          </span>
+          <span className="text-navy">
+            {row.fatherName}
+          </span>
+        </div>
+      ),
+      selector: row => row.classIncharge, sortable: true
+    },
+    {
+      name: "Parent Contact",
+      cell: row => (
+        <div className="flex flex-wrap flex-col gap-1">
+          <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`mailto:${row.email}`}>
+            <Mail className='size-4' />
+            {row.email}
+          </a>
+          <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`tel:${row.phone}`}>
+            <Phone className="size-4" />
+            {row.phone}
+          </a>
+        </div>
+      ),
+      selector: row => row.contact
+    },
+    {
+      name: "Created At",
+      cell: row => (
+        <div className="flex items-center gap-1">
+          <Clock className='size-4' />
+          {row.createdAt}
+        </div>
+      ),
+      selector: row => row.createdAt
+    },
+    {
+      name: '',
+      cell: row => (
+        <div className="px-6 py-1.5 flex flex-wrap items-center gap-1">
+          <button type="button" className="icon-btn">
+            <Eye className="size-5 mx-auto" />
+          </button>
+          <button type="button" className="icon-btn">
+            <Trash2 className="size-5 mx-auto" />
+          </button>
+          <button type="button" className="icon-btn">
+            <Pencil className="size-5 mx-auto" />
+          </button>
+        </div>
+      ),
+    },
+  ];
+  const data = [
+    { id: "#2154879630", classroom: "3rd", section:"A", name: 'Aria Chen', photo: "/public/student.jfif", email: 'christina@site.com', phone: 7986602514, classIncharge: "Mrs. Sheetal devi", classInchargePhone: 7986680522, motherName:"Mrs. Anita Rani", fatherName:"Mr. Paramjeet", createdAt: "28 Dec, 12:12" },
+    { id: "#2154879631", classroom: "3rd", section:"B", name: 'Marcus Webb', photo: "/public/student.jfif", email: 'christina@site.com', phone: 7986602514, classIncharge: "Mrs. Sheetal devi", classInchargePhone: 7986680522, motherName:"Mrs. Anita Rani", fatherName:"Mr. Paramjeet", createdAt: "28 Dec, 12:12" },
+  ];
   return (
     <SubAdmin>
       <div className="flex flex-col">
         <div className="overflow-x-auto [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb">
           <div className="min-w-full inline-block align-middle">
-            <div className="bg-layer border border-[#ebe6e7] rounded-xl shadow-2xs overflow-hidden">
+            <div className="">
 
-              <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-[#ebe6e7]">
-                <div>
-                  <h2 className="text-xl font-semibold text-foreground">
-                    Students
-                  </h2>
-                  <p className="text-sm text-[#fbf9fa]-foreground-2">
-                    Add Student, edit and more.
-                  </p>
-                </div>
-                <div>
-                  <div className="inline-flex gap-x-2">
-                    <a onClick={() => handleOpen()} className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-primary border border-[#ebe6e7] text-primary-foreground hover:bg-primary-hover focus:outline-hidden focus:bg-primary-focus disabled:opacity-50 disabled:pointer-events-none" href="#">
-                      <svg className="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="M12 5v14" /></svg>
-                      Add Student
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-
-              <table className="min-w-full divide-y divide-[#ebe6e7]">
-                <thead className="bg-[#fbf9fa]">
-                  <tr>
-                    <th scope="col" className="ps-6 pe-3 py-3 text-start">
-                      <label htmlFor="hs-at-with-checkboxes-main" className="flex">
-                        <input type="checkbox" className="shrink-0 size-4 bg-transparent border-line-3 rounded-sm shadow-2xs text-primary focus:ring-0 focus:ring-offset-0 checked:bg-primary-checked checked:border-primary-checked disabled:opacity-50 disabled:pointer-events-none" id="hs-at-with-checkboxes-main" />
-                        <span className="sr-only">Checkbox</span>
-                      </label>
-                    </th>
-                    <th scope="col" className="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3 text-start">
-                      <div className="flex items-center gap-x-2">
-                        <span className="text-xs font-semibold uppercase text-foreground">
-                          Name
-                        </span>
-                      </div>
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-start">
-                      <div className="flex items-center gap-x-2">
-                        <span className="text-xs font-semibold uppercase text-foreground">
-                          Class
-                        </span>
-                      </div>
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-start">
-                      <div className="flex items-center gap-x-2">
-                        <span className="text-xs font-semibold uppercase text-foreground">
-                          Class Incharge
-                        </span>
-                      </div>
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-start">
-                      <div className="flex items-center gap-x-2">
-                        <span className="text-xs font-semibold uppercase text-foreground">
-                          Parent/Guardian
-                        </span>
-                      </div>
-                    </th>
-                     <th scope="col" className="px-6 py-3 text-start">
-                      <div className="flex items-center gap-x-2">
-                        <span className="text-xs font-semibold uppercase text-foreground">
-                          Parent Contact
-                        </span>
-                      </div>
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-start">
-                      <div className="flex items-center gap-x-2">
-                        <span className="text-xs font-semibold uppercase text-foreground">
-                          Created
-                        </span>
-                      </div>
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-end"></th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#ebe6e7]">
-                  {students.map((student) => (
-                    <tr key={student.id} style={{ marginBottom: "10px" }}>
-                      <td className="size-px whitespace-nowrap">
-                        <div className="ps-6 pe-3 py-3">
-                          <label htmlFor="hs-at-with-checkboxes-1" className="flex">
-                            <input type="checkbox" className="shrink-0 size-4 bg-transparent border-line-3 rounded-sm shadow-2xs text-primary focus:ring-0 focus:ring-offset-0 checked:bg-primary-checked checked:border-primary-checked disabled:opacity-50 disabled:pointer-events-none" id="hs-at-with-checkboxes-1" />
-                            <span className="sr-only">Checkbox</span>
-                          </label>
-                        </div>
-                      </td>
-                      <td className="size-px whitespace-nowrap">
-                        <div className="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3">
-                          <div className="flex items-center gap-x-3">
-                            <img className="inline-block size-9.5 rounded-full" src="https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80" alt="Avatar" />
-                            <div className="grow">
-                              <span className="block text-sm font-semibold text-foreground">{student.name}
-                              </span>
-                              <span id="dismiss-badge" className="inline-flex items-center gap-x-1.5 py-1.5 ps-3 pe-2 rounded-full text-xs font-medium bg-gray-300 text-primary-800 dark:bg-primary-500/20 dark:text-primary-400">
-                                #0215487963
-                                <button type="button" className="shrink-0 size-3 inline-flex items-center justify-center rounded-full hover:bg-primary-200 focus:outline-hidden focus:bg-primary-200 dark:hover:bg-primary-900 dark:focus:bg-primary-900" data-hs-remove-element="#dismiss-badge">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-copy-icon lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></svg>
-                                </button>
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="h-px w-72 whitespace-nowrap">
-                        <div className="px-6 py-3">
-                          <span className="block text-sm font-semibold text-foreground">3rd A</span>
-                        </div>
-                      </td>
-                      <td className="h-px w-72 whitespace-nowrap">
-                        <div className="px-6 py-3">
-                          <span className="block text-sm text-foreground">Mrs. Sheetal devi</span>
-                          <span className="block text-sm text-foreground">798669542</span>
-                        </div>
-                      </td>
-                      <td className="size-px whitespace-nowrap">
-                        <div className="px-6 py-3">
-                          <div className="flex flex-col gap-x-3">
-                            <span className="text-xs text-[#fbf9fa]-foreground-1">Mrs. Anita Rani</span>
-                            <span className="text-xs text-[#fbf9fa]-foreground-1">Mr. Paramjeet</span>
-                          </div>
-                        </div>
-                      </td>
-                       <td className="h-px w-72 whitespace-nowrap">
-                        <div className="px-6 py-3">
-                          <span className="block text-sm text-[#fbf9fa]-foreground-1">christina@site.com</span>
-                          <span className="block text-sm text-[#fbf9fa]-foreground-1">7986685426</span>
-                        </div>
-                      </td>
-                      <td className="size-px whitespace-nowrap">
-                        <div className="px-6 py-3">
-                          <span className="text-sm text-[#fbf9fa]-foreground-1">28 Dec, 12:12</span>
-                        </div>
-                      </td>
-                      <td className="size-px whitespace-nowrap">
-                        <div className="px-6 py-1.5">
-                          <a className="inline-flex items-center gap-x-1 text-sm text-primary decoration-2 hover:underline focus:outline-hidden focus:underline font-medium" href="#">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-trash2-icon lucide-trash-2"><path d="M10 11v6" /><path d="M14 11v6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" /><path d="M3 6h18" /><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></svg>
-                          </a>
-                          <a className="inline-flex items-center gap-x-1 text-sm text-primary decoration-2 hover:underline focus:outline-hidden focus:underline font-medium" href="#">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-pencil-icon lucide-pencil"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /><path d="m15 5 4 4" /></svg>
-                          </a>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <Table columns={columns} data={data} handleOpen={handleOpen} btnText="Add Student" btnIcon={<GraduationCap className="w-5 h-5 mx-auto" />} label="Students" subLabel="Add Student, edit and more." />
 
               {open && (
                 <div style={drawerStyle}>
@@ -305,32 +261,12 @@ const StudentList = () => {
 
                         <button type="submit" className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg bg-primary border border-primary-line text-primary-foreground hover:bg-primary-hover focus:outline-hidden focus:bg-primary-focus disabled:opacity-50 disabled:pointer-events-none">Create Teacher</button>
                       </div>
-                   
+
                     </div>
                   </form>
                 </div>
               )}
 
-
-              <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-[#ebe6e7]">
-                <div>
-                  <p className="text-sm text-[#fbf9fa]-foreground-2">
-                    <span className="font-semibold text-foreground">12</span> results
-                  </p>
-                </div>
-                <div>
-                  <div className="inline-flex gap-x-2">
-                    <button type="button" className="py-1.5 px-2.5 inline-flex items-center gap-x-1 text-sm font-medium rounded-lg bg-layer border border-[#ebe6e7] text-layer-foreground shadow-2xs hover:bg-layer-hover disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-layer-focus">
-                      <svg className="shrink-0 size-4 -ms-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
-                      Prev
-                    </button>
-                    <button type="button" className="py-1.5 px-2.5 inline-flex items-center gap-x-1 text-sm font-medium rounded-lg bg-layer border border-[#ebe6e7] text-layer-foreground shadow-2xs hover:bg-layer-hover disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-layer-focus">
-                      Next
-                      <svg className="shrink-0 size-4 -me-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
-                    </button>
-                  </div>
-                </div>
-              </div>
 
             </div>
           </div>

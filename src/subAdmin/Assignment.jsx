@@ -92,7 +92,7 @@ const Assignment = () => {
                     <div className="min-w-full align-middle grid grid-cols-6 gap-4">
                         <div className="col-span-2">
                             <form className="bg-white p-6 rounded">
-                                <h2 className="mb-6">Assign teacher to ward</h2>
+                                <h2 className="mb-6 font-bold text-lg">Assign <span className="text-orange">teacher</span></h2>
                                 <div className="grid gap-y-4">
                                     <div>
                                         <label htmlFor="" className="block text-sm font-medium text-navy mb-1">Select Teacher</label>
@@ -137,7 +137,7 @@ const Assignment = () => {
                                     </div>
 
                                     <div>
-                                        <label htmlFor="class" className="block text-sm font-medium text-navy mb-1">Ward</label>
+                                        <label htmlFor="class" className="block text-sm font-medium text-navy mb-1">Select Ward</label>
                                         <div className="flex flex-wrap gap-2">
                                             <RadioCard icon={<GalleryThumbnails className="size-5" />} text="Nursery" group="class" id="teacher_nursery" />
                                             <RadioCard icon={<GalleryThumbnails className="size-5" />} text="LKG" group="class" id="teacher_lkg" />
@@ -157,7 +157,7 @@ const Assignment = () => {
                                         </div>
                                     </div>
                                     <div>
-                                        <label htmlFor="section" className="block text-sm font-medium text-navy mb-1">Section</label>
+                                        <label htmlFor="section" className="block text-sm font-medium text-navy mb-1">Select Section</label>
                                         <div className="flex flex-wrap gap-2">
                                             <RadioCard icon={<LayoutGrid className="size-5" />} text="A" group="section" id="teacher_A" />
                                             <RadioCard icon={<LayoutGrid className="size-5" />} text="B" group="section" id="teacher_B" />
@@ -168,14 +168,14 @@ const Assignment = () => {
                                         </div>
                                     </div>
                                     <div>
-                                        <label htmlFor="section" className="block text-sm font-medium text-navy mb-1">Subject</label>
+                                        <label htmlFor="subject" className="block text-sm font-medium text-navy mb-1">Select Subject</label>
                                         <div className="flex flex-wrap gap-2">
-                                            <RadioCard icon={<BookOpenText className="size-5" />} text="Computer" group="section" id="teacher_computer" />
-                                            <RadioCard icon={<BookOpenText className="size-5" />} text="Maths" group="section" id="teacher_maths" />
-                                            <RadioCard icon={<BookOpenText className="size-5" />} text="Hindi" group="section" id="teacher_hindi" />
-                                            <RadioCard icon={<BookOpenText className="size-5" />} text="English" group="section" id="teacher_english" />
-                                            <RadioCard icon={<BookOpenText className="size-5" />} text="Science" group="section" id="teacher_science" />
-                                            <RadioCard icon={<BookOpenText className="size-5" />} text="Social Studies" group="section" id="teacher_social_studies" />
+                                            <RadioCard icon={<BookOpenText className="size-5" />} text="Computer" group="subject" id="teacher_computer" />
+                                            <RadioCard icon={<BookOpenText className="size-5" />} text="Maths" group="subject" id="teacher_maths" />
+                                            <RadioCard icon={<BookOpenText className="size-5" />} text="Hindi" group="subject" id="teacher_hindi" />
+                                            <RadioCard icon={<BookOpenText className="size-5" />} text="English" group="subject" id="teacher_english" />
+                                            <RadioCard icon={<BookOpenText className="size-5" />} text="Science" group="subject" id="teacher_science" />
+                                            <RadioCard icon={<BookOpenText className="size-5" />} text="Social Studies" group="subject" id="teacher_social_studies" />
                                         </div>
                                     </div>
 
@@ -186,7 +186,7 @@ const Assignment = () => {
 
                         <div className="col-span-2">
                             <form className="bg-white p-6 rounded">
-                                <h2 className="mb-6">Assign student to ward</h2>
+                                <h2 className="mb-6 font-bold text-lg">Assign <span className="text-orange">student</span></h2>
                                 <div className="grid gap-y-4">
                                     <div>
 
@@ -232,7 +232,7 @@ const Assignment = () => {
                                     </div>
                                     <div>
 
-                                        <label htmlFor="class" className="block text-sm font-medium text-navy mb-1">Ward</label>
+                                        <label htmlFor="class" className="block text-sm font-medium text-navy mb-1">Select Ward</label>
                                         <div className="flex flex-wrap gap-2">
                                             <RadioCard icon={<GalleryThumbnails className="size-5" />} text="Nursery" group="class" id="student_nursery" />
                                             <RadioCard icon={<GalleryThumbnails className="size-5" />} text="LKG" group="class" id="student_lkg" />
@@ -252,7 +252,7 @@ const Assignment = () => {
                                         </div>
                                     </div>
                                     <div>
-                                        <label htmlFor="section" className="block text-sm font-medium text-navy mb-1">Section</label>
+                                        <label htmlFor="section" className="block text-sm font-medium text-navy mb-1">Select Section</label>
                                         <div className="flex flex-wrap gap-2">
                                             <RadioCard icon={<LayoutGrid className="size-5" />} text="A" group="section" id="student_A" />
                                             <RadioCard icon={<LayoutGrid className="size-5" />} text="B" group="section" id="student_B" />
@@ -263,14 +263,14 @@ const Assignment = () => {
                                         </div>
                                     </div>
                                     <div>
-                                        <label htmlFor="section" className="block text-sm font-medium text-navy mb-1">Subject</label>
+                                        <label htmlFor="subject" className="block text-sm font-medium text-navy mb-1">Select Subject</label>
                                         <div className="flex flex-wrap gap-2">
-                                            <RadioCard icon={<BookOpenText className="size-5" />} text="Computer" group="section" id="student_computer" />
-                                            <RadioCard icon={<BookOpenText className="size-5" />} text="Maths" group="section" id="student_maths" />
-                                            <RadioCard icon={<BookOpenText className="size-5" />} text="Hindi" group="section" id="student_hindi" />
-                                            <RadioCard icon={<BookOpenText className="size-5" />} text="English" group="section" id="student_english" />
-                                            <RadioCard icon={<BookOpenText className="size-5" />} text="Science" group="section" id="student_science" />
-                                            <RadioCard icon={<BookOpenText className="size-5" />} text="Social Studies" group="section" id="student_social_studies" />
+                                            <RadioCard icon={<BookOpenText className="size-5" />} text="Computer" group="subject" id="student_computer" />
+                                            <RadioCard icon={<BookOpenText className="size-5" />} text="Maths" group="subject" id="student_maths" />
+                                            <RadioCard icon={<BookOpenText className="size-5" />} text="Hindi" group="subject" id="student_hindi" />
+                                            <RadioCard icon={<BookOpenText className="size-5" />} text="English" group="subject" id="student_english" />
+                                            <RadioCard icon={<BookOpenText className="size-5" />} text="Science" group="subject" id="student_science" />
+                                            <RadioCard icon={<BookOpenText className="size-5" />} text="Social Studies" group="subject" id="student_social_studies" />
                                         </div>
                                     </div>
 

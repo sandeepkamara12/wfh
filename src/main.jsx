@@ -6,10 +6,11 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import StudentList from './subAdmin/StudentList.jsx';
 import Teacher from './subAdmin/TeacherList.jsx';
 import SubAdmin from './SubAdmin.jsx';
-import ClassList from './subAdmin/ClassList.jsx';
 import SectionList from './subAdmin/SectionList.jsx';
 import SubjectList from './subAdmin/SubjectList.jsx';
 import Assignment from './subAdmin/Assignment.jsx';
+import StreamList from './subAdmin/StreamList.jsx';
+import ClassRoomList from './subAdmin/ClassRoomList.jsx';
 // import CreateSection from './CreateSection.jsx';
 // import About from './About.jsx';
 
@@ -30,11 +31,11 @@ const router = createBrowserRouter([
     // ],
   },
   {
-    path: "/student",
+    path: "/students",
     element: <StudentList />,
   },
   {
-    path: "/teacher",
+    path: "/teachers",
     element: <Teacher />,
   },
   {
@@ -42,20 +43,24 @@ const router = createBrowserRouter([
     element: <SubAdmin />,
   },
   {
-    path: "/ward",
-    element: <ClassList />,
+    path: "/classrooms",
+    element: <ClassRoomList />,
   },
   {
-    path: "/section",
+    path: "/sections",
     element: <SectionList />,
   },
   {
-    path: "/subject",
+    path: "/subjects",
     element: <SubjectList />,
   },
   {
-    path: "/assignment",
+    path: "/assignments",
     element: <Assignment />,
+  },
+  {
+    path: "/streams",
+    element: <StreamList />,
   },
 ]);
 

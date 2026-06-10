@@ -1,8 +1,20 @@
+import { BookOpenText, GalleryThumbnails, GraduationCap, LayoutGrid, Network, SquareChartGantt, UserRoundPen, UserRoundPlus } from "lucide-react";
 import { Link, useLocation } from "react-router-dom"
 
 const Sidebar = () => {
     const location = useLocation();
     let pathName = location.pathname;
+
+    const sidebarLinks = [
+        { id: 1, path: '/assignments', label: "Assignments", icon: <UserRoundPlus className="w-5 h-5 mx-auto " /> },
+        { id: 2, path: '/teachers', label: "Teachers", icon: <UserRoundPen className="w-5 h-5 mx-auto " /> },
+        { id: 3, path: '/students', label: "Students", icon: <GraduationCap className="w-5 h-5 mx-auto " /> },
+        { id: 4, path: '/classrooms', label: "Class Rooms", icon: <GalleryThumbnails className="w-5 h-5 mx-auto " /> },
+        { id: 5, path: '/streams', label: "Streams", icon: <Network className="w-5 h-5 mx-auto " /> },
+        { id: 6, path: '/sections', label: "Sections", icon: <LayoutGrid className="w-5 h-5 mx-auto " /> },
+        { id: 7, path: '/subjects', label: "Subjects", icon: <BookOpenText className="w-5 h-5 mx-auto " /> },
+        { id: 8, path: '/homework', label: "Homework", icon: <SquareChartGantt className="w-5 h-5 mx-auto " /> },
+    ];
 
     return (
         <aside id="hs-pro-sidebar" className="hs-overlay [--auto-close:lg]
@@ -42,7 +54,7 @@ const Sidebar = () => {
                     </div>
 
                     <p className="text-xs text-white flex flex-wrap items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4  h-4 mr-1 lucide lucide-user-round-icon lucide-user-round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4  h-4 mr-1 lucide lucide-user-round-icon lucide-user-round"><circle cx="12" cy="8" r="5" /><path d="M20 21a8 8 0 0 0-16 0" /></svg>
                         M2389310259
                     </p>
                 </div>
@@ -52,54 +64,20 @@ const Sidebar = () => {
                 <div className="h-full overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb">
                     <nav className="hs-accordion-group px-3 w-full flex flex-col flex-wrap">
                         <ul className="space-y-1">
-                            <li>
-                                <Link to="/assignment" className={`${pathName === '/assignment' ? 'bg-white text-navy' : 'text-white'} flex no-underline transition-all duration-300 ease-in-out py-2 px-3 text-sm rounded hover:bg-white hover:text-navy focus:outline-hidden focus:bg-navy focus:text-white`}>
-                                    <span className="w-5 mr-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className=" w-5 h-5 mx-auto lucide lucide-user-round-plus-icon lucide-user-round-plus"><path d="M2 21a8 8 0 0 1 13.292-6" /><circle cx="10" cy="8" r="5" /><path d="M19 16v6" /><path d="M22 19h-6" /></svg>
-                                    </span>
-                                    Assignment
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/teacher" className={`${pathName === '/teacher' ? 'bg-white text-navy' : 'text-white'} flex no-underline transition-all duration-300 ease-in-out py-2 px-3 text-sm rounded hover:bg-white hover:text-navy focus:outline-hidden focus:bg-navy focus:text-white`}>
-                                    <span className="w-5 mr-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className=" w-5 h-5 mx-auto lucide lucide-user-round-pen-icon lucide-user-round-pen"><path d="M2 21a8 8 0 0 1 10.821-7.487"/><path d="M21.378 16.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z"/><circle cx="10" cy="8" r="5"/></svg>
-                                    </span>
-                                    Teacher
-                                </Link>
-                            </li>                            
-                            <li>
-                                <Link to="/student" className={`${pathName === '/student' ? 'bg-white text-navy' : 'text-white'} flex no-underline transition-all duration-300 ease-in-out py-2 px-3 text-sm rounded hover:bg-white hover:text-navy focus:outline-hidden focus:bg-navy focus:text-white`}>
-                                    <span className="w-5 mr-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 mx-auto lucide lucide-graduation-cap-icon lucide-graduation-cap"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg>
-                                    </span>
-                                    Student
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/ward" className={`${pathName === '/ward' ? 'bg-white text-navy' : 'text-white'} flex no-underline transition-all duration-300 ease-in-out py-2 px-3 text-sm rounded hover:bg-white hover:text-navy focus:outline-hidden focus:bg-navy focus:text-white`}>
-                                    <span className="w-5 mr-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 mx-auto lucide lucide-gallery-thumbnails-icon lucide-gallery-thumbnails"><rect width="18" height="14" x="3" y="3" rx="2"/><path d="M4 21h1"/><path d="M9 21h1"/><path d="M14 21h1"/><path d="M19 21h1"/></svg>
-                                    </span>
-                                    Ward
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/section" className={`${pathName === '/section' ? 'bg-white text-navy' : 'text-white'} flex no-underline transition-all duration-300 ease-in-out py-2 px-3 text-sm rounded hover:bg-white hover:text-navy focus:outline-hidden focus:bg-navy focus:text-white`}>
-                                    <span className="w-5 mr-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 mx-auto lucide lucide-layout-grid-icon lucide-layout-grid"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
-                                    </span>
-                                    Section
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/subject" className={`${pathName === '/subject' ? 'bg-white text-navy' : 'text-white'} flex no-underline transition-all duration-300 ease-in-out py-2 px-3 text-sm rounded hover:bg-white hover:text-navy focus:outline-hidden focus:bg-navy focus:text-white`}>
-                                    <span className="w-5 mr-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 mx-auto lucide lucide-book-open-text-icon lucide-book-open-text"><path d="M12 7v14"/><path d="M16 12h2"/><path d="M16 8h2"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/><path d="M6 12h2"/><path d="M6 8h2"/></svg>
-                                    </span>
-                                    Subject
-                                </Link>
-                            </li>
+                            {
+                                sidebarLinks?.length > 0 && sidebarLinks?.map(link => {
+                                    return (
+                                        <li key={link.id}>
+                                            <Link to={link.path} className={`${pathName === link.path ? 'bg-orange text-white' : 'text-white'} flex no-underline transition-all duration-300 ease-in-out py-2 px-3 text-sm rounded hover:bg-orange hover:text-white focus:outline-hidden focus:bg-navy focus:text-white`}>
+                                                <span className="w-5 mr-3">
+                                                    {link.icon}
+                                                </span>
+                                                {link.label}
+                                            </Link>
+                                        </li>
+                                    )
+                                })
+                            }
                         </ul>
                     </nav>
                 </div>

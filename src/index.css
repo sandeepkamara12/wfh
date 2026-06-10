@@ -27,7 +27,7 @@
 
   /* Typography */
   --font-sans: "Commissioner", sans-serif;
-  --font-heading: "Commissioner", sans-serif;
+  --font-heading: "Inter", sans-serif;
 
   /* Spacing */
   --radius: 0.5rem;
@@ -35,10 +35,6 @@
 }
 
 /* Dark mode variables */
-.dark {
-  --color-light: 17 24 39;
-  --color-dark: 249 250 251;
-}
 
 /* =========================
    BASE LAYER
@@ -89,24 +85,15 @@
 ========================= */
 @layer components {
   .radioCard {
-    @apply flex items-center gap-2 cursor-pointer rounded  text-navy p-3 bg-white border  border-navy text-xs font-medium uppercase transition-all duration-300 ease-in-out hover:bg-navy hover:border-navy hover:text-white peer-checked:bg-navy peer-checked:text-white;
+    @apply flex items-center gap-2 cursor-pointer rounded  text-navy p-3 bg-white border  border-navy text-xs font-medium uppercase transition-all duration-300 ease-in-out hover:bg-orange hover:border-orange hover:text-white peer-checked:bg-orange peer-checked:text-white peer-checked:border-orange;
   }
   .btn {
-    @apply uppercase flex justify-center items-center gap-x-2 w-full py-3 px-4 text-sm font-medium rounded-lg bg-navy border border-navy text-white hover:bg-white focus:outline-hidden focus:bg-white disabled:opacity-50 disabled:pointer-events-none;
+    @apply transition-all duration-300 ease-in-out uppercase flex justify-center items-center gap-x-2 w-full py-3 px-4 text-sm font-medium rounded bg-navy border border-navy text-white hover:bg-orange hover:text-white hover:border-orange focus:outline-hidden focus:bg-white disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .icon-btn {
+    @apply transition-all duration-300 ease-in-out py-2 px-2 rounded bg-navy border border-navy text-white hover:bg-orange hover:text-white hover:border-orange focus:outline-hidden focus:bg-white disabled:opacity-50 disabled:pointer-events-none;
   }
 
-  /* Input */
-  .input {
-    @apply w-full px-3 py-2 border rounded-lg outline-none;
-    @apply focus:ring-2 focus:ring-blue-400;
-  }
-
-  /* Badge */
-  .badge {
-    @apply inline-block px-2 py-1 text-xs rounded-full;
-    background-color: rgb(var(--color-accent));
-    color: white;
-  }
 }
 
 /* =========================
@@ -126,4 +113,17 @@
   .bg-secondary {
     background-color: rgb(var(--color-secondary));
   }
+}
+
+/*************************************/
+.rdt_headRow {min-height: initial!important; padding: 12px 0; background-color: #fc6e20!important; color:#ffffff;}
+.rdt_TableCol:before {display: none;}
+.rdt_TableCell {@apply py-2 text-navy font-medium text-sm;}
+.rdt_TableCol {
+  @apply text-xs font-semibold uppercase text-white;
+}
+.rdt_pagination {@apply !justify-between !px-4;}
+.rdt_paginationRange {@apply !m-0;}
+.rdt_responsiveWrapper + div {
+  @apply !rounded-b overflow-hidden;
 }

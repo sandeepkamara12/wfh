@@ -1,9 +1,9 @@
 import { useState } from "react";
 import SubAdmin from "../SubAdmin"
+import { Clock, Copy, Network, Pencil, Trash2 } from "lucide-react";
 import Table from "../components/common/Table";
-import { Clock, Copy, LayoutGrid, Pencil, Trash2 } from "lucide-react";
 
-const SectionList = () => {
+const StreamList = () => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -28,15 +28,15 @@ const SectionList = () => {
 
   const columns = [
     {
-      name: "Section",
+      name: "Stream",
       cell: row => (
-        <span className="text-sm font-semibold text-navy uppercase">{row.section}</span>
+        <span className="text-sm font-semibold text-navy uppercase">{row.stream}</span>
       ),
-      selector: row => row.section,
+      selector: row => row.stream,
       sortable: true
     },
     {
-      name: "Section ID",
+      name: "Stream ID",
       cell: row => (
         <span className="inline-flex items-center gap-x-1.5 pt-0.5 pb-1 ps-2 pe-2 rounded-full text-xs font-medium bg-navy/10 text-navy/50 dark:bg-primary-500/20 dark:text-primary-400">
           {row.id}
@@ -71,22 +71,17 @@ const SectionList = () => {
     },
   ];
   const data = [
-    { id: "#2154879630", section: "A", createdAt: "28 Dec, 12:12" },
-    { id: "#2154879631", section: "B", createdAt: "28 Dec, 12:12" },
-    { id: "#2154879632", section: "C", createdAt: "28 Dec, 12:12" },
-    { id: "#2154879633", section: "D", createdAt: "28 Dec, 12:12" },
-    { id: "#2154879634", section: "E", createdAt: "28 Dec, 12:12" },
-    { id: "#2154879635", section: "F", createdAt: "28 Dec, 12:12" },
+    { id: "#2154879630", stream: "Medical", createdAt: "28 Dec, 12:12" },
+    { id: "#2154879631", stream: "Non Medical", createdAt: "28 Dec, 12:12" },
   ];
+
   return (
     <SubAdmin>
       <div className="flex flex-col">
         <div className="overflow-x-auto [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb">
           <div className="min-w-full inline-block align-middle">
             <div className="">
-
-              <Table columns={columns} data={data} handleOpen={handleOpen} btnText="Add Section" btnIcon={<LayoutGrid className="w-5 h-5 mx-auto" />} label="Sections" subLabel="Add Section, edit and more." />
-
+              <Table columns={columns} data={data} handleOpen={handleOpen} btnText="Add Stream" btnIcon={<Network className="w-5 h-5 mx-auto" />} label="Streams" subLabel="Add Stream, edit and more." />
 
               {open && (
                 <div style={drawerStyle}>
@@ -96,7 +91,7 @@ const SectionList = () => {
                       <div className="grid gap-y-4">
 
                         <div>
-                          <label htmlFor="teacher-name" className="block text-sm mb-2 text-foreground">Section</label>
+                          <label htmlFor="teacher-name" className="block text-sm mb-2 text-foreground">stream</label>
                           <div className="relative">
                             <input type="text" id="teacher-name" name="teacher-name" className="py-2.5 sm:py-3 px-4 block w-full bg-layer border border-layer-line rounded-lg sm:text-sm text-foreground placeholder:text-muted-foreground-1 focus:border-primary-focus focus:ring-primary-focus disabled:opacity-50 disabled:pointer-events-none" required aria-describedby="teacher-error" />
                             <div className="hidden absolute inset-y-0 inset-e-0 pointer-events-none pe-3">
@@ -124,4 +119,4 @@ const SectionList = () => {
   )
 }
 
-export default SectionList
+export default StreamList

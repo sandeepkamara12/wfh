@@ -17,7 +17,7 @@ const Card = ({ label, count, id }) => {
                 {icon}
                 <p className="text-xs uppercase text-navy font-semibold">{label}</p>
             </div>
-            <h3 className="text-xl sm:text-lg font-bold">{count}</h3>
+            <h3 className="text-xl sm:text-lg font-bold text-orange">{count}</h3>
         </div>
     )
 }
