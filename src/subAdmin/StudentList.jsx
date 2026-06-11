@@ -1,6 +1,6 @@
 import { useState } from "react";
 import SubAdmin from "../SubAdmin"
-import { Clock, Copy, Eye, GraduationCap, Mail, Pencil, Phone, Trash2, UserRoundPen } from "lucide-react";
+import { Clock, Copy, Eye, GraduationCap, Mail, Pencil, Phone, Plus, Trash2, UserRoundPen } from "lucide-react";
 import Table from "../components/common/Table";
 
 const StudentList = () => {
@@ -28,18 +28,20 @@ const StudentList = () => {
   const columns = [
     {
       name: "Name",
-      cell: row => (
-        <div className='flex items-center gap-2'>
-          <span className='inline-flex items-center justify-center size-12 rounded-full overflow-hidden bg-navy/10'><img src={row.photo} alt="" className='h-full rounded-full max-w-full ' /></span>
-          <div className="flex flex-col gap-0.5">
-            <span className="text-sm font-semibold text-navy uppercase">{row.name}</span>
-            <span className="inline-flex items-center gap-x-1.5 pt-0.5 pb-1 ps-2 pe-2 rounded-full text-xs font-medium bg-navy/10 text-navy/50 dark:bg-primary-500/20 dark:text-primary-400">
-              {row.id}
-              <button className='shrink-0 size-3 inline-flex items-center justify-center rounded-full hover:bg-primary-200 pt-0.5'><Copy className='size-4' /></button>
-            </span>
-          </div>
-        </div>
-      ),
+        cell: row => (
+                <div className='flex items-center gap-2'>
+                    <span className='inline-flex items-center justify-center size-9 rounded-full overflow-hidden bg-navy/10'><img src={row.photo} alt="" className='h-full rounded-full max-w-full ' /></span>
+                    <div className="flex flex-col gap-0.5">
+                        <span className="text-sm font-semibold text-navy leading-4">{row.name}</span>
+                        <span className="inline-flex items-center tracking-wide gap-x-1.5 pt-0.5 pb-1 px-2 rounded-full text-xs font-semibold bg-navy/10 text-navy">
+                            {row.id}
+                            <button className='shrink-0 size-3 inline-flex items-center justify-center rounded-full hover:bg-primary-200 pt-0.5'>
+                                <Copy className='size-4 text-navy' />
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            ),
       selector: row => row.name,
       sortable: true
     },
@@ -116,7 +118,7 @@ const StudentList = () => {
     {
       name: '',
       cell: row => (
-        <div className="px-6 py-1.5 flex flex-wrap items-center gap-1">
+        <div className="flex flex-wrap items-center justify-end w-full gap-1">
           <button type="button" className="icon-btn">
             <Eye className="size-5 mx-auto" />
           </button>
@@ -131,8 +133,8 @@ const StudentList = () => {
     },
   ];
   const data = [
-    { id: "#2154879630", classroom: "3rd", section:"A", name: 'Aria Chen', photo: "/public/student.jfif", email: 'christina@site.com', phone: 7986602514, classIncharge: "Mrs. Sheetal devi", classInchargePhone: 7986680522, motherName:"Mrs. Anita Rani", fatherName:"Mr. Paramjeet", createdAt: "28 Dec, 12:12" },
-    { id: "#2154879631", classroom: "3rd", section:"B", name: 'Marcus Webb', photo: "/public/student.jfif", email: 'christina@site.com', phone: 7986602514, classIncharge: "Mrs. Sheetal devi", classInchargePhone: 7986680522, motherName:"Mrs. Anita Rani", fatherName:"Mr. Paramjeet", createdAt: "28 Dec, 12:12" },
+    { id: "#2154879630", classroom: "3rd", section:"A", name: 'Aria Chen', photo: "/public/student.jpg", email: 'christina@site.com', phone: 7986602514, classIncharge: "Mrs. Sheetal devi", classInchargePhone: 7986680522, motherName:"Mrs. Anita Rani", fatherName:"Mr. Paramjeet", createdAt: "28 Dec, 12:12" },
+    { id: "#2154879631", classroom: "3rd", section:"B", name: 'Marcus Webb', photo: "/public/student.jpg", email: 'christina@site.com', phone: 7986602514, classIncharge: "Mrs. Sheetal devi", classInchargePhone: 7986680522, motherName:"Mrs. Anita Rani", fatherName:"Mr. Paramjeet", createdAt: "28 Dec, 12:12" },
   ];
   return (
     <SubAdmin>
@@ -141,7 +143,7 @@ const StudentList = () => {
           <div className="min-w-full inline-block align-middle">
             <div className="">
 
-              <Table columns={columns} data={data} handleOpen={handleOpen} btnText="Add Student" btnIcon={<GraduationCap className="w-5 h-5 mx-auto" />} label="Students" subLabel="Add Student, edit and more." />
+              <Table columns={columns} data={data} handleOpen={handleOpen} btnText="Add Student" btnIcon={<Plus className="w-5 h-5 mx-auto" />} label="Students" subLabel="Add Student, edit and more." />
 
               {open && (
                 <div style={drawerStyle}>

@@ -1,81 +1,21 @@
-import { BookOpenText, ChevronDown, GalleryThumbnails, LayoutGrid } from "lucide-react";
+import { BookOpenText, GalleryThumbnails, LayoutGrid } from "lucide-react";
 import Card from "../components/assignment/Card"
 import SubAdmin from "../SubAdmin"
-import Select from 'react-select'
 import RadioCard from "../components/assignment/RadioCard";
+import CustomSelect from "../components/ui/CustomSelect";
+import { studentOptions, teacherOptions } from "../const/constant";
 
 const Assignment = () => {
-    const studentOptions = [
-        { value: '1235678940', label: 'Harmeet Singh', image: "/student.jfif" },
-        { value: '2457896310', label: 'Jaswant Singh', image: "/student.jfif" },
-        { value: '0265314789', label: 'Sandeep Singh', image: "/student.jfif" }
-    ];
-    const teacherOptions = [
-        { value: '1235678941', label: 'Mrs. Anita Rai', image: "/student.jfif" },
-        { value: '2457896312', label: 'Mrs. Sonam Kapoor', image: "/student.jfif" },
-        { value: '0265314783', label: 'Mr. Rohit Sharma', image: "/student.jfif" }
-    ];
-    const CustomOption = (props) => {
-        return (
-            <div
-                {...props.innerProps}
-                className="flex items-center gap-2 p-2 hover:bg-gray-100"
-            >
-                <div className="w-8 h-8 rounded-full overflow-hidden">
-                    <img
-                        src={props.data.image}
-                        alt={props.label}
-                        className="w-full h-full rounded-full object-contain"
-                    />
-                </div>
-                <span>{props.label}</span>
-                <span className="text-sm text-gray-500">
-                    #{props.value}
-                </span>
-            </div>
-        );
-    };
-
-    const CustomSingleValue = (props) => {
-        return (
-            <div className="inline-flex items-center gap-2 bg-navy text-white rounded p-2 w-auto">
-                <div className="w-8 h-8 rounded-full overflow-hidden bg-white">
-                    <img
-                        src={props.data.image}
-                        alt={props.data.label}
-                        className="w-full h-full rounded-full object-contain"
-                    />
-                </div>
-                <span>{props.data.label}</span>
-                <span className="text-white text-sm">
-                    #{props.data.value}
-                </span>
-                <button
-                    type="button"
-                    onClick={(e) => {
-                        e.stopPropagation();                 // prevent dropdown open
-                        props.selectProps.onChange(null);          // 🔥 clear value
-                    }}
-                    className="ml-1 text-white hover:text-red-300"
-                >
-                    ✕
-                </button>
-            </div>
-        );
-    };
-
-    const CustomDropdownIndicator = (props) => {
-        const { menuIsOpen } = props.selectProps;
-        return (
-            <div
-                {...props.innerProps}
-                className={` flex items-center transition-transform ${menuIsOpen ? "rotate-180" : ""
-                    }`}
-            >
-                <ChevronDown size={18} />
-            </div>
-        );
-    };
+    // const studentOptions = [
+    //     { value: '1235678940', label: 'Harmeet Singh', image: "/student.jpg" },
+    //     { value: '2457896310', label: 'Jaswant Singh', image: "/student.jpg" },
+    //     { value: '0265314789', label: 'Sandeep Singh', image: "/student.jpg" }
+    // ];
+    // const teacherOptions = [
+    //     { value: '1235678941', label: 'Mrs. Anita Rai', image: "/student.jpg" },
+    //     { value: '2457896312', label: 'Mrs. Sonam Kapoor', image: "/student.jpg" },
+    //     { value: '0265314783', label: 'Mr. Rohit Sharma', image: "/student.jpg" }
+    // ];
 
     return (
         <SubAdmin>
@@ -94,47 +34,12 @@ const Assignment = () => {
                             <form className="bg-white p-6 rounded">
                                 <h2 className="mb-6 font-bold text-lg">Assign <span className="text-orange">teacher</span></h2>
                                 <div className="grid gap-y-4">
-                                    <div>
-                                        <label htmlFor="" className="block text-sm font-medium text-navy mb-1">Select Teacher</label>
-                                        <Select
-                                            options={teacherOptions}
-                                            placeholder="Search Teacher"
-                                            components={{
-                                                Option: CustomOption,
-                                                SingleValue: CustomSingleValue,
-                                                DropdownIndicator: CustomDropdownIndicator,
-                                            }}
-                                            styles={{
-                                                dropdownIndicator: (base) => ({
-                                                    ...base,
-                                                    color: "#122c4f"
-                                                }),
-                                                indicatorSeparator: (base) => ({
-                                                    ...base,
-                                                    display: "none",
-                                                }),
-                                                placeholder: (base) => ({
-                                                    ...base,
-                                                    color: "#122c4f",
-                                                    fontSize: '14px',
-                                                    fontWeight: 500,
-                                                }),
-                                                control: (base) => ({
-                                                    ...base,
-                                                    minHeight: "auto",
-                                                    height: "auto",
-                                                    border: '1px solid #122c4f',
-                                                    padding: '6px 12px'
-                                                }),
-                                                valueContainer: (base) => ({
-                                                    ...base,
-                                                    padding: 0,
-                                                    display: "flex",
-                                                    alignItems: "center",
-                                                }),
-                                            }}
-                                        />
-                                    </div>
+                                    <CustomSelect
+                                        options={teacherOptions}
+                                        selectType="teacher"
+                                        label="Select Teacher"
+                                        placeholder="Search Teacher"
+                                    />
 
                                     <div>
                                         <label htmlFor="class" className="block text-sm font-medium text-navy mb-1">Select Ward</label>
@@ -188,48 +93,12 @@ const Assignment = () => {
                             <form className="bg-white p-6 rounded">
                                 <h2 className="mb-6 font-bold text-lg">Assign <span className="text-orange">student</span></h2>
                                 <div className="grid gap-y-4">
-                                    <div>
-
-                                        <label htmlFor="" className="block text-sm font-medium text-navy mb-1">Select Student</label>
-                                        <Select
-                                            options={studentOptions}
-                                            placeholder="Search Student"
-                                            components={{
-                                                Option: CustomOption,
-                                                SingleValue: CustomSingleValue,
-                                                DropdownIndicator: CustomDropdownIndicator,
-                                            }}
-                                            styles={{
-                                                dropdownIndicator: (base) => ({
-                                                    ...base,
-                                                    color: "#122c4f"
-                                                }),
-                                                indicatorSeparator: (base) => ({
-                                                    ...base,
-                                                    display: "none",
-                                                }),
-                                                placeholder: (base) => ({
-                                                    ...base,
-                                                    color: "#122c4f",
-                                                    fontSize: '14px',
-                                                    fontWeight: 500,
-                                                }),
-                                                control: (base) => ({
-                                                    ...base,
-                                                    minHeight: "auto",
-                                                    height: "auto",
-                                                    border: '1px solid #122c4f',
-                                                    padding: '6px 12px'
-                                                }),
-                                                valueContainer: (base) => ({
-                                                    ...base,
-                                                    padding: 0,
-                                                    display: "flex",
-                                                    alignItems: "center",
-                                                }),
-                                            }}
-                                        />
-                                    </div>
+                                    <CustomSelect
+                                        options={studentOptions}
+                                        selectType="student"
+                                        label="Select Student"
+                                        placeholder="Search Student"
+                                    />
                                     <div>
 
                                         <label htmlFor="class" className="block text-sm font-medium text-navy mb-1">Select Ward</label>

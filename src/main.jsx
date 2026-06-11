@@ -11,6 +11,7 @@ import SubjectList from './subAdmin/SubjectList.jsx';
 import Assignment from './subAdmin/Assignment.jsx';
 import StreamList from './subAdmin/StreamList.jsx';
 import ClassRoomList from './subAdmin/ClassRoomList.jsx';
+import Homework from './subAdmin/Homework.jsx';
 // import CreateSection from './CreateSection.jsx';
 // import About from './About.jsx';
 
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
     element: <SectionList />,
   },
   {
+    path: "/streams",
+    element: <StreamList />,
+  },
+  {
     path: "/subjects",
     element: <SubjectList />,
   },
@@ -59,8 +64,8 @@ const router = createBrowserRouter([
     element: <Assignment />,
   },
   {
-    path: "/streams",
-    element: <StreamList />,
+    path: "/homework",
+    element: <Homework />,
   },
 ]);
 

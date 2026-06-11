@@ -1,10 +1,10 @@
 import { useState } from "react";
 import SubAdmin from "../SubAdmin"
 import Table from "../components/common/Table";
-import { Clock, Copy, Eye, GalleryThumbnails, GraduationCap, Mail, Pencil, Phone, Trash2, UserRoundPen } from "lucide-react";
+import { Clock, Copy, Eye, GalleryThumbnails, GraduationCap, Mail, Pencil, Phone, Plus, Trash2, UserRoundPen } from "lucide-react";
 
 const ClassRoomList = () => {
- 
+
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -28,22 +28,16 @@ const ClassRoomList = () => {
   };
   const columns = [
     {
-      name: "Class Rooms",
+      name: "Classrooms",
       cell: row => (
-        <span className="text-sm font-semibold text-navy uppercase">{row.classroom}</span>
+        <div className="flex items-center gap-2">
+          <span className="text-sm font-semibold text-navy leading-4">{row.classroom}</span>
+          <span className="tracking-wide pt-0.5 pb-1 px-2 rounded-full text-xs font-semibold bg-navy/10 text-navy">
+            {row.id}
+          </span>
+        </div>
       ),
       selector: row => row.classroom,
-      sortable: true
-    },
-    {
-      name: "Class Room ID",
-      cell: row => (
-        <span className="inline-flex items-center gap-x-1.5 pt-0.5 pb-1 ps-2 pe-2 rounded-full text-xs font-medium bg-navy/10 text-navy/50 dark:bg-primary-500/20 dark:text-primary-400">
-          {row.id}
-          <button className='shrink-0 size-3 inline-flex items-center justify-center rounded-full hover:bg-primary-200 pt-0.5'><Copy className='size-4' /></button>
-        </span>
-      ),
-      selector: row => row.id,
       sortable: true
     },
     {
@@ -59,7 +53,7 @@ const ClassRoomList = () => {
     {
       name: '',
       cell: row => (
-        <div className="px-6 py-1.5 flex flex-wrap items-center gap-1">
+        <div className="flex flex-wrap items-center justify-end w-full gap-1">
           <button type="button" className="icon-btn">
             <Trash2 className="size-5 mx-auto" />
           </button>
@@ -81,7 +75,7 @@ const ClassRoomList = () => {
           <div className="min-w-full inline-block align-middle">
             <div className="">
 
-              <Table columns={columns} data={data} handleOpen={handleOpen} btnText="Add Class Room" btnIcon={<GalleryThumbnails className="w-5 h-5 mx-auto" />} label="Class Rooms" subLabel="Add Class Room, edit and more." />
+              <Table columns={columns} data={data} handleOpen={handleOpen} btnText="Add Classroom" btnIcon={<Plus className="w-5 h-5 mx-auto" />} label="Classrooms" subLabel="Add Classroom, edit and more." />
 
               {open && (
                 <div style={drawerStyle}>

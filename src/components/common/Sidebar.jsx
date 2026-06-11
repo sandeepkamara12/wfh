@@ -1,20 +1,9 @@
-import { BookOpenText, GalleryThumbnails, GraduationCap, LayoutGrid, Network, SquareChartGantt, UserRoundPen, UserRoundPlus } from "lucide-react";
 import { Link, useLocation } from "react-router-dom"
+import { sidebarLinks } from "../../const/constant";
 
 const Sidebar = () => {
     const location = useLocation();
     let pathName = location.pathname;
-
-    const sidebarLinks = [
-        { id: 1, path: '/assignments', label: "Assignments", icon: <UserRoundPlus className="w-5 h-5 mx-auto " /> },
-        { id: 2, path: '/teachers', label: "Teachers", icon: <UserRoundPen className="w-5 h-5 mx-auto " /> },
-        { id: 3, path: '/students', label: "Students", icon: <GraduationCap className="w-5 h-5 mx-auto " /> },
-        { id: 4, path: '/classrooms', label: "Class Rooms", icon: <GalleryThumbnails className="w-5 h-5 mx-auto " /> },
-        { id: 5, path: '/streams', label: "Streams", icon: <Network className="w-5 h-5 mx-auto " /> },
-        { id: 6, path: '/sections', label: "Sections", icon: <LayoutGrid className="w-5 h-5 mx-auto " /> },
-        { id: 7, path: '/subjects', label: "Subjects", icon: <BookOpenText className="w-5 h-5 mx-auto " /> },
-        { id: 8, path: '/homework', label: "Homework", icon: <SquareChartGantt className="w-5 h-5 mx-auto " /> },
-    ];
 
     return (
         <aside id="hs-pro-sidebar" className="hs-overlay [--auto-close:lg]
@@ -66,11 +55,12 @@ const Sidebar = () => {
                         <ul className="space-y-1">
                             {
                                 sidebarLinks?.length > 0 && sidebarLinks?.map(link => {
+                                    let Icon = link.icon;
                                     return (
                                         <li key={link.id}>
                                             <Link to={link.path} className={`${pathName === link.path ? 'bg-orange text-white' : 'text-white'} flex no-underline transition-all duration-300 ease-in-out py-2 px-3 text-sm rounded hover:bg-orange hover:text-white focus:outline-hidden focus:bg-navy focus:text-white`}>
                                                 <span className="w-5 mr-3">
-                                                    {link.icon}
+                                                    <Icon className="size-5" />
                                                 </span>
                                                 {link.label}
                                             </Link>

@@ -30,20 +30,14 @@ const StreamList = () => {
     {
       name: "Stream",
       cell: row => (
-        <span className="text-sm font-semibold text-navy uppercase">{row.stream}</span>
+        <div className="flex items-center gap-2">
+          <span className="text-sm font-semibold text-navy leading-4">{row.stream}</span>
+          <span className="tracking-wide pt-0.5 pb-1 px-2 rounded-full text-xs font-semibold bg-navy/10 text-navy">
+            {row.id}
+          </span>
+        </div>
       ),
       selector: row => row.stream,
-      sortable: true
-    },
-    {
-      name: "Stream ID",
-      cell: row => (
-        <span className="inline-flex items-center gap-x-1.5 pt-0.5 pb-1 ps-2 pe-2 rounded-full text-xs font-medium bg-navy/10 text-navy/50 dark:bg-primary-500/20 dark:text-primary-400">
-          {row.id}
-          <button className='shrink-0 size-3 inline-flex items-center justify-center rounded-full hover:bg-primary-200 pt-0.5'><Copy className='size-4' /></button>
-        </span>
-      ),
-      selector: row => row.id,
       sortable: true
     },
     {
@@ -59,7 +53,7 @@ const StreamList = () => {
     {
       name: '',
       cell: row => (
-        <div className="px-6 py-1.5 flex flex-wrap items-center gap-1">
+        <div className="flex flex-wrap items-center justify-end w-full gap-1">
           <button type="button" className="icon-btn">
             <Trash2 className="size-5 mx-auto" />
           </button>

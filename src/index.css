@@ -116,7 +116,7 @@
 }
 
 /*************************************/
-.rdt_headRow {min-height: initial!important; padding: 12px 0; background-color: #fc6e20!important; color:#ffffff;}
+.rdt_headRow {min-height: initial!important; padding: 6px 0; background-color: #122c4f!important; color:#ffffff;}
 .rdt_TableCol:before {display: none;}
 .rdt_TableCell {@apply py-2 text-navy font-medium text-sm;}
 .rdt_TableCol {
@@ -126,4 +126,31 @@
 .rdt_paginationRange {@apply !m-0;}
 .rdt_responsiveWrapper + div {
   @apply !rounded-b overflow-hidden;
+}
+.react-datepicker-wrapper {
+  @apply w-full;
+}
+.react-datepicker__calendar-icon {
+  @apply end-0 top-[14px] !py-0 cursor-pointer hover:fill-orange fill-navy;
+}
+.react-datepicker__close-icon {
+  @apply p-0! px-2.5! end-0! h-auto! top-[14px]!
+}
+.react-datepicker__close-icon::after {
+  @apply bg-transparent! text-red-500! font-bold w-4.5! h-4.5! text-sm! leading-1! pb-1!;
+}
+
+
+/* hide clear icon by default */
+.datepicker-wrapper .react-datepicker__close-icon {
+  @apply hidden after:content-['✕']!;
+}
+
+/* when input has value → show clear, hide calendar */
+.datepicker-wrapper.has-value .react-datepicker__close-icon {
+  @apply block;
+}
+
+.datepicker-wrapper.has-value .react-datepicker__calendar-icon {
+  @apply hidden;
 }
