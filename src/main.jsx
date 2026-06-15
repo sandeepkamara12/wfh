@@ -4,7 +4,7 @@ import './index.css'
 // import App from './App.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import StudentList from './subAdmin/StudentList.jsx';
-import Teacher from './subAdmin/TeacherList.jsx';
+import TeacherList from './subAdmin/TeacherList.jsx';
 import SubAdmin from './SubAdmin.jsx';
 import SectionList from './subAdmin/SectionList.jsx';
 import SubjectList from './subAdmin/SubjectList.jsx';
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/teachers",
-    element: <Teacher />,
+    element: <TeacherList />,
   },
   {
     path: "/sub-admin",

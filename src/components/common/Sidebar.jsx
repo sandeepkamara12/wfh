@@ -13,7 +13,7 @@ const Sidebar = () => {
             hidden
             fixed inset-y-0 inset-s-0 z-60
             bg-navy border-e border-navy
-            lg:block lg:translate-x-0 lg:inset-e-auto lg:bottom-0" tabIndex="-1" aria-label="Sidebar">
+            lg:block xl:translate-x-0 lg:inset-e-auto lg:bottom-0" tabIndex="-1" aria-label="Sidebar">
 
             <div className="flex flex-col h-full max-h-full">
                 <div className="hidden lg:block absolute top-2 inset-e-4">

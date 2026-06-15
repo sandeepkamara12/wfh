@@ -5,7 +5,7 @@ import CustomSelect from '../components/ui/CustomSelect';
 import CustomDatePicker from '../components/ui/CustomDatePicker';
 import { teacherOptions, classOptions, streamOptions, sectionOptions, subjectOptions } from '../const/constant';
 import Table from '../components/common/Table';
-import { ArrowDownToLine, Clock, Copy, Eye, LayoutGrid, Mail, Pencil, Phone, Trash2 } from 'lucide-react';
+import { ArrowDownToLine, Clock, Pencil, Phone, Trash2 } from 'lucide-react';
 const Homework = () => {
 
 
@@ -55,7 +55,7 @@ const Homework = () => {
                             {row.section}
                         </span>
                     </div>
-                    <span className="text-navy flex items-center">
+                    <span className="text-xs text-orange flex items-center uppercase font-semibold">
                         Incharge
                     </span>
                 </div>
@@ -163,7 +163,7 @@ const Homework = () => {
                         selectType="teacher"
                         label="Teacher"
                         placeholder="Search Teacher"
-                    />
+                        />
                     <CustomSelect
                         options={classOptions}
                         selectType="classroom"
@@ -194,7 +194,11 @@ const Homework = () => {
                         handler={dateChangeHandler}
                     />
                 </div>
-                <div className="overflow-x-auto [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb">
+                <div className='bg-white rounded p-10 text-center'>
+                    <h2 className='mb-3'>All Homework</h2>
+                    <p className='text-sm text-navy font-medium'>Showing homework across all teachers, classes, and subjects etc.<br/> Use filters to narrow down results.</p>
+                </div>
+                <div className="mt-4 overflow-x-auto [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb">
                     <div className="min-w-full inline-block align-middle">
                         <div className="">
                             <Table columns={columns} data={data} handleOpen={handleOpen} btnText="" btnIcon="" label="Homework" subLabel="Showing homework filtered by teacher, class, stream, section, subject, and date." />

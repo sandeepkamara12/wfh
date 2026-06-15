@@ -62,6 +62,15 @@ const Assignment = () => {
                                         </div>
                                     </div>
                                     <div>
+                                        <label htmlFor="class" className="block text-sm font-medium text-navy mb-1">Select Stream</label>
+                                        <div className="flex flex-wrap gap-2">
+                                            <RadioCard icon={<GalleryThumbnails className="size-5" />} text="Arts" group="stream" id="teacher_arts" />
+                                            <RadioCard icon={<GalleryThumbnails className="size-5" />} text="Medical" group="stream" id="teacher_medical" />
+                                            <RadioCard icon={<GalleryThumbnails className="size-5" />} text="Non Medical" group="stream" id="teacher_non_medical" />
+                                            <RadioCard icon={<GalleryThumbnails className="size-5" />} text="Commerce" group="stream" id="teacher_commerce" />
+                                        </div>
+                                    </div>
+                                    <div>
                                         <label htmlFor="section" className="block text-sm font-medium text-navy mb-1">Select Section</label>
                                         <div className="flex flex-wrap gap-2">
                                             <RadioCard icon={<LayoutGrid className="size-5" />} text="A" group="section" id="teacher_A" />
@@ -118,6 +127,15 @@ const Assignment = () => {
                                             <RadioCard icon={<GalleryThumbnails className="size-5" />} text="10 th" group="class" id="student_10" />
                                             <RadioCard icon={<GalleryThumbnails className="size-5" />} text="11 th" group="class" id="student_11" />
                                             <RadioCard icon={<GalleryThumbnails className="size-5" />} text="12 th" group="class" id="student_12" />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label htmlFor="class" className="block text-sm font-medium text-navy mb-1">Select Stream</label>
+                                        <div className="flex flex-wrap gap-2">
+                                            <RadioCard icon={<GalleryThumbnails className="size-5" />} text="Arts" group="stream" id="student_arts" />
+                                            <RadioCard icon={<GalleryThumbnails className="size-5" />} text="Medical" group="stream" id="student_medical" />
+                                            <RadioCard icon={<GalleryThumbnails className="size-5" />} text="Non Medical" group="stream" id="student_non_medical" />
+                                            <RadioCard icon={<GalleryThumbnails className="size-5" />} text="Commerce" group="stream" id="student_commerce" />
                                         </div>
                                     </div>
                                     <div>

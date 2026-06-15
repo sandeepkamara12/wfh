@@ -23,17 +23,22 @@ const Table = ({ columns, data, handleOpen, btnText, btnIcon, label, subLabel })
                     </div>
                 }
             </div>
-            <DataTable
-                columns={columns}
-                data={data}
-                paginationComponentOptions={{
-                    rowsPerPageText: '',
-                    noRowsPerPage: true,
-                }}
-                paginationPerPage={10}
-                pagination
-                selectableRows
-            />
+            {/* <div className="overflow-x-auto">
+                <div className="min-w-[800px]"> */}
+                    <DataTable
+                        columns={columns}
+                        data={data}
+                        paginationComponentOptions={{
+                            rowsPerPageText: '',
+                            noRowsPerPage: true,
+                        }}
+                        responsive={true}
+                        paginationPerPage={10}
+                        pagination
+                        selectableRows
+                    />
+                {/* </div>
+            </div> */}
         </>
     )
 }

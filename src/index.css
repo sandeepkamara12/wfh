@@ -11,6 +11,9 @@
   --color-orange: #fc6e20;
   --color-green: #1f3d33;
   --color-beige: #85abab;
+
+  --breakpoint-3xl: 1440px;
+  --breakpoint-4xl: 120rem;
 }
 
 :root {
@@ -93,6 +96,9 @@
   .icon-btn {
     @apply transition-all duration-300 ease-in-out py-2 px-2 rounded bg-navy border border-navy text-white hover:bg-orange hover:text-white hover:border-orange focus:outline-hidden focus:bg-white disabled:opacity-50 disabled:pointer-events-none;
   }
+  .input-field {
+    @apply rounded bg-white w-full border border-navy py-2.5 sm:py-3 px-4 text-sm text-navy placeholder:text-navy focus:border-navy focus:ring-navy disabled:opacity-50 disabled:pointer-events-none
+  }
 
 }
 
@@ -118,9 +124,13 @@
 /*************************************/
 .rdt_headRow {min-height: initial!important; padding: 6px 0; background-color: #122c4f!important; color:#ffffff;}
 .rdt_TableCol:before {display: none;}
-.rdt_TableCell {@apply py-2 text-navy font-medium text-sm;}
+.rdt_TableCell {@apply py-4 text-navy font-medium text-xs;}
 .rdt_TableCol {
   @apply text-xs font-semibold uppercase text-white;
+}
+.rdt_cellCheckbox {@apply p-4!;}
+.rdt_Checkbox {
+  @apply self-start;
 }
 .rdt_pagination {@apply !justify-between !px-4;}
 .rdt_paginationRange {@apply !m-0;}
@@ -154,3 +164,4 @@
 .datepicker-wrapper.has-value .react-datepicker__calendar-icon {
   @apply hidden;
 }
+.opened {@apply translate-0!;}

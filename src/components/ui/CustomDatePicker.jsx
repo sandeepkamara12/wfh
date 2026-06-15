@@ -9,8 +9,9 @@ const CustomDatePicker = ({ selectedDate, handler }) => {
                 isClearable
                 toggleCalendarOnIconClick
                 selected={selectedDate}
+                placeholderText="Select Date"
                 onChange={handler}
-                className="bg-white border border-navy py-1.5! ps-3! pe-9! rounded text-sm text-navy font-medium leading-8 w-full"
+                className="bg-white border border-navy py-1.5! ps-3! pe-9! rounded text-sm text-navy font-medium leading-8 w-full placeholder:text-navy"
                 calendarClassName="rasta-stripes-big"
             />
         </div>

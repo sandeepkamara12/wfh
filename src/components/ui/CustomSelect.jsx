@@ -1,7 +1,7 @@
 import { ChevronDown } from "lucide-react";
 import Select from "react-select"
 
-const CustomSelect = ({ options, selectType, label, placeholder }) => {
+const CustomSelect = ({ options, selectType, label, placeholder, className }) => {
     const CustomOption = (props) => {
         const { selectType } = props.selectProps;
         const Icon = props.data.icon;
@@ -72,7 +72,7 @@ const CustomSelect = ({ options, selectType, label, placeholder }) => {
     };
     
     return (
-        <div className='col-span-1'>
+        <div className={`${className} col-span-1`}>
             <label htmlFor="" className="block text-sm font-medium text-navy mb-1">{label}</label>
             <Select
                 options={options}

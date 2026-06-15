@@ -1,9 +1,12 @@
 import { useState } from "react";
 import SubAdmin from "../SubAdmin"
-import { Clock, Copy, Eye, GraduationCap, Mail, Pencil, Phone, Plus, Trash2, UserRoundPen } from "lucide-react";
+import { Clock, Copy, Eye, GalleryThumbnails, Mail, Pencil, Phone, Plus, Trash2, UserRound, UserRoundPen } from "lucide-react";
 import Table from "../components/common/Table";
+import { useIsMobile } from "../hooks/useIsMobile";
+import Drawer from "../components/common/Drawer";
 
 const StudentList = () => {
+  const { isBelow1024, isBelow768, isBelow640 } = useIsMobile();
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -14,55 +17,96 @@ const StudentList = () => {
     setOpen(false);
   };
 
-  const drawerStyle = {
-    position: "fixed",
-    right: 0,
-    top: 0,
-    width: "300px",
-    height: "100%",
-    background: "#f4f4f4",
-    padding: "20px",
-    zIndex: "999",
-    boxShadow: "-2px 0 5px rgba(0,0,0,0.3)"
-  };
+
   const columns = [
     {
       name: "Name",
-        cell: row => (
-                <div className='flex items-center gap-2'>
-                    <span className='inline-flex items-center justify-center size-9 rounded-full overflow-hidden bg-navy/10'><img src={row.photo} alt="" className='h-full rounded-full max-w-full ' /></span>
-                    <div className="flex flex-col gap-0.5">
-                        <span className="text-sm font-semibold text-navy leading-4">{row.name}</span>
-                        <span className="inline-flex items-center tracking-wide gap-x-1.5 pt-0.5 pb-1 px-2 rounded-full text-xs font-semibold bg-navy/10 text-navy">
-                            {row.id}
-                            <button className='shrink-0 size-3 inline-flex items-center justify-center rounded-full hover:bg-primary-200 pt-0.5'>
-                                <Copy className='size-4 text-navy' />
-                            </button>
-                        </span>
-                    </div>
-                </div>
-            ),
+      grow: 2,
+      cell: row => (
+        <div className="flex flex-col gap-4 sm:gap-2">
+          <div className='flex items-center gap-2'>
+            <span className='inline-flex items-center justify-center size-9 rounded-full overflow-hidden bg-navy/10'><img src={row.photo} alt="" className='h-full rounded-full max-w-full ' /></span>
+            <div className="flex flex-col gap-0.5">
+              <span className="text-sm font-semibold text-navy leading-4">{row.name}</span>
+              <span className="inline-flex items-center tracking-wide gap-x-1.5 pt-0.5 pb-1 px-2 rounded-full text-xs font-semibold bg-navy/10 text-navy">
+                {row.id}
+                <button className='shrink-0 size-3 inline-flex items-center justify-center rounded-full hover:bg-primary-200 pt-0.5'>
+                  <Copy className='size-4 text-navy' />
+                </button>
+              </span>
+            </div>
+          </div>
+          <div className="flex flex-wrap items-start gap-4">
+            <div className="flex flex-wrap flex-col gap-1">
+              <span className="text-navy">Parents:</span>
+              <span className="text-navy flex items-center gap-1">
+                <UserRound className="size-4" />
+                {row.motherName}
+              </span>
+              <span className="text-navy flex items-center gap-1">
+                <UserRound className="size-4" />
+                {row.fatherName}
+              </span>
+            </div>
+            <div className="flex flex-wrap flex-col gap-1 lg:hidden">
+              <span className="text-navy">Contact:</span>
+              <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`mailto:${row.email}`}>
+                <Mail className='size-4' />
+                {row.email}
+              </a>
+              <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`tel:${row.phone}`}>
+                <Phone className="size-4" />
+                {row.phone}
+              </a>
+            </div>
+            <div className="flex md:hidden flex-wrap flex-col gap-1">
+              <span className="flex items-center gap-1 text-navy">
+                <GalleryThumbnails className="size-4" /> {row.classroom} <span className="text-orange">{row.section}</span>
+              </span>
+              <span className="flex items-center gap-1 text-navy">
+                <UserRoundPen className='size-4' />
+                {row.classIncharge}
+              </span>
+              <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`tel:${row.phone}`}>
+                <Phone className="size-4" />
+                {row.classInchargePhone}
+              </a>
+            </div>
+          </div>
+          <div className="flex flex-col gap-3 w-full sm:hidden">
+            <div className="flex flex-col gap-0">
+              <span>Account Created At:</span>
+              <div className="flex items-center gap-1">
+                <Clock className='size-4' />
+                {row.createdAt}
+              </div>
+            </div>
+            <div className="flex flex-wrap items-center w-full gap-1">
+              <button type="button" className="icon-btn">
+                <Eye className="size-5 mx-auto" />
+              </button>
+              <button type="button" className="icon-btn">
+                <Trash2 className="size-5 mx-auto" />
+              </button>
+              <button type="button" className="icon-btn">
+                <Pencil className="size-5 mx-auto" />
+              </button>
+            </div>
+          </div>
+        </div>
+      ),
       selector: row => row.name,
       sortable: true
     },
     {
-      name: "Class / Section",
-       cell: row => (
-        <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-navy">
-            {row.classroom}
-          </span>
-          <span className="text-navy bg-navy/10 size-6 rounded-full flex items-center justify-center pb-0.5">
-            {row.section}
-          </span>
-        </div>
-      ),
-      selector: row => row.classroom
-    },
-    {
-      name: "Class Incharge",
+      name: "Class & Incharge",
+      grow: 2,
+      omit: isBelow768,
       cell: row => (
         <div className="flex flex-wrap flex-col gap-1">
+          <span className="flex items-center gap-1 text-navy">
+            <GalleryThumbnails className="size-4" /> {row.classroom} <span className="text-orange">{row.section}</span>
+          </span>
           <span className="flex items-center gap-1 text-navy">
             <UserRoundPen className='size-4' />
             {row.classIncharge}
@@ -76,21 +120,9 @@ const StudentList = () => {
       selector: row => row.classIncharge, sortable: true
     },
     {
-      name: "Parent/Guardian",
-      cell: row => (
-        <div className="flex flex-wrap flex-col gap-1">
-          <span className="text-navy">
-            {row.motherName}
-          </span>
-          <span className="text-navy">
-            {row.fatherName}
-          </span>
-        </div>
-      ),
-      selector: row => row.classIncharge, sortable: true
-    },
-    {
       name: "Parent Contact",
+      omit: isBelow1024,
+      grow: 2,
       cell: row => (
         <div className="flex flex-wrap flex-col gap-1">
           <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`mailto:${row.email}`}>
@@ -106,35 +138,36 @@ const StudentList = () => {
       selector: row => row.contact
     },
     {
-      name: "Created At",
-      cell: row => (
-        <div className="flex items-center gap-1">
-          <Clock className='size-4' />
-          {row.createdAt}
-        </div>
-      ),
-      selector: row => row.createdAt
-    },
-    {
       name: '',
+      minWidth: "160px",
+      omit: isBelow640,
       cell: row => (
-        <div className="flex flex-wrap items-center justify-end w-full gap-1">
-          <button type="button" className="icon-btn">
-            <Eye className="size-5 mx-auto" />
-          </button>
-          <button type="button" className="icon-btn">
-            <Trash2 className="size-5 mx-auto" />
-          </button>
-          <button type="button" className="icon-btn">
-            <Pencil className="size-5 mx-auto" />
-          </button>
+        <div className="flex flex-col gap-3 w-full">
+          <div className="flex flex-col gap-0 items-end">
+            <span>Account Created At:</span>
+            <div className="flex items-center gap-1">
+              <Clock className='size-4' />
+              {row.createdAt}
+            </div>
+          </div>
+          <div className="flex flex-wrap items-center justify-end w-full gap-1">
+            <button type="button" className="icon-btn">
+              <Eye className="size-5 mx-auto" />
+            </button>
+            <button type="button" className="icon-btn">
+              <Trash2 className="size-5 mx-auto" />
+            </button>
+            <button type="button" className="icon-btn">
+              <Pencil className="size-5 mx-auto" />
+            </button>
+          </div>
         </div>
       ),
     },
   ];
   const data = [
-    { id: "#2154879630", classroom: "3rd", section:"A", name: 'Aria Chen', photo: "/public/student.jpg", email: 'christina@site.com', phone: 7986602514, classIncharge: "Mrs. Sheetal devi", classInchargePhone: 7986680522, motherName:"Mrs. Anita Rani", fatherName:"Mr. Paramjeet", createdAt: "28 Dec, 12:12" },
-    { id: "#2154879631", classroom: "3rd", section:"B", name: 'Marcus Webb', photo: "/public/student.jpg", email: 'christina@site.com', phone: 7986602514, classIncharge: "Mrs. Sheetal devi", classInchargePhone: 7986680522, motherName:"Mrs. Anita Rani", fatherName:"Mr. Paramjeet", createdAt: "28 Dec, 12:12" },
+    { id: "#2154879630", classroom: "3rd", section: "A", name: 'Aria Chen', photo: "/public/student.jpg", email: 'christina@site.com', phone: 7986602514, classIncharge: "Mrs. Sheetal devi", classInchargePhone: 7986680522, motherName: "Mrs. Anita Rani", fatherName: "Mr. Paramjeet", createdAt: "28 Dec, 12:12" },
+    { id: "#2154879631", classroom: "3rd", section: "B", name: 'Marcus Webb', photo: "/public/student.jpg", email: 'christina@site.com', phone: 7986602514, classIncharge: "Mrs. Sheetal devi", classInchargePhone: 7986680522, motherName: "Mrs. Anita Rani", fatherName: "Mr. Paramjeet", createdAt: "28 Dec, 12:12" },
   ];
   return (
     <SubAdmin>
@@ -145,9 +178,7 @@ const StudentList = () => {
 
               <Table columns={columns} data={data} handleOpen={handleOpen} btnText="Add Student" btnIcon={<Plus className="w-5 h-5 mx-auto" />} label="Students" subLabel="Add Student, edit and more." />
 
-              {open && (
-                <div style={drawerStyle}>
-                  <button onClick={handleClose}>Close</button>
+                <Drawer handleClose={handleClose} open={open}>
                   <form>
                     <div className="grid gap-y-4 h-screen overflow-auto">
                       <div className="grid gap-y-4">
@@ -266,9 +297,7 @@ const StudentList = () => {
 
                     </div>
                   </form>
-                </div>
-              )}
-
+              </Drawer>
 
             </div>
           </div>
