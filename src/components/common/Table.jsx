@@ -1,5 +1,5 @@
 import DataTable from 'react-data-table-component';
-const Table = ({ columns, data, handleOpen, btnText, btnIcon, label, subLabel }) => {
+const Table = ({ id="", columns, data, handleOpen, btnText, btnIcon, label, subLabel }) => {
     return (
         <>
             <div className="flex gap-3 md:justify-between md:items-center bg-white p-4 rounded-t">
@@ -23,22 +23,20 @@ const Table = ({ columns, data, handleOpen, btnText, btnIcon, label, subLabel })
                     </div>
                 }
             </div>
-            {/* <div className="overflow-x-auto">
-                <div className="min-w-[800px]"> */}
-                    <DataTable
-                        columns={columns}
-                        data={data}
-                        paginationComponentOptions={{
-                            rowsPerPageText: '',
-                            noRowsPerPage: true,
-                        }}
-                        responsive={true}
-                        paginationPerPage={10}
-                        pagination
-                        selectableRows
-                    />
-                {/* </div>
-            </div> */}
+            <div className={`${id}`}>
+                <DataTable
+                    columns={columns}
+                    data={data}
+                    paginationComponentOptions={{
+                        rowsPerPageText: '',
+                        noRowsPerPage: true,
+                    }}
+                    responsive={true}
+                    paginationPerPage={10}
+                    pagination
+                    selectableRows
+                />
+            </div>
         </>
     )
 }

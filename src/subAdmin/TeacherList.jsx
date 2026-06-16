@@ -1,16 +1,31 @@
 import { useState } from "react";
 import SubAdmin from "../SubAdmin";
 import { Clock, Copy, Eye, Mail, Pencil, Phone, Plus, Trash2, UserRound } from "lucide-react";
+import { teacherOptions, classOptions, streamOptions, sectionOptions, subjectOptions } from '../const/constant';
 import Table from "../components/common/Table";
 import CustomSelect from "../components/ui/CustomSelect";
-import { classOptions, sectionOptions } from "../const/constant";
 import ImageUploader from "../components/ui/ImageUploader";
 import Drawer from '../components/common/Drawer';
 import { useIsMobile } from "../hooks/useIsMobile";
+import { useDispatch } from "react-redux";
+import { addTeacher } from "../features/teachers/teachersSlice";
+import { useSelector } from "react-redux";
 
 const TeacherList = () => {
     const [open, setOpen] = useState(false);
-    const { isBelow1920, isBelow1440, isBelow1024, isAbove1024 } = useIsMobile();
+    const { isBelow1440, isBelow1024, isAbove1024 } = useIsMobile();
+    const teachers = useSelector((state) => state.teachers);
+    const dispatch = useDispatch();
+
+    const handleAdd = () => {
+        dispatch(
+            addTeacher({
+                id: Date.now(),
+                name: "John Doe",
+                subject: "Math"
+            })
+        );
+    };
 
     const handleOpen = () => {
         setOpen(true);
@@ -84,26 +99,26 @@ const TeacherList = () => {
 
                     </div>
 
-                   <div className="flex flex-col gap-3">
-                    <div className="flex flex-col gap-0 xl:items-end">
-                        <span className="ps-5">Account Created At:</span>
-                        <div className="flex items-center gap-1">
-                            <Clock className='size-4' />
-                            {row.createdAt}
+                    <div className="flex flex-col gap-3">
+                        <div className="flex flex-col gap-0 xl:items-end">
+                            <span className="ps-5">Account Created At:</span>
+                            <div className="flex items-center gap-1">
+                                <Clock className='size-4' />
+                                {row.createdAt}
+                            </div>
+                        </div>
+                        <div className="flex flex-wrap items-center w-full gap-1">
+                            <button type="button" className="icon-btn">
+                                <Eye className="size-5 mx-auto" />
+                            </button>
+                            <button type="button" className="icon-btn">
+                                <Trash2 className="size-5 mx-auto" />
+                            </button>
+                            <button type="button" className="icon-btn">
+                                <Pencil className="size-5 mx-auto" />
+                            </button>
                         </div>
                     </div>
-                    <div className="flex flex-wrap items-center w-full gap-1">
-                        <button type="button" className="icon-btn">
-                            <Eye className="size-5 mx-auto" />
-                        </button>
-                        <button type="button" className="icon-btn">
-                            <Trash2 className="size-5 mx-auto" />
-                        </button>
-                        <button type="button" className="icon-btn">
-                            <Pencil className="size-5 mx-auto" />
-                        </button>
-                    </div>
-                </div>
                 </div>
             ),
             selector: row => row.name,
@@ -231,23 +246,60 @@ const TeacherList = () => {
             ),
         },
     ];
-    const data = [
-        { id: "#2154879633", name: 'Aria Chen', photo: "/public/student.jpg", email: 'christina@site.com', phone: 7986602514, inchargeOf: "3rd", section: "A", classesTeach: [{ class: "3rd", section: "A", stream: "", subject: "Maths" }, { class: "4th", section: "C", stream: "", subject: "Hindi" }, { class: "5th", section: "C", stream: "", subject: "English" }, { class: "12th", section: "C", stream: "Non Medical", subject: "Physics" }, { class: "3rd", section: "A", stream: "", subject: "Maths" }, { class: "4th", section: "C", stream: "", subject: "Hindi" }, { class: "5th", section: "C", stream: "", subject: "English" }, { class: "12th", section: "C", stream: "Non Medical", subject: "Physics" }], spouseName: "Mr. Charanjeet Singh", createdAt: "28 Dec, 12:12" },
-        { id: "#2154879630", name: 'Aria Chen', photo: "/public/student.jpg", email: 'christina@site.com', phone: 7986602514, inchargeOf: "3rd", section: "A", classesTeach: [{ class: "3rd", section: "A", stream: "", subject: "Maths" }, { class: "4th", section: "C", stream: "", subject: "Hindi" }, { class: "5th", section: "C", stream: "", subject: "English" }, { class: "12th", section: "C", stream: "Non Medical", subject: "Physics" }, { class: "3rd", section: "A", stream: "", subject: "Maths" }, { class: "4th", section: "C", stream: "", subject: "Hindi" }, { class: "5th", section: "C", stream: "", subject: "English" }, { class: "12th", section: "C", stream: "Non Medical", subject: "Physics" }], spouseName: "Mr. Charanjeet Singh", createdAt: "28 Dec, 12:12" },
-        { id: "#2154879631", name: 'Marcus Webb', photo: "/public/student.jpg", email: 'christina@site.com', phone: 7986602514, inchargeOf: "3rd", section: "B", classesTeach: [{ class: "3rd", section: "A", stream: "", subject: "Maths" }, { class: "4th", section: "C", stream: "", subject: "Hindi" }, { class: "5th", section: "C", stream: "", subject: "English" }, { class: "12th", section: "C", stream: "Non Medical", subject: "Physics" }, { class: "3rd", section: "A", stream: "", subject: "Maths" }, { class: "4th", section: "C", stream: "", subject: "Hindi" }, { class: "5th", section: "C", stream: "", subject: "English" }, { class: "12th", section: "C", stream: "Non Medical", subject: "Physics" }], spouseName: "Mr. Charanjeet Singh", createdAt: "28 Dec, 12:12" },
-    ];
+  
     return (
         <SubAdmin>
             <div className="flex flex-col">
                 <div className="overflow-x-auto [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb">
                     <div className="min-w-full inline-block align-middle">
                         <div className="">
+                            <div className="bg-white p-4 rounded mb-4">
 
-                            <Table columns={columns} data={data} handleOpen={handleOpen} btnText="Add Teacher" btnIcon={<Plus className="w-5 h-5 mx-auto" />} label="Teachers" subLabel="Add teacher, edit and more." />
+                                <h2 className='font-bold text-lg' onClick={handleAdd}>Search Teachers</h2>
+                                <p className="text-sm text-navy font-medium">Browse teachers by id, name, classroom, stream, section, subject, email, or phone.</p>
+                                <div className='grid grid-cols-6 gap-4 my-4'>
+                                    <CustomSelect
+                                        options={teacherOptions}
+                                        selectType="teacher"
+                                        label="Name & Id"
+                                        placeholder=""
+                                    />
+                                    <CustomSelect
+                                        options={classOptions}
+                                        selectType="classroom"
+                                        label="Classroom"
+                                        placeholder=""
+                                    />
+                                    <CustomSelect
+                                        options={streamOptions}
+                                        selectType="stream"
+                                        label="Stream"
+                                        placeholder=""
+                                    />
+                                    <CustomSelect
+                                        options={sectionOptions}
+                                        selectType="section"
+                                        label="Section"
+                                        placeholder=""
+                                    />
+                                    <CustomSelect
+                                        options={subjectOptions}
+                                        selectType="subject"
+                                        label="Subject"
+                                        placeholder=""
+                                    />
+                                    <div className={`col-span-1`}>
+                                        <label htmlFor="" className="block text-sm font-medium text-navy mb-1">Email & Phone</label>
+                                        <input type="text" name="" id="" placeholder="" className="input-field" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <Table id="teachers" columns={columns} data={teachers} handleOpen={handleOpen} btnText="Add Teacher" btnIcon={<Plus className="w-5 h-5 mx-auto" />} label="Teachers" subLabel="Add, edit, delete and search a teacher." />
 
                             <Drawer handleClose={handleClose} open={open}>
                                 <form>
-                                    <div className="max-h-screen overflow-auto flex flex-wrap gap-4 items-start">
+                                    <div className="flex flex-wrap gap-4 items-start">
 
                                         <ImageUploader />
 
@@ -326,36 +378,30 @@ const TeacherList = () => {
                                         </div>
                                         <div className="w-full">
                                             <label htmlFor="otherClasses" className="block font-medium text-navy text-sm">Teach Other Classes</label>
-                                            <div className="grid grid-cols-4 gap-2">
+                                            <div className='grid grid-cols-4 gap-2'>
                                                 <CustomSelect
                                                     options={classOptions}
                                                     selectType="classroom"
-                                                    label=""
-                                                    placeholder="Select Classroom"
-                                                    className="w-full"
+                                                    label="Classroom"
+                                                    placeholder="Search Classroom"
                                                 />
-
+                                                <CustomSelect
+                                                    options={streamOptions}
+                                                    selectType="stream"
+                                                    label="Stream"
+                                                    placeholder="Search Stream"
+                                                />
                                                 <CustomSelect
                                                     options={sectionOptions}
                                                     selectType="section"
-                                                    label=""
-                                                    placeholder="Select Section"
-                                                    className="w-full"
+                                                    label="Section"
+                                                    placeholder="Search Section"
                                                 />
                                                 <CustomSelect
-                                                    options={classOptions}
-                                                    selectType="classroom"
-                                                    label=""
-                                                    placeholder="Select Classroom"
-                                                    className="w-full"
-                                                />
-
-                                                <CustomSelect
-                                                    options={sectionOptions}
-                                                    selectType="section"
-                                                    label=""
-                                                    placeholder="Select Section"
-                                                    className="w-full"
+                                                    options={subjectOptions}
+                                                    selectType="subject"
+                                                    label="Subject"
+                                                    placeholder="Search Subject"
                                                 />
                                             </div>
                                         </div>

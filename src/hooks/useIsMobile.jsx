@@ -10,6 +10,7 @@ export const useIsMobile = () => {
       isBelow1024: width < 1024,
       isAbove1024: width > 1024,
       isBelow768: width < 768,
+      isAbove640: width > 640,
       isBelow640: width < 640,
     };
   };

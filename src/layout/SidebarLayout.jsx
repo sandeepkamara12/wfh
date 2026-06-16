@@ -1,11 +1,14 @@
 // import Header from "../components/common/Header"
+import { useLocation } from "react-router-dom";
 import Sidebar from "../components/common/Sidebar"
 
 const SidebarLayout = ({ children }) => {
+  const location = useLocation();
+    let pathName = location.pathname;
   return (
     <>
       {/* <Header /> */}
-      <Sidebar />
+      <Sidebar pathName={pathName} />
       <div className="w-full xl:ps-65 h-screen bg-navy/10">
         <div className="p-4 sm:p-10 space-y-4 sm:space-y-6">
           <div className="flex  items-center">
@@ -23,7 +26,7 @@ const SidebarLayout = ({ children }) => {
                 </svg>
               </li>
               <li className="text-sm font-semibold text-orange truncate" aria-current="page">
-                Assignment
+                {pathName.slice(1).toUpperCase()}
               </li>
             </ol>
           </div>

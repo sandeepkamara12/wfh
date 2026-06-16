@@ -1,10 +1,7 @@
-import { Link, useLocation } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { sidebarLinks } from "../../const/constant";
 
-const Sidebar = () => {
-    const location = useLocation();
-    let pathName = location.pathname;
-
+const Sidebar = ({pathName}) => {
     return (
         <aside id="hs-pro-sidebar" className="hs-overlay [--auto-close:lg]
             hs-overlay-open:translate-x-0

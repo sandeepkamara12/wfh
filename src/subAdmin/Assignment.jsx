@@ -22,7 +22,7 @@ const Assignment = () => {
             <div className="grid sm:grid-cols-2 lg:grid-cols-5 lg:grid-row-2 gap-4">
                 <Card label="Total Teachers" count="72" id="teacher" />
                 <Card label="Total Students" count="7200" id="student" />
-                <Card label="Total Wards" count="12" id="ward" />
+                <Card label="Total Classrooms" count="12" id="classroom" />
                 <Card label="Total Sections" count="5" id="section" />
                 <Card label="Total Subjects" count="10" id="subject" />
             </div>
@@ -42,7 +42,7 @@ const Assignment = () => {
                                     />
 
                                     <div>
-                                        <label htmlFor="class" className="block text-sm font-medium text-navy mb-1">Select Ward</label>
+                                        <label htmlFor="class" className="block text-sm font-medium text-navy mb-1">Select Classroom</label>
                                         <div className="flex flex-wrap gap-2">
                                             <RadioCard icon={<GalleryThumbnails className="size-5" />} text="Nursery" group="class" id="teacher_nursery" />
                                             <RadioCard icon={<GalleryThumbnails className="size-5" />} text="LKG" group="class" id="teacher_lkg" />
@@ -110,7 +110,7 @@ const Assignment = () => {
                                     />
                                     <div>
 
-                                        <label htmlFor="class" className="block text-sm font-medium text-navy mb-1">Select Ward</label>
+                                        <label htmlFor="class" className="block text-sm font-medium text-navy mb-1">Select Classroom</label>
                                         <div className="flex flex-wrap gap-2">
                                             <RadioCard icon={<GalleryThumbnails className="size-5" />} text="Nursery" group="class" id="student_nursery" />
                                             <RadioCard icon={<GalleryThumbnails className="size-5" />} text="LKG" group="class" id="student_lkg" />

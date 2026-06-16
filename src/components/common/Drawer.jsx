@@ -16,7 +16,7 @@ const Drawer = ({children, handleClose, open}) => {
     };
   
     return (
-        <div style={drawerStyle} className="p-10 z-50 bg-white w-3xl h-full fixed right-0 top-0 transition-all duration-300 ease-in-out">
+        <div style={drawerStyle} className="p-10 z-50 bg-white w-4xl h-full fixed right-0 top-0 transition-all duration-300 ease-in-out max-h-screen overflow-auto">
             <button onClick={handleClose} className="icon-btn absolute right-4 top-4">
                 <X />
             </button>

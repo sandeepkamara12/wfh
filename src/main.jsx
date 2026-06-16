@@ -12,9 +12,9 @@ import Assignment from './subAdmin/Assignment.jsx';
 import StreamList from './subAdmin/StreamList.jsx';
 import ClassRoomList from './subAdmin/ClassRoomList.jsx';
 import Homework from './subAdmin/Homework.jsx';
-// import CreateSection from './CreateSection.jsx';
-// import About from './About.jsx';
-
+import { Provider } from 'react-redux';
+import { store } from './store.js';
+import Teacher from './teacher/Teacher.jsx';
 
 const router = createBrowserRouter([
   {
@@ -44,6 +44,10 @@ const router = createBrowserRouter([
     element: <SubAdmin />,
   },
   {
+    path: "/teacher",
+    element: <Teacher />,
+  },
+  {
     path: "/classrooms",
     element: <ClassRoomList />,
   },
@@ -71,6 +75,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </StrictMode>,
 )

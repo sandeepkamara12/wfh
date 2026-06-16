@@ -30,7 +30,7 @@
 
   /* Typography */
   --font-sans: "Commissioner", sans-serif;
-  --font-heading: "Inter", sans-serif;
+  --font-heading: "Commissioner", sans-serif;
 
   /* Spacing */
   --radius: 0.5rem;
@@ -88,7 +88,8 @@
 ========================= */
 @layer components {
   .radioCard {
-    @apply flex items-center gap-2 cursor-pointer rounded  text-navy p-3 bg-white border  border-navy text-xs font-medium uppercase transition-all duration-300 ease-in-out hover:bg-orange hover:border-orange hover:text-white peer-checked:bg-orange peer-checked:text-white peer-checked:border-orange;
+    @apply inline-block text-center min-w-[42px] min-h-[42px] cursor-pointer rounded  text-navy p-3 bg-white border  border-navy text-xs font-medium uppercase transition-all duration-300 ease-in-out hover:bg-orange hover:border-orange hover:text-white peer-checked:bg-orange peer-checked:text-white peer-checked:border-orange;
+    /* @apply flex items-center gap-2 cursor-pointer rounded  text-navy p-3 bg-white border  border-navy text-xs font-medium uppercase transition-all duration-300 ease-in-out hover:bg-orange hover:border-orange hover:text-white peer-checked:bg-orange peer-checked:text-white peer-checked:border-orange; */
   }
   .btn {
     @apply transition-all duration-300 ease-in-out uppercase flex justify-center items-center gap-x-2 w-full py-3 px-4 text-sm font-medium rounded bg-navy border border-navy text-white hover:bg-orange hover:text-white hover:border-orange focus:outline-hidden focus:bg-white disabled:opacity-50 disabled:pointer-events-none;
@@ -129,7 +130,8 @@
   @apply text-xs font-semibold uppercase text-white;
 }
 .rdt_cellCheckbox {@apply p-4!;}
-.rdt_Checkbox {
+.teachers .rdt_Checkbox,
+.students .rdt_Checkbox {
   @apply self-start;
 }
 .rdt_pagination {@apply !justify-between !px-4;}
@@ -165,3 +167,61 @@
   @apply hidden;
 }
 .opened {@apply translate-0!;}
+
+/*******************************************************************************************************/
+/* Input field */
+.custom-datepicker-input {
+  border: 1px solid #122c4f;
+  padding: 10px;
+  border-radius: 6px;
+  color: #122c4f;
+  font-weight: 500;
+}
+
+/* Calendar container */
+.custom-calendar {
+  border: 1px solid #122c4f;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* Header */
+.react-datepicker__header {
+  background-color: #122c4f;
+  color: white;
+  border-bottom: none;
+}
+
+/* Month & year text */
+.react-datepicker__current-month,
+.react-datepicker__day-name {
+  color: white;
+}
+
+/* Selected date */
+.react-datepicker__day--selected {
+  background-color: #fc6e20 !important;
+  color: white;
+  border-radius: 6px;
+}
+
+/* Hover effect */
+.react-datepicker__day:hover {
+  background-color: #fc6e20;
+  color: white;
+}
+
+/* Today highlight */
+.react-datepicker__day--today {
+  border: 1px solid #fc6e20;
+}
+
+/* Navigation arrows */
+.react-datepicker__navigation-icon::before {
+  border-color: white;
+}
+
+/* Week days row */
+.react-datepicker__day-names {
+  background-color: #122c4f;
+}
