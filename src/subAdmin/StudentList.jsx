@@ -1,14 +1,13 @@
 import { useState } from "react";
-import SubAdmin from "../SubAdmin"
 import { Clock, Copy, Eye, GalleryThumbnails, Mail, Pencil, Phone, Plus, Trash2, UserRound, UserRoundPen } from "lucide-react";
-import { studentOptions, classOptions, streamOptions, sectionOptions, subjectOptions } from '../const/constant';
+import { studentOptions, classOptions, streamOptions, sectionOptions } from '../const/constant';
 import Table from "../components/common/Table";
 import { useIsMobile } from "../hooks/useIsMobile";
 import Drawer from "../components/common/Drawer";
 import CustomSelect from "../components/ui/CustomSelect";
 
 const StudentList = () => {
-  const { isBelow1024, isBelow768, isBelow640 } = useIsMobile();
+  const { isBelow1024, isBelow640 } = useIsMobile();
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -202,7 +201,6 @@ const StudentList = () => {
     { id: "#2154879632", classroom: "12th", stream: "Non Medical", section: "C", subject: ["Physics", "Chemistry", "Mathematics", "English"], name: 'Marcus Webb', photo: "/public/student.jpg", email: 'christina@site.com', phone: 7986602514, classIncharge: "Mrs. Sheetal devi", classInchargePhone: 7986680522, motherName: "Mrs. Anita Rani", fatherName: "Mr. Paramjeet", createdAt: "28 Dec, 12:12" },
   ];
   return (
-    <SubAdmin>
       <div className="flex flex-col">
         <div className="overflow-x-auto [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb">
           <div className="min-w-full inline-block align-middle">
@@ -369,7 +367,6 @@ const StudentList = () => {
           </div>
         </div>
       </div>
-    </SubAdmin>
   )
 }
 

@@ -1,4 +1,3 @@
-import SubAdmin from "../SubAdmin"
 import Table from "../components/common/Table";
 import { Clock, LayoutGrid, Pencil, Trash2 } from "lucide-react";
 import { sectionData } from "../const/constant";
@@ -55,7 +54,6 @@ const SectionList = () => {
     },
   ];
   return (
-    <SubAdmin>
       <div className="flex flex-col">
         <div className="overflow-x-auto [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb">
           <div className="min-w-full inline-block align-middle">
@@ -65,7 +63,6 @@ const SectionList = () => {
           </div>
         </div>
       </div>
-    </SubAdmin>
   )
 }
 

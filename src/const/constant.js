@@ -15,16 +15,25 @@ import {
   UserRoundPen,
   UserRoundPlus,
 } from "lucide-react";
-export const sidebarLinks = [
-  { id: 1, path: "/assignments", label: "Assignments", icon: UserRoundPlus },
-  { id: 2, path: "/teachers", label: "Teachers", icon: UserRoundPen },
-  { id: 3, path: "/students", label: "Students", icon: GraduationCap },
-  { id: 4, path: "/classrooms", label: "Classrooms", icon: GalleryThumbnails },
-  { id: 5, path: "/streams", label: "Streams", icon: Network },
-  { id: 6, path: "/sections", label: "Sections", icon: LayoutGrid },
-  { id: 7, path: "/subjects", label: "Subjects", icon: BookOpenText },
-  { id: 8, path: "/homework", label: "Homework", icon: SquareChartGantt },
+
+export const subAdminSidebarLinks = [
+  { id: 1, path: "/sub-admin/assignments", label: "Assignments", icon: UserRoundPlus },
+  { id: 2, path: "/sub-admin/teachers", label: "Teachers", icon: UserRoundPen },
+  { id: 3, path: "/sub-admin/students", label: "Students", icon: GraduationCap },
+  { id: 4, path: "/sub-admin/classrooms", label: "Classrooms", icon: GalleryThumbnails },
+  { id: 5, path: "/sub-admin/streams", label: "Streams", icon: Network },
+  { id: 6, path: "/sub-admin/sections", label: "Sections", icon: LayoutGrid },
+  { id: 7, path: "/sub-admin/subjects", label: "Subjects", icon: BookOpenText },
+  { id: 8, path: "/sub-admin/homework", label: "Homework", icon: SquareChartGantt}, // this one is fine
 ];
+
+export const teacherSidebarLinks = [
+  { id: 1, path: "/teacher/profile", label: "Profile", icon: UserRoundPlus },
+  { id: 2, path: "/teacher/upload-document", label: "Upload Documemt", icon: UserRoundPen },
+  { id: 3, path: "/teacher/students", label: "Students", icon: GraduationCap },
+  { id: 8, path: "/teacher/homework", label: "Homework", icon: SquareChartGantt },
+];
+
 export const teacherOptions = [
   { value: "1235678941", label: "Mrs. Anita Rai", image: "/student.jpg" },
   { value: "2457896312", label: "Mrs. Sonam Kapoor", image: "/student.jpg" },
@@ -206,30 +215,19 @@ export const subjectData = [
   { id: "#2154879633", subject: "Hindi", createdAt: "28 Dec, 12:12" },
   { id: "#2154879634", subject: "Physics", createdAt: "28 Dec, 12:12" },
   { id: "#2154879635", subject: "Chemistry", createdAt: "28 Dec, 12:12" },
-  {
-    id: "#2154879636",
-    subject: "Computer Science",
-    createdAt: "28 Dec, 12:12",
-  },
-  {
-    id: "#2154879637",
-    subject: "Physical Education",
-    createdAt: "28 Dec, 12:12",
-  },
+  { id: "#2154879636", subject: "Computer Science", createdAt: "28 Dec, 12:12"},
+  { id: "#2154879637", subject: "Physical Education", createdAt: "28 Dec, 12:12"},
   { id: "#2154879638", subject: "Accountancy", createdAt: "28 Dec, 12:12" },
-  {
-    id: "#2154879639",
-    subject: "Business Studies",
-    createdAt: "28 Dec, 12:12",
-  },
+  { id: "#2154879639", subject: "Business Studies", createdAt: "28 Dec, 12:12"},
   { id: "#2154879610", subject: "Economics", createdAt: "28 Dec, 12:12" },
   { id: "#2154879611", subject: "History", createdAt: "28 Dec, 12:12" },
-  {
-    id: "#2154879612",
-    subject: "Political Science",
-    createdAt: "28 Dec, 12:12",
-  },
+  { id: "#2154879612", subject: "Political Science", createdAt: "28 Dec, 12:12"},
   { id: "#2154879613", subject: "Sociology", createdAt: "28 Dec, 12:12" },
   { id: "#2154879614", subject: "Geography", createdAt: "28 Dec, 12:12" },
   { id: "#2154879615", subject: "Psychology", createdAt: "28 Dec, 12:12" },
+];
+
+export const homeworkData = [
+  { id: "#2154879630", name: "Aria Chen", photo: "/public/student.jpg", phone: 7986602514, inchargeOf: "3rd", stream: "Arts", section: "A", subject: "Maths", note: "", createdAt: "28 Dec, 12:12"},
+  { id: "#2154879631", name: "Marcus Webb", photo: "/public/student.jpg", phone: 7986602514, inchargeOf: "3rd", stream: "Medical", section: "B", subject: "English", note: "", createdAt: "28 Dec, 12:12"},
 ];

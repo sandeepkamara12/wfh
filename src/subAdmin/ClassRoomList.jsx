@@ -1,4 +1,3 @@
-import SubAdmin from "../SubAdmin"
 import Table from "../components/common/Table";
 import { Clock, Pencil, Plus, Trash2 } from "lucide-react";
 import { classroomData } from "../const/constant";
@@ -55,18 +54,16 @@ const ClassRoomList = () => {
     },
   ];
   return (
-    <SubAdmin>
-      <div className="flex flex-col">
-        <div className="overflow-x-auto [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb">
-          <div className="min-w-full inline-block align-middle">
-            <div className="">
+    <div className="flex flex-col">
+      <div className="overflow-x-auto [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb">
+        <div className="min-w-full inline-block align-middle">
+          <div className="">
 
-              <Table id="classrooms" columns={columns} data={classroomData} btnText="Add Classroom" btnIcon={<Plus className="w-5 h-5 mx-auto" />} label="Classrooms" subLabel="Add Classroom, edit and more." />
-            </div>
+            <Table id="classrooms" columns={columns} data={classroomData} btnText="Add Classroom" btnIcon={<Plus className="w-5 h-5 mx-auto" />} label="Classrooms" subLabel="Add Classroom, edit and more." />
           </div>
         </div>
       </div>
-    </SubAdmin>
+    </div>
   )
 }
 

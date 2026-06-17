@@ -88,17 +88,17 @@
 ========================= */
 @layer components {
   .radioCard {
-    @apply inline-block text-center min-w-[42px] min-h-[42px] cursor-pointer rounded  text-navy p-3 bg-white border  border-navy text-xs font-medium uppercase transition-all duration-300 ease-in-out hover:bg-orange hover:border-orange hover:text-white peer-checked:bg-orange peer-checked:text-white peer-checked:border-orange;
+    @apply flex items-center gap-2 justify-center text-center min-w-32.5 min-h-10.5 cursor-pointer rounded  text-navy p-3 bg-white border-2  border-navy text-xs font-semibold uppercase transition-all duration-300 ease-in-out hover:bg-orange hover:border-orange hover:text-white peer-checked:bg-orange peer-checked:text-white peer-checked:border-orange;
     /* @apply flex items-center gap-2 cursor-pointer rounded  text-navy p-3 bg-white border  border-navy text-xs font-medium uppercase transition-all duration-300 ease-in-out hover:bg-orange hover:border-orange hover:text-white peer-checked:bg-orange peer-checked:text-white peer-checked:border-orange; */
   }
   .btn {
-    @apply transition-all duration-300 ease-in-out uppercase flex justify-center items-center gap-x-2 w-full py-3 px-4 text-sm font-medium rounded bg-navy border border-navy text-white hover:bg-orange hover:text-white hover:border-orange focus:outline-hidden focus:bg-white disabled:opacity-50 disabled:pointer-events-none;
+    @apply transition-all duration-300 ease-in-out uppercase flex justify-center items-center gap-x-2 w-full py-3 px-4 text-sm font-medium rounded bg-navy border-2 border-navy text-white hover:bg-orange hover:text-white hover:border-orange focus:outline-hidden focus:bg-white disabled:opacity-50 disabled:pointer-events-none;
   }
   .icon-btn {
     @apply transition-all duration-300 ease-in-out py-2 px-2 rounded bg-navy border border-navy text-white hover:bg-orange hover:text-white hover:border-orange focus:outline-hidden focus:bg-white disabled:opacity-50 disabled:pointer-events-none;
   }
   .input-field {
-    @apply rounded bg-white w-full border border-navy py-2.5 sm:py-3 px-4 text-sm text-navy placeholder:text-navy focus:border-navy focus:ring-navy disabled:opacity-50 disabled:pointer-events-none
+    @apply rounded bg-white w-full border-2 border-navy py-2.5 sm:py-3 px-4 text-sm text-navy placeholder:text-navy focus:border-navy focus:ring-navy disabled:opacity-50 disabled:pointer-events-none
   }
 
 }

@@ -1,7 +1,12 @@
-import { Link } from "react-router-dom"
-import { sidebarLinks } from "../../const/constant";
+import { Link, useLocation } from "react-router-dom"
+import { subAdminSidebarLinks, teacherSidebarLinks } from "../../const/constant";
+import { LogOut } from "lucide-react";
 
-const Sidebar = ({pathName}) => {
+const Sidebar = () => {
+    const location = useLocation();
+    let pathName = location.pathname;
+    const role = localStorage.getItem("role");
+
     return (
         <aside id="hs-pro-sidebar" className="hs-overlay [--auto-close:lg]
             hs-overlay-open:translate-x-0
@@ -48,23 +53,48 @@ const Sidebar = ({pathName}) => {
 
 
                 <div className="h-full overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb">
-                    <nav className="hs-accordion-group px-3 w-full flex flex-col flex-wrap">
-                        <ul className="space-y-1">
+                    <nav className="hs-accordion-group px-3 w-full flex flex-col flex-wrap h-full">
+                        <ul className="space-y-1 flex flex-col h-full">
                             {
-                                sidebarLinks?.length > 0 && sidebarLinks?.map(link => {
-                                    let Icon = link.icon;
-                                    return (
-                                        <li key={link.id}>
-                                            <Link to={link.path} className={`${pathName === link.path ? 'bg-orange text-white' : 'text-white'} flex no-underline transition-all duration-300 ease-in-out py-2 px-3 text-sm rounded hover:bg-orange hover:text-white focus:outline-hidden focus:bg-navy focus:text-white`}>
-                                                <span className="w-5 mr-3">
-                                                    <Icon className="size-5" />
-                                                </span>
-                                                {link.label}
-                                            </Link>
-                                        </li>
-                                    )
-                                })
+                                role === 'teacher' ?
+                                    teacherSidebarLinks?.length > 0 && teacherSidebarLinks?.map(link => {
+                                        let Icon = link.icon;
+                                        const isActive =  ["/teacher", "/teacher/"].includes(pathName)  && link.path === "/teacher/profile" ? true : pathName.startsWith(link.path);
+                                        return (
+                                            <li key={link.id}>
+                                                <Link to={link.path} className={`${isActive ? 'bg-orange text-white' : 'text-white'} flex no-underline transition-all duration-300 ease-in-out py-2 px-3 text-sm rounded hover:bg-orange hover:text-white focus:outline-hidden focus:bg-orange focus:text-white`}>
+                                                    <span className="w-5 mr-3">
+                                                        <Icon className="size-5" />
+                                                    </span>
+                                                    {link.label}
+                                                </Link>
+                                            </li>
+                                        )
+                                    })
+                                    :
+                                    subAdminSidebarLinks?.length > 0 && subAdminSidebarLinks?.map(link => {
+                                        let Icon = link.icon;
+                                        const isActive =  ["/sub-admin", "/sub-admin/"].includes(pathName)  && link.path === "/sub-admin/assignments" ? true : pathName.startsWith(link.path);
+                                        return (
+                                            <li key={link.id}>
+                                                <Link to={link.path} className={`${isActive ? 'bg-orange text-white' : 'text-white'} flex no-underline transition-all duration-300 ease-in-out py-2 px-3 text-sm rounded hover:bg-orange hover:text-white focus:outline-hidden focus:bg-orange focus:text-white`}>
+                                                    <span className="w-5 mr-3">
+                                                        <Icon className="size-5" />
+                                                    </span>
+                                                    {link.label}
+                                                </Link>
+                                            </li>
+                                        )
+                                    })
                             }
+                            <li className="mt-auto mb-3">
+                                <Link className={`bg-orange text-white flex no-underline transition-all duration-300 ease-in-out py-2 px-3 text-sm rounded hover:bg-orange hover:text-white focus:outline-hidden focus:bg-navy focus:text-white`}>
+                                    <span className="w-5 mr-3">
+                                        <LogOut className="size-5" />
+                                    </span>
+                                    Logout
+                                </Link>
+                            </li>
                         </ul>
                     </nav>
                 </div>

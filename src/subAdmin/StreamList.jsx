@@ -1,4 +1,3 @@
-import SubAdmin from "../SubAdmin"
 import { Clock, Network, Pencil, Trash2 } from "lucide-react";
 import Table from "../components/common/Table";
 import { streamData } from "../const/constant";
@@ -22,7 +21,7 @@ const StreamList = () => {
     },
     {
       name: "Created At",
-      omit:isBelow640,
+      omit: isBelow640,
       cell: row => (
         <div className="flex items-center gap-1">
           <Clock className='size-4' />
@@ -56,17 +55,15 @@ const StreamList = () => {
   ];
 
   return (
-    <SubAdmin>
-      <div className="flex flex-col">
-        <div className="overflow-x-auto [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb">
-          <div className="min-w-full inline-block align-middle">
-            <div className="">
-              <Table id="streams" columns={columns} data={streamData} btnText="Add Stream" btnIcon={<Network className="w-5 h-5 mx-auto" />} label="Streams" subLabel="Add Stream, edit and more." />
-            </div>
+    <div className="flex flex-col">
+      <div className="overflow-x-auto [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb">
+        <div className="min-w-full inline-block align-middle">
+          <div className="">
+            <Table id="streams" columns={columns} data={streamData} btnText="Add Stream" btnIcon={<Network className="w-5 h-5 mx-auto" />} label="Streams" subLabel="Add Stream, edit and more." />
           </div>
         </div>
       </div>
-    </SubAdmin>
+    </div>
   )
 }
 

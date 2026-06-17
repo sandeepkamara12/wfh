@@ -2,10 +2,9 @@ import { Link, Outlet } from 'react-router-dom';
 import './App.css'
 
 function App() {
-
   return (
     <>
-     <nav>
+      <nav>
         <Link to="/student">Student</Link>
         <Link to="/about">About</Link>
       </nav>

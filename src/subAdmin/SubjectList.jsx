@@ -1,4 +1,3 @@
-import SubAdmin from "../SubAdmin";
 import { BookOpenText, Clock, Pencil, Trash2 } from "lucide-react";
 import Table from "../components/common/Table";
 import { subjectData } from "../const/constant";
@@ -57,17 +56,15 @@ const SubjectList = () => {
   ];
 
   return (
-    <SubAdmin>
-      <div className="flex flex-col">
-        <div className="overflow-x-auto [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb">
-          <div className="min-w-full inline-block align-middle">
-            <div className="">
-              <Table id="subjects" columns={columns} data={subjectData} btnText="Add Subject" btnIcon={<BookOpenText className="w-5 h-5 mx-auto" />} label="Subjects" subLabel="Add Subject, edit and more." />
-            </div>
+    <div className="flex flex-col">
+      <div className="overflow-x-auto [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb">
+        <div className="min-w-full inline-block align-middle">
+          <div className="">
+            <Table id="subjects" columns={columns} data={subjectData} btnText="Add Subject" btnIcon={<BookOpenText className="w-5 h-5 mx-auto" />} label="Subjects" subLabel="Add Subject, edit and more." />
           </div>
         </div>
       </div>
-    </SubAdmin>
+    </div>
   )
 }
 

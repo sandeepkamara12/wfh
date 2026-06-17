@@ -20,7 +20,7 @@ const Cards = () => {
 
                         <div className="hs-dropdown [--placement:bottom-right] relative inline-flex">
                             <button id="hs-pro-dupc1" type="button" className="c51lg inline-flex justify-center items-center gap-x-2 wjrmp ywyel qkj0w text-[#6a7282] qrzwu disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden zlh4v" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
-                                <svg className="shrink-0 shb27" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <svg className="shrink-0 shb27" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <circle cx="12" cy="12" r="1"></circle>
                                     <circle cx="12" cy="5" r="1"></circle>
                                     <circle cx="12" cy="19" r="1"></circle>
@@ -31,7 +31,7 @@ const Cards = () => {
                             <div className="hs-dropdown-menu hs-dropdown-open:opacity-100 ulhsq transition-[opacity,margin] duration opacity-0 hidden inmsz nf0zp ywyel border-dropdown-line fe4mk tk1en" role="menu" aria-orientation="vertical" aria-labelledby="hs-pro-dupc1" tabindex="-1">
                                 <div className="kab1w">
                                     <button type="button" className="w-full flex items-center xhgv0 b3s6o tdyt8 wjrmp text-[13px] rcnc1 jub3v disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden i7axs">
-                                        <svg className="shrink-0 r390y w1use" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <svg className="shrink-0 r390y w1use" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                             <circle cx="18" cy="5" r="3"></circle>
                                             <circle cx="6" cy="12" r="3"></circle>
                                             <circle cx="18" cy="19" r="3"></circle>
@@ -41,7 +41,7 @@ const Cards = () => {
                                         Share connection
                                     </button>
                                     <button type="button" className="w-full flex items-center xhgv0 b3s6o tdyt8 wjrmp text-[13px] rcnc1 jub3v disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden i7axs">
-                                        <svg className="shrink-0 r390y w1use" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <svg className="shrink-0 r390y w1use" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                             <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
                                             <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path>
                                             <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path>
@@ -65,7 +65,7 @@ const Cards = () => {
                     </h3>
 
                     <div className="inline-flex justify-center items-center gap-x-2">
-                        <svg className="shrink-0 w-4 h-4 text-[#6a7282]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg className="shrink-0 w-4 h-4 text-[#6a7282]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"></path>
                             <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"></path>
                             <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"></path>
@@ -94,7 +94,7 @@ const Cards = () => {
                                 Connect
                             </span>
                             <span className="relative inmsz hidden peer-checked:flex items-center gap-x-1.5 lqf6y">
-                                <svg className="shrink-0 r390y" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <svg className="shrink-0 r390y" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <path d="M20 6 9 17l-5-5"></path>
                                 </svg>
                                 Connected

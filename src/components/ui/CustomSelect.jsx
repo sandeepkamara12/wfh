@@ -1,7 +1,7 @@
 import { ChevronDown } from "lucide-react";
 import Select from "react-select"
 
-const CustomSelect = ({ options, selectType, label, placeholder, className }) => {
+const CustomSelect = ({ options, selectType, label, placeholder="", className="" }) => {
     const CustomOption = (props) => {
         const { selectType } = props.selectProps;
         const Icon = props.data.icon;
@@ -102,7 +102,7 @@ const CustomSelect = ({ options, selectType, label, placeholder, className }) =>
                         ...base,
                         minHeight: "auto",
                         height: "auto",
-                        border: '1px solid #122c4f',
+                        border: '2px solid #122c4f',
                         padding: '6px 12px'
                     }),
                     valueContainer: (base) => ({

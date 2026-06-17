@@ -1,11 +1,11 @@
 import { BookOpenText, GalleryThumbnails, GraduationCap, LayoutGrid, UserRoundPen } from "lucide-react";
 
-const Card = ({ label, count, id }) => {
+const DashboardCard = ({ label, count, id }) => {
     let icon = id === 'teacher' ?
                 <UserRoundPen /> :
                 id === 'student' ?
                 <GraduationCap /> :
-                id === 'ward' ?
+                id === 'classroom' ?
                 <GalleryThumbnails /> :
                 id === 'section' ?
                 <LayoutGrid /> :
@@ -22,4 +22,4 @@ const Card = ({ label, count, id }) => {
     )
 }
 
-export default Card
+export default DashboardCard
