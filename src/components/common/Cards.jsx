@@ -88,7 +88,7 @@ const Cards = () => {
                         </p>
                     </div>
                     <div>
-                        <label for="hs-pro-dupccn1" className="relative py-2 px-3 flex items-center justify-center sm:justify-start bg-white border border-[#ebe6e7] cursor-pointer font-medium text-xs rounded-lg peer-checked:bg-layer-hover hover:border-line-3 focus:outline-none focus:border-line-3">
+                        <labelhtmlFor="hs-pro-dupccn1" className="relative py-2 px-3 flex items-center justify-center sm:justify-start bg-white border border-[#ebe6e7] cursor-pointer font-medium text-xs rounded-lg peer-checked:bg-layer-hover hover:border-line-3 focus:outline-none focus:border-line-3">
                             <input type="checkbox" id="hs-pro-dupccn1" className="peer hidden" checked="" />
                             <span className="relative inmsz lqf6y peer-checked:hidden">
                                 Connect

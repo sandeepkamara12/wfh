@@ -20,7 +20,7 @@ import ProtectedRoute from './routes/ProtectedRoute.jsx';
 import UploadDocument from './teacher/UploadDocument.jsx';
 import Profile from './teacher/Profile.jsx';
 import Login from './components/auth/Login.jsx';
-import CreateRole from './subAdmin/CreateRole.jsx';
+import { ToastContainer } from 'react-toastify';
 
 const router = createBrowserRouter([
   {
@@ -80,6 +80,7 @@ if (!localStorage.getItem("role")) {
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>
+      <ToastContainer />
       <RouterProvider router={router} />
     </Provider>
   </StrictMode>,

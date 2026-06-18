@@ -180,11 +180,38 @@
 
 /* Calendar container */
 .custom-calendar {
-  border: 1px solid #122c4f;
-  border-radius: 10px;
   overflow: hidden;
+  @apply w-full border-2! border-navy! rounded!;
+}
+.custom-calendar .react-datepicker__month {
+  @apply m-2 flex flex-col gap-2;
+}
+.custom-calendar .react-datepicker__month-container {
+  @apply w-full ;
+}
+.custom-calendar .react-datepicker__month-container .react-datepicker__header {
+  @apply bg-white border-b border-navy;
+}
+.custom-calendar .react-datepicker__day,
+.custom-calendar .react-datepicker__month-container .react-datepicker__day-name {
+  @apply w-[calc(100%/7)] m-0 text-white min-h-14 leading-14 text-center font-semibold text-sm rounded;
 }
 
+.custom-calendar .react-datepicker__week {
+  @apply grid grid-cols-7 gap-2;
+}
+.custom-calendar .react-datepicker__week > div {
+  @apply w-full ;
+}
+.custom-calendar .react-datepicker__day.react-datepicker__day--keyboard-selected {
+  @apply bg-orange! text-white!;
+}
+.custom-calendar .react-datepicker__day {
+  @apply bg-navy/20 text-navy hover:bg-orange! hover:text-white;
+}
+.custom-calendar .react-datepicker__day.react-datepicker__day--disabled {
+  @apply bg-navy/10! text-navy cursor-not-allowed opacity-50;
+}
 /* Header */
 .react-datepicker__header {
   background-color: #122c4f;
@@ -224,4 +251,5 @@
 /* Week days row */
 .react-datepicker__day-names {
   background-color: #122c4f;
+  @apply m-0!;
 }

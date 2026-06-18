@@ -1,7 +1,7 @@
 import DashboardCard from "../components/assignment/DashboardCard"
-import CreateRole from "./CreateRole";
 import AssignTeacher from "../components/assignment/AssignTeacher";
 import AssignStudent from "../components/assignment/AssignStudent";
+import CreateRole from "../components/assignment/CreateRole";
 
 const Assignment = () => {
     return (

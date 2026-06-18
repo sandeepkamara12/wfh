@@ -31,7 +31,7 @@ const Login = () => {
                     <form>
                         <div className="grid gap-y-4">
                             <div>
-                                <label for="email" className="block text-sm mb-2 text-foreground">Email address</label>
+                                <label htmlFor="email" className="block text-sm mb-2 text-foreground">Email address</label>
                                 <div className="relative">
                                     <input type="email" id="email" name="email" className="py-2.5 sm:py-3 px-4 block w-full bg-layer border-layer-line rounded-lg sm:text-sm text-foreground placeholder:text-muted-foreground-1 focus:border-primary-focus focus:ring-primary-focus disabled:opacity-50 disabled:pointer-events-none" required aria-describedby="email-error" />
                                     <div className="hidden absolute inset-y-0 inset-e-0 pointer-events-none pe-3">
@@ -45,7 +45,7 @@ const Login = () => {
 
                             <div>
                                 <div className="flex flex-wrap items-center gap-2">
-                                    <label for="password" className="block text-sm mb-2 text-foreground">Password</label>
+                                    <label htmlFor="password" className="block text-sm mb-2 text-foreground">Password</label>
                                 </div>
                                 <div className="relative">
                                     <input type="password" id="password" name="password" className="py-2.5 sm:py-3 px-4 block w-full bg-layer border-layer-line rounded-lg sm:text-sm text-foreground placeholder:text-muted-foreground-1 focus:border-primary-focus focus:ring-primary-focus disabled:opacity-50 disabled:pointer-events-none" required aria-describedby="password-error" />
@@ -63,7 +63,7 @@ const Login = () => {
                                     <input id="checkbox" name="checkbox" type="checkbox" className="shrink-0 size-4 bg-transparent border-line-3 rounded-sm shadow-2xs text-primary focus:ring-0 focus:ring-offset-0 checked:bg-primary-checked checked:border-primary-checked disabled:opacity-50 disabled:pointer-events-none" />
                                 </div>
                                 <div className="ms-3">
-                                    <label for="checkbox" className="text-sm text-foreground">
+                                    <label htmlFor="checkbox" className="text-sm text-foreground">
                                         Remember me
                                     </label>
                                 </div>
