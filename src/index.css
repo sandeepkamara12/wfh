@@ -203,9 +203,9 @@
 .custom-calendar .react-datepicker__week > div {
   @apply w-full ;
 }
-.custom-calendar .react-datepicker__day.react-datepicker__day--keyboard-selected {
+/* .custom-calendar .react-datepicker__day.react-datepicker__day--keyboard-selected {
   @apply bg-orange! text-white!;
-}
+} */
 .custom-calendar .react-datepicker__day {
   @apply bg-navy/20 text-navy hover:bg-orange! hover:text-white;
 }
@@ -227,9 +227,7 @@
 
 /* Selected date */
 .react-datepicker__day--selected {
-  background-color: #fc6e20 !important;
-  color: white;
-  border-radius: 6px;
+  @apply bg-orange! text-white! rounded;
 }
 
 /* Hover effect */

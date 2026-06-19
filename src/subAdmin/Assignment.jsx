@@ -18,15 +18,15 @@ const Assignment = () => {
                 <div className="overflow-x-auto [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb">
                     <div className="min-w-full align-middle grid grid-cols-6 gap-4">
                         <div className="col-span-2">
+                            <CreateRole />
+                        </div>
+
+                        <div className="col-span-2">
                             <AssignTeacher />
                         </div>
 
                         <div className="col-span-2">
                             <AssignStudent />                           
-                        </div>
-
-                        <div className="col-span-2">
-                            <CreateRole />
                         </div>
 
                     </div>

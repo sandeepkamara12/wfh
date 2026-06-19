@@ -1,12 +1,19 @@
-const RadioCard = ({ icon, text, group, id, value, onChange, checked }) => {
+const RadioCard = ({ icon, text, group, id, error, formik}) => {
     return (
-        <label htmlFor={id} name={`${group}`} className="relative w-auto">
-            <input type="radio" name={`radio-in-${group}`} checked={checked} onChange={onChange} id={id} value={value} className="opacity-0 absolute shrink-0 size-4 bg-transparent border-line-3 rounded-full shadow-2xs text-primary focus:ring-0 focus:ring-offset-0 peer disabled:opacity-50 disabled:pointer-events-none" />
-            <span className="radioCard">
-                {icon}
-                <span>{text}</span>
-            </span>
-        </label>
+        <>
+            <label htmlFor={id} className="relative w-auto">
+                <input type="radio" id={id} name={group} value={id} checked={formik.values[group] === id}  onChange={formik.handleChange} className="opacity-0 absolute shrink-0 size-4 bg-transparent border-line-3 rounded-full shadow-2xs text-primary focus:ring-0 focus:ring-offset-0 peer" />
+                <span className="radioCard">
+                    {icon}
+                    <span>{text}</span>
+                </span>
+            </label>
+            {
+                error && (
+                    <p className="text-red-500 text-sm">{error}</p>
+                )
+            }
+        </>
     )
 }
 

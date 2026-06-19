@@ -7,9 +7,9 @@ export const createRoleThunk = createAsyncThunk(
   async ({ payload }, { rejectWithValue }) => {
     try {
       const response = await axiosinstance.post(createRoleUrl, payload, {
-        //     // headers: {
-        //     //   Authorization: `Bearer ${token}`
-        //     // },
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
       return response.data;
     } catch (error) {
@@ -40,16 +40,16 @@ const createRoleSlice = createSlice({
     builder
       .addCase(createRoleThunk.pending, (state) => {
         state.loading.createRole = true;
-         state.error.createRole = null;
+        state.error.createRole = null;
       })
       .addCase(createRoleThunk.fulfilled, (state, action) => {
         state.loading.createRole = false;
-       state.message = action.payload?.message;
+        state.message = action.payload?.message;
       })
       .addCase(createRoleThunk.rejected, (state, action) => {
         state.loading.createRole = false;
         state.error.createRole =
-        action.payload?.message || "Something went wrong";
+          action.payload?.message || "Something went wrong";
         state.status = action.payload?.status || 500;
       });
   },
