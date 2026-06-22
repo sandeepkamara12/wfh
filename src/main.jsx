@@ -1,42 +1,50 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-// import App from './App.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+import { Provider } from 'react-redux';
+import { store } from './store.js';
+import { ToastContainer } from 'react-toastify';
+
+// Main Routes
+import ProtectedRoute from './routes/ProtectedRoute.jsx';
+import PublicRoute from './routes/PublicRoute.jsx';
+
+// Public Routes
+import Login from './components/auth/Login.jsx';
+
+// Subadmin Routes
+import SubAdmin from './SubAdmin.jsx';
 import StudentList from './subAdmin/StudentList.jsx';
 import TeacherList from './subAdmin/TeacherList.jsx';
-import SubAdmin from './SubAdmin.jsx';
 import SectionList from './subAdmin/SectionList.jsx';
 import SubjectList from './subAdmin/SubjectList.jsx';
 import Assignment from './subAdmin/Assignment.jsx';
 import StreamList from './subAdmin/StreamList.jsx';
 import ClassRoomList from './subAdmin/ClassRoomList.jsx';
 import Homework from './subAdmin/Homework.jsx';
-import { Provider } from 'react-redux';
-import { store } from './store.js';
-import Teacher from './Teacher.jsx';
 
-import ProtectedRoute from './routes/ProtectedRoute.jsx';
-import UploadDocument from './teacher/UploadDocument.jsx';
+// Teacher Route
+import Teacher from './Teacher.jsx';
 import Profile from './teacher/Profile.jsx';
-import Login from './components/auth/Login.jsx';
-import { ToastContainer } from 'react-toastify';
+import UploadDocument from './teacher/UploadDocument.jsx';
+
+// Student Routes
+import Student from './student/Student.jsx';
+import Unauhtorized from './components/common/Unauhtorized.jsx';
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <SubAdmin />,
-  },
-  {
     path: "/login",
-    element: <Login />,
+    element: <PublicRoute><Login /></PublicRoute>,
   },
 
-  // 🛡️ Role-based (ONLY sub-admin)
+  // 🛡️ Role-based (ONLY subadmin)
   {
-    path: "/sub-admin",
+    path: "/subadmin",
     element: (
-      <ProtectedRoute allowedRoles={["sub-admin"]}>
+      <ProtectedRoute allowedRoles={["subadmin"]}>
         <SubAdmin />
       </ProtectedRoute>
     ),
@@ -68,15 +76,26 @@ const router = createBrowserRouter([
     ]
   },
   {
+    path: "/student",
+    element: (
+      <ProtectedRoute allowedRoles={["student"]}>
+        <Student />
+      </ProtectedRoute>
+    ),
+    // children: [
+    //   {index: true, element: <Student />},
+    //   {path: "profile", element: (<Profile />)},
+    //   {path: "upload-document", element: (<UploadDocument />)},
+    //   {path: "students", element: (<Homework />)},
+    //   {path: "homework", element: (<Homework />)},
+    // ]
+  },
+  {
     path: "/unauthorized",
-    element: <h1>Unauthorized</h1>,
+    element: <Unauhtorized />,
   },
 ]);
-if (!localStorage.getItem("role")) {
-  // localStorage.setItem("role", "teacher");
-  localStorage.setItem("role", "sub-admin");
-  localStorage.setItem("isAuth", "true");
-}
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>

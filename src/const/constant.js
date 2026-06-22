@@ -17,14 +17,14 @@ import {
 } from "lucide-react";
 
 export const subAdminSidebarLinks = [
-  { id: 1, path: "/sub-admin/assignments", label: "Assignments", icon: UserRoundPlus },
-  { id: 2, path: "/sub-admin/teachers", label: "Teachers", icon: UserRoundPen },
-  { id: 3, path: "/sub-admin/students", label: "Students", icon: GraduationCap },
-  { id: 4, path: "/sub-admin/classrooms", label: "Classrooms", icon: GalleryThumbnails },
-  { id: 5, path: "/sub-admin/streams", label: "Streams", icon: Network },
-  { id: 6, path: "/sub-admin/sections", label: "Sections", icon: LayoutGrid },
-  { id: 7, path: "/sub-admin/subjects", label: "Subjects", icon: BookOpenText },
-  { id: 8, path: "/sub-admin/homework", label: "Homework", icon: SquareChartGantt}, // this one is fine
+  { id: 1, path: "/subadmin/assignments", label: "Assignments", icon: UserRoundPlus },
+  { id: 2, path: "/subadmin/teachers", label: "Teachers", icon: UserRoundPen },
+  { id: 3, path: "/subadmin/students", label: "Students", icon: GraduationCap },
+  { id: 4, path: "/subadmin/classrooms", label: "Classrooms", icon: GalleryThumbnails },
+  { id: 5, path: "/subadmin/streams", label: "Streams", icon: Network },
+  { id: 6, path: "/subadmin/sections", label: "Sections", icon: LayoutGrid },
+  { id: 7, path: "/subadmin/subjects", label: "Subjects", icon: BookOpenText },
+  { id: 8, path: "/subadmin/homework", label: "Homework", icon: SquareChartGantt}, // this one is fine
 ];
 
 export const teacherSidebarLinks = [
@@ -32,6 +32,11 @@ export const teacherSidebarLinks = [
   { id: 2, path: "/teacher/upload-document", label: "Upload Documemt", icon: UserRoundPen },
   { id: 3, path: "/teacher/students", label: "Students", icon: GraduationCap },
   { id: 8, path: "/teacher/homework", label: "Homework", icon: SquareChartGantt },
+];
+
+export const studentSidebarLinks = [
+  { id: 1, path: "/student", label: "Student", icon: UserRoundPlus },
+  { id: 8, path: "/student/homework", label: "Homework", icon: SquareChartGantt },
 ];
 
 export const teacherOptions = [
@@ -231,3 +236,10 @@ export const homeworkData = [
   { id: "#2154879630", name: "Aria Chen", photo: "/public/student.jpg", phone: 7986602514, inchargeOf: "3rd", stream: "Arts", section: "A", subject: "Maths", note: "", createdAt: "28 Dec, 12:12"},
   { id: "#2154879631", name: "Marcus Webb", photo: "/public/student.jpg", phone: 7986602514, inchargeOf: "3rd", stream: "Medical", section: "B", subject: "English", note: "", createdAt: "28 Dec, 12:12"},
 ];
+
+
+export const roleRedirect = {
+  subadmin: "/subadmin/assignments",
+  teacher: "/teacher/profile",
+  student: "/student",
+};

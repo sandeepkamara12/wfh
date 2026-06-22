@@ -6,7 +6,7 @@ const SidebarLayout = ({ children }) => {
     <>
       {/* <Header /> */}
       <Sidebar />
-      <div className="w-full xl:ps-65 h-screen bg-navy/10">
+      <div className="w-full xl:ps-65 bg-navy/10 min-h-screen">
         <div className="p-4 sm:p-10 space-y-4 sm:space-y-6">
           {children}
         </div>

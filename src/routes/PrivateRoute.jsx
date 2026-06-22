@@ -1,9 +1,9 @@
 import { Navigate } from "react-router-dom";
 
 const PrivateRoute = ({ children }) => {
-  const isAuth = localStorage.getItem("isAuth");
+    const storedData = localStorage.getItem("jwtToken");
 
-  return isAuth === "true" ? children : <Navigate to="/login" />;
+  return storedData?.jwtToken ? children : <Navigate to="/login" />;
 };
 
 export default PrivateRoute;

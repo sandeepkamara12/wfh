@@ -2,7 +2,7 @@ import TextField from "../ui/TextField"
 import EmailField from "../ui/EmailField"
 import PhoneField from "../ui/PhoneField"
 import RadioCard from "../ui/RadioCard"
-import { Camera, GraduationCap, UserRound, UserRoundPen } from "lucide-react"
+import { Camera, GraduationCap, Mars, UserRound, UserRoundPen, Venus } from "lucide-react"
 import DatePicker from "react-datepicker"
 import { format, subYears } from "date-fns";
 import { useDispatch, useSelector } from "react-redux"
@@ -118,10 +118,9 @@ const CreateRole = () => {
         validationSchema,
         onSubmit: async (values, { resetForm }) => {
             const payload = buildPayload(values);
-            console.log(payload, 'aaa')
-            for (let [key, value] of payload.entries()) {
-                console.log(key, value);
-            }
+            // for (let [key, value] of payload.entries()) {
+            //     console.log(key, value);
+            // }
             try {
                 const result = await dispatch(createRoleThunk({ payload })).unwrap();
 
@@ -165,7 +164,7 @@ const CreateRole = () => {
         };
     }, [preview]);
 
-    console.log(formik, 'formik');
+    // console.log(formik, 'formik');
 
     const showParents = formik.values.role === "student" || (formik.values.role === "teacher" && !formik.values.married);
 
@@ -221,8 +220,8 @@ const CreateRole = () => {
                     <div className="col-span-2">
                         <label className="block text-sm font-medium text-navy mb-1">Select Gender</label>
                         <div className="flex flex-wrap gap-2">
-                            <RadioCard icon={<UserRoundPen className="size-5" />} text="Male" group="gender" formik={formik} id="male" error={formik.touched.gender && formik.errors.gender} />
-                            <RadioCard icon={<GraduationCap className="size-5" />} text="Female" group="gender" formik={formik} id="female" error={formik.touched.gender && formik.errors.gender} />
+                            <RadioCard icon={<Mars className="size-5" />} text="Male" group="gender" formik={formik} id="male" error={formik.touched.gender && formik.errors.gender} />
+                            <RadioCard icon={<Venus className="size-5" />} text="Female" group="gender" formik={formik} id="female" error={formik.touched.gender && formik.errors.gender} />
                         </div>
                     </div>
                 </div>

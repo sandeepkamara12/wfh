@@ -1,11 +1,20 @@
-import { Link, useLocation } from "react-router-dom"
-import { subAdminSidebarLinks, teacherSidebarLinks } from "../../const/constant";
+import { Link, useLocation, useNavigate } from "react-router-dom"
+import { studentSidebarLinks, subAdminSidebarLinks, teacherSidebarLinks } from "../../const/constant";
 import { LogOut } from "lucide-react";
+import { removeToken } from "../../features/auth/loginSlice";
+import { useDispatch } from "react-redux";
 
 const Sidebar = () => {
     const location = useLocation();
     let pathName = location.pathname;
-    const role = localStorage.getItem("role");
+    const { role } = JSON.parse(localStorage.getItem("jwtToken"));
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const logout = async () => {
+        await dispatch(removeToken());
+        navigate('/login')
+    }
 
     return (
         <aside id="hs-pro-sidebar" className="hs-overlay [--auto-close:lg]
@@ -56,10 +65,10 @@ const Sidebar = () => {
                     <nav className="hs-accordion-group px-3 w-full flex flex-col flex-wrap h-full">
                         <ul className="space-y-1 flex flex-col h-full">
                             {
-                                role === 'teacher' ?
-                                    teacherSidebarLinks?.length > 0 && teacherSidebarLinks?.map(link => {
+                                role === 'subadmin' ?
+                                    subAdminSidebarLinks?.length > 0 && subAdminSidebarLinks?.map(link => {
                                         let Icon = link.icon;
-                                        const isActive =  ["/teacher", "/teacher/"].includes(pathName)  && link.path === "/teacher/profile" ? true : pathName.startsWith(link.path);
+                                        const isActive = ["/subadmin", "/subadmin/"].includes(pathName) && link.path === "/subadmin/assignments" ? true : pathName.startsWith(link.path);
                                         return (
                                             <li key={link.id}>
                                                 <Link to={link.path} className={`${isActive ? 'bg-orange text-white' : 'text-white'} flex no-underline transition-all duration-300 ease-in-out py-2 px-3 text-sm rounded hover:bg-orange hover:text-white focus:outline-hidden focus:bg-orange focus:text-white`}>
@@ -72,23 +81,40 @@ const Sidebar = () => {
                                         )
                                     })
                                     :
-                                    subAdminSidebarLinks?.length > 0 && subAdminSidebarLinks?.map(link => {
-                                        let Icon = link.icon;
-                                        const isActive =  ["/sub-admin", "/sub-admin/"].includes(pathName)  && link.path === "/sub-admin/assignments" ? true : pathName.startsWith(link.path);
-                                        return (
-                                            <li key={link.id}>
-                                                <Link to={link.path} className={`${isActive ? 'bg-orange text-white' : 'text-white'} flex no-underline transition-all duration-300 ease-in-out py-2 px-3 text-sm rounded hover:bg-orange hover:text-white focus:outline-hidden focus:bg-orange focus:text-white`}>
-                                                    <span className="w-5 mr-3">
-                                                        <Icon className="size-5" />
-                                                    </span>
-                                                    {link.label}
-                                                </Link>
-                                            </li>
-                                        )
-                                    })
+                                    role === 'teacher' ?
+                                        teacherSidebarLinks?.length > 0 && teacherSidebarLinks?.map(link => {
+                                            let Icon = link.icon;
+                                            const isActive = ["/teacher", "/teacher/"].includes(pathName) && link.path === "/teacher/profile" ? true : pathName.startsWith(link.path);
+                                            return (
+                                                <li key={link.id}>
+                                                    <Link to={link.path} className={`${isActive ? 'bg-orange text-white' : 'text-white'} flex no-underline transition-all duration-300 ease-in-out py-2 px-3 text-sm rounded hover:bg-orange hover:text-white focus:outline-hidden focus:bg-orange focus:text-white`}>
+                                                        <span className="w-5 mr-3">
+                                                            <Icon className="size-5" />
+                                                        </span>
+                                                        {link.label}
+                                                    </Link>
+                                                </li>
+                                            )
+                                        })
+                                        :
+                                        studentSidebarLinks?.length > 0 && studentSidebarLinks?.map(link => {
+                                            let Icon = link.icon;
+                                            const isActive = ["/subadmin", "/subadmin/"].includes(pathName) && link.path === "/subadmin/assignments" ? true : pathName.startsWith(link.path);
+                                            return (
+                                                <li key={link.id}>
+                                                    <Link to={link.path} className={`${isActive ? 'bg-orange text-white' : 'text-white'} flex no-underline transition-all duration-300 ease-in-out py-2 px-3 text-sm rounded hover:bg-orange hover:text-white focus:outline-hidden focus:bg-orange focus:text-white`}>
+                                                        <span className="w-5 mr-3">
+                                                            <Icon className="size-5" />
+                                                        </span>
+                                                        {link.label}
+                                                    </Link>
+                                                </li>
+                                            )
+                                        })
+
                             }
                             <li className="mt-auto mb-3">
-                                <Link className={`bg-orange text-white flex no-underline transition-all duration-300 ease-in-out py-2 px-3 text-sm rounded hover:bg-orange hover:text-white focus:outline-hidden focus:bg-navy focus:text-white`}>
+                                <Link onClick={logout} className={`bg-orange text-white flex no-underline transition-all duration-300 ease-in-out py-2 px-3 text-sm rounded hover:bg-orange hover:text-white focus:outline-hidden focus:bg-navy focus:text-white`}>
                                     <span className="w-5 mr-3">
                                         <LogOut className="size-5" />
                                     </span>
