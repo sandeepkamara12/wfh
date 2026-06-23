@@ -14,6 +14,7 @@ import {
   SquareChartGantt,
   UserRoundPen,
   UserRoundPlus,
+  UserRound,
 } from "lucide-react";
 
 export const subAdminSidebarLinks = [
@@ -243,3 +244,13 @@ export const roleRedirect = {
   teacher: "/teacher/profile",
   student: "/student",
 };
+
+export const icons = {
+  first_name: 'UserRound',
+  last_name: 'UserRound',
+  father_name: 'UserRound',
+  mother_name: 'UserRound',
+  spouse_name: 'UserRound',
+  email: 'Mail',
+  phone: 'Phone',
+}

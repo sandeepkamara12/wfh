@@ -1,9 +1,7 @@
-import { CalendarDays, Mail, Phone, UserRound, UserRoundPen, Camera, GraduationCap, Mars, Venus } from 'lucide-react';
+import { CalendarDays, Mail, Phone, UserRound, UserRoundPen, Mars, Venus, Flag } from 'lucide-react';
 import TextField from "../components/ui/TextField"
 import EmailField from "../components/ui/EmailField"
 import PhoneField from "../components/ui/PhoneField"
-import RadioCard from "../components/ui/RadioCard"
-import DatePicker from "react-datepicker"
 import { format, subYears } from "date-fns";
 import { useDispatch, useSelector } from "react-redux"
 import { toast } from "react-toastify"
@@ -11,6 +9,10 @@ import { toast } from "react-toastify"
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useEffect, useMemo, useRef } from "react"
+import ImageUploader from '../components/common/ImageUploader';
+import Gender from '../components/common/Gender';
+import Switch from '../components/ui/Switch';
+import OpenCalendar from '../components/ui/OpenCalendar';
 
 const Profile = () => {
     const loading = useSelector(state => state.role.loading.createRole);
@@ -24,8 +26,8 @@ const Profile = () => {
 
     const validationSchema = Yup.object({
         first_name: Yup.string().required("First name is required"),
-        // email: Yup.string().email("Invalid email").required("Email is required"),
-        // phone: Yup.string().required("Phone is required"),
+        email: Yup.string().email("Invalid email").required("Email is required"),
+        phone: Yup.string().required("Phone is required"),
         dob: Yup.date().nullable().required("Date of birth is required"),
         gender: Yup.string().required("Gender is required"),
         spouse_name: Yup.string().when("married", {
@@ -42,7 +44,7 @@ const Profile = () => {
             then: (schema) => schema.required("Mother name is required"),
         }),
         file: Yup.mixed()
-            .required("Photo required")
+            .required("Picture required")
             .test("fileType", "only .png, .jpg, .jpeg are allowed", (value) => {
                 if (!value) return false;
 
@@ -117,8 +119,6 @@ const Profile = () => {
                 //             role: "teacher",
                 //             first_name: "",
                 //             last_name: "",
-                //             email: "",
-                //             phone: "",
                 //             married: false,
                 //             spouse_name: "",
                 //             father_name: "",
@@ -150,6 +150,15 @@ const Profile = () => {
         }
     };
 
+    const updateImageHandler = (e) => {
+        const file = e.currentTarget.files[0];
+        formik.setFieldValue("file", file);
+    }
+
+    const removeImageHandler = () => {
+        formik.setFieldValue("file", null);
+    }
+
     const preview = useMemo(() => {
         if (!formik.values.file) return null;
         return URL.createObjectURL(formik.values.file);
@@ -163,15 +172,19 @@ const Profile = () => {
 
     const showParents = formik.values.role === "student" || (formik.values.role === "teacher" && !formik.values.married);
 
+    const onChangeHandler = (date) => {
+        formik.setFieldValue("dob", date)
+    }
+
     return (
         <>
             <div className="grid grid-cols-2 gap-4">
                 <div className="col-span-2 flex gap-x-4 bg-white p-4 rounded">
                     <div className="shrink-0">
-                        <img className="shrink-0 size-20 rounded-full" src="https://images.unsplash.com/photo-1510706019500-d23a509eecd4?q=80&w=2667&auto=format&fit=facearea&facepad=3&w=320&h=320&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Avatar" />
+                        <img className="shrink-0 size-24 rounded-full" src="https://images.unsplash.com/photo-1510706019500-d23a509eecd4?q=80&w=2667&auto=format&fit=facearea&facepad=3&w=320&h=320&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Avatar" />
                     </div>
 
-                    <div className="text-sm text-navy grow flex flex-wrap justify-between items-center gap-2">
+                    <div className="text-sm text-navy grow flex flex-wrap justify-between gap-2">
                         <div>
                             <span className="font-semibold tracking-wide pt-0.5 pb-1 px-2 rounded-full text-xs bg-navy/10">#2154879633</span>
                             <h2 className="font-bold text-lg mt-2 mb-1">
@@ -183,10 +196,27 @@ const Profile = () => {
                             </h2>
                             <div className="flex flex-wrap flex-col gap-1">
                                 <span className="flex flex-wrap items-center gap-1">
-                                    <UserRoundPen className="size-4" /> 12th
-                                    <span className="text-orange">A</span>
-                                    <span className="text-xs font-medium">Non Medical</span>
+                                    <UserRoundPen className="size-4" />I am Incharge of
+                                    <div className='font-bold text-xs'>12th <span className='text-orange'>C</span> Non Medical Science</div> and I teach a few more subjects to difference classes:
                                 </span>
+                                <span className="flex flex-wrap items-center gap-1">
+                                    <div className='bg-navy/10 py-1 ps-1.5 pe-6 rounded flex gap-1 items-center font-medium text-xs relative'>
+                                        <span className="text-orange">10th A </span>
+                                        <span className='text-navy'>Medical - Maths</span>
+                                        <Flag className='size-3 absolute right-1.5' />
+                                    </div>
+                                    <div className='bg-navy/10 py-1 ps-1.5 pe-6 rounded flex gap-1 items-center font-medium text-xs relative'>
+                                        <span className="text-orange">12th B </span>
+                                        <span className='text-navy'>Medical - Science</span>
+                                        <Flag className='size-3 absolute right-1.5' />
+                                    </div>
+                                    <div className='bg-navy/10 py-1 ps-1.5 pe-6 rounded flex gap-1 items-center font-medium text-xs relative'>
+                                        <span className="text-orange">8th C </span>
+                                        <span className='text-navy'>English</span>
+                                        <Flag className='size-3 absolute right-1.5' />
+                                    </div>
+                                </span>
+                                <p className='text-red text-xs mt-2'>Kindly click on the flag if subadmin assigned you wrong class, stream, section or subject.</p>
                             </div>
                         </div>
                         <div className="flex flex-col gap-1">
@@ -206,126 +236,53 @@ const Profile = () => {
                     </div>
                 </div>
             </div>
-            <div className="bg-white p-6 rounded">
-                <h2 className="mb-6 font-bold text-lg">Update <span className="text-orange">Profile</span></h2>
-                <form className="grid gap-y-4" onSubmit={formik.handleSubmit}>
-                    <div className="grid grid-cols-4 gap-4 items-end">
-                        
-                        <div className="grid gap-y-4 col-span-1">
-                            <div className="flex flex-col">
-                                <label className="block text-sm font-medium text-navy mb-1">Select Picture</label>
-                                <span className="inline-block size-16 bg-white rounded-full relative group">
-                                    <span className="inline-flex flex-wrap items-center justify-center border-2 border-navy size-16 rounded-full overflow-hidden relative z-50">
-                                        <input
-                                            type="file"
-                                            ref={fileRef}
-                                            accept="image/*"
-                                            className="absolute opacity-0 w-full h-full cursor-pointer z-40 hidden"
-                                            onChange={(e) => {
-                                                const file = e.currentTarget.files[0];
-                                                formik.setFieldValue("file", file);
 
-                                                // ✅ Immediately clear error if valid file selected
-                                                // if (file) {
-                                                //     formik.setFieldError("file", undefined);
-                                                // }
-                                            }}
-                                        />
-                                        {preview ? (
-                                            <img src={preview} className="w-full h-full object-cover" alt="profile preview" />
-                                        ) : (
-                                            <UserRound className="size-5" />
-                                        )}
-                                    </span>
-                                    <span onClick={handleImageUpload} className="bg-navy absolute top-0 bottom-0 left-0 right-0 border-2 border-navy p-1 rounded-full flex flex-wrap items-center justify-center opacity-0 z-50 group-hover:opacity-100 cursor-pointer transition-all duration-300 ease-in-out">
-                                        <Camera className="size-5 text-white" />
-                                    </span>
-                                </span>
-                                {
-                                    // formik.touched.file && 
-                                    formik.errors.file && (
-                                        <p className="text-red-500 text-sm">{formik.errors.file}</p>
-                                    )}
-                            </div>
-                            <div className="">
-                                <label className="block text-sm font-medium text-navy mb-1">Select Gender</label>
-                                <div className="flex flex-wrap gap-2">
-                                    <RadioCard icon={<Mars className="size-5" />} text="Male" group="gender" formik={formik} id="male" error={formik.touched.gender && formik.errors.gender} />
-                                    <RadioCard icon={<Venus className="size-5" />} text="Female" group="gender" formik={formik} id="female" error={formik.touched.gender && formik.errors.gender} />
+            <div className="">
+                <form className="bg-white p-6 rounded" onSubmit={formik.handleSubmit}>
+                    <div className="grid grid-cols-3 items-start gap-4">
+                        <div className='col-span-2 grid items-start gap-6'>
+                            <h2 className="font-bold text-lg">Update <span className="text-orange">Profile</span></h2>
+                            <div className='grid grid-cols-2 gap-4'>
+                                <ImageUploader formik={formik} ref={fileRef} updateImageHandler={updateImageHandler} removeImageHandler={removeImageHandler} preview={preview} handleImageUpload={handleImageUpload} />
+                                <div className="mt-3">
+                                    <Gender formik={formik} />
                                 </div>
                             </div>
-                        </div>
-                        
-                        <div clasName="col-span-2">
+
                             <div className="grid grid-cols-2 gap-4">
-                                <TextField label="First Name" id="first_name" {...formik.getFieldProps("first_name")} error={formik.touched.first_name && formik.errors.first_name} />
+                                <TextField label="First Name" id="first_name" {...formik.getFieldProps("first_name")} error={formik.touched.first_name && formik.errors.first_name} required={true} />
                                 <TextField label="Last Name" id="last_name" {...formik.getFieldProps("last_name")} error={formik.touched.last_name && formik.errors.last_name} />
                             </div>
                             <div className="grid grid-cols-2 gap-4">
-                                <EmailField label="Email Address" id="email" {...formik.getFieldProps("email")} error={formik.touched.email && formik.errors.email} disabled={true} />
-                                <PhoneField label="Phone" id="phone" {...formik.getFieldProps("phone")} error={formik.touched.phone && formik.errors.phone} disabled={true} />
+                                <EmailField label="Email Address" id="email" {...formik.getFieldProps("email")} error={formik.errors.email} required={true} />
+                                <PhoneField label="Phone" id="phone" {...formik.getFieldProps("phone")} error={formik.errors.phone} required={true} />
+                            </div>
+                            <div className='flex flex-col gap-4 mt-6'>
+                                {
+                                    formik.values.role === "teacher" &&
+                                    <Switch formik={formik} onChangeHandler={handleMarried} label={"Are you married?"} checked={formik.values.married} />
+                                }
+                                {
+                                    formik.values.married &&
+                                    <div className='grid grid-cols-2 gap-4'>
+                                        <TextField label="Spouse Name" id="spouse_name" {...formik.getFieldProps("spouse_name")} error={formik.errors.spouse_name} required={true} />
+                                    </div>
+                                }
+                                {
+                                    showParents &&
+                                    <div className='grid grid-cols-2 gap-4'>
+                                        <TextField label="Father Name" id="father_name" {...formik.getFieldProps("father_name")} error={formik.errors.father_name} required={true} />
+                                        <TextField label="Mother Name" id="mother_name" {...formik.getFieldProps("mother_name")} error={formik.errors.mother_name} required={true} />
+                                    </div>
+                                }
                             </div>
                         </div>
-
-                        <div className="col-span-1">
-
-
-                            {
-                                formik.values.role === "teacher" &&
-                                <>
-                                    <div className="flex flex-wrap items-center gap-5">
-                                        <div className="hs-tooltip flex items-center gap-x-3">
-                                            <label htmlFor="hs-basic-usage" className="relative inline-block w-11 h-6 cursor-pointer">
-                                                <input
-                                                    type="checkbox"
-                                                    id="hs-basic-usage"
-                                                    className="peer sr-only"
-                                                    onChange={(e) => handleMarried(e)}
-                                                    checked={formik.values.married}
-                                                />
-                                                <span className="absolute inset-0 bg-white border-2 border-navy rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-orange peer-checked:border-orange"></span>
-                                                <span className="absolute top-1/2 inset-s-1 -translate-y-1/2 size-4 bg-navy rounded-full shadow-sm transition-transform duration-200 ease-in-out peer-checked:translate-x-[calc(100%+5px)] peer-checked:bg-white"></span>
-                                            </label>
-                                            <label htmlFor="hs-tooltip-example" className="text-sm text-muted-foreground-1">Are you married?</label>
-                                        </div>
-                                    </div>
-                                    {
-                                        formik.values.married &&
-                                        <TextField label="Spouse Name" id="spouse_name" {...formik.getFieldProps("spouse_name")} error={formik.touched.spouse_name && formik.errors.spouse_name} />
-                                    }
-                                </>
-                            }
-                            {
-                                showParents &&
-                                <>
-                                    <TextField label="Father Name" id="father_name" {...formik.getFieldProps("father_name")} error={formik.touched.father_name && formik.errors.father_name} />
-                                    <TextField label="Mother Name" id="mother_name" {...formik.getFieldProps("mother_name")} error={formik.touched.mother_name && formik.errors.mother_name} />
-                                </>
-                            }
+                        <div className='col-span-1 mt-16 ms-6'>
+                           <OpenCalendar formik={formik} onChangeHandler={onChangeHandler} maxDate={maxDate} name="dob" label="Date of Birth" required={true} />
                         </div>
                     </div>
-                    {
-                        <div className="">
-                            <label className="block text-sm font-medium text-navy mb-1">Select D.O.B <span className="text-xs text-orange">(A teacher should be 18 years old)</span></label>
-                            <DatePicker
-                                inline
-                                showYearDropdown
-                                scrollableYearDropdown
-                                maxDate={maxDate}
-                                yearDropdownItemNumber={100}
-                                selected={formik.values.dob}
-                                onChange={(date) => formik.setFieldValue("dob", date)}
-                                calendarClassName="custom-calendar"
-                                className="custom-datepicker-input"
-                                dateFormat="dd-MM-yyyy"
-                            />
-                            {formik.touched.dob && formik.errors.dob && (
-                                <p className="text-red-500 text-sm">{formik.errors.dob}</p>
-                            )}
-                        </div>
-                    }
+                    <button type="submit" className="mt-4 w-auto btn" disabled={loading || !(formik.isValid && formik.dirty)}>{loading ? "Updating..." : "Update Profile"}</button>
                     {/* {selectedDate && <p className="mt-4 text-sm text-muted-foreground-2">{selectedDate.toLocaleDateString()}</p>} */}
-                    <button type="submit" className="btn" disabled={loading || !(formik.isValid && formik.dirty)}>{loading ? "Updating..." : "Update Profile"}</button>
                 </form>
             </div>
         </>
