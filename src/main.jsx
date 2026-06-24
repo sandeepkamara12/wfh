@@ -31,7 +31,7 @@ import Profile from './teacher/Profile.jsx';
 import UploadDocument from './teacher/UploadDocument.jsx';
 
 // Student Routes
-import Student from './student/Student.jsx';
+// import Student from './student/Student.jsx';
 import Unauhtorized from './components/common/Unauhtorized.jsx';
 
 const router = createBrowserRouter([
@@ -75,21 +75,14 @@ const router = createBrowserRouter([
       {path: "homework", element: (<Homework />)},
     ]
   },
-  {
-    path: "/student",
-    element: (
-      <ProtectedRoute allowedRoles={["student"]}>
-        <Student />
-      </ProtectedRoute>
-    ),
-    // children: [
-    //   {index: true, element: <Student />},
-    //   {path: "profile", element: (<Profile />)},
-    //   {path: "upload-document", element: (<UploadDocument />)},
-    //   {path: "students", element: (<Homework />)},
-    //   {path: "homework", element: (<Homework />)},
-    // ]
-  },
+  // {
+  //   path: "/student",
+  //   element: (
+  //     <ProtectedRoute allowedRoles={["student"]}>
+  //       <Student />
+  //     </ProtectedRoute>
+  //   ),
+  // },
   {
     path: "/unauthorized",
     element: <Unauhtorized />,
