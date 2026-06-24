@@ -245,7 +245,9 @@
 .custom-calendar .react-datepicker__week > div {
   @apply w-full;
 }
-
+.custom-calendar .react-datepicker__week > div.react-datepicker__day--today {
+  @apply bg-orange text-white;
+}
 /* .custom-calendar .react-datepicker__day.react-datepicker__day--keyboard-selected {
   @apply bg-orange! text-white!;
 } */
