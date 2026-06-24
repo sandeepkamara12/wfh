@@ -199,12 +199,12 @@ const CreateRole = () => {
                     </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
-                    <TextField label="First Name" id="first_name" {...formik.getFieldProps("first_name")} error={formik.errors.first_name} required={true} />
-                    <TextField label="Last Name" id="last_name" {...formik.getFieldProps("last_name")} error={formik.errors.last_name} />
+                    <TextField label="First Name" id="first_name" {...formik.getFieldProps("first_name")} error={formik.touched.first_name && formik.errors.first_name} required={true} />
+                    <TextField label="Last Name" id="last_name" {...formik.getFieldProps("last_name")} />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
-                    <EmailField label="Email Address" id="email" {...formik.getFieldProps("email")} error={formik.errors.email} required={true} />
-                    <PhoneField label="Phone" id="phone" {...formik.getFieldProps("phone")} error={formik.errors.phone} required={true} />
+                    <EmailField label="Email Address" id="email" {...formik.getFieldProps("email")} error={formik.touched.email && formik.errors.email} required={true} />
+                    <PhoneField label="Phone" id="phone" {...formik.getFieldProps("phone")} error={formik.touched.phone && formik.errors.phone} required={true} />
                 </div>
                 {
                     formik.values.role === "teacher" &&
@@ -212,15 +212,15 @@ const CreateRole = () => {
                         <Switch formik={formik} onChangeHandler={handleMarried} label={"Are you married?"} checked={formik.values.married} />
                         {
                             formik.values.married &&
-                            <TextField label="Spouse Name" id="spouse_name" {...formik.getFieldProps("spouse_name")} error={formik.errors.spouse_name} required={true} />
+                            <TextField label="Spouse Name" id="spouse_name" {...formik.getFieldProps("spouse_name")} error={formik.touched.spouse_name && formik.errors.spouse_name} required={true} />
                         }
                     </>
                 }
                 {
                     showParents &&
                     <>
-                        <TextField label="Father Name" id="father_name" {...formik.getFieldProps("father_name")} error={formik.errors.father_name} required={true} />
-                        <TextField label="Mother Name" id="mother_name" {...formik.getFieldProps("mother_name")} error={formik.errors.mother_name} required={true} />
+                        <TextField label="Father Name" id="father_name" {...formik.getFieldProps("father_name")} error={formik.touched.father_name && formik.errors.father_name} required={true} />
+                        <TextField label="Mother Name" id="mother_name" {...formik.getFieldProps("mother_name")} error={formik.touched.mother_name && formik.errors.mother_name} required={true} />
                     </>
                 }
                 {

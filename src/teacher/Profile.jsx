@@ -1,4 +1,4 @@
-import { CalendarDays, Mail, Phone, UserRound, UserRoundPen, Mars, Venus, Flag } from 'lucide-react';
+import { CalendarDays, Mail, Phone, UserRound, UserRoundPen, Flag } from 'lucide-react';
 import TextField from "../components/ui/TextField"
 import EmailField from "../components/ui/EmailField"
 import PhoneField from "../components/ui/PhoneField"
@@ -16,7 +16,7 @@ import OpenCalendar from '../components/ui/OpenCalendar';
 
 const Profile = () => {
     const loading = useSelector(state => state.role.loading.createRole);
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
     // Date
     const maxDate = subYears(new Date(), 18);
@@ -196,8 +196,8 @@ const Profile = () => {
                             </h2>
                             <div className="flex flex-wrap flex-col gap-1">
                                 <span className="flex flex-wrap items-center gap-1">
-                                    <UserRoundPen className="size-4" />I am Incharge of
-                                    <div className='font-bold text-xs'>12th <span className='text-orange'>C</span> Non Medical Science</div> and I teach a few more subjects to difference classes:
+                                    <UserRoundPen className="size-4" />I am In charge of
+                                    <div className='font-bold text-xs'>12th <span className='text-orange'>C</span> Non Medical Science</div> and also teach several subjects across different classes.
                                 </span>
                                 <span className="flex flex-wrap items-center gap-1">
                                     <div className='bg-navy/10 py-1 ps-1.5 pe-6 rounded flex gap-1 items-center font-medium text-xs relative'>
@@ -254,8 +254,8 @@ const Profile = () => {
                                 <TextField label="Last Name" id="last_name" {...formik.getFieldProps("last_name")} error={formik.touched.last_name && formik.errors.last_name} />
                             </div>
                             <div className="grid grid-cols-2 gap-4">
-                                <EmailField label="Email Address" id="email" {...formik.getFieldProps("email")} error={formik.errors.email} required={true} />
-                                <PhoneField label="Phone" id="phone" {...formik.getFieldProps("phone")} error={formik.errors.phone} required={true} />
+                                <EmailField label="Email Address" id="email" {...formik.getFieldProps("email")} error={formik.touched.email && formik.errors.email} required={true} />
+                                <PhoneField label="Phone" id="phone" {...formik.getFieldProps("phone")} error={formik.touched.phone && formik.errors.phone} required={true} />
                             </div>
                             <div className='flex flex-col gap-4 mt-6'>
                                 {
@@ -265,19 +265,19 @@ const Profile = () => {
                                 {
                                     formik.values.married &&
                                     <div className='grid grid-cols-2 gap-4'>
-                                        <TextField label="Spouse Name" id="spouse_name" {...formik.getFieldProps("spouse_name")} error={formik.errors.spouse_name} required={true} />
+                                        <TextField label="Spouse Name" id="spouse_name" {...formik.getFieldProps("spouse_name")} error={formik.touched.spouse_name && formik.errors.spouse_name} required={true} />
                                     </div>
                                 }
                                 {
                                     showParents &&
                                     <div className='grid grid-cols-2 gap-4'>
-                                        <TextField label="Father Name" id="father_name" {...formik.getFieldProps("father_name")} error={formik.errors.father_name} required={true} />
-                                        <TextField label="Mother Name" id="mother_name" {...formik.getFieldProps("mother_name")} error={formik.errors.mother_name} required={true} />
+                                        <TextField label="Father Name" id="father_name" {...formik.getFieldProps("father_name")} error={formik.touched.father_name && formik.errors.father_name} required={true} />
+                                        <TextField label="Mother Name" id="mother_name" {...formik.getFieldProps("mother_name")} error={formik.touched.mother_name && formik.errors.mother_name} required={true} />
                                     </div>
                                 }
                             </div>
                         </div>
-                        <div className='col-span-1 mt-16 ms-6'>
+                        <div className='col-span-1 mt-12 ms-6'>
                            <OpenCalendar formik={formik} onChangeHandler={onChangeHandler} maxDate={maxDate} name="dob" label="Date of Birth" required={true} />
                         </div>
                     </div>

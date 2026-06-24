@@ -7,6 +7,16 @@ import RadioCard from "../components/assignment/RadioCard";
 
 const UploadDocument = () => {
     const [selectedDate, setSelectedDate] = useState(new Date());
+    const [preview, setPreview] = useState(null);
+
+    const captureImage = (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const url = URL.createObjectURL(file);
+                setPreview(url);
+                // document.getElementById("preview").src = url;
+            }
+    }
 
     return (
         <div className="grid grid-cols-2 gap-4">
@@ -72,6 +82,15 @@ const UploadDocument = () => {
                 }
                 {selectedDate && <p className="mt-4 text-sm text-muted-foreground-2">{selectedDate.toLocaleDateString()}</p>}
 
+                <input
+                    type="file"
+                    accept="image/*"
+                    capture="environment"
+                    id="cameraInput"
+                    onChange={captureImage}
+                />
+
+                <img id="preview" width="200" src={preview} />
 
                 <div className="grid grid-cols-20 gap-4">
                     <Note />
