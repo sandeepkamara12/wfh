@@ -17,7 +17,7 @@ export const loginThunk = createAsyncThunk(
     }
   },
 );
-
+console.log('hello testing.')
 const loginSlice = createSlice({
   name: "login",
   initialState: {
