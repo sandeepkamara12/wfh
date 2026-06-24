@@ -17,7 +17,7 @@ export const loginThunk = createAsyncThunk(
     }
   },
 );
-console.log('hello testing.')
+console.log(`hello testing.  + ${import.meta.env.VITE_API_BASE_URL}`)
 const loginSlice = createSlice({
   name: "login",
   initialState: {
