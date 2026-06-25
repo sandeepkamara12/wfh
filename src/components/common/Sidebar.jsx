@@ -3,6 +3,7 @@ import { studentSidebarLinks, subAdminSidebarLinks, teacherSidebarLinks } from "
 import { LogOut } from "lucide-react";
 import { removeToken } from "../../features/auth/loginSlice";
 import { useDispatch } from "react-redux";
+import { persistor } from "../../store";
 
 const Sidebar = () => {
     const location = useLocation();
@@ -12,7 +13,8 @@ const Sidebar = () => {
     const navigate = useNavigate();
 
     const logout = async () => {
-        await dispatch(removeToken());
+        persistor.purge()
+        // await dispatch(removeToken());
         navigate('/login')
     }
 

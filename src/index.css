@@ -384,3 +384,31 @@
   right: 32px;
   left: initial !important;
 }
+/* Swiper */
+.swiper-pagination  {
+  @apply flex flex-wrap items-center justify-center gap-2 mt-6;
+}
+.swiper-pagination-bullet {
+  @apply w-2 h-2 inline-block bg-white rounded-full;
+}
+.swiper-pagination-bullet.swiper-pagination-bullet-active {
+  @apply bg-orange;
+}
+/****************************************** Code for partners ***********************************************************************/
+.swiper-container {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+/* Active (center card) */
+.swiper-slide {
+  @apply grayscale-100 opacity-25;
+}
+.swiper-slide-active {
+  @apply grayscale-0 opacity-100;
+}
+.swiper-wrapper {
+  transition-timing-function: linear !important; /* ✅ KEY for marquee */
+}
+/****************************************** Code for partners ***********************************************************************/

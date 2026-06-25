@@ -23,6 +23,7 @@ const loginSlice = createSlice({
     status: "",
     loading: false,
     error: null,
+    teacher:{},
     message: "",
   },
   reducers: {
@@ -42,6 +43,23 @@ const loginSlice = createSlice({
       .addCase(loginThunk.fulfilled, (state, action) => {
         state.loading = false;
         state.message = action.payload?.message;
+        const teacher = {
+          id:action.payload.id,
+          email:action.payload.email,
+          phone:action.payload.phone,
+          first_name:action.payload.first_name,
+          last_name:action.payload.last_name,
+          father_name:action.payload.father_name,
+          mother_name:action.payload.mother_name,
+          spouse_name:action.payload.spouse_name,
+          profile_pic:action.payload.profile_pic,
+          dob:action.payload.dob,
+          gender:action.payload.gender,
+          married:action.payload.married,
+          role:action.payload.role,
+          jwtToken:action.payload.jwtToken,
+        };
+        state.teacher = teacher;
       })
       .addCase(loginThunk.rejected, (state, action) => {
         state.loading = false;

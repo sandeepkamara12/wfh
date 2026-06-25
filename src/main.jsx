@@ -4,7 +4,6 @@ import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
-import { store } from './store.js';
 import { ToastContainer } from 'react-toastify';
 
 // Main Routes
@@ -33,11 +32,19 @@ import UploadDocument from './teacher/UploadDocument.jsx';
 // Student Routes
 // import Student from './student/Student.jsx';
 import Unauhtorized from './components/common/Unauhtorized.jsx';
+import Partners from './components/future/Partners.jsx';
+
+import { store, persistor } from './store';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const router = createBrowserRouter([
   {
     path: "/login",
     element: <PublicRoute><Login /></PublicRoute>,
+  },
+  {
+    path: "/partners",
+    element: <PublicRoute><Partners /></PublicRoute>,
   },
 
   // 🛡️ Role-based (ONLY subadmin)
@@ -57,7 +64,7 @@ const router = createBrowserRouter([
       { path: "streams", element: (<StreamList />) },
       { path: "sections", element: (<SectionList />) },
       { path: "subjects", element: (<SubjectList />) },
-      {path: "homework", element: (<Homework />)},
+      { path: "homework", element: (<Homework />) },
     ]
   },
   {
@@ -68,11 +75,11 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
     children: [
-      {index: true, element: <Profile />},
-      {path: "profile", element: (<Profile />)},
-      {path: "upload-document", element: (<UploadDocument />)},
-      {path: "students", element: (<Homework />)},
-      {path: "homework", element: (<Homework />)},
+      { index: true, element: <Profile /> },
+      { path: "profile", element: (<Profile />) },
+      { path: "upload-document", element: (<UploadDocument />) },
+      { path: "students", element: (<Homework />) },
+      { path: "homework", element: (<Homework />) },
     ]
   },
   // {
@@ -92,8 +99,10 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>
-      <ToastContainer />
-      <RouterProvider router={router} />
+      <PersistGate loading={null} persistor={persistor}>
+        <ToastContainer />
+        <RouterProvider router={router} />
+      </PersistGate>
     </Provider>
   </StrictMode>,
 )

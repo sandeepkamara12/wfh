@@ -251,6 +251,128 @@ export const icons = {
   father_name: 'UserRound',
   mother_name: 'UserRound',
   spouse_name: 'UserRound',
-  email: 'Mail',
-  phone: 'Phone',
+  login:'Mail'
 }
+
+export const partners = [
+  {
+    title:'CGC Chandigarh',
+    location: "Tokyo, Japan",
+    img: "/public/school-logo-1.png",
+  },
+  {
+    title:'CGC Chandigarh',
+    location: "Barcelona, Spain",
+    img: "/public/school-logo-2.png",
+  },
+  {
+    title:'CGC Chandigarh',
+    location: "Rome, Italy",
+    img: "/public/school-logo-3.png",
+  },
+  {
+    title:'CGC Chandigarh',
+    location: "Tokyo, Japan",
+    img: "/public/school-logo-1.png",
+  },
+  {
+    title:'CGC Chandigarh',
+    location: "Barcelona, Spain",
+    img: "/public/school-logo-2.png",
+  },
+  {
+    title:'CGC Chandigarh',
+    location: "Rome, Italy",
+    img: "/public/school-logo-3.png",
+  },
+  {
+    title:'CGC Chandigarh',
+    location: "Tokyo, Japan",
+    img: "/public/school-logo-1.png",
+  },
+  {
+    title:'CGC Chandigarh',
+    location: "Barcelona, Spain",
+    img: "/public/school-logo-2.png",
+  },
+  {
+    title:'CGC Chandigarh',
+    location: "Rome, Italy",
+    img: "/public/school-logo-3.png",
+  },
+  {
+    title:'CGC Chandigarh',
+    location: "Tokyo, Japan",
+    img: "/public/school-logo-1.png",
+  },
+  {
+    title:'CGC Chandigarh',
+    location: "Barcelona, Spain",
+    img: "/public/school-logo-2.png",
+  },
+  {
+    title:'CGC Chandigarh',
+    location: "Rome, Italy",
+    img: "/public/school-logo-3.png",
+  },
+  {
+    title:'CGC Chandigarh',
+    location: "Tokyo, Japan",
+    img: "/public/school-logo-1.png",
+  },
+  {
+    title:'CGC Chandigarh',
+    location: "Barcelona, Spain",
+    img: "/public/school-logo-2.png",
+  },
+  {
+    title:'CGC Chandigarh',
+    location: "Rome, Italy",
+    img: "/public/school-logo-3.png",
+  },
+  {
+    title:'CGC Chandigarh',
+    location: "Tokyo, Japan",
+    img: "/public/school-logo-1.png",
+  },
+  {
+    title:'CGC Chandigarh',
+    location: "Barcelona, Spain",
+    img: "/public/school-logo-2.png",
+  },
+  {
+    title:'CGC Chandigarh',
+    location: "Rome, Italy",
+    img: "/public/school-logo-3.png",
+  },
+  {
+    title:'CGC Chandigarh',
+    location: "Tokyo, Japan",
+    img: "/public/school-logo-1.png",
+  },
+  {
+    title:'CGC Chandigarh',
+    location: "Barcelona, Spain",
+    img: "/public/school-logo-2.png",
+  },
+  {
+    title:'CGC Chandigarh',
+    location: "Rome, Italy",
+    img: "/public/school-logo-3.png",
+  },
+  {
+    title:'CGC Chandigarh',
+    location: "Tokyo, Japan",
+    img: "/public/school-logo-1.png",
+  },
+  {
+    title:'CGC Chandigarh',
+    location: "Barcelona, Spain",
+    img: "/public/school-logo-2.png",
+  },
+  {
+    title:'CGC Chandigarh',
+    location: "Rome, Italy",
+    img: "/public/school-logo-3.png",
+  },
+];

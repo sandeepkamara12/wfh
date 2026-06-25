@@ -136,46 +136,50 @@ const Homework = () => {
     ];
 
     return (
-        <div className="flex flex-col">
-            <h2 className='font-bold text-lg'>Filter Homework</h2>
-            <p className="text-sm text-navy font-medium">Browse homework by teacher, class, stream, section, subject, or date</p>
-            <div className='grid grid-cols-6 gap-4 my-4'>
-                <CustomSelect
-                    options={teacherOptions}
-                    selectType="teacher"
-                    label="Teacher"
-                    placeholder="Search Teacher"
-                />
-                <CustomSelect
-                    options={classOptions}
-                    selectType="classroom"
-                    label="Classroom"
-                    placeholder="Search Classroom"
-                />
-                <CustomSelect
-                    options={streamOptions}
-                    selectType="stream"
-                    label="Stream"
-                    placeholder="Search Stream"
-                />
-                <CustomSelect
-                    options={sectionOptions}
-                    selectType="section"
-                    label="Section"
-                    placeholder="Search Section"
-                />
-                <CustomSelect
-                    options={subjectOptions}
-                    selectType="subject"
-                    label="Subject"
-                    placeholder="Search Subject"
-                />
 
-                <CustomDatePicker
-                    selectedDate={selectedDate}
-                    handler={dateChangeHandler}
-                />
+        <div className="flex flex-col">
+            <div className='bg-white p-4 rounded mb-4'>
+                <h2 className='font-bold text-lg'>Filter Homework</h2>
+                <p className="text-sm text-navy font-medium">Browse homework by teacher, class, stream, section, subject, or date</p>
+                <div className='grid grid-cols-6 gap-4 mt-4'>
+                    <CustomSelect
+                        options={teacherOptions}
+                        selectType="teacher"
+                        label="Teacher"
+                        placeholder="Search Teacher"
+                    />
+                    <CustomSelect
+                        options={classOptions}
+                        selectType="classroom"
+                        label="Classroom"
+                        placeholder="Search Classroom"
+                    />
+                    <CustomSelect
+                        options={streamOptions}
+                        selectType="stream"
+                        label="Stream"
+                        placeholder="Search Stream"
+                    />
+                    <CustomSelect
+                        options={sectionOptions}
+                        selectType="section"
+                        label="Section"
+                        placeholder="Search Section"
+                    />
+                    <CustomSelect
+                        options={subjectOptions}
+                        selectType="subject"
+                        label="Subject"
+                        placeholder="Search Subject"
+                    />
+
+                    <CustomDatePicker
+                        selectedDate={selectedDate}
+                        handler={dateChangeHandler}
+                    />
+                </div>
             </div>
+
             <div className='bg-white rounded p-10 text-center'>
                 <h2 className='mb-3'>All Homework</h2>
                 <p className='text-sm text-navy font-medium'>Showing homework across all teachers, classes, and subjects etc.<br /> Use filters to narrow down results.</p>
