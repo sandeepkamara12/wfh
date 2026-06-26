@@ -5,18 +5,23 @@ import PhoneField from "../components/ui/PhoneField"
 import { format, subYears } from "date-fns";
 import { useDispatch, useSelector } from "react-redux"
 import { toast } from "react-toastify"
-// import { createRoleThunk } from "../../features/subAdmin/createRoleSlice"
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useEffect, useMemo, useRef } from "react"
+import { useEffect, useRef } from "react"
 import ImageUploader from '../components/common/ImageUploader';
 import Gender from '../components/common/Gender';
 import Switch from '../components/ui/Switch';
 import OpenCalendar from '../components/ui/OpenCalendar';
+import { differenceInYears, parseISO } from "date-fns";
+import { updateTeacherThunk } from '../features/auth/loginSlice';
+
+
+const base_url = import.meta.env.VITE_API_BASE_URL;
 
 const Profile = () => {
     const loading = useSelector(state => state.role.loading.createRole);
-    // const dispatch = useDispatch()
+    let user = useSelector(state => state.auth.user);
+    const dispatch = useDispatch();
 
     // Date
     const maxDate = subYears(new Date(), 18);
@@ -31,29 +36,46 @@ const Profile = () => {
         dob: Yup.date().nullable().required("Date of birth is required"),
         gender: Yup.string().required("Gender is required"),
         spouse_name: Yup.string().when("married", {
-            is: true,
-            then: (schema) => schema.required("Spouse name is required"),
+            is: (married) => married,
+            then: (schema) => schema.trim().required("Spouse name is required"),
+            otherwise: (schema) => schema.notRequired(),
         }),
         father_name: Yup.string().when(["role", "married"], {
-            is: (role, married) => role === "student" || (role === "teacher" && !married),
-            then: (schema) => schema.required("Father name is required"),
+            is: (role, married) => {
+                const isMarried = married;
+
+                return role === "student" || (role === "teacher" && !isMarried);
+            },
+            then: (schema) =>
+                schema.trim().required("Father name is required"),
+            otherwise: (schema) => schema.notRequired(),
         }),
 
         mother_name: Yup.string().when(["role", "married"], {
-            is: (role, married) => role === "student" || (role === "teacher" && !married),
-            then: (schema) => schema.required("Mother name is required"),
+            is: (role, married) => {
+                const isMarried = married;
+
+                return role === "student" || (role === "teacher" && !isMarried);
+            },
+            then: (schema) =>
+                schema.trim().required("Mother name is required"),
+            otherwise: (schema) => schema.notRequired(),
         }),
         file: Yup.mixed()
             .required("Picture required")
             .test("fileType", "only .png, .jpg, .jpeg are allowed", (value) => {
                 if (!value) return false;
 
+                if (typeof value === "string") {
+                    return true; // already valid
+                }
+
                 const validTypes = ["image/jpeg", "image/png"];
                 const validExtensions = [".jpg", ".jpeg", ".png"];
 
                 const isValidType = validTypes.includes(value.type);
                 const isValidExt = validExtensions.some(ext =>
-                    value.name.toLowerCase().endsWith(ext)
+                    value?.name?.toLowerCase().endsWith(ext)
                 );
 
                 return isValidType && isValidExt;
@@ -72,7 +94,10 @@ const Profile = () => {
                 if (values.file) {
                     formData.append("file", values.file); // ✅ important
                 }
-            } else {
+            } else if (key === 'married') {
+                formData.append("married", values.married ? 1 : 0); // ✅ important
+            }
+            else {
                 formData.append(key, values[key]);
             }
         });
@@ -88,50 +113,39 @@ const Profile = () => {
     }
 
 
+    const IMAGE_BASE_URL = `${base_url}/`;
     const formik = useFormik({
         initialValues: {
             role: "teacher",
-            first_name: "",
-            last_name: "",
-            email: "",
-            phone: "",
-            married: false,
-            spouse_name: "",
-            father_name: "",
-            mother_name: "",
-            dob: null,
-            gender: "male",
-            file: null
+            first_name: user?.first_name || "",
+            last_name: user?.last_name || "",
+            email: user?.email || "",
+            phone: user?.phone || "",
+            married: !!user?.married,
+            spouse_name: user?.spouse_name || "",
+            father_name: user?.father_name || "",
+            mother_name: user?.mother_name || "",
+            dob: user?.dob || null,
+            gender: user?.gender || "male",
+            file: user?.profile_pic || null,
+            // profile_pic: user?.profile_pic || null
         },
+        enableReinitialize: true,
         validationSchema,
-        onSubmit: async (values, { resetForm }) => {
+        onSubmit: async (values) => {
             const payload = buildPayload(values);
-            // for (let [key, value] of payload.entries()) {
-            //     console.log(key, value);
-            // }
+            for (let [key, value] of payload.entries()) {
+                console.log(key, value);
+            }
             try {
-                // const result = await dispatch(createRoleThunk({ payload })).unwrap();
+                const result = await dispatch(updateTeacherThunk({ id: user?.id, payload })).unwrap();
 
-                // if (result.success) {
-                //     toast.success(result.message);
-                //     resetForm({
-                //         values: {
-                //             role: "teacher",
-                //             first_name: "",
-                //             last_name: "",
-                //             married: false,
-                //             spouse_name: "",
-                //             father_name: "",
-                //             mother_name: "",
-                //             dob: null,
-                //             gender: "male",
-                //             file: null
-                //         }
-                //     });
-                // }
-                // else {
-                //     toast.warning(result.message);
-                // }
+                if (result.success) {
+                    toast.success(result.message);
+                }
+                else {
+                    toast.warning(result.message);
+                }
             } catch (error) {
                 toast.error(error?.message || "Something went wrong");
             }
@@ -152,23 +166,31 @@ const Profile = () => {
 
     const updateImageHandler = (e) => {
         const file = e.currentTarget.files[0];
-        formik.setFieldValue("file", file);
+        formik.setFieldValue("file", file, true);
     }
 
     const removeImageHandler = () => {
-        formik.setFieldValue("file", null);
+        formik.setFieldValue("file", null, true);
     }
 
-    const preview = useMemo(() => {
-        if (!formik.values.file) return null;
-        return URL.createObjectURL(formik.values.file);
-    }, [formik.values.file]);
+    const preview =
+        typeof formik.values.file === "string"
+            ? IMAGE_BASE_URL + formik.values.file
+            : formik.values.file
+                ? URL.createObjectURL(formik.values.file)
+                : null;
+
 
     useEffect(() => {
-        return () => {
-            if (preview) URL.revokeObjectURL(preview);
-        };
-    }, [preview]);
+        if (formik.values.file instanceof File) {
+            const objectUrl = URL.createObjectURL(formik.values.file);
+            fileRef.current = objectUrl;
+
+            return () => {
+                URL.revokeObjectURL(objectUrl);
+            };
+        }
+    }, [formik.values.file]);
 
     const showParents = formik.values.role === "student" || (formik.values.role === "teacher" && !formik.values.married);
 
@@ -176,22 +198,33 @@ const Profile = () => {
         formik.setFieldValue("dob", date)
     }
 
+    let isMale = user?.gender === 'male' ? 'Mr.' : 'Mrs.'
+    let isUserMale = user?.gender === 'male' ? true : false;
+    let respect = isUserMale ? 'Mrs.' : 'Mr.';
+    let isMarried = !!user?.married;
+    let paddedId = user?.id?.toString().padStart(5, '0');
+    let userGeneratedId = user?.role[0] + isMarried + user?.gender[0] + user?.first_name[0] + user?.last_name[0] + paddedId;
+
+    console.log(formik, 'formik');
+
     return (
         <>
             <div className="grid grid-cols-2 gap-4">
                 <div className="col-span-2 flex gap-x-4 bg-white p-4 rounded">
                     <div className="shrink-0">
-                        <img className="shrink-0 size-24 rounded-full" src="https://images.unsplash.com/photo-1510706019500-d23a509eecd4?q=80&w=2667&auto=format&fit=facearea&facepad=3&w=320&h=320&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Avatar" />
+                        <img className="shrink-0 size-24 rounded-full" src={IMAGE_BASE_URL + user?.profile_pic} alt="Avatar" />
                     </div>
 
                     <div className="text-sm text-navy grow flex flex-wrap justify-between gap-2">
                         <div>
-                            <span className="font-semibold tracking-wide pt-0.5 pb-1 px-2 rounded-full text-xs bg-navy/10">#2154879633</span>
+                            <span className="font-semibold tracking-wide pt-0.5 pb-1 px-2 rounded-full text-xs bg-navy/10 uppercase">{user?.custom_id}</span>
                             <h2 className="font-bold text-lg mt-2 mb-1">
-                                Mrs. Garima
+                                {
+                                    isMale + ' ' + user?.first_name + ' ' + user?.last_name
+                                }
                                 <span className="ml-2 inline-flex flex-wrap items-center gap-1 text-xs font-semibold lowercase first-letter:uppercase">
                                     <CalendarDays className="size-4" />
-                                    30 Years
+                                    {differenceInYears(new Date(), parseISO(user?.dob)) + ' Years'}
                                 </span>
                             </h2>
                             <div className="flex flex-wrap flex-col gap-1">
@@ -222,15 +255,22 @@ const Profile = () => {
                         <div className="flex flex-col gap-1">
                             <span className="flex flex-wrap items-center gap-1">
                                 <UserRound className="size-4" />
-                                Mr. John Doe
+                                {
+                                    isMarried && (
+                                        <>
+                                            {respect}{" "}
+                                            <span className="capitalize">{user?.spouse_name}</span>
+                                        </>
+                                    )
+                                }
                             </span>
                             <span className="flex flex-wrap items-center gap-1">
                                 <Phone className="size-4" />
-                                7986584210
+                                {user?.phone}
                             </span>
                             <span className="flex flex-wrap items-center gap-1">
                                 <Mail className="size-4" />
-                                sandeep.d4d@gmail.com
+                                {user?.email}
                             </span>
                         </div>
                     </div>
@@ -263,10 +303,11 @@ const Profile = () => {
                                     <Switch formik={formik} onChangeHandler={handleMarried} label={"Are you married?"} checked={formik.values.married} />
                                 }
                                 {
-                                    formik.values.married &&
-                                    <div className='grid grid-cols-2 gap-4'>
-                                        <TextField label="Spouse Name" id="spouse_name" {...formik.getFieldProps("spouse_name")} error={formik.touched.spouse_name && formik.errors.spouse_name} required={true} />
-                                    </div>
+                                    formik.values.married && (
+                                        <div className='grid grid-cols-2 gap-4'>
+                                            <TextField label="Spouse Name" id="spouse_name" {...formik.getFieldProps("spouse_name")} error={formik.touched.spouse_name && formik.errors.spouse_name} required={true} />
+                                        </div>
+                                    )
                                 }
                                 {
                                     showParents &&
@@ -278,10 +319,10 @@ const Profile = () => {
                             </div>
                         </div>
                         <div className='col-span-1 mt-12 ms-6'>
-                           <OpenCalendar formik={formik} onChangeHandler={onChangeHandler} maxDate={maxDate} name="dob" label="Date of Birth" required={true} />
+                            <OpenCalendar formik={formik} onChangeHandler={onChangeHandler} maxDate={maxDate} name="dob" label="Date of Birth" required={true} />
                         </div>
                     </div>
-                    <button type="submit" className="mt-4 w-auto btn" disabled={loading || !(formik.isValid && formik.dirty)}>{loading ? "Updating..." : "Update Profile"}</button>
+                    <button type="submit" className="mt-4 w-auto btn" disabled={loading || !formik.isValid}>{loading ? "Updating..." : "Update Profile"}</button>
                     {/* {selectedDate && <p className="mt-4 text-sm text-muted-foreground-2">{selectedDate.toLocaleDateString()}</p>} */}
                 </form>
             </div>

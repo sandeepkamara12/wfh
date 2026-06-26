@@ -3,10 +3,18 @@ import { persistStore, persistReducer } from "redux-persist";
 // import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
 
+import loginReducer from "./features/auth/loginSlice";
 import teachersReducer from "./features/teachers/teachersSlice";
 import roleReducer from "./features/subAdmin/createRoleSlice";
-import loginReducer from "./features/auth/loginSlice";
 import localStorage from "redux-persist/es/storage";
+
+// 2. Combine reducers
+const rootReducer = combineReducers({
+  auth: loginReducer,
+  teachers: teachersReducer,
+  role: roleReducer,
+});
+
 
 // 1. Persist config
 const persistConfig = {
@@ -15,12 +23,6 @@ const persistConfig = {
     whitelist: ["auth"], // persist only auth (recommended)
 };
 
-// 2. Combine reducers
-const rootReducer = combineReducers({
-  teachers: teachersReducer,
-  role: roleReducer,
-  auth: loginReducer,
-});
 
 // 3. Create persisted reducer
 const persistedReducer = persistReducer(persistConfig, rootReducer);

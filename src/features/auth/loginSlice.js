@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "../../axiosinstance";
 
 const loginUrl = `${import.meta.env.VITE_API_BASE_URL}/auth/login`;
+const updateTeacherUrl = `${import.meta.env.VITE_API_BASE_URL}/teacher/profile-update/`;
 
 export const loginThunk = createAsyncThunk(
   "login",
@@ -17,56 +18,107 @@ export const loginThunk = createAsyncThunk(
     }
   },
 );
+
+export const updateTeacherThunk = createAsyncThunk(
+  "update-teacher",
+  async ({ id, payload }, { rejectWithValue }) => {
+    try {
+      // console.log(payload, 'data is');
+      for (let [key, value] of payload.entries()) {
+        console.log(key, value);
+      }
+      const response = await axiosInstance.post(
+        `${updateTeacherUrl}${id}`,
+        payload,
+      );
+      console.log(response, "output is");
+    } catch (error) {
+      return rejectWithValue({
+        status: error?.response?.status,
+        message: error?.response?.data?.message || "Failed to update user",
+      });
+    }
+  },
+);
+
+const initialState = {
+  status: "",
+  loading: { login: false, updateTeacher: false },
+  error: { login: null, updateTeacher: null },
+  user: {},
+  message: "",
+};
 const loginSlice = createSlice({
   name: "login",
-  initialState: {
-    status: "",
-    loading: false,
-    error: null,
-    teacher:{},
-    message: "",
-  },
-  reducers: {
-    setToken: (state, action) => {
-      localStorage.setItem("jwtToken", JSON.stringify(action.payload));
-    },
-    removeToken: () => {
-      localStorage.removeItem("jwtToken");
-    },
-  },
+  initialState,
   extraReducers: (builder) => {
     builder
       .addCase(loginThunk.pending, (state) => {
-        state.loading = true;
-        state.error = null;
+        state.loading.login = true;
+        state.error.login = null;
       })
       .addCase(loginThunk.fulfilled, (state, action) => {
-        state.loading = false;
+        state.loading.login = false;
         state.message = action.payload?.message;
-        const teacher = {
-          id:action.payload.id,
-          email:action.payload.email,
-          phone:action.payload.phone,
-          first_name:action.payload.first_name,
-          last_name:action.payload.last_name,
-          father_name:action.payload.father_name,
-          mother_name:action.payload.mother_name,
-          spouse_name:action.payload.spouse_name,
-          profile_pic:action.payload.profile_pic,
-          dob:action.payload.dob,
-          gender:action.payload.gender,
-          married:action.payload.married,
-          role:action.payload.role,
-          jwtToken:action.payload.jwtToken,
+        const user = {
+          id: action.payload.id,
+          email: action.payload.email,
+          phone: action.payload.phone,
+          first_name: action.payload.first_name,
+          last_name: action.payload.last_name,
+          father_name: action.payload?.father_name || "",
+          mother_name: action.payload?.mother_name || "",
+          spouse_name: action.payload?.spouse_name || "",
+          profile_pic: action.payload.profile_pic,
+          dob: action.payload.dob,
+          gender: action.payload.gender,
+          married: !!action.payload?.married,
+          role: action.payload.role,
+          jwtToken: action.payload.jwtToken,
+          custom_id: action.payload.custom_id,
         };
-        state.teacher = teacher;
+        state.user = user;
       })
       .addCase(loginThunk.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload?.message || "Something went wrong";
+        state.loading.login = false;
+        state.error.login = action.payload?.message || "Something went wrong";
+        state.status = action.payload?.status || 500;
+      });
+
+    builder
+      .addCase(updateTeacherThunk.pending, (state) => {
+        state.loading.updateTeacher = true;
+        state.error.updateTeacher = null;
+      })
+      .addCase(updateTeacherThunk.fulfilled, (state, action) => {
+        state.loading.updateTeacher = false;
+        state.message = action.payload?.message;
+        const user = {
+          id: action.payload.id,
+          email: action.payload.email,
+          phone: action.payload.phone,
+          first_name: action.payload.first_name,
+          last_name: action.payload.last_name,
+          father_name: action.payload?.father_name || "",
+          mother_name: action.payload?.mother_name || "",
+          spouse_name: action.payload?.spouse_name || "",
+          profile_pic: action.payload.profile_pic,
+          dob: action.payload.dob,
+          gender: action.payload.gender,
+          married: !!action.payload?.married,
+          role: action.payload.role,
+          jwtToken: action.payload.jwtToken,
+          custom_id: action.payload.custom_id,
+        };
+        state.user = user;
+      })
+      .addCase(updateTeacherThunk.rejected, (state, action) => {
+        state.loading.updateTeacher = false;
+        state.error.updateTeacher =
+          action.payload?.message || "Something went wrong";
         state.status = action.payload?.status || 500;
       });
   },
 });
-export const { setToken, getToken, removeToken } = loginSlice.actions;
+export const { getToken } = loginSlice.actions;
 export default loginSlice.reducer;

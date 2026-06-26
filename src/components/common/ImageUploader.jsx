@@ -26,7 +26,7 @@ const ImageUploader = ({ ref, updateImageHandler, removeImageHandler, preview, h
                             <ImageUp className='size-4' />
                             Upload Picture
                         </button>
-                        <button type="button" class="icon-btn size-12 bg-red border-red" onClick={removeImageHandler}>
+                        <button type="button" className="icon-btn size-12 bg-red border-red" onClick={removeImageHandler}>
                             <Trash2 className='size-5 mx-auto' />
                         </button>
                     </div>

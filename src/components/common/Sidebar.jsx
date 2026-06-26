@@ -1,22 +1,32 @@
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { studentSidebarLinks, subAdminSidebarLinks, teacherSidebarLinks } from "../../const/constant";
 import { LogOut } from "lucide-react";
-import { removeToken } from "../../features/auth/loginSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { persistor } from "../../store";
+import { toast } from "react-toastify";
+// import { logout } from "../../features/auth/loginSlice";
 
 const Sidebar = () => {
+    const base_url = import.meta.env.VITE_API_BASE_URL;
     const location = useLocation();
     let pathName = location.pathname;
-    const { role } = JSON.parse(localStorage.getItem("jwtToken"));
-    const dispatch = useDispatch();
+    let user = useSelector(state => state.auth.user);
+    let role = user?.role;
     const navigate = useNavigate();
+    // const dispatch = useDispatch();
 
-    const logout = async () => {
-        persistor.purge()
-        // await dispatch(removeToken());
-        navigate('/login')
-    }
+    const handleLogout = () => {
+        // dispatch(logout());
+        // persistor.purge();
+        persistor.purge().then(() => {
+            navigate("/login");
+            toast.success("You are logged out successfully!");
+        });
+    };
+
+    let isMarried = !!user?.married;
+    let paddedId = user?.id?.toString().padStart(5, '0');
+    let userGeneratedId = user?.role[0] + isMarried + user?.gender[0] + user?.first_name[0] + user?.last_name[0] + paddedId;
 
     return (
         <aside id="hs-pro-sidebar" className="hs-overlay [--auto-close:lg]
@@ -42,22 +52,22 @@ const Sidebar = () => {
 
                 <div className="p-5 text-center">
                     <div className="flex w-24 h-24 rounded-full mx-auto mb-2">
-                        <img className="object-cover w-full h-full rounded-full" src="https://images.unsplash.com/photo-1724037231939-c4fa9bd69a84?q=80&amp;w=180&amp;h=180&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Avatar" />
+                        <img className="object-cover w-full h-full rounded-full" src={base_url + '/' + user?.profile_pic} alt="Avatar" />
                     </div>
 
-                    <p className="lg:hidden font-semibold text-white">Isabella Cruz</p>
+                    <p className="lg:hidden font-semibold text-white">{user?.first_name + user?.last_name}</p>
 
                     <div className="hidden lg:block">
                         <div className="relative inline-flex">
                             <button type="button" className="py-1 px-2 inline-flex justify-center items-center gap-x-1 font-semibold rounded text-white hover:text-primary-hover focus:outline-hidden focus:primary-focus disabled:opacity-50 disabled:pointer-events-none" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
-                                Isabella Cruz
+                                {user?.first_name + ' ' + user?.last_name}
                             </button>
                         </div>
                     </div>
 
                     <p className="text-xs text-white flex flex-wrap items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4  h-4 mr-1 lucide lucide-user-round-icon lucide-user-round"><circle cx="12" cy="8" r="5" /><path d="M20 21a8 8 0 0 0-16 0" /></svg>
-                        M2389310259
+                        <span className="uppercase">{user?.custom_id}</span>
                     </p>
                 </div>
 
@@ -116,7 +126,9 @@ const Sidebar = () => {
 
                             }
                             <li className="mt-auto mb-3">
-                                <Link onClick={logout} className={`bg-orange text-white flex no-underline transition-all duration-300 ease-in-out py-2 px-3 text-sm rounded hover:bg-orange hover:text-white focus:outline-hidden focus:bg-navy focus:text-white`}>
+                                <Link
+                                    onClick={handleLogout}
+                                    className={`bg-orange text-white flex no-underline transition-all duration-300 ease-in-out py-2 px-3 text-sm rounded hover:bg-orange hover:text-white focus:outline-hidden focus:bg-navy focus:text-white`}>
                                     <span className="w-5 mr-3">
                                         <LogOut className="size-5" />
                                     </span>

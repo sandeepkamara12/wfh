@@ -1,17 +1,11 @@
+import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
-  const storedData = localStorage.getItem("jwtToken");
-  let user = null;
-  try {
-    user = storedData ? JSON.parse(storedData) : null;
-  } catch (e) {
-    console.error("Invalid JSON in localStorage", e);
-    localStorage.removeItem("jwtToken"); // cleanup bad data
-  }
-  if (!user) return <Navigate to="/login" />;
-
-  return allowedRoles.includes(user.role)
+  const auth = useSelector((state) => state.auth);
+  if (!auth?.user) return <Navigate to="/login" />;
+  let role = auth?.user?.role;
+  return allowedRoles.includes(role)
     ? children
     : <Navigate to="/unauthorized" />;
 };
