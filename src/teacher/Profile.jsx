@@ -13,7 +13,7 @@ import Gender from '../components/common/Gender';
 import Switch from '../components/ui/Switch';
 import OpenCalendar from '../components/ui/OpenCalendar';
 import { differenceInYears, parseISO } from "date-fns";
-import { updateTeacherThunk } from '../features/auth/loginSlice';
+import { updateTeacherThunk, updateUserInLocalStorage } from '../features/auth/loginSlice';
 
 
 const base_url = import.meta.env.VITE_API_BASE_URL;
@@ -150,9 +150,12 @@ const Profile = () => {
             const payload = buildPayload(values);
             try {
                 const result = await dispatch(updateTeacherThunk({ payload })).unwrap();
-
                 if (result.success) {
+                    result.data["jwtToken"] = user?.jwtToken;
+
+                    console.log(result?.data, 'dear');
                     toast.success(result.message);
+                    dispatch(updateUserInLocalStorage(result?.data))
                 }
                 else {
                     toast.warning(result.message);
