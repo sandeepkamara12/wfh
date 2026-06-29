@@ -1,4 +1,4 @@
-import { StrictMode } from 'react'
+import { StrictMode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -36,6 +36,7 @@ import Partners from './components/future/Partners.jsx';
 
 import { store, persistor } from './store';
 import { PersistGate } from 'redux-persist/integration/react';
+// import { getToken } from './features/auth/loginSlice.js';
 
 const router = createBrowserRouter([
   {

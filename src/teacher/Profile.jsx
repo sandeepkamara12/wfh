@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { toast } from "react-toastify"
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useEffect, useRef } from "react"
+import { useEffect, useMemo, useRef } from "react"
 import ImageUploader from '../components/common/ImageUploader';
 import Gender from '../components/common/Gender';
 import Switch from '../components/ui/Switch';
@@ -17,10 +17,12 @@ import { updateTeacherThunk } from '../features/auth/loginSlice';
 
 
 const base_url = import.meta.env.VITE_API_BASE_URL;
+const IMAGE_BASE_URL = `${base_url}/`;
 
 const Profile = () => {
     const loading = useSelector(state => state.role.loading.createRole);
     let user = useSelector(state => state.auth.user);
+    console.log(user, 'user');
     const dispatch = useDispatch();
 
     // Date
@@ -61,7 +63,7 @@ const Profile = () => {
                 schema.trim().required("Mother name is required"),
             otherwise: (schema) => schema.notRequired(),
         }),
-        file: Yup.mixed()
+        profile_pic: Yup.mixed()
             .required("Picture required")
             .test("fileType", "only .png, .jpg, .jpeg are allowed", (value) => {
                 if (!value) return false;
@@ -88,11 +90,13 @@ const Profile = () => {
         const formData = new FormData();
 
         Object.keys(values).forEach((key) => {
-            if (key === "dob" && values.dob) {
-                formData.append(key, format(values.dob, "dd-MM-yyyy"));
-            } else if (key === "file") {
-                if (values.file) {
-                    formData.append("file", values.file); // ✅ important
+            if (key === "dob" && values?.dob) {
+                //  dob: formatDate(values.dob),
+                let dob = values.dob ? formatDate(values.dob) : null
+                formData.append(key, format(dob, "yyyy-MM-dd"));
+            } else if (key === "profile_pic") {
+                if (values.profile_pic) {
+                    formData.append("profile_pic", values.profile_pic); // ✅ important
                 }
             } else if (key === 'married') {
                 formData.append("married", values.married ? 1 : 0); // ✅ important
@@ -105,18 +109,29 @@ const Profile = () => {
         return formData;
     };
 
-    //Handle Upload Image
-    const handleImageUpload = () => {
+    //Handle Upload Image Trigger
+    const handleImageUploadTrigger = () => {
         if (fileRef.current) {
             fileRef.current.click()
         }
     }
 
+    const formatDate = (date) => {
+        if (!date) return null;
+        return date.toISOString().split("T")[0]; // YYYY-MM-DD
+    };
 
-    const IMAGE_BASE_URL = `${base_url}/`;
+    const parseDOB = (dob) => {
+        if (!dob || dob === "0000-00-00") return null;
+
+        const date = new Date(dob);
+        return isNaN(date.getTime()) ? null : date;
+    };
+
     const formik = useFormik({
         initialValues: {
             role: "teacher",
+            id: user?.id || null,
             first_name: user?.first_name || "",
             last_name: user?.last_name || "",
             email: user?.email || "",
@@ -125,20 +140,16 @@ const Profile = () => {
             spouse_name: user?.spouse_name || "",
             father_name: user?.father_name || "",
             mother_name: user?.mother_name || "",
-            dob: user?.dob || null,
+            dob: parseDOB(user?.dob),
             gender: user?.gender || "male",
-            file: user?.profile_pic || null,
-            // profile_pic: user?.profile_pic || null
+            profile_pic: user?.profile_pic || null,
         },
         enableReinitialize: true,
         validationSchema,
         onSubmit: async (values) => {
             const payload = buildPayload(values);
-            for (let [key, value] of payload.entries()) {
-                console.log(key, value);
-            }
             try {
-                const result = await dispatch(updateTeacherThunk({ id: user?.id, payload })).unwrap();
+                const result = await dispatch(updateTeacherThunk({ payload })).unwrap();
 
                 if (result.success) {
                     toast.success(result.message);
@@ -166,46 +177,47 @@ const Profile = () => {
 
     const updateImageHandler = (e) => {
         const file = e.currentTarget.files[0];
-        formik.setFieldValue("file", file, true);
+        formik.setFieldValue("profile_pic", file, true);
     }
 
     const removeImageHandler = () => {
-        formik.setFieldValue("file", null, true);
+        formik.setFieldValue("profile_pic", null, true);
     }
 
     const preview =
-        typeof formik.values.file === "string"
-            ? IMAGE_BASE_URL + formik.values.file
-            : formik.values.file
-                ? URL.createObjectURL(formik.values.file)
+        typeof formik.values.profile_pic === "string"
+            ? IMAGE_BASE_URL + formik.values.profile_pic
+            : formik.values.profile_pic
+                ? URL.createObjectURL(formik.values.profile_pic)
                 : null;
 
 
     useEffect(() => {
-        if (formik.values.file instanceof File) {
-            const objectUrl = URL.createObjectURL(formik.values.file);
+        if (formik.values.profile_pic instanceof File) {
+            const objectUrl = URL.createObjectURL(formik.values.profile_pic);
             fileRef.current = objectUrl;
 
             return () => {
                 URL.revokeObjectURL(objectUrl);
             };
         }
-    }, [formik.values.file]);
+    }, [formik.values.profile_pic]);
 
     const showParents = formik.values.role === "student" || (formik.values.role === "teacher" && !formik.values.married);
 
     const onChangeHandler = (date) => {
-        formik.setFieldValue("dob", date)
+        formik.setFieldValue("dob", date);
     }
 
     let isMale = user?.gender === 'male' ? 'Mr.' : 'Mrs.'
     let isUserMale = user?.gender === 'male' ? true : false;
     let respect = isUserMale ? 'Mrs.' : 'Mr.';
     let isMarried = !!user?.married;
-    let paddedId = user?.id?.toString().padStart(5, '0');
-    let userGeneratedId = user?.role[0] + isMarried + user?.gender[0] + user?.first_name[0] + user?.last_name[0] + paddedId;
 
-    console.log(formik, 'formik');
+    // let paddedId = user?.id?.toString().padStart(5, '0');
+    // let userGeneratedId = user?.role[0] + isMarried + user?.gender[0] + user?.first_name[0] + user?.last_name[0] + paddedId;
+
+    // console.log(formik, 'formik');
 
     return (
         <>
@@ -256,12 +268,18 @@ const Profile = () => {
                             <span className="flex flex-wrap items-center gap-1">
                                 <UserRound className="size-4" />
                                 {
-                                    isMarried && (
+                                    isMarried ? (
                                         <>
                                             {respect}{" "}
                                             <span className="capitalize">{user?.spouse_name}</span>
                                         </>
                                     )
+                                        : (
+                                            <>
+                                                Mr.
+                                                <span className="capitalize">{user?.father_name}</span>
+                                            </>
+                                        )
                                 }
                             </span>
                             <span className="flex flex-wrap items-center gap-1">
@@ -283,7 +301,7 @@ const Profile = () => {
                         <div className='col-span-2 grid items-start gap-6'>
                             <h2 className="font-bold text-lg">Update <span className="text-orange">Profile</span></h2>
                             <div className='grid grid-cols-2 gap-4'>
-                                <ImageUploader formik={formik} ref={fileRef} updateImageHandler={updateImageHandler} removeImageHandler={removeImageHandler} preview={preview} handleImageUpload={handleImageUpload} />
+                                <ImageUploader formik={formik} ref={fileRef} updateImageHandler={updateImageHandler} removeImageHandler={removeImageHandler} preview={preview} handleImageUploadTrigger={handleImageUploadTrigger} />
                                 <div className="mt-3">
                                     <Gender formik={formik} />
                                 </div>
@@ -319,7 +337,7 @@ const Profile = () => {
                             </div>
                         </div>
                         <div className='col-span-1 mt-12 ms-6'>
-                            <OpenCalendar formik={formik} onChangeHandler={onChangeHandler} maxDate={maxDate} name="dob" label="Date of Birth" required={true} />
+                            <OpenCalendar selected={formik.values.dob} onChangeHandler={onChangeHandler} maxDate={maxDate} name="dob" label="Date of Birth" required={true} error={formik.errors.dob} />
                         </div>
                     </div>
                     <button type="submit" className="mt-4 w-auto btn" disabled={loading || !formik.isValid}>{loading ? "Updating..." : "Update Profile"}</button>

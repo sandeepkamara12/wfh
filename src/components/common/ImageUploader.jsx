@@ -1,6 +1,6 @@
 import { ImageUp, Trash2, UserRound } from 'lucide-react'
 
-const ImageUploader = ({ ref, updateImageHandler, removeImageHandler, preview, handleImageUpload, formik }) => {
+const ImageUploader = ({ ref, updateImageHandler, removeImageHandler, preview, handleImageUploadTrigger, formik }) => {
     return (
         <div className=''>
             <div className='flex flex-wrap items-center gap-4'>
@@ -22,7 +22,7 @@ const ImageUploader = ({ ref, updateImageHandler, removeImageHandler, preview, h
                 </span>
                 <div className="inline-flex flex-col gap-2 w-[calc(100%-112px)]">
                     <div className="inline-flex gap-2">
-                        <button type="button" className="btn w-auto" onClick={handleImageUpload}>
+                        <button type="button" className="btn w-auto" onClick={handleImageUploadTrigger}>
                             <ImageUp className='size-4' />
                             Upload Picture
                         </button>

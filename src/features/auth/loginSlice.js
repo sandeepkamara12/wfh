@@ -21,17 +21,18 @@ export const loginThunk = createAsyncThunk(
 
 export const updateTeacherThunk = createAsyncThunk(
   "update-teacher",
-  async ({ id, payload }, { rejectWithValue }) => {
+  async ({ payload }, { rejectWithValue }) => {
     try {
       // console.log(payload, 'data is');
-      for (let [key, value] of payload.entries()) {
-        console.log(key, value);
-      }
+      // for (let [key, value] of payload.entries()) {
+      //   console.log(key, value);
+      // }
       const response = await axiosInstance.post(
-        `${updateTeacherUrl}${id}`,
+        `${updateTeacherUrl}`,
         payload,
       );
-      console.log(response, "output is");
+      // console.log(response, "output is");
+      return response?.data;
     } catch (error) {
       return rejectWithValue({
         status: error?.response?.status,
@@ -93,24 +94,24 @@ const loginSlice = createSlice({
       .addCase(updateTeacherThunk.fulfilled, (state, action) => {
         state.loading.updateTeacher = false;
         state.message = action.payload?.message;
-        const user = {
-          id: action.payload.id,
-          email: action.payload.email,
-          phone: action.payload.phone,
-          first_name: action.payload.first_name,
-          last_name: action.payload.last_name,
-          father_name: action.payload?.father_name || "",
-          mother_name: action.payload?.mother_name || "",
-          spouse_name: action.payload?.spouse_name || "",
-          profile_pic: action.payload.profile_pic,
-          dob: action.payload.dob,
-          gender: action.payload.gender,
-          married: !!action.payload?.married,
-          role: action.payload.role,
-          jwtToken: action.payload.jwtToken,
-          custom_id: action.payload.custom_id,
-        };
-        state.user = user;
+        // const user = {
+        //   id: action.payload.id,
+        //   email: action.payload.email,
+        //   phone: action.payload.phone,
+        //   first_name: action.payload.first_name,
+        //   last_name: action.payload.last_name,
+        //   father_name: action.payload?.father_name || "",
+        //   mother_name: action.payload?.mother_name || "",
+        //   spouse_name: action.payload?.spouse_name || "",
+        //   profile_pic: action.payload.profile_pic,
+        //   dob: action.payload.dob,
+        //   gender: action.payload.gender,
+        //   married: !!action.payload?.married,
+        //   role: action.payload.role,
+        //   jwtToken: action.payload.jwtToken,
+        //   custom_id: action.payload.custom_id,
+        // };
+        // state.user = user;
       })
       .addCase(updateTeacherThunk.rejected, (state, action) => {
         state.loading.updateTeacher = false;

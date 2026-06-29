@@ -87,6 +87,9 @@
    COMPONENTS LAYER
 ========================= */
 @layer components {
+  .sign_in_btn {
+    @apply py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded bg-white border border-gray-400 text-navy shadow-2xs hover:bg-white focus:outline-hidden focus:bg-white;
+  }
   .radioCard {
     @apply flex items-center gap-2 justify-center text-center min-w-32.5 min-h-10.5 cursor-pointer rounded text-navy p-3 bg-white border-2 border-navy text-xs font-semibold uppercase transition-all duration-300 ease-in-out hover:bg-orange hover:border-orange hover:text-white peer-checked:bg-orange peer-checked:text-white peer-checked:border-orange;
     /* @apply flex items-center gap-2 cursor-pointer rounded  text-navy p-3 bg-white border  border-navy text-xs font-medium uppercase transition-all duration-300 ease-in-out hover:bg-orange hover:border-orange hover:text-white peer-checked:bg-orange peer-checked:text-white peer-checked:border-orange; */
@@ -412,3 +415,39 @@
   transition-timing-function: linear !important; /* ✅ KEY for marquee */
 }
 /****************************************** Code for partners ***********************************************************************/
+
+/*************************** Code for Login Screen *******************/
+.login_heading {
+  @apply block text-2xl font-bold text-navy;
+}
+.sign_in_btn_wrap {
+  @apply grid grid-cols-2 gap-4;
+}
+.or {
+  @apply pt-8 pb-7 flex items-center text-sm text-navy uppercase font-medium before:flex-1 before:border-t before:border-gray-400 before:me-6 after:flex-1 after:border-t after:border-gray-400 after:ms-6;
+}
+.login_form_wrapper {
+  @apply flex flex-col gap-4;
+}
+.remember_me {
+  @apply flex flex-wrap items-center justify-between;
+}
+.remember_me_label {
+  @apply flex items-center gap-2 cursor-pointer select-none;
+}
+.remmeber_me_checkbox {
+  @apply w-4 h-4 flex items-center justify-center rounded border-2 transition-all;
+}
+.remember_me_text {
+  @apply text-sm text-navy font-medium;
+}
+.login_forgot_password {
+  @apply text-sm font-medium text-orange no-underline hover:text-navy transition-all duration-200 ease-in-out;
+}
+.login_donot_have_account {
+  @apply text-sm text-navy font-medium text-center;
+}
+.login_donot_have_account_link {
+  @apply ms-1 text-orange no-underline focus:outline-hidden focus:underline font-medium hover:text-navy transition-all duration-200 ease-in-out;
+}
+  /*************************** Code for Login Screen *******************/

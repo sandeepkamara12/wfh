@@ -18,7 +18,8 @@ const Sidebar = () => {
     const handleLogout = () => {
         // dispatch(logout());
         // persistor.purge();
-        persistor.purge().then(() => {
+        persistor.purge().then((res) => {
+            console.log(res, 'res')
             navigate("/login");
             toast.success("You are logged out successfully!");
         });
