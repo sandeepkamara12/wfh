@@ -72,7 +72,7 @@ const Login = () => {
                     <div className="flex flex-wrap items-center justify-center">
                         <div className="p-4 sm:p-7 max-w-xl mx-auto 5xl:w-3/6">
                             <div className="text-center">
-                                <img src="/public/wfh-logo.png" alt="logo" width="100" height="auto" className='mx-auto block mb-6' />
+                                <img src="/wfh-logo.png" alt="logo" width="100" height="auto" className='mx-auto block mb-6' />
                                 <h3 className="login_heading">Sign in to <span className='text-orange'>WFH</span></h3>
                                 <p className='text-sm font-medium'>Send, Receive and save smarter.</p>
 
@@ -127,7 +127,7 @@ const Login = () => {
                     </div>
                     <div className='bg-navy flex flex-wrap items-center justify-center'>
                         <div className='max-w-full w-2xl'>
-                            <img src="/public/group-tp.png" alt="students" className='max-w-full w-2xl mx-auto' />
+                            <img src="/group-tp.png" alt="students" className='max-w-full w-2xl mx-auto' />
                             <Swiper
                                 modules={[Autoplay, Pagination]}
                                 spaceBetween={50} slidesPerView={1} autoplay={{

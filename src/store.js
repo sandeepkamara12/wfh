@@ -6,6 +6,7 @@ import { combineReducers } from "redux";
 import loginReducer from "./features/auth/loginSlice";
 import teachersReducer from "./features/teachers/teachersSlice";
 import roleReducer from "./features/subAdmin/createRoleSlice";
+import classroomReducer from "./features/subAdmin/classroomSlice";
 import localStorage from "redux-persist/es/storage";
 
 // 2. Combine reducers
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   auth: loginReducer,
   teachers: teachersReducer,
   role: roleReducer,
+  classroom: classroomReducer,
 });
 
 
@@ -39,3 +41,9 @@ export const store = configureStore({
 
 // 5. Create persistor
 export const persistor = persistStore(store);
+
+// router.post("/sub-admin/classroom/create");
+// router.get("/sub-admin/classroom");
+// router.get("/sub-admin/classroom/:id");
+// router.put("/sub-admin/classroom/:id");
+// router.delete("/sub-admin/classroom/:id");

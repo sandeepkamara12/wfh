@@ -20,16 +20,14 @@ const base_url = import.meta.env.VITE_API_BASE_URL;
 const IMAGE_BASE_URL = `${base_url}/`;
 
 const Profile = () => {
+    const dispatch = useDispatch();
+    const fileRef = useRef(null);
+    
     const loading = useSelector(state => state.role.loading.createRole);
     let user = useSelector(state => state.auth.user);
-    console.log(user, 'user');
-    const dispatch = useDispatch();
-
+    
     // Date
     const maxDate = subYears(new Date(), 18);
-
-    //State
-    const fileRef = useRef(null);
 
     const validationSchema = Yup.object({
         first_name: Yup.string().required("First name is required"),
@@ -84,7 +82,6 @@ const Profile = () => {
             })
     });
 
-
     // Build payload
     const buildPayload = (values) => {
         const formData = new FormData();
@@ -99,7 +96,7 @@ const Profile = () => {
                     formData.append("profile_pic", values.profile_pic); // ✅ important
                 }
             } else if (key === 'married') {
-                formData.append("married", values.married ? 1 : 0); // ✅ important
+                formData.append("married", values.married ? true : false); // ✅ important
             }
             else {
                 formData.append(key, values[key]);
@@ -217,10 +214,8 @@ const Profile = () => {
     let respect = isUserMale ? 'Mrs.' : 'Mr.';
     let isMarried = !!user?.married;
 
-    // let paddedId = user?.id?.toString().padStart(5, '0');
-    // let userGeneratedId = user?.role[0] + isMarried + user?.gender[0] + user?.first_name[0] + user?.last_name[0] + paddedId;
-
-    // console.log(formik, 'formik');
+    let paddedId = user?.id?.toString().padStart(5, '0');
+    let userCustomId = user?.custom_id + paddedId;
 
     return (
         <>
@@ -232,7 +227,7 @@ const Profile = () => {
 
                     <div className="text-sm text-navy grow flex flex-wrap justify-between gap-2">
                         <div>
-                            <span className="font-semibold tracking-wide pt-0.5 pb-1 px-2 rounded-full text-xs bg-navy/10 uppercase">{user?.custom_id}</span>
+                            <span className="font-semibold tracking-wide pt-0.5 pb-1 px-2 rounded-full text-xs bg-navy/10 uppercase">{userCustomId}</span>
                             <h2 className="font-bold text-lg mt-2 mb-1">
                                 {
                                     isMale + ' ' + user?.first_name + ' ' + user?.last_name

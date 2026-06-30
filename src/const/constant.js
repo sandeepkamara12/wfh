@@ -1,6 +1,8 @@
 import {
   Brush,
   Divide,
+  IdCardLanyard,
+  IdCard,
   Heading,
   Laptop,
   Microscope,
@@ -251,6 +253,7 @@ export const icons = {
   father_name: 'UserRound',
   mother_name: 'UserRound',
   spouse_name: 'UserRound',
+  custom_id: 'IdCardLanyard',
   login:'Mail'
 }
 
