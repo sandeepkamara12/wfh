@@ -1,8 +1,6 @@
 import {
   Brush,
   Divide,
-  IdCardLanyard,
-  IdCard,
   Heading,
   Laptop,
   Microscope,
@@ -16,7 +14,6 @@ import {
   SquareChartGantt,
   UserRoundPen,
   UserRoundPlus,
-  UserRound,
 } from "lucide-react";
 
 export const subAdminSidebarLinks = [
@@ -254,6 +251,7 @@ export const icons = {
   mother_name: 'UserRound',
   spouse_name: 'UserRound',
   custom_id: 'IdCardLanyard',
+  name: 'GalleryThumbnails',
   login:'Mail'
 }
 

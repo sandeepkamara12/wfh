@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axiosinstance from "../../axiosinstance";
 const createClassroomUrl = `${import.meta.env.VITE_API_BASE_URL}/sub-admin/classroom/create`;
 const getClassroomUrl = `${import.meta.env.VITE_API_BASE_URL}/sub-admin/classroom`;
+const updateClassroomUrl = `${import.meta.env.VITE_API_BASE_URL}/sub-admin/classroom/`;
 
 export const createClassroomThunk = createAsyncThunk(
   "classroom/createClassroom",
@@ -31,6 +32,38 @@ export const getClassroomThunk = createAsyncThunk(
     }
   },
 );
+
+export const updateClassroomThunk = createAsyncThunk(
+  "classroom/updateClassroom",
+  async ({id, data}, { rejectWithValue }) => {
+    try {
+       const response = await axiosinstance.put(`${updateClassroomUrl}${id}`, data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue({
+        status: error?.response?.status,
+        message: error?.response?.data?.message || "Failed to update classroom",
+      });
+    }
+  },
+);
+
+export const deleteClassroomThunk = createAsyncThunk(
+  "classroom/deleteClassroom",
+  async ({id}, { rejectWithValue }) => {
+    try {
+       const response = await axiosinstance.delete(`${updateClassroomUrl}${id}`);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue({
+        status: error?.response?.status,
+        message: error?.response?.data?.message || "Failed to delete classroom",
+      });
+    }
+  },
+);
+
+//  router.put("/sub-admin/classroom/:id");
 
 const classroomSlice = createSlice({
   name: "classrooms",
@@ -74,6 +107,34 @@ const classroomSlice = createSlice({
         state.message = action.payload?.message;
       })
       .addCase(getClassroomThunk.rejected, (state, action) => {
+        state.loading.classroom = false;
+        state.error.classroom = action.payload?.message || "Something went wrong";
+        state.status = action.payload?.status || 500;
+      });
+    builder
+      .addCase(updateClassroomThunk.pending, (state) => {
+        state.loading.classroom = true;
+        state.error.classroom = null;
+      })
+      .addCase(updateClassroomThunk.fulfilled, (state, action) => {
+        state.loading.classroom = false;
+        state.message = action.payload?.message;
+      })
+      .addCase(updateClassroomThunk.rejected, (state, action) => {
+        state.loading.classroom = false;
+        state.error.classroom = action.payload?.message || "Something went wrong";
+        state.status = action.payload?.status || 500;
+      });
+    builder
+      .addCase(deleteClassroomThunk.pending, (state) => {
+        state.loading.classroom = true;
+        state.error.classroom = null;
+      })
+      .addCase(deleteClassroomThunk.fulfilled, (state, action) => {
+        state.loading.classroom = false;
+        state.message = action.payload?.message;
+      })
+      .addCase(deleteClassroomThunk.rejected, (state, action) => {
         state.loading.classroom = false;
         state.error.classroom = action.payload?.message || "Something went wrong";
         state.status = action.payload?.status || 500;

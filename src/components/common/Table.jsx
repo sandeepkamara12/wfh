@@ -1,5 +1,5 @@
 import DataTable from 'react-data-table-component';
-const Table = ({ id="", columns, data, handleOpen, btnText, btnIcon, label, subLabel }) => {
+const Table = ({ id="", columns, data, handleOpen, btnText, btnIcon, label, subLabel, isButtonDisabled=false }) => {
     return (
         <>
             <div className="flex gap-3 md:justify-between md:items-center bg-white p-4 rounded-t">
@@ -15,7 +15,7 @@ const Table = ({ id="", columns, data, handleOpen, btnText, btnIcon, label, subL
                     btnText !== "" && btnIcon !== "" &&
                     <div>
                         <div className="inline-flex gap-x-2">
-                            <button type="button" onClick={handleOpen} className="btn">
+                            <button type="button" onClick={handleOpen} className="btn" disabled={isButtonDisabled}>
                                 {btnIcon}
                                 {btnText}
                             </button>

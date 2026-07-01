@@ -9,23 +9,30 @@ import { useEffect, useState } from "react";
 import TextField from "../components/ui/TextField";
 import {
   createClassroomThunk,
+  deleteClassroomThunk,
   getClassroomThunk,
+  updateClassroomThunk,
 } from "../features/subAdmin/classroomSlice";
 import { toast } from "react-toastify";
 // import { classroomData } from "../const/constant";
 
 const ClassRoomList = () => {
   const [open, setOpen] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+  const [selectedClassroom, setSelectedClassroom] = useState(null);
   const [classrooms, setClassrooms] = useState([]);
   const { isBelow640 } = useIsMobile();
-  let user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
+  let user = useSelector((state) => state.auth.user);
+  let loading = useSelector((state) => state.classroom.loading.classroom);
+
+  
+  // Get Classrooms on component mount
   useEffect(() => {
     const fetchClassrooms = async () => {
       try {
         const result = await dispatch(getClassroomThunk()).unwrap();
-        console.log(result, "get classroom");
         if (result?.success) {
           setClassrooms(result?.data);
         }
@@ -36,8 +43,38 @@ const ClassRoomList = () => {
     fetchClassrooms();
   }, []);
 
+  const handleUpdateClassroom = (row) => {
+     if (loading) return;
+    setIsEdit(true);
+    setSelectedClassroom(row);
+
+    formik.setValues({
+      name: row.name,
+      sub_admin_id: user?.id || null,
+    });
+
+    handleOpen();
+  };
+
+  const handleDeleteClassroom = async (row) => {
+    if (loading) return;
+    try {
+      const result = await dispatch(deleteClassroomThunk({ id: row.id })).unwrap();
+      if (result?.success) {
+        toast.dismiss();
+        toast.success(result?.message);
+        const refreshed = await dispatch(getClassroomThunk()).unwrap();
+        if (refreshed?.success) {
+          setClassrooms(refreshed.data);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const validationSchema = Yup.object({
-    name: Yup.string().required("Classroom name is required"),
+    name: Yup.string().required("Classroom is required"),
   });
 
   const formik = useFormik({
@@ -45,20 +82,42 @@ const ClassRoomList = () => {
       name: "",
       sub_admin_id: user?.id || null,
     },
-    // enableReinitialize: true,
+    enableReinitialize: true,
     validationSchema,
     onSubmit: async (values, { resetForm }) => {
       try {
-        const result = await dispatch(createClassroomThunk(values)).unwrap();
-        console.log(result);
-        if (result.success) {
-          toast.success(result?.message);
-          resetForm({ name: "", sub_admin_id: null });
-          setOpen(false);
+        let result;
+
+        if (isEdit) {
+          result = await dispatch(
+            updateClassroomThunk({
+              id: selectedClassroom.id,
+              data: values,
+            })
+          ).unwrap();
         } else {
+          result = await dispatch(createClassroomThunk(values)).unwrap();
+        }
+
+        if (result?.success) {
+          toast.dismiss();
+          toast.success(result?.message);
+
+          resetForm();
+          setOpen(false);
+          setIsEdit(false);
+          setSelectedClassroom(null);
+
+          const refreshed = await dispatch(getClassroomThunk()).unwrap();
+          if (refreshed?.success) {
+            setClassrooms(refreshed.data);
+          }
+        } else {
+          toast.dismiss();
           toast.warning(result.message);
         }
       } catch (error) {
+        toast.dismiss();
         toast.error(error?.message || "Something went wrong");
       }
     },
@@ -70,7 +129,17 @@ const ClassRoomList = () => {
 
   const handleClose = () => {
     setOpen(false);
+    setIsEdit(false);
+    setSelectedClassroom(null);
+    formik.resetForm();
   };
+  // useEffect(() => {
+  //   if (!open) {
+  //     formik.resetForm();
+  //     setIsEdit(false);
+  //     setSelectedClassroom(null);
+  //   }
+  // }, [open]);
 
   const columns = [
     {
@@ -125,7 +194,6 @@ const ClassRoomList = () => {
           hour12: true,
         });
 
-
         return (
           <div className="flex flex-col gap-3 w-full items-end">
             <div className="flex flex-col gap-0 items-end sm:hidden">
@@ -136,10 +204,15 @@ const ClassRoomList = () => {
               </div>
             </div>
             <div className="flex flex-wrap items-center justify-end w-full gap-1">
-              <button type="button" className="icon-btn">
+              <button type="button" className="icon-btn" onClick={() => handleDeleteClassroom(row)} disabled={loading}>
                 <Trash2 className="size-5 mx-auto" />
               </button>
-              <button type="button" className="icon-btn">
+              <button
+                type="button"
+                className="icon-btn"
+                onClick={() => handleUpdateClassroom(row)}
+                disabled={loading}
+              >
                 <Pencil className="size-5 mx-auto" />
               </button>
             </div>
@@ -158,6 +231,7 @@ const ClassRoomList = () => {
               id="classrooms"
               columns={columns}
               handleOpen={handleOpen}
+              isButtonDisabled={loading}
               data={classrooms}
               btnText="Add Classroom"
               btnIcon={<Plus className="w-5 h-5 mx-auto" />}
@@ -169,15 +243,25 @@ const ClassRoomList = () => {
               <form onSubmit={formik.handleSubmit}>
                 <div className="grid grid-cols-1 gap-4 items-start">
                   <TextField
+                    placeholder="Classroom: 1st, 2nd etc."
                     label="Classroom"
                     id="name"
                     {...formik.getFieldProps("name")}
                     error={formik.touched.name && formik.errors.name}
                     required={true}
                   />
-
-                  <button type="submit" className="btn">
-                    Create Classroom
+                  <button
+                    type="submit"
+                    className="btn"
+                    disabled={loading  || !(formik.isValid && formik.dirty)}
+                  >
+                    {loading
+                      ? isEdit
+                        ? "Updating..."
+                        : "Creating..."
+                      : isEdit
+                        ? "Update Classroom"
+                        : "Create Classroom"}
                   </button>
                 </div>
               </form>

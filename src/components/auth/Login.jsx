@@ -13,12 +13,16 @@ import { Check } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
+import RememberField from '../ui/RememberField';
+import Modal from '../ui/Modal';
 
 const Login = () => {
     const loading = useSelector(state => state.loading);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [checked, setChecked] = useState(false);
+    const [open, setOpen] = useState(false);
+
     const validationSchema = Yup.object({
         login: Yup.string().trim()
             .required('Email or phone number is required')
@@ -101,31 +105,14 @@ const Login = () => {
                             <form className="login_form_wrapper" onSubmit={formik.handleSubmit}>
                                 <TextField label="Email/Phone" id="login" {...formik.getFieldProps("login")} error={formik.touched.login && formik.errors.login} />
                                 <PasswordField label="Password" id="password" {...formik.getFieldProps("password")} error={formik.touched.password && formik.errors.password} />
-                                <div className='remember_me'>
-                                    <label className="remember_me_label">
-
-                                        <input type="checkbox" checked={checked} onChange={() => setChecked(!checked)} className="hidden" />
-
-                                        <div
-                                            className={`remmeber_me_checkbox ${checked ? "bg-orange border-orange" : "border-navy bg-white"}`}>
-                                            {checked && (
-                                                <Check className="w-4 h-4 text-white" strokeWidth={3} />
-                                            )}
-                                        </div>
-                                        <span className="remember_me_text">Remember me</span>
-                                    </label>
-                                    <Link className='login_forgot_password' to="/forgot-password">Forgot Password?</Link>
-                                </div>
-
+                                <RememberField checked={checked} handleChecked={setChecked} handleOpen={setOpen} />
                                 <button type="submit" className="btn" disabled={loading || !(formik.isValid && formik.dirty)}>{loading ? "Signing in..." : "Sign in"}</button>
-
-                                <p className="login_donot_have_account">Don't have an account? <a className="login_donot_have_account_link" href="#">Sign Up</a></p>
-                                
+                                {/* <p className="login_donot_have_account">Don't have an account? <a className="login_donot_have_account_link" href="#">Sign Up</a></p> */}
                             </form>
 
                         </div>
                     </div>
-                    <div className='bg-navy flex flex-wrap items-center justify-center'>
+                    <div className='login_slider_wrapper'>
                         <div className='max-w-full w-2xl'>
                             <img src="/group-tp.png" alt="students" className='max-w-full w-2xl mx-auto' />
                             <Swiper
@@ -139,27 +126,27 @@ const Login = () => {
                                 }}
                                 loop={true}>
                                 <SwiperSlide>
-                                    <div className='text-white text-center'>
-                                        <h2 className='mb-4 text-[32px]'>Smarter School Smarter <br /><span className="text-orange">Communication</span></h2>
-                                        <p className='w-4/6 mx-auto'>A unified platform that connects teachers, parents and students, making it easy to share updates, manage assignments. — all in one place.</p>
-                                    </div>
+                                    <h2>Smarter School Smarter <br /><span className="text-orange">Communication</span></h2>
+                                    <p>A unified platform that connects teachers, parents and students, making it easy to share updates, manage assignments. — all in one place.</p>
                                 </SwiperSlide>
                                 <SwiperSlide>
-                                    <div className='text-white text-center'>
-                                        <h2 className='mb-4 text-[32px]'>Stay Connected with <br /><span className="text-orange">Teachers</span></h2>
-                                        <p className='w-4/6 mx-auto'>Keep parents, students and teachers in sync with real-time updates, announcements, and important notices — all in one place, without the chaos of multiple apps.</p>
-                                    </div>
+                                    <h2>Stay Connected with <br /><span className="text-orange">Teachers</span></h2>
+                                    <p>Keep parents, students and teachers in sync with real-time updates, announcements, and important notices — all in one place, without the chaos of multiple apps.</p>
                                 </SwiperSlide>
                                 <SwiperSlide>
-                                    <div className='text-white text-center'>
-                                        <h2 className='mb-4 text-[32px]'>Stay Updated with Class <br /><span className='text-orange'>Every Day</span></h2>
-                                        <p className='w-4/6 mx-auto'>Easily track homework, classwork, and school activities shared by teachers so your child stays on top of their learning every day.</p>
-                                    </div>
+                                    <h2>Stay Updated with Class <br /><span className='text-orange'>Every Day</span></h2>
+                                    <p>Easily track homework, classwork, and school activities shared by teachers so your child stays on top of their learning every day.</p>
                                 </SwiperSlide>
                             </Swiper>
                         </div>
                     </div>
                 </div>
+                <Modal isOpen={open} title="Forgot Password?" handleCloseModal={() => setOpen(false)}>
+                    <div className="p-4 overflow-y-auto login_form_wrapper">
+                       <TextField label="Email/Phone" id="login" {...formik.getFieldProps("login")} error={formik.touched.login && formik.errors.login} />
+                       <button type="submit" className="btn" disabled={loading || !(formik.isValid && formik.dirty)}>{loading ? "Sending..." : "Send Email"}</button>
+                    </div>
+                </Modal>
             </>
         </AuthLayout>
     )
