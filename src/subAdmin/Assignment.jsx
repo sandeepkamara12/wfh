@@ -6,10 +6,11 @@ import CreateRole from "../components/assignment/CreateRole";
 const Assignment = () => {
     return (
         <>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-5 lg:grid-row-2 gap-4">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-6 lg:grid-row-2 gap-4">
                 <DashboardCard label="Total Teachers" count="72" id="teacher" />
                 <DashboardCard label="Total Students" count="7200" id="student" />
                 <DashboardCard label="Total Classrooms" count="12" id="classroom" />
+                <DashboardCard label="Total Streams" count="12" id="stream" />
                 <DashboardCard label="Total Sections" count="5" id="section" />
                 <DashboardCard label="Total Subjects" count="10" id="subject" />
             </div>
