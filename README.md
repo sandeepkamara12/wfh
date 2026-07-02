@@ -3,3 +3,6 @@
 3. Need to compress the image while capturing by teacher in upload documents.
 4. Need to show our partners as schools in the landing page.
 5. Forgot Password functionality should be with both phone and email.
+6. Need to update the animation classes with custom_animation component in index.css.
+7. Need to update the icons from iconMap constant file.
+8. 

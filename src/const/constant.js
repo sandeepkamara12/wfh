@@ -52,18 +52,21 @@ export const studentOptions = [
 ];
 
 export const classOptions = [
-  { value: "1235678940", label: "1st" },
-  { value: "1235678940", label: "2nd" },
-  { value: "1235678940", label: "3rd" },
-  { value: "2457896310", label: "4th" },
-  { value: "0265314789", label: "5th" },
-  { value: "0265314789", label: "6th" },
-  { value: "0265314789", label: "7th" },
-  { value: "0265314789", label: "8th" },
-  { value: "0265314789", label: "9th" },
-  { value: "0265314789", label: "10th" },
-  { value: "0265314789", label: "11th" },
-  { value: "0265314789", label: "12th" },
+  { value: "nursery", label: "Nursery" },
+  { value: "lkg", label: "LKG" },
+  { value: "ukg", label: "UKG" },
+  { value: "1", label: "1st" },
+  { value: "2", label: "2nd" },
+  { value: "3", label: "3rd" },
+  { value: "4", label: "4th" },
+  { value: "5", label: "5th" },
+  { value: "6", label: "6th" },
+  { value: "7", label: "7th" },
+  { value: "8", label: "8th" },
+  { value: "9", label: "9th" },
+  { value: "10", label: "10th" },
+  { value: "11", label: "11th" },
+  { value: "12", label: "12th" },
 ];
 
 export const streamOptions = [
@@ -83,9 +86,9 @@ export const sectionOptions = [
 ];
 
 export const subjectOptions = [
-  { value: "1235678941", label: "Maths", icon: Divide },
-  { value: "2457896312", label: "English", icon: SpellCheck },
-  { value: "0265314783", label: "Hindi", icon: Heading },
+  { value: "maths", label: "Maths", icon: Divide },
+  { value: "english", label: "English", icon: SpellCheck },
+  { value: "hindi", label: "Hindi", icon: Heading },
 ];
 
 export const teachersData = [
@@ -376,4 +379,12 @@ export const partners = [
     location: "Rome, Italy",
     img: "/public/school-logo-3.png",
   },
+];
+export const dashboardCardData = [
+  { label: "Total Teachers", count: "72", id: "teacher", icon: "UserRoundPen" },
+  { label: "Total Students", count: "7200", id: "student", icon: "GraduationCap" },
+  { label: "Total Classrooms", count: "12", id: "classroom", icon: "GalleryThumbnails" },
+  { label: "Total Streams", count: "12", id: "stream", icon: "Globe" },
+  { label: "Total Sections", count: "5", id: "section", icon: "LayoutGrid" },
+  { label: "Total Subjects", count: "10", id: "subject", icon: "BookOpenText" },
 ];

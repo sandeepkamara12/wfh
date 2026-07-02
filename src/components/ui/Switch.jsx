@@ -1,7 +1,8 @@
-const Switch = ({ checked, onChangeHandler, label }) => {
+const Switch = ({ checked, onChangeHandler, label, previousLabel }) => {
     return (
         <div className="flex flex-wrap items-center gap-5">
             <div className="flex items-center gap-x-3">
+                <label htmlFor="hs-tooltip-example" className="text-sm font-medium">{previousLabel}</label>
                 <label htmlFor="hs-basic-usage" className="relative inline-block w-11 h-6 cursor-pointer">
                     <input
                         type="checkbox"

@@ -1,21 +1,15 @@
-import { BookOpenText, GalleryThumbnails, GraduationCap, LayoutGrid, Plus, UserRoundPen } from "lucide-react";
+import { iconMap } from "../../const/iconMap";
 
 const DashboardCard = ({ label, count, id }) => {
-    let icon = id === 'teacher' ?
-                <UserRoundPen /> :
-                id === 'student' ?
-                <GraduationCap /> :
-                id === 'classroom' ?
-                <GalleryThumbnails /> :
-                id === 'section' ?
-                <LayoutGrid /> :
-                id === 'subject' ?
-                <BookOpenText /> : '';
+    const Icon = iconMap[id] || null;
+    const PlusIcon = iconMap['plus'];
     return (
         <div className="flex flex-wrap items-center justify-between bg-white border border-white shadow-sm hover:shadow-lg rounded p-4 md:p-5 transition-all duration-300 ease-in-out relative">
-            <span className="absolute -right-[1px] -top-[1px] bg-navy text-white pb-2.5 ps-2.5 pe-1 pt-1 rounded-bl-full flex flex-wrap items-center justify-center"><Plus className="size-4" /></span>
+            <span className="cursor-pointer absolute -right-px -top-px bg-navy text-white pb-2.5 ps-2.5 pe-1 pt-1 rounded-bl-full flex flex-wrap items-center justify-center custom_transition hover:bg-orange">
+                 <PlusIcon className="size-4" />
+                </span>
             <div className="flex flex-wrap items-center justify-between gap-3">
-                {icon}
+                {Icon && <Icon />}
                 <p className="text-xs uppercase text-navy font-semibold">{label}</p>
             </div>
             <h3 className="text-xl sm:text-lg font-bold text-orange">{count}</h3>
