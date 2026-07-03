@@ -88,7 +88,7 @@ const CreateRole = () => {
             if (key === "dob" && values.dob) {
                 formData.append(key, format(values.dob, "dd-MM-yyyy"));
             }
-             else if (key === "file") {
+            else if (key === "file") {
                 if (values.file) {
                     formData.append("file", values.file); // ✅ important
                 }
@@ -111,7 +111,7 @@ const CreateRole = () => {
     const formik = useFormik({
         initialValues: {
             role: "teacher",
-            custom_id:"",
+            custom_id: "",
             first_name: "",
             last_name: "",
             email: "",
@@ -123,7 +123,7 @@ const CreateRole = () => {
             dob: null,
             gender: "male",
             file: null,
-            sub_admin_id:user?.id || ""
+            sub_admin_id: user?.id || ""
         },
         validationSchema,
         onSubmit: async (values, { resetForm }) => {
@@ -150,7 +150,7 @@ const CreateRole = () => {
                             dob: null,
                             gender: "male",
                             file: null,
-                            sub_admin_id:""
+                            sub_admin_id: ""
                         }
                     });
                 }
@@ -194,52 +194,67 @@ const CreateRole = () => {
 
     return (
         <div className="bg-white p-6 rounded">
-            <h2 className="mb-6 font-bold text-lg">Create <span className="text-orange">Role</span></h2>
-            <form className="grid gap-y-4" onSubmit={formik.handleSubmit}>
-                <ImageUploader formik={formik} ref={fileRef} updateImageHandler={updateImageHandler} removeImageHandler={removeImageHandler} preview={preview} handleImageUploadTrigger={handleImageUploadTrigger} />
-                <div className="grid grid-cols-3 gap-4">
-                    <div className="col-span-2">
-                        <Role formik={formik} label="Select Role" />
-                    </div>
-                </div>
-                <div className="grid grid-cols-3 gap-4">
-                    <div className="col-span-2">
-                        <Gender formik={formik} alignment="" label="Select Gender" />
-                    </div>
-                </div>
-                    <TextField label={`${formik.values.role === 'teacher' ? 'Teacher Id' : 'Student Id'}`} id="custom_id" {...formik.getFieldProps("custom_id")} error={formik.touched.custom_id && formik.errors.custom_id} required={true} />
-                <div className="grid grid-cols-2 gap-4">
-                    <TextField label="First Name" id="first_name" {...formik.getFieldProps("first_name")} error={formik.touched.first_name && formik.errors.first_name} required={true} />
-                    <TextField label="Last Name" id="last_name" {...formik.getFieldProps("last_name")} />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                    <EmailField label="Email Address" id="email" {...formik.getFieldProps("email")} error={formik.touched.email && formik.errors.email} required={true} />
-                    <PhoneField label="Phone" id="phone" {...formik.getFieldProps("phone")} error={formik.touched.phone && formik.errors.phone} required={true} />
-                </div>
-                {
-                    formik.values.role === "teacher" &&
-                    <>
+            <form className="grid gap-y-6" onSubmit={formik.handleSubmit}>
+                <div className="flex items-center justify-between gap-2">
+                    <h2 className="font-bold text-lg">Create <span className="text-orange">Role</span></h2>
+                    {
+                        formik.values.role === "teacher" &&
                         <Switch formik={formik} onChangeHandler={handleMarried} label={"Are you married?"} checked={formik.values.married} />
-                        {
-                            formik.values.married &&
-                            <TextField label="Spouse Name" id="spouse_name" {...formik.getFieldProps("spouse_name")} error={formik.touched.spouse_name && formik.errors.spouse_name} required={true} />
-                        }
-                    </>
-                }
-                {
-                    showParents &&
-                    <>
-                        <TextField label="Father Name" id="father_name" {...formik.getFieldProps("father_name")} error={formik.touched.father_name && formik.errors.father_name} required={true} />
-                        <TextField label="Mother Name" id="mother_name" {...formik.getFieldProps("mother_name")} error={formik.touched.mother_name && formik.errors.mother_name} required={true} />
-                    </>
-                }
-                {
-                    <div className="">
-                        <OpenCalendar selected={formik.values.dob} onChangeHandler={onChangeHandler} maxDate={maxDate} name="dob" label="Date of Birth" required={true} error={formik.errors.dob}  />
+                    }
+                </div>
+                <div className="grid grid-cols-4 gap-6 items-start">
+                    <div className="grid grid-cols-6 items-start gap-6 col-span-3">
+                        <ImageUploader formik={formik} ref={fileRef} updateImageHandler={updateImageHandler} removeImageHandler={removeImageHandler} preview={preview} handleImageUploadTrigger={handleImageUploadTrigger} />
+
+                        <div className="col-span-2">
+                            <Role formik={formik} label="Choose Role" />
+                        </div>
+                        <div className="grid grid-cols-2 gap-6 col-span-4">
+                            <TextField label="First Name" id="first_name" {...formik.getFieldProps("first_name")} error={formik.touched.first_name && formik.errors.first_name} required={true} />
+                            <TextField label="Last Name" id="last_name" {...formik.getFieldProps("last_name")} />
+                        </div>
+                        <div className="col-span-2">
+                            <Gender formik={formik} alignment="" label="Choose Gender" />
+                        </div>
+                        <div className="grid grid-cols-2 gap-6 col-span-4">
+                            <EmailField label="Email Address" id="email" {...formik.getFieldProps("email")} error={formik.touched.email && formik.errors.email} required={true} />
+                            <PhoneField label="Phone" id="phone" {...formik.getFieldProps("phone")} error={formik.touched.phone && formik.errors.phone} required={true} />
+                        </div>
+                        <div className="col-span-2">
+                            <TextField label={`${formik.values.role === 'teacher' ? 'Teacher Id' : 'Student Id'}`} id="custom_id" {...formik.getFieldProps("custom_id")} error={formik.touched.custom_id && formik.errors.custom_id} required={true} />
+                        </div>
+                        <div className="grid grid-cols-2 gap-6 col-span-4">
+
+                            {
+                                formik.values.role === "teacher" &&
+                                <>
+                                    {/* <Switch formik={formik} onChangeHandler={handleMarried} label={"Are you married?"} checked={formik.values.married} /> */}
+                                    {
+                                        formik.values.married &&
+                                        <TextField label="Spouse Name" id="spouse_name" {...formik.getFieldProps("spouse_name")} error={formik.touched.spouse_name && formik.errors.spouse_name} required={true} />
+                                    }
+                                </>
+                            }
+                            {
+                                showParents &&
+                                <>
+                                    <TextField label="Father Name" id="father_name" {...formik.getFieldProps("father_name")} error={formik.touched.father_name && formik.errors.father_name} required={true} />
+                                    <TextField label="Mother Name" id="mother_name" {...formik.getFieldProps("mother_name")} error={formik.touched.mother_name && formik.errors.mother_name} required={true} />
+                                </>
+                            }
+                        </div>
                     </div>
-                }
+                    {
+                        <div className="col-span-1">
+                            <OpenCalendar selected={formik.values.dob} onChangeHandler={onChangeHandler} maxDate={maxDate} name="dob" label="Date of Birth" required={true} error={formik.errors.dob} />
+                        </div>
+                    }
+                </div>
+
                 {/* {selectedDate && <p className="mt-4 text-sm text-muted-foreground-2">{selectedDate.toLocaleDateString()}</p>} */}
-                <button type="submit" className="btn" disabled={loading || !(formik.isValid && formik.dirty)}>{loading ? "Creating..." : "Create Role"}</button>
+                <div className="col-span-1">
+                    <button type="submit" className="btn w-auto" disabled={loading || !(formik.isValid && formik.dirty)}>{loading ? "Creating..." : "Create Role"}</button>
+                </div>
             </form>
         </div>
     )

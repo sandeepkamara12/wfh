@@ -237,7 +237,7 @@
 .custom-calendar
   .react-datepicker__month-container
   .react-datepicker__day-name {
-  @apply w-[calc(100%/7)] m-0 text-white min-h-14 leading-14 text-center font-semibold text-sm rounded;
+  @apply w-[calc(100%/7)] m-0 text-white min-h-10 leading-10 text-center font-semibold text-sm rounded;
 }
 
 .custom-calendar .react-datepicker__day.react-datepicker__day--outside-month {

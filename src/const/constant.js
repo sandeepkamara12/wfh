@@ -14,17 +14,21 @@ import {
   SquareChartGantt,
   UserRoundPen,
   UserRoundPlus,
+  LayoutDashboard,
+  ArrowLeftRight
 } from "lucide-react";
 
 export const subAdminSidebarLinks = [
-  { id: 1, path: "/subadmin/assignments", label: "Assignments", icon: UserRoundPlus },
-  { id: 2, path: "/subadmin/teachers", label: "Teachers", icon: UserRoundPen },
-  { id: 3, path: "/subadmin/students", label: "Students", icon: GraduationCap },
-  { id: 4, path: "/subadmin/classrooms", label: "Classrooms", icon: GalleryThumbnails },
-  { id: 5, path: "/subadmin/streams", label: "Streams", icon: Network },
-  { id: 6, path: "/subadmin/sections", label: "Sections", icon: LayoutGrid },
-  { id: 7, path: "/subadmin/subjects", label: "Subjects", icon: BookOpenText },
-  { id: 8, path: "/subadmin/homework", label: "Homework", icon: SquareChartGantt}, // this one is fine
+  { id: 1, path: "/subadmin/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { id: 2, path: "/subadmin/create-role", label: "Create Role", icon: UserRoundPlus },
+  { id: 3, path: "/subadmin/assignments", label: "Assignments", icon: ArrowLeftRight },
+  { id: 4, path: "/subadmin/teachers", label: "Teachers", icon: UserRoundPen },
+  { id: 5, path: "/subadmin/students", label: "Students", icon: GraduationCap },
+  { id: 6, path: "/subadmin/classrooms", label: "Classrooms", icon: GalleryThumbnails },
+  { id: 7, path: "/subadmin/streams", label: "Streams", icon: Network },
+  { id: 8, path: "/subadmin/sections", label: "Sections", icon: LayoutGrid },
+  { id: 9, path: "/subadmin/subjects", label: "Subjects", icon: BookOpenText },
+  { id: 10, path: "/subadmin/homework", label: "Homework", icon: SquareChartGantt}, // this one is fine
 ];
 
 export const teacherSidebarLinks = [

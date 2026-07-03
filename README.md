@@ -5,4 +5,4 @@
 5. Forgot Password functionality should be with both phone and email.
 6. Need to update the animation classes with custom_animation component in index.css.
 7. Need to update the icons from iconMap constant file.
-8. 
+8. Need to make common icon because if sub admin create a new stream what icon should be there.

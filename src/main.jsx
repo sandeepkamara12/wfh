@@ -36,6 +36,8 @@ import Partners from './components/future/Partners.jsx';
 
 import { store, persistor } from './store';
 import { PersistGate } from 'redux-persist/integration/react';
+import Role from './subAdmin/Role.jsx';
+import Dashboard from './subAdmin/Dashboard.jsx';
 // import { getToken } from './features/auth/loginSlice.js';
 
 const router = createBrowserRouter([
@@ -57,7 +59,9 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
     children: [
-      { index: true, element: <Assignment /> },
+      { index: true, element: <Dashboard /> },
+      { path: "dashboard", element: (<Dashboard />) },
+      { path: "create-role", element: (<Role />) },
       { path: "assignments", element: (<Assignment />) },
       { path: "teachers", element: (<TeacherList />) },
       { path: "students", element: (<StudentList />) },

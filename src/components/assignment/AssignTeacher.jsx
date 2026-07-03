@@ -6,6 +6,7 @@ import {
     FlaskConical,
     GalleryThumbnails,
     GraduationCap,
+    Guitar,
     LayoutGrid,
     Network,
     Pencil,
@@ -100,8 +101,8 @@ const AssignTeacher = () => {
     return (
         <form className="">
             <div className="grid gap-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                    <div className="grid grid-cols-1 gap-6 bg-white p-4 rounded">
+                {/* <div className="grid grid-cols-2 gap-6"> */}
+                    <div className="col-span-2 grid grid-cols-1 gap-6 bg-white p-6 rounded">
                         <div className="flex items-center justify-between gap-2 ">
                             <h2 className="font-bold text-lg">
                                 Assign{" "}
@@ -148,7 +149,7 @@ const AssignTeacher = () => {
                                     <CustomSelect
                                         options={studentOptions}
                                         selectType="student"
-                                        label="Select Student"
+                                        label=""
                                         placeholder="Search Student"
                                         value={
                                             studentOptions.find(
@@ -202,7 +203,7 @@ const AssignTeacher = () => {
                                 </div>
                             </div>
                             <div>
-                                <div className="grid grid-cols-4 gap-2">
+                                <div className="grid grid-cols-5 gap-2">
                                     <RadioCard
                                         value="teacher_arts"
                                         checked={formik.values.classroom_id === "teacher_arts"}
@@ -239,6 +240,15 @@ const AssignTeacher = () => {
                                         group="stream"
                                         id="teacher_commerce"
                                     />
+                                    <RadioCard
+                                        value="teacher_music"
+                                        checked={formik.values.classroom_id === "teacher_music"}
+                                        onChange={formik.handleChange}
+                                        icon={<Guitar className="size-5" />}
+                                        text="Music"
+                                        group="stream"
+                                        id="teacher_music"
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -252,7 +262,7 @@ const AssignTeacher = () => {
                                 </div>
                             </div>
                             <div>
-                                <div className="grid grid-cols-6 gap-2">
+                                <div className="grid grid-cols-5 gap-2">
                                     <RadioCard
                                         value="teacher_A"
                                         checked={formik.values.classroom_id === "teacher_A"}
@@ -320,7 +330,7 @@ const AssignTeacher = () => {
                                 </div>
                             </div>
                             <div>
-                                <div className="grid grid-cols-4 gap-2">
+                                <div className="grid grid-cols-5 gap-2">
                                     <RadioCard
                                         value="teacher_computer"
                                         checked={formik.values.classroom_id === "teacher_computer"}
@@ -421,7 +431,7 @@ const AssignTeacher = () => {
                             </button>
                         </div>
                     </div>
-                    <div className="bg-white p-4 rounded">
+                    {/* <div className="flex bg-white p-4 rounded">
                         <h2 className="font-bold text-lg mb-6">Recently Assigned <span className="text-orange">Teacher</span></h2>
                         <div className="grid gap-4">
                             <div className="bg-navy/10 p-2 rounded shadow-md">
@@ -544,7 +554,7 @@ const AssignTeacher = () => {
                             
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </form>
     );

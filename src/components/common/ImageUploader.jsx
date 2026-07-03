@@ -2,10 +2,10 @@ import { ImageUp, Trash2, UserRound } from 'lucide-react'
 
 const ImageUploader = ({ ref, updateImageHandler, removeImageHandler, preview, handleImageUploadTrigger, formik }) => {
     return (
-        <div className=''>
-            <div className='flex flex-wrap items-center gap-4'>
-                <span className="inline-block size-24 bg-white rounded-full relative group">
-                    <span className="inline-flex flex-wrap items-center justify-center border-2 border-navy size-24 rounded-full overflow-hidden relative z-50">
+        <div className='col-span-6'>
+            <div className='flex flex-wrap items-center gap-2'>
+                <span className="inline-block size-20 bg-white rounded-full relative group">
+                    <span className="inline-flex flex-wrap items-center justify-center border-2 border-navy size-20 rounded-full overflow-hidden relative z-50">
                         <input
                             type="file"
                             ref={ref}
