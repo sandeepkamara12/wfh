@@ -9,6 +9,7 @@ import {
     Guitar,
     LayoutGrid,
     Network,
+    PanelLeftClose,
     Pencil,
     Stethoscope,
     UserRoundPen,
@@ -28,8 +29,10 @@ import Switch from "../ui/Switch";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useSelector } from "react-redux";
+import { useOutletContext } from "react-router-dom";
 
 const AssignTeacher = () => {
+    const { toggleSidebar } = useOutletContext();
     let user = useSelector((state) => state.auth.user);
     const [selected, setSelected] = useState([]);
 
@@ -102,336 +105,339 @@ const AssignTeacher = () => {
         <form className="">
             <div className="grid gap-y-4">
                 {/* <div className="grid grid-cols-2 gap-6"> */}
-                    <div className="col-span-2 grid grid-cols-1 gap-6 bg-white p-6 rounded">
-                        <div className="flex items-center justify-between gap-2 ">
+                <div className="col-span-2 grid grid-cols-1 gap-6 bg-white p-6 rounded">
+                    <div className="flex items-center justify-between gap-2 ">
+                        <div className="flex flex-wrap items-center gap-2">
+                            <PanelLeftClose className="size-5 flex" onClick={toggleSidebar} />
                             <h2 className="font-bold text-lg">
                                 Assign{" "}
                                 <span className="text-orange">
                                     {formik.values.assignment ? "Teacher" : "Student"}
                                 </span>
                             </h2>
-                            <Switch
-                                onChangeHandler={handleAssignment}
-                                previousLabel={"Assign Student"}
-                                label={"Assign Teacher"}
-                                checked={formik.values.assignment}
-                            />
                         </div>
-                        <div className="col-span-1 grid items-start gap-y-4 ">
+                        <Switch
+                            onChangeHandler={handleAssignment}
+                            previousLabel={"Assign Student"}
+                            label={"Assign Teacher"}
+                            checked={formik.values.assignment}
+                        />
+                    </div>
+                    <div className="col-span-1 grid items-start gap-y-4 ">
 
-                            <div className="flex items-center gap-2">
-                                <span className="bg-navy size-10 rounded text-white flex items-center justify-center">01</span>
-                                <div className="flex flex-col">
-                                    <span className="font-medium text-xs">Choose</span>
-                                    <span className="font-medium text-sm leading-4">{formik.values.assignment ? "Teacher" : "Student"}</span>
-                                </div>
-                            </div>
-
-                            <div>
-                                {formik.values.assignment ? (
-                                    <CustomSelect
-                                        options={teacherOptions}
-                                        selectType="teacher"
-                                        label=""
-                                        placeholder="Search Teacher"
-                                        value={
-                                            teacherOptions.find(
-                                                (opt) => opt.value === formik.values.teacher_id,
-                                            ) || null
-                                        }
-                                        onChange={(option) =>
-                                            formik.setFieldValue("teacher_id", option?.value || "")
-                                        }
-                                        {...formik.getFieldProps("teacher_id")}
-                                        error={formik.touched.teacher_id && formik.errors.teacher_id}
-                                    />
-                                ) : (
-                                    <CustomSelect
-                                        options={studentOptions}
-                                        selectType="student"
-                                        label=""
-                                        placeholder="Search Student"
-                                        value={
-                                            studentOptions.find(
-                                                (opt) => opt.value === formik.values.student_id,
-                                            ) || null
-                                        }
-                                        onChange={(option) =>
-                                            formik.setFieldValue("student_id", option?.value || "")
-                                        }
-                                        {...formik.getFieldProps("student_id")}
-                                        error={formik.touched.student_id && formik.errors.student_id}
-                                    />
-                                )}
-                            </div>
-
-                        </div>
-
-                        <div className="col-span-1 grid gap-y-4 ">
-                            <div className="flex items-center gap-2">
-                                <span className="bg-navy size-10 rounded text-white flex items-center justify-center">02</span>
-                                <div className="flex flex-col">
-                                    <span className="font-medium text-xs">Choose</span>
-                                    <span className="font-medium text-sm leading-4">Classroom</span>
-                                </div>
-                            </div>
-                            <div>
-                                <div className="grid grid-cols-5 gap-2">
-                                    {classOptions !== null &&
-                                        classOptions.map((cls) => (
-                                            <RadioCard
-                                                key={`teacher_${cls.value}`}
-                                                value={`teacher_${cls.value}`}
-                                                checked={formik.values.classroom_id === `teacher_${cls.value}`}
-                                                onChange={formik.handleChange}
-                                                icon={<GalleryThumbnails className="size-5" />}
-                                                text={cls.label}
-                                                group="class"
-                                                id={`teacher_${cls.value}`}
-                                            />
-                                        ))}
-                                </div>
+                        <div className="flex items-center gap-2">
+                            <span className="bg-navy size-10 rounded text-white flex items-center justify-center">01</span>
+                            <div className="flex flex-col">
+                                <span className="font-medium text-xs">Choose</span>
+                                <span className="font-medium text-sm leading-4">{formik.values.assignment ? "Teacher" : "Student"}</span>
                             </div>
                         </div>
 
-                        <div className="col-span-1 grid gap-y-4 ">
-                            <div className="flex items-center gap-2">
-                                <span className="bg-navy size-10 rounded text-white flex items-center justify-center">03</span>
-                                <div className="flex flex-col">
-                                    <span className="font-medium text-xs">Choose</span>
-                                    <span className="font-medium text-sm leading-4">Stream</span>
-                                </div>
-                            </div>
-                            <div>
-                                <div className="grid grid-cols-5 gap-2">
-                                    <RadioCard
-                                        value="teacher_arts"
-                                        checked={formik.values.classroom_id === "teacher_arts"}
-                                        onChange={formik.handleChange}
-                                        icon={<Pencil className="size-5" />}
-                                        text="Arts"
-                                        group="stream"
-                                        id="teacher_arts"
-                                    />
-                                    <RadioCard
-                                        value="teacher_medical"
-                                        checked={formik.values.classroom_id === "teacher_medical"}
-                                        onChange={formik.handleChange}
-                                        icon={<Stethoscope className="size-5" />}
-                                        text="Medical"
-                                        group="stream"
-                                        id="teacher_medical"
-                                    />
-                                    <RadioCard
-                                        value="teacher_non_medical"
-                                        checked={formik.values.classroom_id === "teacher_non_medical"}
-                                        onChange={formik.handleChange}
-                                        icon={<FlaskConical className="size-5" />}
-                                        text="Non Medical"
-                                        group="stream"
-                                        id="teacher_non_medical"
-                                    />
-                                    <RadioCard
-                                        value="teacher_commerce"
-                                        checked={formik.values.classroom_id === "teacher_commerce"}
-                                        onChange={formik.handleChange}
-                                        icon={<CircleDollarSign className="size-5" />}
-                                        text="Commerce"
-                                        group="stream"
-                                        id="teacher_commerce"
-                                    />
-                                    <RadioCard
-                                        value="teacher_music"
-                                        checked={formik.values.classroom_id === "teacher_music"}
-                                        onChange={formik.handleChange}
-                                        icon={<Guitar className="size-5" />}
-                                        text="Music"
-                                        group="stream"
-                                        id="teacher_music"
-                                    />
-                                </div>
-                            </div>
+                        <div>
+                            {formik.values.assignment ? (
+                                <CustomSelect
+                                    options={teacherOptions}
+                                    selectType="teacher"
+                                    label=""
+                                    placeholder="Search Teacher"
+                                    value={
+                                        teacherOptions.find(
+                                            (opt) => opt.value === formik.values.teacher_id,
+                                        ) || null
+                                    }
+                                    onChange={(option) =>
+                                        formik.setFieldValue("teacher_id", option?.value || "")
+                                    }
+                                    {...formik.getFieldProps("teacher_id")}
+                                    error={formik.touched.teacher_id && formik.errors.teacher_id}
+                                />
+                            ) : (
+                                <CustomSelect
+                                    options={studentOptions}
+                                    selectType="student"
+                                    label=""
+                                    placeholder="Search Student"
+                                    value={
+                                        studentOptions.find(
+                                            (opt) => opt.value === formik.values.student_id,
+                                        ) || null
+                                    }
+                                    onChange={(option) =>
+                                        formik.setFieldValue("student_id", option?.value || "")
+                                    }
+                                    {...formik.getFieldProps("student_id")}
+                                    error={formik.touched.student_id && formik.errors.student_id}
+                                />
+                            )}
                         </div>
 
-                        <div className="col-span-1 grid gap-y-4 ">
-                            <div className="flex items-center gap-2">
-                                <span className="bg-navy size-10 rounded text-white flex items-center justify-center">04</span>
-                                <div className="flex flex-col">
-                                    <span className="font-medium text-xs">Choose</span>
-                                    <span className="font-medium text-sm leading-4">Section</span>
-                                </div>
-                            </div>
-                            <div>
-                                <div className="grid grid-cols-5 gap-2">
-                                    <RadioCard
-                                        value="teacher_A"
-                                        checked={formik.values.classroom_id === "teacher_A"}
-                                        onChange={formik.handleChange}
-                                        icon={<LayoutGrid className="size-5" />}
-                                        text="A"
-                                        group="section"
-                                        id="teacher_A"
-                                    />
-                                    <RadioCard
-                                        value="teacher_B"
-                                        checked={formik.values.classroom_id === "teacher_B"}
-                                        onChange={formik.handleChange}
-                                        icon={<LayoutGrid className="size-5" />}
-                                        text="B"
-                                        group="section"
-                                        id="teacher_B"
-                                    />
-                                    <RadioCard
-                                        value="teacher_C"
-                                        checked={formik.values.classroom_id === "teacher_C"}
-                                        onChange={formik.handleChange}
-                                        icon={<LayoutGrid className="size-5" />}
-                                        text="C"
-                                        group="section"
-                                        id="teacher_C"
-                                    />
-                                    <RadioCard
-                                        value="teacher_D"
-                                        checked={formik.values.classroom_id === "teacher_D"}
-                                        onChange={formik.handleChange}
-                                        icon={<LayoutGrid className="size-5" />}
-                                        text="D"
-                                        group="section"
-                                        id="teacher_D"
-                                    />
-                                    <RadioCard
-                                        value="teacher_E"
-                                        checked={formik.values.classroom_id === "teacher_E"}
-                                        onChange={formik.handleChange}
-                                        icon={<LayoutGrid className="size-5" />}
-                                        text="E"
-                                        group="section"
-                                        id="teacher_E"
-                                    />
-                                    <RadioCard
-                                        value="teacher_F"
-                                        checked={formik.values.classroom_id === "teacher_F"}
-                                        onChange={formik.handleChange}
-                                        icon={<LayoutGrid className="size-5" />}
-                                        text="F"
-                                        group="section"
-                                        id="teacher_F"
-                                    />
-                                </div>
+                    </div>
+
+                    <div className="col-span-1 grid gap-y-4 ">
+                        <div className="flex items-center gap-2">
+                            <span className="bg-navy size-10 rounded text-white flex items-center justify-center">02</span>
+                            <div className="flex flex-col">
+                                <span className="font-medium text-xs">Choose</span>
+                                <span className="font-medium text-sm leading-4">Classroom</span>
                             </div>
                         </div>
-
-                        <div className="col-span-1 grid gap-y-4 ">
-                            <div className="flex items-center gap-2">
-                                <span className="bg-navy size-10 rounded text-white flex items-center justify-center">05</span>
-                                <div className="flex flex-col">
-                                    <span className="font-medium text-xs">Choose</span>
-                                    <span className="font-medium text-sm leading-4">Subject</span>
-                                </div>
-                            </div>
-                            <div>
-                                <div className="grid grid-cols-5 gap-2">
-                                    <RadioCard
-                                        value="teacher_computer"
-                                        checked={formik.values.classroom_id === "teacher_computer"}
-                                        onChange={formik.handleChange}
-                                        icon={<BookOpenText className="size-5" />}
-                                        text="Computer"
-                                        group="subject"
-                                        id="teacher_computer"
-                                    />
-                                    <RadioCard
-                                        value="teacher_maths"
-                                        checked={formik.values.classroom_id === "teacher_maths"}
-                                        onChange={formik.handleChange}
-                                        icon={<BookOpenText className="size-5" />}
-                                        text="Maths"
-                                        group="subject"
-                                        id="teacher_maths"
-                                    />
-                                    <RadioCard
-                                        value="teacher_hindi"
-                                        checked={formik.values.classroom_id === "teacher_hindi"}
-                                        onChange={formik.handleChange}
-                                        icon={<BookOpenText className="size-5" />}
-                                        text="Hindi"
-                                        group="subject"
-                                        id="teacher_hindi"
-                                    />
-                                    <RadioCard
-                                        value="teacher_english"
-                                        checked={formik.values.classroom_id === "teacher_english"}
-                                        onChange={formik.handleChange}
-                                        icon={<BookOpenText className="size-5" />}
-                                        text="English"
-                                        group="subject"
-                                        id="teacher_english"
-                                    />
-                                    <RadioCard
-                                        value="teacher_science"
-                                        checked={formik.values.classroom_id === "teacher_science"}
-                                        onChange={formik.handleChange}
-                                        icon={<BookOpenText className="size-5" />}
-                                        text="Science"
-                                        group="subject"
-                                        id="teacher_science"
-                                    />
-                                    <RadioCard
-                                        value="teacher_social_studies"
-                                        checked={
-                                            formik.values.classroom_id === "teacher_social_studies"
-                                        }
-                                        onChange={formik.handleChange}
-                                        icon={<BookOpenText className="size-5" />}
-                                        text="Social Studies"
-                                        group="subject"
-                                        id="teacher_social_studies"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col-span-1 hidden gap-y-4 ">
-                            <div className="flex items-center gap-2">
-                                <span className="bg-navy size-10 rounded text-white flex items-center justify-center">05</span>
-                                <div className="flex flex-col">
-                                    <span className="font-medium text-xs">Choose</span>
-                                    <span className="font-medium text-sm leading-4">Subject</span>
-                                </div>
-                            </div>
-                            <div>
-                                <label
-                                    htmlFor="subject"
-                                    className="block text-sm font-medium text-navy mb-1"
-                                >
-                                    Select Subject
-                                    <span className="text-red-500 ms-1">
-                                        (Multiple subjects selectable)
-                                    </span>
-                                </label>
-                                <div className="grid grid-cols-5 gap-2">
-                                    {subjects.map((cls) => (
-                                        <CheckboxCard
-                                            key={cls}
-                                            id={cls}
-                                            text={cls}
-                                            group="subject"
-                                            icon={<GraduationCap className="size-5" />}
-                                            checked={formik.values.subjects.includes(cls)}
-                                            onChange={() => handleChange(cls)}
+                        <div>
+                            <div className="grid grid-cols-5 gap-2">
+                                {classOptions !== null &&
+                                    classOptions.map((cls) => (
+                                        <RadioCard
+                                            key={`teacher_${cls.value}`}
+                                            value={`teacher_${cls.value}`}
+                                            checked={formik.values.classroom_id === `teacher_${cls.value}`}
+                                            onChange={formik.handleChange}
+                                            icon={<GalleryThumbnails className="size-5" />}
+                                            text={cls.label}
+                                            group="class"
+                                            id={`teacher_${cls.value}`}
                                         />
                                     ))}
-                                </div>
                             </div>
                         </div>
+                    </div>
 
-                        <div className="col-start-1">
-                            <button type="submit" className="btn w-auto">
-                                Assign {formik.values.assignment ? "Teacher" : "Student"}
-                            </button>
+                    <div className="col-span-1 grid gap-y-4 ">
+                        <div className="flex items-center gap-2">
+                            <span className="bg-navy size-10 rounded text-white flex items-center justify-center">03</span>
+                            <div className="flex flex-col">
+                                <span className="font-medium text-xs">Choose</span>
+                                <span className="font-medium text-sm leading-4">Stream</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div className="grid grid-cols-5 gap-2">
+                                <RadioCard
+                                    value="teacher_arts"
+                                    checked={formik.values.classroom_id === "teacher_arts"}
+                                    onChange={formik.handleChange}
+                                    icon={<Pencil className="size-5" />}
+                                    text="Arts"
+                                    group="stream"
+                                    id="teacher_arts"
+                                />
+                                <RadioCard
+                                    value="teacher_medical"
+                                    checked={formik.values.classroom_id === "teacher_medical"}
+                                    onChange={formik.handleChange}
+                                    icon={<Stethoscope className="size-5" />}
+                                    text="Medical"
+                                    group="stream"
+                                    id="teacher_medical"
+                                />
+                                <RadioCard
+                                    value="teacher_non_medical"
+                                    checked={formik.values.classroom_id === "teacher_non_medical"}
+                                    onChange={formik.handleChange}
+                                    icon={<FlaskConical className="size-5" />}
+                                    text="Non Medical"
+                                    group="stream"
+                                    id="teacher_non_medical"
+                                />
+                                <RadioCard
+                                    value="teacher_commerce"
+                                    checked={formik.values.classroom_id === "teacher_commerce"}
+                                    onChange={formik.handleChange}
+                                    icon={<CircleDollarSign className="size-5" />}
+                                    text="Commerce"
+                                    group="stream"
+                                    id="teacher_commerce"
+                                />
+                                <RadioCard
+                                    value="teacher_music"
+                                    checked={formik.values.classroom_id === "teacher_music"}
+                                    onChange={formik.handleChange}
+                                    icon={<Guitar className="size-5" />}
+                                    text="Music"
+                                    group="stream"
+                                    id="teacher_music"
+                                />
+                            </div>
                         </div>
                     </div>
-                    {/* <div className="flex bg-white p-4 rounded">
+
+                    <div className="col-span-1 grid gap-y-4 ">
+                        <div className="flex items-center gap-2">
+                            <span className="bg-navy size-10 rounded text-white flex items-center justify-center">04</span>
+                            <div className="flex flex-col">
+                                <span className="font-medium text-xs">Choose</span>
+                                <span className="font-medium text-sm leading-4">Section</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div className="grid grid-cols-5 gap-2">
+                                <RadioCard
+                                    value="teacher_A"
+                                    checked={formik.values.classroom_id === "teacher_A"}
+                                    onChange={formik.handleChange}
+                                    icon={<LayoutGrid className="size-5" />}
+                                    text="A"
+                                    group="section"
+                                    id="teacher_A"
+                                />
+                                <RadioCard
+                                    value="teacher_B"
+                                    checked={formik.values.classroom_id === "teacher_B"}
+                                    onChange={formik.handleChange}
+                                    icon={<LayoutGrid className="size-5" />}
+                                    text="B"
+                                    group="section"
+                                    id="teacher_B"
+                                />
+                                <RadioCard
+                                    value="teacher_C"
+                                    checked={formik.values.classroom_id === "teacher_C"}
+                                    onChange={formik.handleChange}
+                                    icon={<LayoutGrid className="size-5" />}
+                                    text="C"
+                                    group="section"
+                                    id="teacher_C"
+                                />
+                                <RadioCard
+                                    value="teacher_D"
+                                    checked={formik.values.classroom_id === "teacher_D"}
+                                    onChange={formik.handleChange}
+                                    icon={<LayoutGrid className="size-5" />}
+                                    text="D"
+                                    group="section"
+                                    id="teacher_D"
+                                />
+                                <RadioCard
+                                    value="teacher_E"
+                                    checked={formik.values.classroom_id === "teacher_E"}
+                                    onChange={formik.handleChange}
+                                    icon={<LayoutGrid className="size-5" />}
+                                    text="E"
+                                    group="section"
+                                    id="teacher_E"
+                                />
+                                <RadioCard
+                                    value="teacher_F"
+                                    checked={formik.values.classroom_id === "teacher_F"}
+                                    onChange={formik.handleChange}
+                                    icon={<LayoutGrid className="size-5" />}
+                                    text="F"
+                                    group="section"
+                                    id="teacher_F"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col-span-1 grid gap-y-4 ">
+                        <div className="flex items-center gap-2">
+                            <span className="bg-navy size-10 rounded text-white flex items-center justify-center">05</span>
+                            <div className="flex flex-col">
+                                <span className="font-medium text-xs">Choose</span>
+                                <span className="font-medium text-sm leading-4">Subject</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div className="grid grid-cols-5 gap-2">
+                                <RadioCard
+                                    value="teacher_computer"
+                                    checked={formik.values.classroom_id === "teacher_computer"}
+                                    onChange={formik.handleChange}
+                                    icon={<BookOpenText className="size-5" />}
+                                    text="Computer"
+                                    group="subject"
+                                    id="teacher_computer"
+                                />
+                                <RadioCard
+                                    value="teacher_maths"
+                                    checked={formik.values.classroom_id === "teacher_maths"}
+                                    onChange={formik.handleChange}
+                                    icon={<BookOpenText className="size-5" />}
+                                    text="Maths"
+                                    group="subject"
+                                    id="teacher_maths"
+                                />
+                                <RadioCard
+                                    value="teacher_hindi"
+                                    checked={formik.values.classroom_id === "teacher_hindi"}
+                                    onChange={formik.handleChange}
+                                    icon={<BookOpenText className="size-5" />}
+                                    text="Hindi"
+                                    group="subject"
+                                    id="teacher_hindi"
+                                />
+                                <RadioCard
+                                    value="teacher_english"
+                                    checked={formik.values.classroom_id === "teacher_english"}
+                                    onChange={formik.handleChange}
+                                    icon={<BookOpenText className="size-5" />}
+                                    text="English"
+                                    group="subject"
+                                    id="teacher_english"
+                                />
+                                <RadioCard
+                                    value="teacher_science"
+                                    checked={formik.values.classroom_id === "teacher_science"}
+                                    onChange={formik.handleChange}
+                                    icon={<BookOpenText className="size-5" />}
+                                    text="Science"
+                                    group="subject"
+                                    id="teacher_science"
+                                />
+                                <RadioCard
+                                    value="teacher_social_studies"
+                                    checked={
+                                        formik.values.classroom_id === "teacher_social_studies"
+                                    }
+                                    onChange={formik.handleChange}
+                                    icon={<BookOpenText className="size-5" />}
+                                    text="Social Studies"
+                                    group="subject"
+                                    id="teacher_social_studies"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col-span-1 hidden gap-y-4 ">
+                        <div className="flex items-center gap-2">
+                            <span className="bg-navy size-10 rounded text-white flex items-center justify-center">05</span>
+                            <div className="flex flex-col">
+                                <span className="font-medium text-xs">Choose</span>
+                                <span className="font-medium text-sm leading-4">Subject</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label
+                                htmlFor="subject"
+                                className="block text-sm font-medium text-navy mb-1"
+                            >
+                                Select Subject
+                                <span className="text-red-500 ms-1">
+                                    (Multiple subjects selectable)
+                                </span>
+                            </label>
+                            <div className="grid grid-cols-5 gap-2">
+                                {subjects.map((cls) => (
+                                    <CheckboxCard
+                                        key={cls}
+                                        id={cls}
+                                        text={cls}
+                                        group="subject"
+                                        icon={<GraduationCap className="size-5" />}
+                                        checked={formik.values.subjects.includes(cls)}
+                                        onChange={() => handleChange(cls)}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col-start-1">
+                        <button type="submit" className="btn w-auto">
+                            Assign {formik.values.assignment ? "Teacher" : "Student"}
+                        </button>
+                    </div>
+                </div>
+                {/* <div className="flex bg-white p-4 rounded">
                         <h2 className="font-bold text-lg mb-6">Recently Assigned <span className="text-orange">Teacher</span></h2>
                         <div className="grid gap-4">
                             <div className="bg-navy/10 p-2 rounded shadow-md">

@@ -1,12 +1,12 @@
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { studentSidebarLinks, subAdminSidebarLinks, teacherSidebarLinks } from "../../const/constant";
-import { LogOut } from "lucide-react";
+import { LogOut, X } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { persistor } from "../../store";
 import { toast } from "react-toastify";
 // import { logout } from "../../features/auth/loginSlice";
 
-const Sidebar = () => {
+const Sidebar = ({isOpen, toggleSidebar}) => {
     const base_url = import.meta.env.VITE_API_BASE_URL;
     const location = useLocation();
     let pathName = location.pathname;
@@ -30,23 +30,22 @@ const Sidebar = () => {
     let userGeneratedId = user?.role[0] + isMarried + user?.gender[0] + user?.first_name[0] + user?.last_name[0] + paddedId;
 
     return (
-        <aside id="hs-pro-sidebar" className="hs-overlay [--auto-close:lg]
-            hs-overlay-open:translate-x-0
-            -translate-x-full transition-all duration-300 transform
-            w-65 h-full
-            hidden
-            fixed inset-y-0 inset-s-0 z-60
-            bg-navy border-e border-navy
-            lg:block xl:translate-x-0 lg:inset-e-auto lg:bottom-0" tabIndex="-1" aria-label="Sidebar">
+        <aside id="hs-pro-sidebar"  className={`
+    fixed inset-y-0 left-0 z-50
+    w-64 h-full
+    bg-navy border-r border-navy
+    transform transition-transform duration-300
+
+    ${isOpen ? "translate-x-0" : "-translate-x-full"}
+-translate-x-full
+    xl:translate-x-0
+  `} tabIndex="-1" aria-label="Sidebar">
 
             <div className="flex flex-col h-full max-h-full">
-                <div className="hidden lg:block absolute top-2 inset-e-4">
-                    <div className="hs-tooltip [--placement:bottom] inline-block">
-                        <button type="button" className="hs-tooltip-toggle relative w-9 h-9 inline-flex justify-center items-center gap-x-2 border border-white text-white hover:bg-surface-hover focus:bg-surface-hover rounded-full disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
-                            <svg className="shrink-0 w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
-                                <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
-                            </svg>
+                <div className="block absolute top-2 inset-e-4">
+                    <div className="inline-block">
+                        <button onClick={()=>toggleSidebar()} type="button" className="hs-tooltip-toggle relative w-9 h-9 inline-flex justify-center items-center gap-x-2 border border-white text-white hover:bg-surface-hover focus:bg-surface-hover rounded-full focus:outline-hidden">
+                           <X className="size-5" />
                         </button>
                     </div>
                 </div>
