@@ -63,7 +63,7 @@
     font-family: var(--font-sans);
     @apply text-navy font-sans;
   }
-  body::before {
+  .login_wrapper .left_column::before {
     content: "";
     position: fixed;
     top: 0;
