@@ -1,6 +1,6 @@
 const AuthLayout = ({ children }) => {
     return (
-        <div className="w-full">
+        <div className="w-full full-height">
             {children}
         </div>
     )

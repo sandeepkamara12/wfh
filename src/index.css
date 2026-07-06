@@ -46,6 +46,11 @@ body {
  padding-right: env(safe-area-inset-right, 0px);
 } 
 
+  .full-height {
+    /* height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom)); */
+    height: 100dvh;
+  }
+
 /* =========================
    BASE LAYER
 ========================= */
