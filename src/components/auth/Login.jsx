@@ -93,7 +93,7 @@ const Login = () => {
                         </div>
                     </div>
                     <div className='login_slider_wrapper'>
-                        <div className='max-w-full w-2xl'>
+                        <div className='max-w-xl w-full'>
                             <img src="/group-tp.png" alt="students" className='max-w-full w-2xl mx-auto' />
                             <Swiper
                                 modules={[Autoplay, Pagination]}

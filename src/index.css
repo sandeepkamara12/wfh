@@ -39,17 +39,9 @@
 
 /* Dark mode variables */
 
-body {
- padding-top: env(safe-area-inset-top, 0px);
- padding-bottom: env(safe-area-inset-bottom, 0px);
- padding-left: env(safe-area-inset-left, 0px);
- padding-right: env(safe-area-inset-right, 0px);
-} 
-
-  .full-height {
-    /* height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom)); */
-    height: 100dvh;
-  }
+.full-height {
+  height: 100dvh;
+}
 
 /* =========================
    BASE LAYER
@@ -64,10 +56,27 @@ body {
   }
 
   body {
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
     font-family: var(--font-sans);
     @apply text-navy font-sans;
   }
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 
+    background: url("/logo.png") repeat center center;
+    background-size: 175px;
+
+    opacity: 0.06; /* watermark transparency */
+    z-index: -1;
+  }
   h1,
   h2,
   h3,
@@ -403,7 +412,7 @@ body {
   left: initial !important;
 }
 /* Swiper */
-.swiper-pagination  {
+.swiper-pagination {
   @apply flex flex-wrap items-center justify-center gap-2 mt-6;
 }
 .swiper-pagination-bullet {
@@ -439,7 +448,7 @@ body {
   @apply flex flex-wrap items-center justify-center col-span-2 xl:col-span-1;
 }
 .inner_left_column {
-  @apply p-6 md:p-12 xl:p-7 w-full max-w-lg mx-auto ;
+  @apply p-6 md:p-12 xl:p-7 w-full max-w-lg mx-auto;
 }
 .login_heading {
   @apply block text-2xl font-bold text-navy;
@@ -486,20 +495,19 @@ body {
 .login_slider_wrapper .swiper-slide p {
   @apply w-4/6 mx-auto;
 }
-  /*************************** Code for Login Screen *******************/
+/*************************** Code for Login Screen *******************/
 
-  /*************************** Code for Modal Screen *******************/
-  .overlay {
-    @apply fixed top-0 left-0 w-full h-full bg-navy/80 z-40 transition-all duration-300 ease-in-out;
-  }
-  .modal-wrapper {
-    @apply size-full fixed top-0 inset-s-0 z-50 overflow-x-hidden overflow-y-auto pointer-events-none;
-  }
-  .modal-inner-wrapper {
-    @apply ease-in-out transition-all duration-200 md:max-w-xl md:w-full m-3 sm:mx-auto min-h-[calc(100%-56px)] flex items-center;
-  }
-  .modal {
-    @apply max-h-full overflow-hidden w-full flex flex-col bg-white border border-white shadow-2xs rounded pointer-events-auto;
-  }
-  /*************************** Code for Modal Screen *******************/
-
+/*************************** Code for Modal Screen *******************/
+.overlay {
+  @apply fixed top-0 left-0 w-full h-full bg-navy/80 z-40 transition-all duration-300 ease-in-out;
+}
+.modal-wrapper {
+  @apply size-full fixed top-0 inset-s-0 z-50 overflow-x-hidden overflow-y-auto pointer-events-none;
+}
+.modal-inner-wrapper {
+  @apply ease-in-out transition-all duration-200 md:max-w-xl md:w-full m-3 sm:mx-auto min-h-[calc(100%-56px)] flex items-center;
+}
+.modal {
+  @apply max-h-full overflow-hidden w-full flex flex-col bg-white border border-white shadow-2xs rounded pointer-events-auto;
+}
+/*************************** Code for Modal Screen *******************/
