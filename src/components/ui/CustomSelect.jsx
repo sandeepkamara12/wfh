@@ -1,7 +1,7 @@
 import { ChevronDown } from "lucide-react";
 import Select from "react-select"
 
-const CustomSelect = ({ options, selectType, label, placeholder="", className="" }) => {
+const CustomSelect = ({ options, selectType, label, placeholder = "", className = "" }) => {
     const CustomOption = (props) => {
         const { selectType } = props.selectProps;
         const Icon = props.data.icon;
@@ -25,8 +25,8 @@ const CustomSelect = ({ options, selectType, label, placeholder="", className=""
                         </div>
                     </div>
                 )
-                :
-                (<div {...props.innerProps} className="p-2 hover:bg-navy/10 text-sm font-medium">{props.label}</div>)
+                    :
+                    (<div {...props.innerProps} className="p-2 hover:bg-navy/10 text-sm font-medium">{props.label}</div>)
         );
     };
 
@@ -54,7 +54,7 @@ const CustomSelect = ({ options, selectType, label, placeholder="", className=""
                         </div>
                         <button type="button" onClick={(e) => { e.stopPropagation(); props.selectProps.onChange(null); }} className="ml-auto justify-self-end text-red-500 font-bold">✕</button>
                     </div>)
-                :
+                    :
                     <div className="inline-flex items-center gap-2 text-sm font-medium rounded w-[calc(100%-10px)]!">
                         <span>{props.data.label}</span>
                         <button type="button" onClick={(e) => { e.stopPropagation(); props.selectProps.onChange(null); }} className="ml-auto justify-self-end text-red-500 font-bold">✕</button>
@@ -70,7 +70,7 @@ const CustomSelect = ({ options, selectType, label, placeholder="", className=""
             </div>
         );
     };
-    
+
     return (
         <div className={`${className} col-span-1`}>
             <label htmlFor="" className="block text-sm font-medium text-navy mb-1">{label}</label>
@@ -83,6 +83,7 @@ const CustomSelect = ({ options, selectType, label, placeholder="", className=""
                     SingleValue: CustomSingleValue,
                     DropdownIndicator: CustomDropdownIndicator,
                 }}
+                // menuIsOpen={true}
                 styles={{
                     dropdownIndicator: (base) => ({
                         ...base,
@@ -110,6 +111,10 @@ const CustomSelect = ({ options, selectType, label, placeholder="", className=""
                         padding: 0,
                         display: "flex",
                         alignItems: "center",
+                    }),
+                    menu: (provided) => ({
+                        ...provided,
+                        zIndex: 50,
                     }),
                 }}
             />

@@ -6,3 +6,5 @@
 6. Need to update the animation classes with custom_animation component in index.css.
 7. Need to update the icons from iconMap constant file.
 8. Need to make common icon because if sub admin create a new stream what icon should be there.
+9. Need to replace email field with admission number to login as shown in the bvm school.
+10. 

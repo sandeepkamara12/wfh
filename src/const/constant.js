@@ -55,6 +55,13 @@ export const studentOptions = [
   { value: "0265314789", label: "Sandeep Singh", image: "/student.jpg" },
 ];
 
+export const branchOptions = [
+  { value: "salford_kitchlu_nagar", label: "Salford Kitchlu Nagar" },
+  { value: "salford_udham_singh_nagar", label: "Salford Udham Singh Nagar" },
+  { value: "salford_chd_road", label: "Salford Chandigarh Road" },
+  { value: "salford_dugri", label: "Salford Dugri" },
+];
+
 export const classOptions = [
   { value: "nursery", label: "Nursery" },
   { value: "lkg", label: "LKG" },

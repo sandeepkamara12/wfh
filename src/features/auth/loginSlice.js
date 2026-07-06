@@ -9,6 +9,7 @@ export const loginThunk = createAsyncThunk(
   async (payload, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.post(loginUrl, payload);
+      console.log(response, "login response");  
       return response.data;
     } catch (error) {
       return rejectWithValue({

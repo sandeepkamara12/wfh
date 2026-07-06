@@ -39,6 +39,27 @@
 
 /* Dark mode variables */
 
+/* body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  opacity: 1;
+} */
+/* body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background: #122c4f url('/logo.png') repeat center center;
+  background-size: 150px;
+
+  opacity: 0.06;
+  z-index: -1;
+} */
+
 /* =========================
    BASE LAYER
 ========================= */
@@ -420,15 +441,24 @@
 /****************************************** Code for partners ***********************************************************************/
 
 /*************************** Code for Login Screen *******************/
+.login_wrapper {
+  @apply grid grid-cols-2 h-full bg-navy/10;
+}
+.login_wrapper .left_column {
+  @apply flex flex-wrap items-center justify-center col-span-2 xl:col-span-2 ;
+}
+.inner_left_column {
+  @apply p-12 xl:p-7 w-full max-w-lg mx-auto ;
+}
 .login_heading {
   @apply block text-2xl font-bold text-navy;
 }
-.sign_in_btn_wrap {
+/* .sign_in_btn_wrap {
   @apply grid grid-cols-2 gap-4;
-}
-.or {
+} */
+/* .or {
   @apply pt-8 pb-7 flex items-center text-sm text-navy uppercase font-medium before:flex-1 before:border-t before:border-gray-400 before:me-6 after:flex-1 after:border-t after:border-gray-400 after:ms-6;
-}
+} */
 .login_form_wrapper {
   @apply flex flex-col gap-4;
 }
@@ -454,7 +484,7 @@
   @apply ms-1 text-orange no-underline focus:outline-hidden focus:underline font-medium hover:text-navy transition-all duration-200 ease-in-out;
 }
 .login_slider_wrapper {
-  @apply bg-navy flex flex-wrap items-center justify-center;
+  @apply bg-navy hidden xl:flex flex-wrap items-center justify-center;
 }
 .login_slider_wrapper .swiper-slide {
   @apply text-white text-center;
