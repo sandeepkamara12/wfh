@@ -76,21 +76,14 @@ const Login = () => {
                 <div className="login_wrapper">
                     <div className="left_column">
                         <div className="inner_left_column">
-                            <div className="text-start mb-6">
-                                <img src="/school-logo-1.png" alt="logo" width="150" height="auto" className='block mb-6' />
-                                <h3 className="login_heading"><span className='text-orange'>SALFORD</span> group of schools</h3>
+                            <div className="text-center mb-10">
+                                <img src="/wfh-logo.png" alt="logo" width="100" height="auto" className='mx-auto block mb-6' />
+                                <h3 className="login_heading">Sign in to <span className='text-orange'>WFH</span></h3>
                                 <p className='text-sm font-medium'>Send, Receive and save smarter.</p>
                             </div>
 
                             <form className="login_form_wrapper" onSubmit={formik.handleSubmit}>
-                                <CustomSelect
-                                    options={branchOptions}
-                                    selectType="branch"
-                                    label="Choose Branch"                                    
-                                    placeholder="Search Branch"
-                                />
-                                <TextField label="Email/Phone" id="login" {...formik.getFieldProps("login")} error={formik.touched.login && formik.errors.login} />
-                                {/* <TextField label="Admission Number" id="admission" /> */}
+                                <TextField label="Email/Phone/ID" id="login" {...formik.getFieldProps("login")} error={formik.touched.login && formik.errors.login} />
                                 <PasswordField label="Password" id="password" {...formik.getFieldProps("password")} error={formik.touched.password && formik.errors.password} />
                                 <RememberField checked={checked} handleChecked={setChecked} handleOpen={setOpen} />
                                 <button type="submit" className="btn" disabled={loading || !(formik.isValid && formik.dirty)}>{loading ? "Signing in..." : "Sign in"}</button>
@@ -99,7 +92,7 @@ const Login = () => {
 
                         </div>
                     </div>
-                    {/* <div className='login_slider_wrapper'>
+                    <div className='login_slider_wrapper'>
                         <div className='max-w-full w-2xl'>
                             <img src="/group-tp.png" alt="students" className='max-w-full w-2xl mx-auto' />
                             <Swiper
@@ -126,7 +119,7 @@ const Login = () => {
                                 </SwiperSlide>
                             </Swiper>
                         </div>
-                    </div> */}
+                    </div>
                 </div>
                 {/* <Modal isOpen={open} title="Forgot Password?" handleCloseModal={() => setOpen(false)}>
                     <div className="p-4 overflow-y-auto login_form_wrapper">
