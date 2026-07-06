@@ -448,7 +448,7 @@
   @apply flex flex-wrap items-center justify-center col-span-2 xl:col-span-2 ;
 }
 .inner_left_column {
-  @apply p-12 xl:p-7 w-full max-w-lg mx-auto ;
+  @apply p-6 md:p-12 xl:p-7 w-full max-w-lg mx-auto ;
 }
 .login_heading {
   @apply block text-2xl font-bold text-navy;

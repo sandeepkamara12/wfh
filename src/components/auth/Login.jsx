@@ -77,7 +77,7 @@ const Login = () => {
                     <div className="left_column">
                         <div className="inner_left_column">
                             <div className="text-start mb-6">
-                                <img src="/school-logo-1.png" alt="logo" width="150" height="auto" className='mx-auto block mb-6' />
+                                <img src="/school-logo-1.png" alt="logo" width="150" height="auto" className='block mb-6' />
                                 <h3 className="login_heading"><span className='text-orange'>SALFORD</span> group of schools</h3>
                                 <p className='text-sm font-medium'>Send, Receive and save smarter.</p>
                             </div>
@@ -90,6 +90,7 @@ const Login = () => {
                                     placeholder="Search Branch"
                                 />
                                 <TextField label="Email/Phone" id="login" {...formik.getFieldProps("login")} error={formik.touched.login && formik.errors.login} />
+                                {/* <TextField label="Admission Number" id="admission" /> */}
                                 <PasswordField label="Password" id="password" {...formik.getFieldProps("password")} error={formik.touched.password && formik.errors.password} />
                                 <RememberField checked={checked} handleChecked={setChecked} handleOpen={setOpen} />
                                 <button type="submit" className="btn" disabled={loading || !(formik.isValid && formik.dirty)}>{loading ? "Signing in..." : "Sign in"}</button>
