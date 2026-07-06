@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "../../axiosinstance";
 
-const loginUrl = `${import.meta.env.VITE_API_BASE_URL}/auth/login`;
-const updateTeacherUrl = `${import.meta.env.VITE_API_BASE_URL}/teacher/profile-update/`;
+const loginUrl = `/auth/login`;
+const updateTeacherUrl = `/teacher/profile-update/`;
 
 export const loginThunk = createAsyncThunk(
   "login",
