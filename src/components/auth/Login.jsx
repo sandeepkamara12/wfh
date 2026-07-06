@@ -73,7 +73,7 @@ const Login = () => {
     return (
         <AuthLayout>
             <>
-                <div className="login_wrapper full-height">
+                <div className="login_wrapper">
                     <div className="left_column">
                         <div className="inner_left_column">
                             <div className="text-center mb-10">
