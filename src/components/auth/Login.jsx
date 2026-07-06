@@ -77,7 +77,7 @@ const Login = () => {
                     <div className="left_column">
                         <div className="inner_left_column">
                             <div className="text-center mb-10">
-                                <img src="/school-logo-1.png" alt="logo" width="100" height="auto" className='mx-auto block mb-6' />
+                                <img src="/school-logo-1.png" alt="logo" width="150" height="auto" className='mx-auto block mb-6' />
                                 <h3 className="login_heading">Sign in to <span className='text-orange'>WFH</span></h3>
                                 <p className='text-sm font-medium'>Send, Receive and save smarter.</p>
                             </div>

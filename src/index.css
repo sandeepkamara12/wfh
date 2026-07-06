@@ -463,7 +463,7 @@ body {
   @apply flex flex-col gap-4;
 }
 .remember_me {
-  @apply flex flex-wrap items-center justify-between;
+  @apply flex flex-wrap items-center justify-end;
 }
 .remember_me_label {
   @apply flex items-center gap-2 cursor-pointer select-none;
