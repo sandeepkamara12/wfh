@@ -13,6 +13,7 @@ import Gender from '../common/Gender';
 import Role from '../common/Role';
 import OpenCalendar from '../ui/OpenCalendar';
 import Switch from "../ui/Switch"
+import { Download } from "lucide-react";
 
 const CreateRole = () => {
     // Redux
@@ -196,14 +197,20 @@ const CreateRole = () => {
         <div className="bg-white p-6 rounded">
             <form className="grid gap-y-6" onSubmit={formik.handleSubmit}>
                 <div className="flex items-center justify-between gap-2">
+                   
+
                     <h2 className="font-bold text-lg">Create <span className="text-orange">Role</span></h2>
-                    {
+                     <button className="icon-btn w-auto">
+                            <Download />
+                        </button>
+                </div>
+                <div className="flex flex-col xl:flex-row gap-4 xl:gap-0 flex-wrap justify-between items-start">
+                    <div className="create-role-left-area">
+                                            {
                         formik.values.role === "teacher" &&
                         <Switch formik={formik} onChangeHandler={handleMarried} label={"Are you married?"} checked={formik.values.married} />
                     }
-                </div>
-                <div className="flex flex-col xl:flex-row gap-7 xl:gap-0 flex-wrap justify-between items-start">
-                    <div className="create-role-left-area">
+                    
                         <ImageUploader formik={formik} ref={fileRef} updateImageHandler={updateImageHandler} removeImageHandler={removeImageHandler} preview={preview} handleImageUploadTrigger={handleImageUploadTrigger} />
 
                         <div className="col-span-6 3xl:col-span-2">
@@ -213,14 +220,14 @@ const CreateRole = () => {
                             <TextField label="First Name" id="first_name" {...formik.getFieldProps("first_name")} error={formik.touched.first_name && formik.errors.first_name} required={true} />
                             <TextField label="Last Name" id="last_name" {...formik.getFieldProps("last_name")} />
                         </div>
-                        <div className=" col-span-6 3xl:col-span-4">
+                        <div className="col-span-6 3xl:col-span-2">
                             <Gender formik={formik} alignment="" label="Choose Gender" />
                         </div>
                         <div className="grid sm:grid-cols-2 gap-4 col-span-6 3xl:col-span-4">
                             <EmailField label="Email Address" id="email" {...formik.getFieldProps("email")} error={formik.touched.email && formik.errors.email} required={true} />
                             <PhoneField label="Phone" id="phone" {...formik.getFieldProps("phone")} error={formik.touched.phone && formik.errors.phone} required={true} />
                         </div>
-                        <div className=" col-span-6 3xl:col-span-4">
+                        <div className=" col-span-6 3xl:col-span-2">
                             <TextField label={`${formik.values.role === 'teacher' ? 'Teacher Id' : 'Student Id'}`} id="custom_id" {...formik.getFieldProps("custom_id")} error={formik.touched.custom_id && formik.errors.custom_id} required={true} />
                         </div>
                         <div className="grid sm:grid-cols-2 gap-4 col-span-6 3xl:col-span-4">
