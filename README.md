@@ -11,3 +11,4 @@
 11. Need to make bottom bar instead of sidebar in the mobile view.
 12. Need to check sidebar.jsx component for isActive condition.
 13. Need to show wait or loader in login button and update profile button too.
+14. Need to show subjects conditionally at assignment page, I mean a few subjects are optional.

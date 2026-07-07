@@ -30,7 +30,7 @@ const SidebarLayout = ({ isOpen, toggleSidebar, children }) => {
 
   return (
     <>
-      <Header />
+      <Header isOpen={isOpen} toggleSidebar={toggleSidebar} />
       <Sidebar isOpen={isOpen} toggleSidebar={toggleSidebar} 
         links={
           role === "subadmin"
@@ -41,7 +41,7 @@ const SidebarLayout = ({ isOpen, toggleSidebar, children }) => {
         }
       handleLogout={handleLogout} />
 
-      {/* <BottomBar
+      <BottomBar
         links={
           role === "subadmin"
             ? subAdminSidebarLinks
@@ -50,7 +50,7 @@ const SidebarLayout = ({ isOpen, toggleSidebar, children }) => {
               : studentSidebarLinks
         }
         handleLogout={handleLogout}
-      /> */}
+      />
       <div className="w-full xl:ps-65 bg-navy/10 min-h-screen">
         <div className="p-4 sm:p-6">
           {children}

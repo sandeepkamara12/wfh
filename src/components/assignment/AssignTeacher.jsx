@@ -1,24 +1,15 @@
 import { useEffect, useMemo, useRef } from "react";
 import {
     BookOpenText,
-    CircleDollarSign,
-    Flag,
-    FlaskConical,
+    Download,
     GalleryThumbnails,
     GraduationCap,
-    Guitar,
     LayoutGrid,
-    Network,
-    PanelLeftClose,
     Pencil,
-    Stethoscope,
-    UserRoundPen,
-    X,
 } from "lucide-react";
 import CustomSelect from "../ui/CustomSelect";
 import {
     classOptions,
-    subjectOptions,
     studentOptions,
     teacherOptions,
     sectionData,
@@ -39,7 +30,6 @@ const AssignTeacher = () => {
     let user = useSelector((state) => state.auth.user);
     const [selected, setSelected] = useState([]);
 
-    const subjects = ["Computer", "Maths", "Hindi", "English", "Science", "Social Studies"];
 
     const handleChange = (cls) => {
         const newValues = formik.values.subjects.includes(cls)
@@ -47,11 +37,6 @@ const AssignTeacher = () => {
             : [...formik.values.subjects, cls];
 
         formik.setFieldValue("subjects", newValues);
-        // setSelected((prev) =>
-        //     prev.includes(cls)
-        //         ? prev.filter((c) => c !== cls)
-        //         : [...prev, cls]
-        // );
     };
 
     // Handle Married or not
@@ -109,16 +94,20 @@ const AssignTeacher = () => {
             <div className="grid gap-y-4">
                 {/* <div className="grid grid-cols-2 gap-6"> */}
                 <div className="col-span-2 grid grid-cols-1 gap-6 bg-white p-6 rounded">
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 sm:gap-2 ">
-                        <div className="flex flex-wrap items-center gap-2">
-                            <PanelLeftClose className="size-5 flex" onClick={toggleSidebar} />
-                            <h2 className="font-bold text-lg">
-                                Assign{" "}
-                                <span className="text-orange">
+                    <div className="flex items-center justify-between gap-6 ">
+                        <div className="flex flex-wrap gap-2">
+                            <h2 className="font-bold text-lg text-orange">
+                                Assignment
+                                {/* <span className="text-orange">
                                     {formik.values.assignment ? "Teacher" : "Student"}
-                                </span>
+                                </span> */}
                             </h2>
                         </div>
+                        <button className="icon-btn w-auto">
+                            <Download />
+                        </button>
+                    </div>
+                    <div className="col-span-1">
                         <Switch
                             onChangeHandler={handleAssignment}
                             previousLabel={"Student"}
