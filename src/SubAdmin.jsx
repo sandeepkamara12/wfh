@@ -7,9 +7,18 @@ const SubAdmin = () => {
     const toggleSidebar = () => {
         setIsSidebarOpen((prev) => !prev);
     };
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => {
+        setOpen(true);
+        console.log("chal paya")
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
     return (
-         <SidebarLayout isOpen={isSidebarOpen} toggleSidebar={toggleSidebar}>
-            <Outlet context={{ isSidebarOpen, toggleSidebar }} />
+        <SidebarLayout isOpen={isSidebarOpen} toggleSidebar={toggleSidebar}>
+            <Outlet context={{ isSidebarOpen, toggleSidebar, handleClose, handleOpen, open, setOpen }} />
         </SidebarLayout>
     )
 }

@@ -2,7 +2,7 @@ import Header from "../components/common/Header"
 import { useDispatch, useSelector } from "react-redux";
 import BottomBar from "../components/common/BottomBar"
 import Sidebar from "../components/common/Sidebar"
-import { studentSidebarLinks, subAdminSidebarLinks, teacherSidebarLinks } from "../const/constant";
+import { studentSidebarLinks, subAdminBottombarLinks, subAdminSidebarLinks, teacherSidebarLinks } from "../const/constant";
 import { logout } from "../features/auth/loginSlice";
 import { persistor } from "../store";
 import { toast } from "react-toastify";
@@ -44,7 +44,7 @@ const SidebarLayout = ({ isOpen, toggleSidebar, children }) => {
       <BottomBar
         links={
           role === "subadmin"
-            ? subAdminSidebarLinks
+            ? subAdminBottombarLinks
             : role === "teacher"
               ? teacherSidebarLinks
               : studentSidebarLinks

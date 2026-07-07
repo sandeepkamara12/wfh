@@ -7,19 +7,21 @@ import { toast } from "react-toastify"
 import { createRoleThunk } from "../../features/subAdmin/createRoleSlice"
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useEffect, useMemo, useRef } from "react"
+import {useRef } from "react"
 import ImageUploader from '../common/ImageUploader';
 import Gender from '../common/Gender';
 import Role from '../common/Role';
 import OpenCalendar from '../ui/OpenCalendar';
 import Switch from "../ui/Switch"
 import { Download } from "lucide-react";
+import useImageUpload from "../../hooks/useImageUpload";
 
 const CreateRole = () => {
     // Redux
     const loading = useSelector(state => state.role.loading.createRole);
     let user = useSelector(state => state.auth.user);
     const dispatch = useDispatch();
+  
 
     // Date
     const maxDate = subYears(new Date(), 18);
@@ -164,26 +166,7 @@ const CreateRole = () => {
         },
     });
 
-    // Handle Memory leakage while creating url using createObjectURL
-    const preview = useMemo(() => {
-        if (!formik.values.file) return null;
-        return URL.createObjectURL(formik.values.file);
-    }, [formik.values.file]);
-
-    useEffect(() => {
-        return () => {
-            if (preview) URL.revokeObjectURL(preview);
-        };
-    }, [preview]);
-
-    const updateImageHandler = (e) => {
-        const file = e.currentTarget.files[0];
-        formik.setFieldValue("file", file);
-    }
-
-    const removeImageHandler = () => {
-        formik.setFieldValue("file", null);
-    }
+    const { preview, handleChange, handleRemove } = useImageUpload(formik, "file");
 
     const onChangeHandler = (date) => {
         formik.setFieldValue("dob", date)
@@ -211,7 +194,7 @@ const CreateRole = () => {
                             </div>
                         }
 
-                        <ImageUploader formik={formik} ref={fileRef} updateImageHandler={updateImageHandler} removeImageHandler={removeImageHandler} preview={preview} handleImageUploadTrigger={handleImageUploadTrigger} />
+                        <ImageUploader formik={formik} ref={fileRef} updateImageHandler={handleChange} removeImageHandler={handleRemove} preview={preview} handleImageUploadTrigger={handleImageUploadTrigger} />
 
                         <div className="col-span-6 3xl:col-span-2">
                             <Role formik={formik} label="Choose Role" />

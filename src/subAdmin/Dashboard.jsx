@@ -1,7 +1,10 @@
+import { useOutletContext } from 'react-router-dom';
 import DashboardCard from '../components/assignment/DashboardCard'
 import { dashboardCardData } from '../const/constant'
+import AddTeacher from '../components/teacher/AddTeacher';
 
 const Dashboard = () => {
+    const { handleOpen } = useOutletContext();
     return (
         <div>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 3xl:gap-4">
@@ -10,10 +13,14 @@ const Dashboard = () => {
                         <DashboardCard key={index}
                             label={item.label}
                             count={item.count}
+                            link={item.link}
+                            onPlusClick={item.label === "Teachers" ? handleOpen : undefined}
+                            // onPlusClick={handleOpen}
                             id={item.id} />
                     ))
                 }
             </div>
+             <AddTeacher />
         </div>
     )
 }

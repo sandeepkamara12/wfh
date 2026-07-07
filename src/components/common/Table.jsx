@@ -15,7 +15,9 @@ const Table = ({ id="", columns, data, handleOpen, btnText, btnIcon, label, subL
                     btnText !== "" && btnIcon !== "" &&
                     <div>
                         <div className="inline-flex gap-x-2">
-                            <button type="button" onClick={handleOpen} className="btn" disabled={isButtonDisabled}>
+                            <button type="button" 
+                            onClick={handleOpen}
+                             className="btn" disabled={isButtonDisabled}>
                                 {btnIcon}
                                 {btnText}
                             </button>

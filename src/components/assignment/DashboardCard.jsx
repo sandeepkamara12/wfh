@@ -1,13 +1,17 @@
+import { Link } from "react-router-dom";
 import { iconMap } from "../../const/iconMap";
 
-const DashboardCard = ({ label, count, id }) => {
+const DashboardCard = ({ label, count, id, link, onPlusClick }) => {
     const Icon = iconMap[id] || null;
     const PlusIcon = iconMap['plus'];
+
     return (
         <div className="flex flex-wrap items-end justify-between bg-white border border-white shadow-sm hover:shadow-lg rounded p-4 3xl:p-5 transition-all duration-300 ease-in-out relative">
-            <span className="cursor-pointer absolute -right-px -top-px bg-navy text-white pb-2.5 ps-2.5 pe-1 pt-1 rounded-bl-full flex flex-wrap items-center justify-center custom_transition hover:bg-orange">
+            <Link to={link} className="absolute inset-x-0 inset-y-0" />
+            <div onClick={onPlusClick}
+                className="cursor-pointer absolute -right-px -top-px bg-navy text-white pb-2.5 ps-2.5 pe-1 pt-1 rounded-bl-full flex flex-wrap items-center justify-center custom_transition hover:bg-orange">
                 <PlusIcon className="size-4" />
-            </span>
+            </div>
             <div className="flex flex-col  flex-wrap justify-between gap-3">
                 {Icon && <Icon />}
                 <p className="text-xs uppercase text-navy font-semibold">{label}</p>

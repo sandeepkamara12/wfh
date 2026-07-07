@@ -33,6 +33,14 @@ export const subAdminSidebarLinks = [
   { id: 11, path: "/subadmin/settings", label: "Settings", icon: Settings}, // this one is fine
 ];
 
+export const subAdminBottombarLinks = [
+  { id: 1, path: "/subadmin/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { id: 2, path: "/subadmin/create-role", label: "Create Role", icon: UserRoundPlus },
+  { id: 3, path: "/subadmin/assignments", label: "Assignments", icon: ArrowLeftRight },
+  { id: 4, path: "/subadmin/homework", label: "Homework", icon: SquareChartGantt}, // this one is fine
+  { id: 5, path: "/subadmin/settings", label: "Settings", icon: Settings}, // this one is fine
+];
+
 export const teacherSidebarLinks = [
   { id: 1, path: "/teacher/profile", label: "Profile", icon: UserRoundPlus },
   { id: 2, path: "/teacher/upload-document", label: "Upload Documemt", icon: UserRoundPen },
@@ -394,10 +402,10 @@ export const partners = [
   },
 ];
 export const dashboardCardData = [
-  { label: "Teachers", count: "72", id: "teacher", icon: "UserRoundPen" },
-  { label: "Students", count: "9999", id: "student", icon: "GraduationCap" },
-  { label: "Classrooms", count: "12", id: "classroom", icon: "GalleryThumbnails" },
-  { label: "Streams", count: "12", id: "stream", icon: "Globe" },
-  { label: "Sections", count: "5", id: "section", icon: "LayoutGrid" },
-  { label: "Subjects", count: "10", id: "subject", icon: "BookOpenText" },
+  { label: "Teachers", count: "72", id: "teacher", icon: "UserRoundPen", link:"/subadmin/teachers" },
+  { label: "Students", count: "9999", id: "student", icon: "GraduationCap", link:"/subadmin/students" },
+  { label: "Classrooms", count: "12", id: "classroom", icon: "GalleryThumbnails", link:"" },
+  { label: "Streams", count: "12", id: "stream", icon: "Globe", link:"" },
+  { label: "Sections", count: "5", id: "section", icon: "LayoutGrid", link:"" },
+  { label: "Subjects", count: "10", id: "subject", icon: "BookOpenText", link:"" },
 ];
