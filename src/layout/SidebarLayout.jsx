@@ -1,11 +1,56 @@
-// import Header from "../components/common/Header"
+import Header from "../components/common/Header"
+import { useDispatch, useSelector } from "react-redux";
+import BottomBar from "../components/common/BottomBar"
 import Sidebar from "../components/common/Sidebar"
+import { studentSidebarLinks, subAdminSidebarLinks, teacherSidebarLinks } from "../const/constant";
+import { logout } from "../features/auth/loginSlice";
+import { persistor } from "../store";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const SidebarLayout = ({ isOpen, toggleSidebar, children }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  let user = useSelector(state => state.auth.user);
+
+  let role = user?.role;
+  
+  const handleLogout = async () => {
+    dispatch(logout());
+    // persistor.purge();
+    try {
+      await persistor.purge();
+      toast.success("You are logged out successfully!");
+      navigate("/login", { replace: true });
+    } catch (error) {
+      console.log(error, 'error')
+    }
+  };
+
   return (
     <>
-      {/* <Header /> */}
-      <Sidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
+      <Header />
+      <Sidebar isOpen={isOpen} toggleSidebar={toggleSidebar} 
+        links={
+          role === "subadmin"
+            ? subAdminSidebarLinks
+            : role === "teacher"
+              ? teacherSidebarLinks
+              : studentSidebarLinks
+        }
+      handleLogout={handleLogout} />
+
+      {/* <BottomBar
+        links={
+          role === "subadmin"
+            ? subAdminSidebarLinks
+            : role === "teacher"
+              ? teacherSidebarLinks
+              : studentSidebarLinks
+        }
+        handleLogout={handleLogout}
+      /> */}
       <div className="w-full xl:ps-65 bg-navy/10 min-h-screen">
         <div className="p-4 sm:p-6">
           {children}

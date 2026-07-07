@@ -106,7 +106,7 @@ const AssignTeacher = () => {
             <div className="grid gap-y-4">
                 {/* <div className="grid grid-cols-2 gap-6"> */}
                 <div className="col-span-2 grid grid-cols-1 gap-6 bg-white p-6 rounded">
-                    <div className="flex items-center justify-between gap-2 ">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 sm:gap-2 ">
                         <div className="flex flex-wrap items-center gap-2">
                             <PanelLeftClose className="size-5 flex" onClick={toggleSidebar} />
                             <h2 className="font-bold text-lg">
@@ -118,8 +118,8 @@ const AssignTeacher = () => {
                         </div>
                         <Switch
                             onChangeHandler={handleAssignment}
-                            previousLabel={"Assign Student"}
-                            label={"Assign Teacher"}
+                            previousLabel={"Student"}
+                            label={"Teacher"}
                             checked={formik.values.assignment}
                         />
                     </div>
@@ -182,7 +182,7 @@ const AssignTeacher = () => {
                             </div>
                         </div>
                         <div>
-                            <div className="grid grid-cols-5 gap-2">
+                            <div className="grid grid-cols-3 lg:grid-cols-5 gap-2">
                                 {classOptions !== null &&
                                     classOptions.map((cls) => (
                                         <RadioCard
@@ -209,7 +209,7 @@ const AssignTeacher = () => {
                             </div>
                         </div>
                         <div>
-                            <div className="grid grid-cols-5 gap-2">
+                            <div className="grid grid-cols-3 lg:grid-cols-5 gap-2">
                                 <RadioCard
                                     value="teacher_arts"
                                     checked={formik.values.classroom_id === "teacher_arts"}
@@ -268,7 +268,7 @@ const AssignTeacher = () => {
                             </div>
                         </div>
                         <div>
-                            <div className="grid grid-cols-5 gap-2">
+                            <div className="grid grid-cols-3 lg:grid-cols-5 gap-2">
                                 <RadioCard
                                     value="teacher_A"
                                     checked={formik.values.classroom_id === "teacher_A"}
@@ -336,7 +336,7 @@ const AssignTeacher = () => {
                             </div>
                         </div>
                         <div>
-                            <div className="grid grid-cols-5 gap-2">
+                            <div className="grid grid-cols-3 lg:grid-cols-5 gap-2">
                                 <RadioCard
                                     value="teacher_computer"
                                     checked={formik.values.classroom_id === "teacher_computer"}
@@ -415,7 +415,7 @@ const AssignTeacher = () => {
                                     (Multiple subjects selectable)
                                 </span>
                             </label>
-                            <div className="grid grid-cols-5 gap-2">
+                            <div className="grid grid-cols-3 lg:grid-cols-5 gap-2">
                                 {subjects.map((cls) => (
                                     <CheckboxCard
                                         key={cls}

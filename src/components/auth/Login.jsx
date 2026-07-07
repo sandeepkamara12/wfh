@@ -18,7 +18,7 @@ import CustomSelect from '../ui/CustomSelect';
 import Modal from '../ui/Modal';
 
 const Login = () => {
-    const loading = useSelector(state => state.loading);
+    const loading = useSelector(state => state.auth.loading);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [checked, setChecked] = useState(false);
@@ -56,9 +56,6 @@ const Login = () => {
                 const result = await dispatch(loginThunk(values)).unwrap();
                 if (result?.success) {
                     toast.success(result?.message);
-                    if (result?.role) {
-                        navigate(roleRedirect[result.role] || "/");
-                    }
                 }
                 else {
                     toast.error(result?.message);
@@ -86,7 +83,7 @@ const Login = () => {
                                 <TextField label="Email/Phone/ID" id="login" {...formik.getFieldProps("login")} error={formik.touched.login && formik.errors.login} />
                                 <PasswordField label="Password" id="password" {...formik.getFieldProps("password")} error={formik.touched.password && formik.errors.password} />
                                 <RememberField checked={checked} handleChecked={setChecked} handleOpen={setOpen} />
-                                <button type="submit" className="btn" disabled={loading || !(formik.isValid && formik.dirty)}>{loading ? "Signing in..." : "Sign in"}</button>
+                                <button type="submit" className="btn" disabled={loading?.login || !formik.isValid}>{loading?.login ? "Signing in..." : "Sign in"}</button>
                                 {/* <p className="login_donot_have_account">Don't have an account? <a className="login_donot_have_account_link" href="#">Sign Up</a></p> */}
                             </form>
 

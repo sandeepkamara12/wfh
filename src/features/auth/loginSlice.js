@@ -9,7 +9,6 @@ export const loginThunk = createAsyncThunk(
   async (payload, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.post(loginUrl, payload);
-      console.log(response, "login response");  
       return response.data;
     } catch (error) {
       return rejectWithValue({
@@ -51,6 +50,13 @@ const loginSlice = createSlice({
   name: "login",
   initialState,
   reducers: {
+    logout: (state) => {
+      state.user = {};        // clear user
+      state.message = "";
+      state.status = "";
+      state.error = { login: null, updateTeacher: null };
+      state.loading = { login: false, updateTeacher: false };
+    },
     updateUserInLocalStorage: (state, action) => {
       state.user = {
         id: action.payload.id,
@@ -141,5 +147,5 @@ const loginSlice = createSlice({
       });
   },
 });
-export const { getToken, updateUserInLocalStorage } = loginSlice.actions;
+export const { getToken, updateUserInLocalStorage, logout } = loginSlice.actions;
 export default loginSlice.reducer;

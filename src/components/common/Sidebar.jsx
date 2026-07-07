@@ -1,51 +1,30 @@
-import { Link, useLocation, useNavigate } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { studentSidebarLinks, subAdminSidebarLinks, teacherSidebarLinks } from "../../const/constant";
 import { LogOut, X } from "lucide-react";
-import { useDispatch, useSelector } from "react-redux";
-import { persistor } from "../../store";
-import { toast } from "react-toastify";
-// import { logout } from "../../features/auth/loginSlice";
+import { useSelector } from "react-redux";
 
-const Sidebar = ({isOpen, toggleSidebar}) => {
+const Sidebar = ({ isOpen, toggleSidebar, handleLogout }) => {
     const base_url = import.meta.env.VITE_API_BASE_URL;
     const location = useLocation();
     let pathName = location.pathname;
     let user = useSelector(state => state.auth.user);
     let role = user?.role;
-    const navigate = useNavigate();
-    // const dispatch = useDispatch();
 
-    const handleLogout = () => {
-        // dispatch(logout());
-        // persistor.purge();
-        persistor.purge().then((res) => {
-            console.log(res, 'res')
-            navigate("/login");
-            toast.success("You are logged out successfully!");
-        });
-    };
 
     let isMarried = !!user?.married;
     let paddedId = user?.id?.toString().padStart(5, '0');
     let userGeneratedId = user?.role[0] + isMarried + user?.gender[0] + user?.first_name[0] + user?.last_name[0] + paddedId;
 
     return (
-        <aside id="hs-pro-sidebar"  className={`
-    fixed inset-y-0 left-0 z-50
-    w-64 h-full
-    bg-navy border-r border-navy
-    transform transition-transform duration-300
-
-    ${isOpen ? "translate-x-0" : "-translate-x-full"}
--translate-x-full
-    xl:translate-x-0
-  `} tabIndex="-1" aria-label="Sidebar">
+        <aside id="hs-pro-sidebar" className={`fixed inset-y-0 left-0 z-50 w-64 h-full bg-navy border-r border-navy transform transition-transform duration-300 -translate-x-full xl:translate-x-0
+            ${isOpen ? "translate-x-0" : "-translate-x-full"}
+            `}>
 
             <div className="flex flex-col h-full max-h-full">
                 <div className="block absolute top-2 inset-e-4">
                     <div className="inline-block">
-                        <button onClick={()=>toggleSidebar()} type="button" className="hs-tooltip-toggle relative w-9 h-9 inline-flex justify-center items-center gap-x-2 border border-white text-white hover:bg-surface-hover focus:bg-surface-hover rounded-full focus:outline-hidden">
-                           <X className="size-5" />
+                        <button onClick={() => toggleSidebar()} type="button" className="hs-tooltip-toggle relative w-9 h-9 inline-flex justify-center items-center gap-x-2 border border-white text-white hover:bg-surface-hover focus:bg-surface-hover rounded-full focus:outline-hidden">
+                            <X className="size-5" />
                         </button>
                     </div>
                 </div>
@@ -126,14 +105,14 @@ const Sidebar = ({isOpen, toggleSidebar}) => {
 
                             }
                             <li className="mt-auto mb-3">
-                                <Link
+                                <span
                                     onClick={handleLogout}
                                     className={`bg-orange text-white flex no-underline transition-all duration-300 ease-in-out py-2 px-3 text-sm rounded hover:bg-orange hover:text-white focus:outline-hidden focus:bg-navy focus:text-white`}>
                                     <span className="w-5 mr-3">
                                         <LogOut className="size-5" />
                                     </span>
                                     Logout
-                                </Link>
+                                </span>
                             </li>
                         </ul>
                     </nav>

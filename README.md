@@ -7,4 +7,7 @@
 7. Need to update the icons from iconMap constant file.
 8. Need to make common icon because if sub admin create a new stream what icon should be there.
 9. Need to replace email field with admission number to login as shown in the bvm school.
-10. 
+10. Need to redirect at login page after logout.
+11. Need to make bottom bar instead of sidebar in the mobile view.
+12. Need to check sidebar.jsx component for isActive condition.
+13. Need to show wait or loader in login button and update profile button too.

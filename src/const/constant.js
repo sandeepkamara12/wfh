@@ -15,7 +15,8 @@ import {
   UserRoundPen,
   UserRoundPlus,
   LayoutDashboard,
-  ArrowLeftRight
+  ArrowLeftRight,
+  Settings
 } from "lucide-react";
 
 export const subAdminSidebarLinks = [
@@ -29,6 +30,7 @@ export const subAdminSidebarLinks = [
   { id: 8, path: "/subadmin/sections", label: "Sections", icon: LayoutGrid },
   { id: 9, path: "/subadmin/subjects", label: "Subjects", icon: BookOpenText },
   { id: 10, path: "/subadmin/homework", label: "Homework", icon: SquareChartGantt}, // this one is fine
+  { id: 11, path: "/subadmin/settings", label: "Settings", icon: Settings}, // this one is fine
 ];
 
 export const teacherSidebarLinks = [

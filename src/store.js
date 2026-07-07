@@ -43,9 +43,3 @@ export const store = configureStore({
 
 // 5. Create persistor
 export const persistor = persistStore(store);
-
-// router.post("/sub-admin/classroom/create");
-// router.get("/sub-admin/classroom");
-// router.get("/sub-admin/classroom/:id");
-// router.put("/sub-admin/classroom/:id");
-// router.delete("/sub-admin/classroom/:id");
