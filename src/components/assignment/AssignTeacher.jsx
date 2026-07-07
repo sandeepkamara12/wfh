@@ -182,7 +182,7 @@ const AssignTeacher = () => {
                             </div>
                         </div>
                         <div>
-                            <div className="grid grid-cols-3 lg:grid-cols-5 gap-2">
+                            <div className="grid grid-cols-2 lg:grid-cols-5 gap-2">
                                 {classOptions !== null &&
                                     classOptions.map((cls) => (
                                         <RadioCard
@@ -209,7 +209,7 @@ const AssignTeacher = () => {
                             </div>
                         </div>
                         <div>
-                            <div className="grid grid-cols-3 lg:grid-cols-5 gap-2">
+                            <div className="grid grid-cols-2 lg:grid-cols-5 gap-2">
                                 <RadioCard
                                     value="teacher_arts"
                                     checked={formik.values.classroom_id === "teacher_arts"}
@@ -268,7 +268,7 @@ const AssignTeacher = () => {
                             </div>
                         </div>
                         <div>
-                            <div className="grid grid-cols-3 lg:grid-cols-5 gap-2">
+                            <div className="grid grid-cols-2 lg:grid-cols-5 gap-2">
                                 <RadioCard
                                     value="teacher_A"
                                     checked={formik.values.classroom_id === "teacher_A"}
@@ -336,7 +336,7 @@ const AssignTeacher = () => {
                             </div>
                         </div>
                         <div>
-                            <div className="grid grid-cols-3 lg:grid-cols-5 gap-2">
+                            <div className="grid grid-cols-2 lg:grid-cols-5 gap-2">
                                 <RadioCard
                                     value="teacher_computer"
                                     checked={formik.values.classroom_id === "teacher_computer"}
@@ -415,7 +415,7 @@ const AssignTeacher = () => {
                                     (Multiple subjects selectable)
                                 </span>
                             </label>
-                            <div className="grid grid-cols-3 lg:grid-cols-5 gap-2">
+                            <div className="grid grid-cols-2 lg:grid-cols-5 gap-2">
                                 {subjects.map((cls) => (
                                     <CheckboxCard
                                         key={cls}
