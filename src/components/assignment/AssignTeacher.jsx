@@ -90,7 +90,7 @@ const AssignTeacher = () => {
     });
 
     return (
-        <form className="">
+        <form className="assignment">
             <div className="grid gap-y-4">
                 {/* <div className="grid grid-cols-2 gap-6"> */}
                 <div className="col-span-2 grid grid-cols-1 gap-6 bg-white p-6 rounded">

@@ -112,10 +112,12 @@
     @apply py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded bg-white border border-gray-400 text-navy shadow-2xs hover:bg-white focus:outline-hidden focus:bg-white;
   }
   .radioCard {
-    @apply flex text-start lg:items-center flex-col lg:flex-row gap-2 min-h-10.5 cursor-pointer rounded text-navy p-3 bg-white border-2 border-navy text-xs font-semibold uppercase transition-all duration-300 ease-in-out hover:bg-orange hover:border-orange hover:text-white peer-checked:bg-orange peer-checked:text-white peer-checked:border-orange;
+    @apply flex text-start gap-2 min-h-10.5 cursor-pointer rounded text-navy p-3 bg-white border-2 border-navy text-xs font-semibold uppercase transition-all duration-300 ease-in-out hover:bg-orange hover:border-orange hover:text-white peer-checked:bg-orange peer-checked:text-white peer-checked:border-orange;
     /* @apply flex items-center gap-2 cursor-pointer rounded  text-navy p-3 bg-white border  border-navy text-xs font-medium uppercase transition-all duration-300 ease-in-out hover:bg-orange hover:border-orange hover:text-white peer-checked:bg-orange peer-checked:text-white peer-checked:border-orange; */
   }
-
+.assignment .radioCard {
+  @apply lg:items-center flex-col lg:flex-row;
+}
   .btn {
     @apply transition-all duration-300 ease-in-out flex justify-center items-center gap-x-2 uppercase w-full py-3 px-4 text-sm font-medium rounded bg-navy border-2 border-navy text-white hover:bg-orange hover:text-white hover:border-orange focus:outline-hidden focus:bg-navy focus:border-navy disabled:opacity-50 disabled:pointer-events-none;
   }
@@ -239,7 +241,7 @@
 /* Calendar container */
 .custom-calendar {
   overflow: hidden;
-  @apply w-full border-2! border-navy! rounded!;
+  @apply border-2! border-navy! rounded! w-81.25 max-w-81.25;
 }
 
 .custom-calendar .react-datepicker__month {
@@ -258,7 +260,7 @@
 .custom-calendar
   .react-datepicker__month-container
   .react-datepicker__day-name {
-  @apply w-[calc(100%/7)] m-0 text-white min-h-10 leading-10 text-center font-semibold text-sm rounded;
+  @apply w-full m-0 text-white min-h-10 leading-10 text-center font-semibold text-sm rounded bg-orange;
 }
 
 .custom-calendar .react-datepicker__day.react-datepicker__day--outside-month {
@@ -325,7 +327,7 @@
 /* Week days row */
 .react-datepicker__day-names {
   background-color: #122c4f;
-  @apply m-0!;
+  @apply m-0! p-2 grid grid-cols-7 gap-2;
 }
 
 .react-datepicker__year-read-view {
@@ -511,3 +513,9 @@
   @apply max-h-full overflow-hidden w-full flex flex-col bg-white border border-white shadow-2xs rounded pointer-events-auto;
 }
 /*************************** Code for Modal Screen *******************/
+
+/**************************** Code for Create Role *******************/
+.create-role-left-area {
+  @apply grid grid-cols-6 w-full items-start gap-x-4 gap-y-7 xl:w-[calc(100%-350px)];
+}
+/**************************** Code for Create Role *******************/
