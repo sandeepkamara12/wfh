@@ -3,7 +3,7 @@ const Switch = ({ checked, onChangeHandler, label, previousLabel }) => {
         <div className="flex flex-wrap items-center gap-5">
             <div className="flex items-center gap-x-3">
                 {
-                    previousLabel && <label htmlFor="hs-tooltip-example" className="text-sm font-medium">{previousLabel}</label>
+                    previousLabel && <label htmlFor="hs-basic-usage" className="text-sm font-medium">{previousLabel}</label>
                 }
                 <label htmlFor="hs-basic-usage" className="relative inline-block w-11 h-6 cursor-pointer">
                     <input
@@ -17,7 +17,7 @@ const Switch = ({ checked, onChangeHandler, label, previousLabel }) => {
                     <span className="absolute top-1/2 inset-s-1 -translate-y-1/2 size-4 bg-navy rounded-full shadow-sm transition-transform duration-200 ease-in-out peer-checked:translate-x-[calc(100%+5px)] peer-checked:bg-white"></span>
                 </label>
                 {
-                    label && <label htmlFor="hs-tooltip-example" className="text-sm font-medium">{label}</label>
+                    label && <label htmlFor="hs-basic-usage" className="text-sm font-medium">{label}</label>
                 }
             </div>
         </div>

@@ -197,20 +197,20 @@ const CreateRole = () => {
         <div className="bg-white p-6 rounded">
             <form className="grid gap-y-6" onSubmit={formik.handleSubmit}>
                 <div className="flex items-center justify-between gap-2">
-                   
-
                     <h2 className="font-bold text-lg">Create <span className="text-orange">Role</span></h2>
-                     <button className="icon-btn w-auto">
-                            <Download />
-                        </button>
+                    <button className="icon-btn w-auto">
+                        <Download />
+                    </button>
                 </div>
                 <div className="flex flex-col xl:flex-row gap-4 xl:gap-0 flex-wrap justify-between items-start">
                     <div className="create-role-left-area">
-                                            {
-                        formik.values.role === "teacher" &&
-                        <Switch formik={formik} onChangeHandler={handleMarried} label={"Are you married?"} checked={formik.values.married} />
-                    }
-                    
+                        {
+                            formik.values.role === "teacher" &&
+                            <div className="col-span-6 3xl:col-span-2">
+                                <Switch formik={formik} onChangeHandler={handleMarried} label={"Are you married?"} checked={formik.values.married} />
+                            </div>
+                        }
+
                         <ImageUploader formik={formik} ref={fileRef} updateImageHandler={updateImageHandler} removeImageHandler={removeImageHandler} preview={preview} handleImageUploadTrigger={handleImageUploadTrigger} />
 
                         <div className="col-span-6 3xl:col-span-2">
