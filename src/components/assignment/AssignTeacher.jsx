@@ -21,6 +21,9 @@ import {
     subjectOptions,
     studentOptions,
     teacherOptions,
+    sectionData,
+    subjectData,
+    streamData,
 } from "../../const/constant";
 import RadioCard from "./RadioCard";
 import CheckboxCard from "../ui/CheckboxCard";
@@ -210,51 +213,22 @@ const AssignTeacher = () => {
                         </div>
                         <div>
                             <div className="grid grid-cols-2 lg:grid-cols-5 gap-2">
-                                <RadioCard
-                                    value="teacher_arts"
-                                    checked={formik.values.classroom_id === "teacher_arts"}
-                                    onChange={formik.handleChange}
-                                    icon={<Pencil className="size-5" />}
-                                    text="Arts"
-                                    group="stream"
-                                    id="teacher_arts"
-                                />
-                                <RadioCard
-                                    value="teacher_medical"
-                                    checked={formik.values.classroom_id === "teacher_medical"}
-                                    onChange={formik.handleChange}
-                                    icon={<Stethoscope className="size-5" />}
-                                    text="Medical"
-                                    group="stream"
-                                    id="teacher_medical"
-                                />
-                                <RadioCard
-                                    value="teacher_non_medical"
-                                    checked={formik.values.classroom_id === "teacher_non_medical"}
-                                    onChange={formik.handleChange}
-                                    icon={<FlaskConical className="size-5" />}
-                                    text="Non Medical"
-                                    group="stream"
-                                    id="teacher_non_medical"
-                                />
-                                <RadioCard
-                                    value="teacher_commerce"
-                                    checked={formik.values.classroom_id === "teacher_commerce"}
-                                    onChange={formik.handleChange}
-                                    icon={<CircleDollarSign className="size-5" />}
-                                    text="Commerce"
-                                    group="stream"
-                                    id="teacher_commerce"
-                                />
-                                <RadioCard
-                                    value="teacher_music"
-                                    checked={formik.values.classroom_id === "teacher_music"}
-                                    onChange={formik.handleChange}
-                                    icon={<Guitar className="size-5" />}
-                                    text="Music"
-                                    group="stream"
-                                    id="teacher_music"
-                                />
+                                {
+                                    streamData?.length > 0 && streamData?.map(stream => {
+                                        return (
+                                            <RadioCard
+                                                key={stream?.id}
+                                                value={`teacher_${stream.stream}`}
+                                                checked={formik.values.classroom_id === `teacher_${stream.stream}`}
+                                                onChange={formik.handleChange}
+                                                icon={<Pencil className="size-5" />}
+                                                text={stream?.stream}
+                                                group="stream"
+                                                id={`teacher_${stream.stream}`}
+                                            />
+                                        )
+                                    })
+                                }
                             </div>
                         </div>
                     </div>
@@ -269,60 +243,22 @@ const AssignTeacher = () => {
                         </div>
                         <div>
                             <div className="grid grid-cols-2 lg:grid-cols-5 gap-2">
-                                <RadioCard
-                                    value="teacher_A"
-                                    checked={formik.values.classroom_id === "teacher_A"}
-                                    onChange={formik.handleChange}
-                                    icon={<LayoutGrid className="size-5" />}
-                                    text="A"
-                                    group="section"
-                                    id="teacher_A"
-                                />
-                                <RadioCard
-                                    value="teacher_B"
-                                    checked={formik.values.classroom_id === "teacher_B"}
-                                    onChange={formik.handleChange}
-                                    icon={<LayoutGrid className="size-5" />}
-                                    text="B"
-                                    group="section"
-                                    id="teacher_B"
-                                />
-                                <RadioCard
-                                    value="teacher_C"
-                                    checked={formik.values.classroom_id === "teacher_C"}
-                                    onChange={formik.handleChange}
-                                    icon={<LayoutGrid className="size-5" />}
-                                    text="C"
-                                    group="section"
-                                    id="teacher_C"
-                                />
-                                <RadioCard
-                                    value="teacher_D"
-                                    checked={formik.values.classroom_id === "teacher_D"}
-                                    onChange={formik.handleChange}
-                                    icon={<LayoutGrid className="size-5" />}
-                                    text="D"
-                                    group="section"
-                                    id="teacher_D"
-                                />
-                                <RadioCard
-                                    value="teacher_E"
-                                    checked={formik.values.classroom_id === "teacher_E"}
-                                    onChange={formik.handleChange}
-                                    icon={<LayoutGrid className="size-5" />}
-                                    text="E"
-                                    group="section"
-                                    id="teacher_E"
-                                />
-                                <RadioCard
-                                    value="teacher_F"
-                                    checked={formik.values.classroom_id === "teacher_F"}
-                                    onChange={formik.handleChange}
-                                    icon={<LayoutGrid className="size-5" />}
-                                    text="F"
-                                    group="section"
-                                    id="teacher_F"
-                                />
+                                {
+                                    sectionData?.length > 0 && sectionData?.map(section => {
+                                        return (
+                                            <RadioCard
+                                                key={section?.id}
+                                                value={`teacher_${section.section}`}
+                                                checked={formik.values.classroom_id === `teacher_${section.section}`}
+                                                onChange={formik.handleChange}
+                                                icon={<LayoutGrid className="size-5" />}
+                                                text={section.section}
+                                                group="section"
+                                                id={`teacher_${section.section}`}
+                                            />
+                                        )
+                                    })
+                                }
                             </div>
                         </div>
                     </div>
@@ -337,62 +273,22 @@ const AssignTeacher = () => {
                         </div>
                         <div>
                             <div className="grid grid-cols-2 lg:grid-cols-5 gap-2">
-                                <RadioCard
-                                    value="teacher_computer"
-                                    checked={formik.values.classroom_id === "teacher_computer"}
-                                    onChange={formik.handleChange}
-                                    icon={<BookOpenText className="size-5" />}
-                                    text="Computer"
-                                    group="subject"
-                                    id="teacher_computer"
-                                />
-                                <RadioCard
-                                    value="teacher_maths"
-                                    checked={formik.values.classroom_id === "teacher_maths"}
-                                    onChange={formik.handleChange}
-                                    icon={<BookOpenText className="size-5" />}
-                                    text="Maths"
-                                    group="subject"
-                                    id="teacher_maths"
-                                />
-                                <RadioCard
-                                    value="teacher_hindi"
-                                    checked={formik.values.classroom_id === "teacher_hindi"}
-                                    onChange={formik.handleChange}
-                                    icon={<BookOpenText className="size-5" />}
-                                    text="Hindi"
-                                    group="subject"
-                                    id="teacher_hindi"
-                                />
-                                <RadioCard
-                                    value="teacher_english"
-                                    checked={formik.values.classroom_id === "teacher_english"}
-                                    onChange={formik.handleChange}
-                                    icon={<BookOpenText className="size-5" />}
-                                    text="English"
-                                    group="subject"
-                                    id="teacher_english"
-                                />
-                                <RadioCard
-                                    value="teacher_science"
-                                    checked={formik.values.classroom_id === "teacher_science"}
-                                    onChange={formik.handleChange}
-                                    icon={<BookOpenText className="size-5" />}
-                                    text="Science"
-                                    group="subject"
-                                    id="teacher_science"
-                                />
-                                <RadioCard
-                                    value="teacher_social_studies"
-                                    checked={
-                                        formik.values.classroom_id === "teacher_social_studies"
-                                    }
-                                    onChange={formik.handleChange}
-                                    icon={<BookOpenText className="size-5" />}
-                                    text="Social Studies"
-                                    group="subject"
-                                    id="teacher_social_studies"
-                                />
+                                {
+                                    subjectData?.length > 0 && subjectData?.map(subject => {
+                                        return (
+                                            <RadioCard
+                                                key={subject?.id}
+                                                value={`teacher_${subject.subject}`}
+                                                checked={formik.values.classroom_id === `teacher_${subject.subject}`}
+                                                onChange={formik.handleChange}
+                                                icon={<BookOpenText className="size-5" />}
+                                                text={subject.subject}
+                                                group="subject"
+                                                id={`teacher_${subject.subject}`}
+                                            />
+                                        )
+                                    })
+                                }
                             </div>
                         </div>
                     </div>

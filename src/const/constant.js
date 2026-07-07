@@ -90,12 +90,12 @@ export const streamOptions = [
 ];
 
 export const sectionOptions = [
-  { value: "1235678941", label: "A" },
-  { value: "2457896312", label: "B" },
-  { value: "0265314783", label: "C" },
-  { value: "0265314784", label: "D" },
-  { value: "0265314785", label: "E" },
-  { value: "0265314786", label: "F" },
+  { value: "1235678941", label: "Milton" },
+  { value: "2457896312", label: "Chaucer" },
+  { value: "0265314783", label: "Keats" },
+  { value: "0265314784", label: "Byron" },
+  { value: "0265314785", label: "Tennyson" },
+  { value: "0265314786", label: "Shakespeare" },
 ];
 
 export const subjectOptions = [
@@ -221,12 +221,12 @@ export const classroomData = [
 ];
 
 export const sectionData = [
-  { id: "#2154879630", section: "A", createdAt: "28 Dec, 12:12" },
-  { id: "#2154879631", section: "B", createdAt: "28 Dec, 12:12" },
-  { id: "#2154879632", section: "C", createdAt: "28 Dec, 12:12" },
-  { id: "#2154879633", section: "D", createdAt: "28 Dec, 12:12" },
-  { id: "#2154879634", section: "E", createdAt: "28 Dec, 12:12" },
-  { id: "#2154879635", section: "F", createdAt: "28 Dec, 12:12" },
+  { id: "#2154879630", section: "Milton", createdAt: "28 Dec, 12:12" },
+  { id: "#2154879631", section: "Chaucer", createdAt: "28 Dec, 12:12" },
+  { id: "#2154879632", section: "Keats", createdAt: "28 Dec, 12:12" },
+  { id: "#2154879633", section: "Byron", createdAt: "28 Dec, 12:12" },
+  { id: "#2154879634", section: "Tennyson", createdAt: "28 Dec, 12:12" },
+  { id: "#2154879635", section: "Shakespeare", createdAt: "28 Dec, 12:12" },
 ];
 
 export const subjectData = [
