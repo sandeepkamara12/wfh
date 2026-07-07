@@ -394,10 +394,10 @@ export const partners = [
   },
 ];
 export const dashboardCardData = [
-  { label: "Total Teachers", count: "72", id: "teacher", icon: "UserRoundPen" },
-  { label: "Total Students", count: "7200", id: "student", icon: "GraduationCap" },
-  { label: "Total Classrooms", count: "12", id: "classroom", icon: "GalleryThumbnails" },
-  { label: "Total Streams", count: "12", id: "stream", icon: "Globe" },
-  { label: "Total Sections", count: "5", id: "section", icon: "LayoutGrid" },
-  { label: "Total Subjects", count: "10", id: "subject", icon: "BookOpenText" },
+  { label: "Teachers", count: "72", id: "teacher", icon: "UserRoundPen" },
+  { label: "Students", count: "9999", id: "student", icon: "GraduationCap" },
+  { label: "Classrooms", count: "12", id: "classroom", icon: "GalleryThumbnails" },
+  { label: "Streams", count: "12", id: "stream", icon: "Globe" },
+  { label: "Sections", count: "5", id: "section", icon: "LayoutGrid" },
+  { label: "Subjects", count: "10", id: "subject", icon: "BookOpenText" },
 ];

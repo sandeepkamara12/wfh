@@ -4,7 +4,7 @@ import { dashboardCardData } from '../const/constant'
 const Dashboard = () => {
     return (
         <div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-6 lg:grid-row-2 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 3xl:gap-4">
                 {
                     dashboardCardData.map((item, index) => (
                         <DashboardCard key={index}
