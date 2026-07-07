@@ -275,7 +275,7 @@ const AssignTeacher = () => {
                             <div className="grid grid-cols-2 lg:grid-cols-5 gap-2">
                                 {
                                     subjectData?.length > 0 && subjectData?.map(subject => {
-                                        return (
+                                        return formik.values.assignment ? (
                                             <RadioCard
                                                 key={subject?.id}
                                                 value={`teacher_${subject.subject}`}
@@ -286,43 +286,19 @@ const AssignTeacher = () => {
                                                 group="subject"
                                                 id={`teacher_${subject.subject}`}
                                             />
+                                        ) : (
+                                            <CheckboxCard
+                                                key={subject?.id}
+                                                // id={subject?.id}
+                                                text={subject?.subject}
+                                                group="subject"
+                                                icon={<GraduationCap className="size-5" />}
+                                                checked={formik.values.subjects.includes(subject?.subject)}
+                                                onChange={() => handleChange(subject?.subject)}
+                                            />
                                         )
                                     })
                                 }
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="col-span-1 hidden gap-y-4 ">
-                        <div className="flex items-center gap-2">
-                            <span className="bg-navy size-10 rounded text-white flex items-center justify-center">05</span>
-                            <div className="flex flex-col">
-                                <span className="font-medium text-xs">Choose</span>
-                                <span className="font-medium text-sm leading-4">Subject</span>
-                            </div>
-                        </div>
-                        <div>
-                            <label
-                                htmlFor="subject"
-                                className="block text-sm font-medium text-navy mb-1"
-                            >
-                                Select Subject
-                                <span className="text-red-500 ms-1">
-                                    (Multiple subjects selectable)
-                                </span>
-                            </label>
-                            <div className="grid grid-cols-2 lg:grid-cols-5 gap-2">
-                                {subjects.map((cls) => (
-                                    <CheckboxCard
-                                        key={cls}
-                                        id={cls}
-                                        text={cls}
-                                        group="subject"
-                                        icon={<GraduationCap className="size-5" />}
-                                        checked={formik.values.subjects.includes(cls)}
-                                        onChange={() => handleChange(cls)}
-                                    />
-                                ))}
                             </div>
                         </div>
                     </div>
@@ -333,130 +309,6 @@ const AssignTeacher = () => {
                         </button>
                     </div>
                 </div>
-                {/* <div className="flex bg-white p-4 rounded">
-                        <h2 className="font-bold text-lg mb-6">Recently Assigned <span className="text-orange">Teacher</span></h2>
-                        <div className="grid gap-4">
-                            <div className="bg-navy/10 p-2 rounded shadow-md">
-                                <div className="flex gap-2 items-start justify-between relative pe-6">
-                                    <div className="flex items-center gap-2 mb-2">
-                                        <div className="w-8 h-8 rounded-full overflow-hidden">
-                                            <img src="/student.jpg" alt="student/teacher" />
-                                        </div>
-                                        <div className="flex flex-col">
-                                            <span className="text-sm text-navy font-medium">Mrs. Anita Rai</span>
-                                            <span className="text-xs text-red-500 font-medium">#1234567890</span>
-                                        </div>
-                                    </div>
-                                    <span className="text-xs font-semibold">
-                                        <span>In charge of:
-                                            <span className='font-semibold text-xs relative'>
-                                                <span className="text-orange">10th A </span>
-                                                <span className='text-navy'>Medical - Maths</span>
-                                            </span>
-                                        </span>
-                                    </span>
-                                    <X className='size-4 absolute right-0 top-px text-red-500' />
-                                </div>
-                                <span className="flex flex-wrap items-center gap-1">
-                                    <div className='bg-navy/10 py-1 ps-1.5 pe-6 rounded flex gap-1 items-center font-semibold text-xs relative'>
-                                        <span className="text-orange">10th A </span>
-                                        <span className='text-navy'>Medical - Maths</span>
-                                        <X className='size-4 absolute right-1.5 text-red-500' />
-                                    </div>
-                                    <div className='bg-navy/10 py-1 ps-1.5 pe-6 rounded flex gap-1 items-center font-semibold text-xs relative'>
-                                        <span className="text-orange">12th B </span>
-                                        <span className='text-navy'>Medical - Science</span>
-                                        <X className='size-4 absolute right-1.5 text-red-500' />
-                                    </div>
-                                    <div className='bg-navy/10 py-1 ps-1.5 pe-6 rounded flex gap-1 items-center font-semibold text-xs relative'>
-                                        <span className="text-orange">8th C </span>
-                                        <span className='text-navy'>English</span>
-                                        <X className='size-4 absolute right-1.5 text-red-500' />
-                                    </div>
-                                </span>
-                            </div>
-                            <div className="bg-navy/10 p-2 rounded shadow-md">
-                                <div className="flex gap-2 items-start justify-between relative pe-6">
-                                    <div className="flex items-center gap-2 mb-2">
-                                        <div className="w-8 h-8 rounded-full overflow-hidden">
-                                            <img src="/student.jpg" alt="student/teacher" />
-                                        </div>
-                                        <div className="flex flex-col">
-                                            <span className="text-sm text-navy font-medium">Mrs. Anita Rai</span>
-                                            <span className="text-xs text-red-500 font-medium">#1234567890</span>
-                                        </div>
-                                    </div>
-                                    <span className="text-xs font-semibold">
-                                        <span>In charge of:
-                                            <span className='font-semibold text-xs relative'>
-                                                <span className="text-orange">10th A </span>
-                                                <span className='text-navy'>Medical - Maths</span>
-                                            </span>
-                                        </span>
-                                    </span>
-                                    <X className='size-4 absolute right-0 top-px text-red-500' />
-                                </div>
-                                <span className="flex flex-wrap items-center gap-1">
-                                    <div className='bg-navy/10 py-1 ps-1.5 pe-6 rounded flex gap-1 items-center font-semibold text-xs relative'>
-                                        <span className="text-orange">10th A </span>
-                                        <span className='text-navy'>Medical - Maths</span>
-                                        <X className='size-4 absolute right-1.5 text-red-500' />
-                                    </div>
-                                    <div className='bg-navy/10 py-1 ps-1.5 pe-6 rounded flex gap-1 items-center font-semibold text-xs relative'>
-                                        <span className="text-orange">12th B </span>
-                                        <span className='text-navy'>Medical - Science</span>
-                                        <X className='size-4 absolute right-1.5 text-red-500' />
-                                    </div>
-                                    <div className='bg-navy/10 py-1 ps-1.5 pe-6 rounded flex gap-1 items-center font-semibold text-xs relative'>
-                                        <span className="text-orange">8th C </span>
-                                        <span className='text-navy'>English</span>
-                                        <X className='size-4 absolute right-1.5 text-red-500' />
-                                    </div>
-                                </span>
-                            </div>
-                            <div className="bg-navy/10 p-2 rounded shadow-md">
-                                <div className="flex gap-2 items-start justify-between relative pe-6">
-                                    <div className="flex items-center gap-2 mb-2">
-                                        <div className="w-8 h-8 rounded-full overflow-hidden">
-                                            <img src="/student.jpg" alt="student/teacher" />
-                                        </div>
-                                        <div className="flex flex-col">
-                                            <span className="text-sm text-navy font-medium">Mrs. Anita Rai</span>
-                                            <span className="text-xs text-red-500 font-medium">#1234567890</span>
-                                        </div>
-                                    </div>
-                                    <span className="text-xs font-semibold">
-                                        <span>In charge of:
-                                            <span className='font-semibold text-xs relative'>
-                                                <span className="text-orange">10th A </span>
-                                                <span className='text-navy'>Medical - Maths</span>
-                                            </span>
-                                        </span>
-                                    </span>
-                                    <X className='size-4 absolute right-0 top-px text-red-500' />
-                                </div>
-                                <span className="flex flex-wrap items-center gap-1">
-                                    <div className='bg-navy/10 py-1 ps-1.5 pe-6 rounded flex gap-1 items-center font-semibold text-xs relative'>
-                                        <span className="text-orange">10th A </span>
-                                        <span className='text-navy'>Medical - Maths</span>
-                                        <X className='size-4 absolute right-1.5 text-red-500' />
-                                    </div>
-                                    <div className='bg-navy/10 py-1 ps-1.5 pe-6 rounded flex gap-1 items-center font-semibold text-xs relative'>
-                                        <span className="text-orange">12th B </span>
-                                        <span className='text-navy'>Medical - Science</span>
-                                        <X className='size-4 absolute right-1.5 text-red-500' />
-                                    </div>
-                                    <div className='bg-navy/10 py-1 ps-1.5 pe-6 rounded flex gap-1 items-center font-semibold text-xs relative'>
-                                        <span className="text-orange">8th C </span>
-                                        <span className='text-navy'>English</span>
-                                        <X className='size-4 absolute right-1.5 text-red-500' />
-                                    </div>
-                                </span>
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div> */}
             </div>
         </form>
     );
