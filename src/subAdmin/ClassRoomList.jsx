@@ -204,12 +204,12 @@ const ClassRoomList = () => {
               </div>
             </div>
             <div className="flex flex-wrap items-center justify-end w-full gap-1">
-              <button type="button" className="icon-btn" onClick={() => handleDeleteClassroom(row)} disabled={loading}>
+              <button type="button" className="btn icon_btn" onClick={() => handleDeleteClassroom(row)} disabled={loading}>
                 <Trash2 className="size-5 mx-auto" />
               </button>
               <button
                 type="button"
-                className="icon-btn"
+                className="btn icon_btn"
                 onClick={() => handleUpdateClassroom(row)}
                 disabled={loading}
               >
@@ -252,7 +252,7 @@ const ClassRoomList = () => {
                   />
                   <button
                     type="submit"
-                    className="btn"
+                    className="btn btn_with_text"
                     disabled={loading  || !(formik.isValid && formik.dirty)}
                   >
                     {loading

@@ -67,7 +67,7 @@ const AssignStudent = () => {
                     </div>
                 </div>
 
-                <button type="submit" className="btn">Assign Student</button>
+                <button type="submit" className="btn btn_with_text">Assign Student</button>
             </div>
 
         </form>

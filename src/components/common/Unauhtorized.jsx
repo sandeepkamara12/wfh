@@ -14,7 +14,7 @@ const Unauhtorized = () => {
                 <p>You do not have permission to view this page, <br/>Please log in to access this page.</p>
                 {
                 token &&
-                    <Link to={roleRedirect[role] || "/"} className="mt-4 btn no-underline">Goto Dashboard</Link>
+                    <Link to={roleRedirect[role] || "/"} className="mt-4 btn btn_with_text no-underline">Goto Dashboard</Link>
                 }
             </div>
         </div>

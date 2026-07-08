@@ -201,7 +201,7 @@ const SectionList = () => {
           <div className="flex flex-wrap items-center justify-end w-full gap-1">
             <button
               type="button"
-              className="icon-btn"
+              className="btn icon_btn"
               onClick={() => handleDeleteSection(row)}
               disabled={loading}
             >
@@ -209,7 +209,7 @@ const SectionList = () => {
             </button>
             <button
               type="button"
-              className="icon-btn"
+              className="btn icon_btn"
               onClick={() => handleUpdateSection(row)}
               disabled={loading}
             >
@@ -252,7 +252,7 @@ const SectionList = () => {
                   />
                   <button
                     type="submit"
-                    className="btn"
+                    className="btn btn_with_text"
                     disabled={loading || !(formik.isValid && formik.dirty)}
                   >
                     {loading

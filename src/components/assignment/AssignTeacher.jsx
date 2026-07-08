@@ -103,7 +103,7 @@ const AssignTeacher = () => {
                                 </span> */}
                             </h2>
                         </div>
-                        <button className="icon-btn w-auto">
+                        <button className="btn icon_btn w-auto">
                             <Download />
                         </button>
                     </div>
@@ -293,7 +293,7 @@ const AssignTeacher = () => {
                     </div>
 
                     <div className="col-start-1">
-                        <button type="submit" className="btn w-auto">
+                        <button type="submit" className="btn btn_with_text w-auto">
                             Assign {formik.values.assignment ? "Teacher" : "Student"}
                         </button>
                     </div>

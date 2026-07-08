@@ -11,7 +11,7 @@ const Modal = ({isOpen, title, handleCloseModal, children}) => {
                         <h3>
                             {title}
                         </h3>
-                        <button type="button" className="icon-btn" onClick={handleCloseModal}>
+                        <button type="button" className="btn icon_btn" onClick={handleCloseModal}>
                             <span className="sr-only">Close</span>
                             <X className="size-5" />
                         </button>

@@ -183,7 +183,7 @@ const Student = () => {
                     <Note />
                     <Note />
                 </div>
-                <input type="submit" className="btn" value="Get Notes" />
+                <input type="submit" className="btn btn_with_text" value="Get Notes" />
                 {/* <Card /> */}
                 {/* <Table /> */}
 

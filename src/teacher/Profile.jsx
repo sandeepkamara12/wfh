@@ -338,7 +338,7 @@ const Profile = () => {
                             <OpenCalendar selected={formik.values.dob} onChangeHandler={onChangeHandler} maxDate={maxDate} name="dob" label="Date of Birth" required={true} error={formik.errors.dob} />
                         </div>
                     </div>
-                    <button type="submit" className="mt-4 w-auto btn" disabled={loading || !formik.isValid}>{loading ? "Updating..." : "Update Profile"}</button>
+                    <button type="submit" className="mt-4 w-auto btn btn_with_text" disabled={loading || !formik.isValid}>{loading ? "Updating..." : "Update Profile"}</button>
                     {/* {selectedDate && <p className="mt-4 text-sm text-muted-foreground-2">{selectedDate.toLocaleDateString()}</p>} */}
                 </form>
             </div>

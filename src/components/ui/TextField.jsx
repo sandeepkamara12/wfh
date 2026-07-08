@@ -1,10 +1,10 @@
 import {icons} from '../../const/constant';
 import * as Icons from 'lucide-react';
 
-const TextField = ({ label, id, error, required=false, ...props }) => {
+const TextField = ({ label, id, error, required=false, className="", ...props }) => {
     const IconComponent = Icons[icons[id]];
     return (
-        <div className={`col-span-1`}>
+        <div className={`${className ? className : 'w-full'}`}>
             <label htmlFor={id} className="block text-sm font-medium text-navy mb-1">
                 {label}
                 {required?<span className='text-red-500 ms-1'>*</span>:null}

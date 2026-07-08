@@ -181,7 +181,7 @@ const CreateRole = () => {
             <form className="grid gap-y-6" onSubmit={formik.handleSubmit}>
                 <div className="flex items-center justify-between gap-2">
                     <h2 className="font-bold text-lg">Create <span className="text-orange">Role</span></h2>
-                    <button className="icon-btn w-auto">
+                    <button className="btn icon_btn w-auto">
                         <Download />
                     </button>
                 </div>
@@ -243,7 +243,7 @@ const CreateRole = () => {
 
                 {/* {selectedDate && <p className="mt-4 text-sm text-muted-foreground-2">{selectedDate.toLocaleDateString()}</p>} */}
                 <div className="col-span-1">
-                    <button type="submit" className="btn w-auto" disabled={loading || !(formik.isValid && formik.dirty)}>{loading ? "Creating..." : "Create Role"}</button>
+                    <button type="submit" className="btn btn_with_text w-auto" disabled={loading || !(formik.isValid && formik.dirty)}>{loading ? "Creating..." : "Create Role"}</button>
                 </div>
             </form>
         </div>

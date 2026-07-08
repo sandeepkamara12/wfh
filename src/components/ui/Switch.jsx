@@ -1,7 +1,6 @@
 const Switch = ({ checked, onChangeHandler, label, previousLabel }) => {
     return (
-        <div className="flex flex-wrap items-center gap-5">
-            <div className="flex items-center gap-x-3">
+            <div className="flex items-center gap-2">
                 {
                     previousLabel && <label htmlFor="hs-basic-usage" className="text-sm font-medium">{previousLabel}</label>
                 }
@@ -20,7 +19,6 @@ const Switch = ({ checked, onChangeHandler, label, previousLabel }) => {
                     label && <label htmlFor="hs-basic-usage" className="text-sm font-medium">{label}</label>
                 }
             </div>
-        </div>
     )
 }
 

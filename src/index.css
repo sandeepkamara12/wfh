@@ -113,24 +113,32 @@
   }
   .radioCard {
     @apply flex text-start gap-2 min-h-10.5 cursor-pointer rounded text-navy p-3 bg-white border-2 border-navy text-xs font-semibold uppercase transition-all duration-300 ease-in-out hover:bg-orange hover:border-orange hover:text-white peer-checked:bg-orange peer-checked:text-white peer-checked:border-orange;
-    /* @apply flex items-center gap-2 cursor-pointer rounded  text-navy p-3 bg-white border  border-navy text-xs font-medium uppercase transition-all duration-300 ease-in-out hover:bg-orange hover:border-orange hover:text-white peer-checked:bg-orange peer-checked:text-white peer-checked:border-orange; */
   }
-.assignment .radioCard {
-  @apply lg:items-center flex-col lg:flex-row;
-}
-  .btn {
-    @apply transition-all duration-300 ease-in-out flex justify-center items-center gap-x-2 uppercase w-full py-3 px-4 text-sm font-medium rounded bg-navy border-2 border-navy text-white hover:bg-orange hover:text-white hover:border-orange focus:outline-hidden focus:bg-navy focus:border-navy disabled:opacity-50 disabled:pointer-events-none;
-  }
-
-  .icon-btn {
-    @apply transition-all duration-300 ease-in-out py-2 px-2 rounded bg-navy border border-navy text-white hover:bg-orange hover:text-white hover:border-orange focus:outline-hidden focus:bg-navy focus:border-navy disabled:opacity-50 disabled:pointer-events-none;
-  }
-
-  .input-field {
-    @apply rounded bg-white w-full border-2 border-navy py-2.5 sm:py-3 px-4 text-sm text-navy placeholder:text-navy focus:border-navy focus:outline-none focus-visible:ring-0 disabled:opacity-50 disabled:pointer-events-none;
+  .assignment .radioCard {
+    @apply lg:items-center flex-col lg:flex-row;
   }
   .custom_transition {
     @apply transition-all duration-300 ease-in-out;
+  }
+
+  .btn {
+    @apply transition-all duration-300 ease-in-out rounded  bg-navy border-2 border-navy text-white hover:bg-orange hover:text-white hover:border-orange focus:outline-hidden focus:bg-navy focus:border-navy disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .btn_with_text {
+    @apply uppercase text-sm font-medium flex justify-center items-center gap-x-2 py-3 px-4;
+  }
+
+  .icon_btn {
+    @apply py-2 px-2;
+  }
+  .icon_btn_small {
+    @apply py-1 px-1;
+  }
+  .icon_btn_remove {
+    @apply py-1 px-1 bg-transparent border-none text-red-600 hover:bg-transparent hover:border-none hover:text-red-600;
+  }
+  .input-field {
+    @apply rounded bg-white w-full border-2 border-navy py-2.5 sm:py-3 px-4 text-sm text-navy placeholder:text-navy focus:border-navy focus:outline-none focus-visible:ring-0 disabled:opacity-50 disabled:pointer-events-none;
   }
 }
 
@@ -519,3 +527,24 @@
   @apply grid grid-cols-6 w-full items-start gap-x-4 gap-y-4 3xl:gap-y-7 xl:w-[calc(100%-350px)];
 }
 /**************************** Code for Create Role *******************/
+
+/* animated Plus Icon */
+@keyframes pulseShadow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(18, 44, 79, 0.6); /* #122c4f */
+  }
+  50% {
+    box-shadow: 0 0 10px 6px rgba(18, 44, 79, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(18, 44, 79, 0);
+  }
+}
+
+.plus-animate {
+  animation: pulseShadow 1.5s infinite;
+}
+
+.drawer-overlay {
+  @apply fixed inset-x-0 inset-y-0 bg-black/75 custom_transition;
+}

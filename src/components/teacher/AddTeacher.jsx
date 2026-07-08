@@ -3,6 +3,7 @@ import { classOptions, sectionOptions, streamOptions, subjectOptions } from "../
 import Drawer from "../common/Drawer"
 import ImageUploader from "../common/ImageUploader"
 import CustomSelect from "../ui/CustomSelect"
+import TextField from "../ui/TextField"
 import useImageUpload from "../../hooks/useImageUpload"
 import { toast } from "react-toastify"
 import { createRoleThunk } from "../../features/subAdmin/createRoleSlice"
@@ -10,8 +11,13 @@ import { format } from "date-fns"
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux"
+import EmailField from "../ui/EmailField"
+import PhoneField from "../ui/PhoneField"
+import { Plus, Trash2, X } from "lucide-react"
+import Switch from "../ui/Switch"
+import Gender from "../common/Gender"
 
-const AddTeacher = () => {
+const AddTeacher = ({ role }) => {
     const fileRef = useRef(null);
     const dispatch = useDispatch();
     let user = useSelector(state => state.auth.user);
@@ -78,13 +84,14 @@ const AddTeacher = () => {
 
     const formik = useFormik({
         initialValues: {
-            role: "teacher",
+            role: role,
             custom_id: "",
             first_name: "",
             last_name: "",
             email: "",
             phone: "",
             married: false,
+            incharge: false,
             spouse_name: "",
             father_name: "",
             mother_name: "",
@@ -112,6 +119,7 @@ const AddTeacher = () => {
                             email: "",
                             phone: "",
                             married: false,
+                            incharge:false,
                             spouse_name: "",
                             father_name: "",
                             mother_name: "",
@@ -136,120 +144,162 @@ const AddTeacher = () => {
             fileRef.current.click()
         }
     }
+
+    // Handle Married or not
+    const handleMarried = (e) => {
+        const married = e.target.checked;
+        formik.setFieldValue("married", married);
+
+        if (married) {
+            formik.setFieldValue("father_name", "");
+            formik.setFieldValue("mother_name", "");
+        } else {
+            formik.setFieldValue("spouse_name", "");
+        }
+    };
+
+    const handleIncharge = (e) => {
+        const incharge = e.target.checked;
+        formik.setFieldValue("incharge", incharge);
+
+        if (incharge) {
+            formik.setFieldValue("father_name", "");
+            formik.setFieldValue("mother_name", "");
+        } else {
+            formik.setFieldValue("spouse_name", "");
+        }
+    };
+    const showParents = formik.values.role === "student" || (formik.values.role === "teacher" && !formik.values.married);
+
     return (
-        <Drawer>
-            <form>
-                <div className="flex flex-wrap gap-4 items-start">
-
-                    <ImageUploader formik={formik} ref={fileRef} updateImageHandler={handleChange} removeImageHandler={handleRemove} preview={preview} handleImageUploadTrigger={handleImageUploadTrigger} />
-
-                    <div className="w-full">
-                        <label htmlFor="teacher-name" className="mb-1 block font-medium text-navy text-sm">Teacher Name</label>
-                        <div className="relative">
-                            <input type="text" id="teacher-name" name="teacher-name" className="input-field" required aria-describedby="teacher-error" />
-                            <div className="hidden absolute inset-y-0 inset-e-0 pointer-events-none pe-3">
-                                <svg className="size-5 text-red-500" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
-                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                                </svg>
-                            </div>
-                        </div>
-                        <p className="hidden text-xs text-red-600 mt-2" id="teacher-error">Please include a valid email address so we can get back to you</p>
+        <form>
+            <div className="flex flex-wrap gap-4 items-start">
+                <ImageUploader formik={formik} ref={fileRef} updateImageHandler={handleChange} removeImageHandler={handleRemove} preview={preview} handleImageUploadTrigger={handleImageUploadTrigger} />
+                <div className="flex gap-2 w-full">
+                    <div className="w-1/2">
+                        <TextField label={`${formik.values.role === 'teacher' ? 'Teacher Id' : 'Student Id'}`} id="custom_id" {...formik.getFieldProps("custom_id")} error={formik.touched.custom_id && formik.errors.custom_id} required={true} />
                     </div>
-
-                    <div className="w-full">
-                        <label htmlFor="email" className="mb-1 block font-medium text-navy text-sm">Email</label>
-                        <div className="relative w-full">
-                            <input type="email" id="email" name="email" className="input-field" required aria-describedby="email-error" />
-                            <div className="hidden absolute inset-y-0 inset-e-0 pointer-events-none pe-3">
-                                <svg className="size-5 text-red-500" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
-                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                                </svg>
-                            </div>
-                        </div>
-                        <p className="hidden text-xs text-red-600 mt-2" id="email-error">Email required</p>
+                    <div className="w-1/2">
+                        <Gender formik={formik} alignment="" label="Choose Gender" />
                     </div>
+                </div>
+                <div className="flex gap-2 w-full">
+                    <TextField className="w-1/2" label="First Name" id="first_name" {...formik.getFieldProps("first_name")} error={formik.touched.first_name && formik.errors.first_name} />
+                    <TextField className="w-1/2" label="Last Name" id="last_name" {...formik.getFieldProps("last_name")} error={formik.touched.last_name && formik.errors.last_name} />
+                </div>
+                <div className="flex gap-2 w-full">
+                    <EmailField className="w-1/2" label="Email Address" id="email" {...formik.getFieldProps("email")} error={formik.touched.email && formik.errors.email} required={true} />
+                    <PhoneField className="w-1/2" label="Phone" id="phone" {...formik.getFieldProps("phone")} error={formik.touched.phone && formik.errors.phone} required={true} />
+                </div>
 
+                {
+                    formik.values.role === "teacher" &&
+                    <Switch formik={formik} onChangeHandler={handleMarried} label={"Are you married?"} checked={formik.values.married} />
+                }
+                <div className="flex w-full gap-2">
+                    {
+                        formik.values.role === "teacher" &&
+                        <>
+                            {
+                                formik.values.married &&
+                                <TextField className="" label="Spouse Name" id="spouse_name" {...formik.getFieldProps("spouse_name")} error={formik.touched.spouse_name && formik.errors.spouse_name} required={true} />
+                            }
+                        </>
+                    }
+                    {
+                        showParents &&
+                        <>
+                            <TextField className="w-1/2" label="Father Name" id="father_name" {...formik.getFieldProps("father_name")} error={formik.touched.father_name && formik.errors.father_name} required={true} />
+                            <TextField className="w-1/2" label="Mother Name" id="mother_name" {...formik.getFieldProps("mother_name")} error={formik.touched.mother_name && formik.errors.mother_name} required={true} />
+                        </>
+                    }
+                </div>
+                {
+                    formik.values.role === "teacher" &&
+                    <Switch formik={formik} onChangeHandler={handleIncharge} label={"Are you in charge?"} checked={formik.values.incharge} />
+                }
+                {
+                    formik.values.married &&
                     <div className="w-full">
-                        <label htmlFor="phone" className="mb-1 block font-medium text-navy text-sm">Phone</label>
-                        <div className="relative w-full">
-                            <input type="tel" id="phone" name="phone" className="input-field" required aria-describedby="phone-error" />
-                            <div className="hidden absolute inset-y-0 inset-e-0 pointer-events-none pe-3">
-                                <svg className="size-5 text-red-500" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
-                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                                </svg>
-                            </div>
-                        </div>
-                        <p className="hidden text-xs text-red-600 mt-2" id="phone-error">10+ characters required</p>
-                    </div>
-
-
-                    <div className="w-full">
-                        <label htmlFor="spouse-name" className="mb-1 block font-medium text-navy text-sm">Spouse Name</label>
-                        <div className="relative w-full">
-                            <input type="text" id="spouse-name" name="spouse-name" className="input-field" required aria-describedby="spouse-error" />
-                            <div className="hidden absolute inset-y-0 inset-e-0 pointer-events-none pe-3">
-                                <svg className="size-5 text-red-500" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
-                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                                </svg>
-                            </div>
-                        </div>
-                        <p className="hidden text-xs text-red-600 mt-2" id="spouse-error">Please include a valid email address so we can get back to you</p>
-                    </div>
-
-                    <div className="w-full">
-                        <label htmlFor="inchargeOf" className="block font-medium text-navy text-sm">Incharge Of</label>
+                        {/* <label htmlFor="inchargeOf" className="block font-medium text-navy text-sm">Incharge Of</label> */}
                         <div className="grid grid-cols-2 gap-2">
                             <CustomSelect
                                 options={classOptions}
                                 selectType="classroom"
-                                label=""
+                                label="Classroom"
                                 placeholder="Select Classroom"
+                                isSearchable={false}
                                 className="w-full"
                             />
 
-                            <CustomSelect
-                                options={sectionOptions}
-                                selectType="section"
-                                label=""
-                                placeholder="Select Section"
-                                className="w-full"
-                            />
-                        </div>
-                    </div>
-                    <div className="w-full">
-                        <label htmlFor="otherClasses" className="block font-medium text-navy text-sm">Teach Other Classes</label>
-                        <div className='grid grid-cols-4 gap-2'>
-                            <CustomSelect
-                                options={classOptions}
-                                selectType="classroom"
-                                label="Classroom"
-                                placeholder="Search Classroom"
-                            />
-                            <CustomSelect
-                                options={streamOptions}
-                                selectType="stream"
-                                label="Stream"
-                                placeholder="Search Stream"
-                            />
                             <CustomSelect
                                 options={sectionOptions}
                                 selectType="section"
                                 label="Section"
-                                placeholder="Search Section"
-                            />
-                            <CustomSelect
-                                options={subjectOptions}
-                                selectType="subject"
-                                label="Subject"
-                                placeholder="Search Subject"
+                                placeholder="Select Section"
+                                isSearchable={false}
+                                className="w-full"
                             />
                         </div>
                     </div>
-                    <button type="submit" className="btn">Create Teacher</button>
-                </div>
+                }
+                <div className="w-full">
+                    <label htmlFor="otherClasses" className="flex flex-wrap items-end justify-between gap-2 font-medium text-navy text-sm">
+                        <label htmlFor="" className="block text-sm font-medium text-navy mb-1">
+                            {
+                                formik.values.role === "teacher" ? "Teach Other Classes" : "I Study In"
+                            }
+                        </label>
+                        {
+                            formik.values.role === "teacher" &&
+                            <button className="btn icon_btn_small">
+                                <Plus className="size-5 shrink-0" />
+                            </button>
+                        }
 
-            </form>
-        </Drawer>
+                    </label>
+                    <div className={`bg-navy/10 rounded p-4 relative ${formik.values.role === 'teacher' ? 'mt-4' : ''}`}>
+                    {
+                         formik.values.role === "teacher" &&
+                        <button className="btn icon_btn_remove absolute inset-e-3 top-3">
+                            <Trash2 className="size-5 shrink-0" />
+                        </button>
+                        }
+                        <div className='grid grid-cols-4 gap-2'>
+                            <CustomSelect
+                                options={classOptions}
+                                placeholder=""
+                                selectType="classroom"
+                                label="Classroom"
+                                isSearchable={false}
+                            />
+                            <CustomSelect
+                                options={streamOptions}
+                                placeholder=""
+                                selectType="stream"
+                                label="Stream"
+                                isSearchable={false}
+                            />
+                            <CustomSelect
+                                options={sectionOptions}
+                                placeholder=""
+                                selectType="section"
+                                label="Section"
+                                isSearchable={false}
+                            />
+                            <CustomSelect
+                                options={subjectOptions}
+                                placeholder=""
+                                selectType="subject"
+                                label="Subject"
+                                isSearchable={false}
+                            />
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" className="btn btn_with_text">Create Teacher</button>
+            </div>
+        </form>
     )
 }
 

@@ -1,8 +1,8 @@
 import { Mail } from "lucide-react"
 
-const EmailField = ({ label, id, error, required = false, disabled = false, ...props }) => {
+const EmailField = ({ label, id, error, required = false, disabled = false, className="", ...props }) => {
     return (
-        <div className={`col-span-1`}>
+        <div className={`${className ? className : 'w-full'}`}>
             <label htmlFor={id} className="block text-sm font-medium text-navy mb-1">
                 {label}
                 {required ? <span className='text-red-500 ms-1'>*</span> : null}

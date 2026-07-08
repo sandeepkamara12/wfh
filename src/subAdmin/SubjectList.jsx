@@ -43,10 +43,10 @@ const SubjectList = () => {
             </div>
           </div>
           <div className="flex flex-wrap items-center justify-end w-full gap-1">
-            <button type="button" className="icon-btn">
+            <button type="button" className="btn icon_btn">
               <Trash2 className="size-5 mx-auto" />
             </button>
-            <button type="button" className="icon-btn">
+            <button type="button" className="btn icon_btn">
               <Pencil className="size-5 mx-auto" />
             </button>
           </div>

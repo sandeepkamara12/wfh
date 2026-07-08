@@ -1,7 +1,7 @@
 import { ChevronDown } from "lucide-react";
 import Select from "react-select"
 
-const CustomSelect = ({ options, selectType, label, placeholder = "", className = "" }) => {
+const CustomSelect = ({ options, selectType, label, placeholder = "", className = "", isSearchable = true }) => {
     const CustomOption = (props) => {
         const { selectType } = props.selectProps;
         const Icon = props.data.icon;
@@ -20,7 +20,7 @@ const CustomSelect = ({ options, selectType, label, placeholder = "", className 
                 (selectType === 'stream' || selectType === 'subject') ? (
                     <div {...props.innerProps} className="p-2 hover:bg-navy/10 text-sm font-medium">
                         <div className="flex items-center gap-2">
-                            <Icon className="size-5" />
+                            {/* <Icon className="size-5" /> */}
                             {props.label}
                         </div>
                     </div>
@@ -43,21 +43,21 @@ const CustomSelect = ({ options, selectType, label, placeholder = "", className 
                         <span>{props.data.label}</span>
                         <span className="text-navy text-xs leading-3">#{props.data.value}</span>
                     </div>
-                    <button type="button" onClick={(e) => { e.stopPropagation(); props.selectProps.onChange(null); }} className="ml-auto justify-self-end text-red-500 font-bold">✕</button>
+                    {/* <button type="button" onClick={(e) => { e.stopPropagation(); props.selectProps.onChange(null); }} className="ml-auto justify-self-end text-red-500 font-bold">✕</button> */}
                 </div>)
                 :
                 (selectType === 'stream' || selectType === 'subject') ?
                     (<div className="inline-flex items-center gap-2 text-sm font-medium rounded w-[calc(100%-10px)]!">
                         <div className="flex items-center gap-2">
-                            <Icon className="size-5" />
+                            {/* <Icon className="size-5" /> */}
                             {props.data.label}
                         </div>
-                        <button type="button" onClick={(e) => { e.stopPropagation(); props.selectProps.onChange(null); }} className="ml-auto justify-self-end text-red-500 font-bold">✕</button>
+                        {/* <button type="button" onClick={(e) => { e.stopPropagation(); props.selectProps.onChange(null); }} className="ml-auto justify-self-end text-red-500 font-bold">✕</button> */}
                     </div>)
                     :
                     <div className="inline-flex items-center gap-2 text-sm font-medium rounded w-[calc(100%-10px)]!">
                         <span>{props.data.label}</span>
-                        <button type="button" onClick={(e) => { e.stopPropagation(); props.selectProps.onChange(null); }} className="ml-auto justify-self-end text-red-500 font-bold">✕</button>
+                        {/* <button type="button" onClick={(e) => { e.stopPropagation(); props.selectProps.onChange(null); }} className="ml-auto justify-self-end text-red-500 font-bold">✕</button> */}
                     </div>
         );
     };
@@ -78,6 +78,7 @@ const CustomSelect = ({ options, selectType, label, placeholder = "", className 
                 options={options}
                 placeholder={placeholder}
                 selectType={selectType}
+                isSearchable={isSearchable}
                 components={{
                     Option: CustomOption,
                     SingleValue: CustomSingleValue,

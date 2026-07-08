@@ -269,6 +269,7 @@ export const roleRedirect = {
 };
 
 export const icons = {
+  teacher_name: 'UserRoundPen',
   first_name: 'UserRound',
   last_name: 'UserRound',
   father_name: 'UserRound',

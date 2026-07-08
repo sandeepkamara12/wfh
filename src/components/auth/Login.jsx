@@ -83,7 +83,7 @@ const Login = () => {
                                 <TextField label="Email/Phone/ID" id="login" {...formik.getFieldProps("login")} error={formik.touched.login && formik.errors.login} />
                                 <PasswordField label="Password" id="password" {...formik.getFieldProps("password")} error={formik.touched.password && formik.errors.password} />
                                 <RememberField checked={checked} handleChecked={setChecked} handleOpen={setOpen} />
-                                <button type="submit" className="btn" disabled={loading?.login || !formik.isValid}>{loading?.login ? "Signing in..." : "Sign in"}</button>
+                                <button type="submit" className="btn btn_with_text" disabled={loading?.login || !formik.isValid}>{loading?.login ? "Signing in..." : "Sign in"}</button>
                                 {/* <p className="login_donot_have_account">Don't have an account? <a className="login_donot_have_account_link" href="#">Sign Up</a></p> */}
                             </form>
 
@@ -121,7 +121,7 @@ const Login = () => {
                 {/* <Modal isOpen={open} title="Forgot Password?" handleCloseModal={() => setOpen(false)}>
                     <div className="p-4 overflow-y-auto login_form_wrapper">
                        <TextField label="Email/Phone" id="login" {...formik.getFieldProps("login")} error={formik.touched.login && formik.errors.login} />
-                       <button type="submit" className="btn" disabled={loading || !(formik.isValid && formik.dirty)}>{loading ? "Sending..." : "Send Email"}</button>
+                       <button type="submit" className="btn btn_with_text" disabled={loading || !(formik.isValid && formik.dirty)}>{loading ? "Sending..." : "Send Email"}</button>
                     </div>
                 </Modal> */}
             </>

@@ -13,3 +13,8 @@
 13. Need to show wait or loader in login button and update profile button too.
 14. Need to show subjects conditionally at assignment page, I mean a few subjects are optional.
 15. Need to make custom hook for all image uploader as common
+16. Need to make search option in dropdown optional because in some dropdowns it is not required.
+17. Need to add shrink-0 class to all the icons.
+18. Need to change all the fields border color because everywhere it looks blue-2.
+19. Need to correct the height of react select field when there is no search option.
+20. Need to add month dropdown in open calendar.
