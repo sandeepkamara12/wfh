@@ -3,7 +3,7 @@ import { ImageUp, Trash2, UserRound } from 'lucide-react'
 const ImageUploader = ({ ref, updateImageHandler, removeImageHandler, preview, handleImageUploadTrigger, formik }) => {
     return (
         <div className='w-full'>
-            <div className='flex flex-wrap items-center gap-2'>
+            <div className='flex flex-wrap flex-col sm:flex-row md:items-center gap-2'>
                 <span className="inline-block size-20 bg-white rounded-full relative group">
                     <span className="inline-flex flex-wrap items-center justify-center border-2 border-navy size-20 rounded-full overflow-hidden relative z-50">
                         <input
@@ -20,7 +20,7 @@ const ImageUploader = ({ ref, updateImageHandler, removeImageHandler, preview, h
                         )}
                     </span>
                 </span>
-                <div className="inline-flex flex-col gap-1 w-[calc(100%-112px)]">
+                <div className="inline-flex flex-col gap-1">
                     <div className="inline-flex gap-2">
                         <button type="button" className="btn btn_with_text w-auto" onClick={handleImageUploadTrigger}>
                             {/* <ImageUp className='hidden md:block shrink-0 size-4' /> */}

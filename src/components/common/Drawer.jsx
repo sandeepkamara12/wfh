@@ -4,12 +4,11 @@ const Drawer = ({handleClose, open, children}) => {
     const drawerStyle = {
         transform: open ? "translateX(0)" : "translateX(100%)",
     };
-    console.log(open, 'open')
   
     return (
         <>
         <div className={`drawer-overlay ${open ? 'opacity-100 z-50 block':'opacity-0 z-0 hidden'}`} onClick={handleClose}></div>
-        <div style={drawerStyle} className="shadow-sm p-6 z-50 bg-white w-2xl h-full fixed inset-e-0 inset-y-0 transition-all duration-300 ease-in-out max-h-screen overflow-auto">
+        <div style={drawerStyle} className="shadow-sm p-6 z-50 bg-white max-w-2xl w-[90%] h-full fixed inset-e-0 inset-y-0 transition-all duration-300 ease-in-out max-h-screen overflow-auto">
             <button onClick={handleClose} className="btn icon_btn absolute right-4 top-4">
                 <X />
             </button>
