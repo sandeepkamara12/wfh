@@ -308,9 +308,9 @@ const AddTeacher = ({ role, open }) => {
                             onClick={() => {
                                 if (index <= activeStep) setActiveStep(index);
                             }}
-                            className={`flex-1 cursor-pointer relative z-10 last:after:hidden after:absolute after:inset-x-0 after:-translate-y-11.5 after:border-t-2 after:border-navy after:z-0`}
+                            className={`flex-1 cursor-pointer relative z-10 last:after:hidden after:absolute after:inset-x-0 after:-translate-y-11.5 after:border-t-2 after:border-navy after:z-0 ${index < activeStep ? 'after:border-orange' : ''}`}
                         >
-                            <div className={`z-10 relative w-8 h-8 rounded-full flex items-center justify-center text-white ${activeStep === index ? "bg-orange" : "bg-navy"}`}>
+                            <div className={`z-10 relative w-8 h-8 rounded-full flex items-center justify-center text-white ${index <= activeStep ? "bg-orange" : "bg-navy"}`}>
                                 {index + 1}
                             </div>
                             <p className="text-sm font-semibold mt-2">{step}</p>
