@@ -3,7 +3,7 @@ import { ImageUp, Trash2, UserRound } from 'lucide-react'
 const ImageUploader = ({ ref, updateImageHandler, removeImageHandler, preview, handleImageUploadTrigger, formik }) => {
     return (
         <div className='w-full'>
-            <div className='flex flex-wrap flex-col sm:flex-row md:items-center gap-2'>
+            <div className='flex flex-wrap items-center gap-2'>
                 <span className="inline-block size-20 bg-white rounded-full relative group">
                     <span className="inline-flex flex-wrap items-center justify-center border-2 border-navy size-20 rounded-full overflow-hidden relative z-50">
                         <input

@@ -22,13 +22,8 @@ const SubAdmin = () => {
     return (
         <SidebarLayout isOpen={isSidebarOpen} toggleSidebar={toggleSidebar}>
             <Drawer handleClose={handleClose} open={open}>
-                <h2 className="mb-4 font-bold text-lg">Add <span className='text-orange'>{
-                    open === 'teachers' ? "Teacher"
-                        : open === 'students' ? "Student"
-                            : null
-                }</span></h2>
                 {
-                    open === 'teachers' ? <AddTeacher role="teacher" />
+                    open === 'teachers' ? <AddTeacher role="teacher" open={open} />
                         : open === 'students' ? <AddTeacher role="student" />
                             : null
                 }

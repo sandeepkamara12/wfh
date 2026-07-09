@@ -12,13 +12,13 @@ import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux"
 import EmailField from "../ui/EmailField"
 import PhoneField from "../ui/PhoneField"
-import { Plus, Trash2 } from "lucide-react"
+import { Plus, Redo2, Trash2, Undo2 } from "lucide-react"
 import Switch from "../ui/Switch"
 import Gender from "../common/Gender"
 import OpenCalendar from "../ui/OpenCalendar"
 import { v4 as uuidv4 } from "uuid";
 
-const AddTeacher = ({ role }) => {
+const AddTeacher = ({ role, open }) => {
     const fileRef = useRef(null);
     const dispatch = useDispatch();
     let user = useSelector(state => state.auth.user);
@@ -238,24 +238,30 @@ const AddTeacher = ({ role }) => {
 
         <form onSubmit={formik.handleSubmit}>
             {/* 🔵 Tabs */}
-            <div className="flex items-center justify-between mb-6">
-                {steps.map((step, index) => (
-                    <div
-                        key={index}
-                        onClick={() => {
-                            if (index <= activeStep) setActiveStep(index);
-                        }}
-                        className={`flex-1 cursor-pointer relative z-10 last:after:hidden after:absolute after:inset-x-0 after:-translate-y-11.5 after:border-t-2 after:border-navy after:z-0`}
-                    >
-                        <div className={`z-10 relative w-8 h-8 rounded-full flex items-center justify-center text-white ${activeStep === index ? "bg-orange" : "bg-navy"}`}>
-                            {index + 1}
+            <div className="bg-navy/10 p-4 sticky top-0">
+                <div className="grid grid-cols-4 items-center justify-between mb-2">
+                    {steps.map((step, index) => (
+                        <div
+                            key={index}
+                            onClick={() => {
+                                if (index <= activeStep) setActiveStep(index);
+                            }}
+                            className={`flex-1 cursor-pointer relative z-10 last:after:hidden after:absolute after:inset-x-0 after:-translate-y-11.5 after:border-t-2 after:border-navy after:z-0`}
+                        >
+                            <div className={`z-10 relative w-8 h-8 rounded-full flex items-center justify-center text-white ${activeStep === index ? "bg-orange" : "bg-navy"}`}>
+                                {index + 1}
+                            </div>
+                            <p className="text-sm font-semibold mt-2">{step}</p>
                         </div>
-                        <p className="text-sm font-semibold mt-2">{step}</p>
-                    </div>
-                ))}
+                    ))}
+                </div>
+                <h2 className="font-bold text-lg">Add <span className='text-orange'>{
+                    open === 'teachers' ? "Teacher"
+                        : open === 'students' ? "Student"
+                            : null
+                }</span></h2>
             </div>
-
-            <div className="flex flex-wrap gap-4 items-start">
+            <div className="flex flex-wrap gap-4 items-start p-4">
                 {
                     activeStep === 0 && (
                         <>
@@ -424,30 +430,36 @@ const AddTeacher = ({ role }) => {
                                     </div>
                                 ))}
                             </div>
-                            <button type="submit" className="btn btn_with_text">Create {role}</button>
+
                         </>
                     )
                 }
 
-
-
-            </div>
-            <div className="flex justify-between mt-4">
-
-                <button
-                    type="button"
-                    onClick={prevStep}
-                    disabled={activeStep === 0}
-                    className="btn btn_with_text"
-                >
-                    Previous
-                </button>
-
-                {activeStep < steps.length - 1 ? (
-                    <button type="button" onClick={nextStep} className="btn btn_with_text">
-                        Next
+                <div className="flex justify-between w-full">
+                    {console.log(steps.length, typeof steps.length, 'steps.length')}
+                    <button
+                        type="button"
+                        onClick={prevStep}
+                        disabled={activeStep === 0}
+                        className="btn btn_with_text"
+                    >
+                        <Undo2 className="size-5 shrink-0" />
+                        Previous
                     </button>
-                ) : null}
+
+                    {activeStep < steps.length - 1 ? (
+                        <button type="button" onClick={nextStep} className="btn btn_with_text">
+                            Next
+                            <Redo2 className="size-5 shrink-0" />
+                        </button>
+                    ) : null}
+                    {activeStep === steps.length-1 ?
+                        (<button type="submit" className="btn btn_with_text">Create {role}</button>)
+                        : null
+                    }
+
+                </div>
+
 
             </div>
         </form >
