@@ -12,17 +12,17 @@ import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux"
 import EmailField from "../ui/EmailField"
 import PhoneField from "../ui/PhoneField"
-import { Plus, Redo2, Trash2, Undo2 } from "lucide-react"
+import { Plus, Redo2, Trash2, Undo2, X } from "lucide-react"
 import Switch from "../ui/Switch"
 import Gender from "../common/Gender"
 import OpenCalendar from "../ui/OpenCalendar"
 import { v4 as uuidv4 } from "uuid";
 
-const AddTeacher = ({ role, open }) => {
+const AddTeacher = ({ role, open, handleClose }) => {
     const fileRef = useRef(null);
     const dispatch = useDispatch();
     let user = useSelector(state => state.auth.user);
-
+    
     const [activeStep, setActiveStep] = useState(0);
 
     const stepFields = [
@@ -90,7 +90,6 @@ const AddTeacher = ({ role, open }) => {
         incharge_section: "",
         other_classes: [{ id: uuidv4(), classroom: "", stream: "", section: "", subject: "" }]
     }
-
 
     //Validations
     const validationSchema = Yup.object({
@@ -300,6 +299,7 @@ const AddTeacher = ({ role, open }) => {
     return (
         <form onSubmit={formik.handleSubmit}>
             {/* 🔵 Tabs */}
+           
             <div className="bg-gray-200 p-4 sticky top-0 z-30">
                 <div className="grid grid-cols-4 items-center justify-between mb-2">
                     {steps.map((step, index) => (
@@ -317,6 +317,9 @@ const AddTeacher = ({ role, open }) => {
                         </div>
                     ))}
                 </div>
+                     <button onClick={handleClose} className="btn icon_btn_small absolute inset-e-4 top-4 z-40">
+                <X />
+            </button>
                 <h2 className="font-bold text-lg">Add <span className='text-orange'>{
                     open === 'teachers' ? "Teacher"
                         : open === 'students' ? "Student"
