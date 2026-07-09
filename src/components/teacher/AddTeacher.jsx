@@ -362,7 +362,7 @@ const AddTeacher = ({ role }) => {
                                 </label>
 
                                 {formik.values.other_classes.map((item) => (
-                                    <div key={item.id} className="bg-navy/10 p-4 mt-3 rounded relative">
+                                    <div key={item.id} className="pt-4 rounded relative">
 
                                         {/* ✅ delete button */}
                                         {formik.values.role === "teacher" &&
@@ -370,7 +370,7 @@ const AddTeacher = ({ role }) => {
                                                 <button
                                                     type="button"
                                                     onClick={() => handleRemoveClass(item.id)}
-                                                    className="btn icon_btn_remove absolute right-3 top-3"
+                                                    className="btn icon_btn_remove absolute right-0 top-3"
                                                 >
                                                     <Trash2 className="size-5" />
                                                 </button>
