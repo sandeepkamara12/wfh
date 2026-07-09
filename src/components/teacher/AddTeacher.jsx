@@ -300,7 +300,7 @@ const AddTeacher = ({ role, open }) => {
     return (
         <form onSubmit={formik.handleSubmit}>
             {/* 🔵 Tabs */}
-            <div className="bg-navy/10 p-4 sticky top-0">
+            <div className="bg-gray-200 p-4 sticky top-0 z-30">
                 <div className="grid grid-cols-4 items-center justify-between mb-2">
                     {steps.map((step, index) => (
                         <div
