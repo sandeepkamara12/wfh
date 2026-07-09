@@ -377,7 +377,7 @@ const AddTeacher = ({ role }) => {
                                             )
                                         }
 
-                                        <div className={`grid ${(item?.classroom === '11' || item?.classroom === '12') ? 'grid-cols-4' : 'grid-cols-3'} gap-2`}>
+                                        <div className={`grid ${(item?.classroom === '11' || item?.classroom === '12') ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-2 md:grid-cols-3'} gap-2`}>
                                             <CustomSelect
                                                 options={classOptions}
                                                 label="Classroom"
