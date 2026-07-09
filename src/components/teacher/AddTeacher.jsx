@@ -315,33 +315,36 @@ const AddTeacher = ({ role }) => {
                             }
                             {
                                 formik.values.incharge &&
-                                <>
-                                    <CustomSelect
-                                        options={classOptions}
-                                        selectType="classroom"
-                                        label="Classroom"
-                                        placeholder="Select Classroom"
-                                        isSearchable={false}
-                                        className="w-full"
-                                        value={formik.values.incharge_classroom}
-                                        onChange={(val) =>
-                                            formik.setFieldValue("incharge_classroom", val)
-                                        }
-                                    />
-
-                                    <CustomSelect
-                                        options={sectionOptions}
-                                        selectType="section"
-                                        label="Section"
-                                        placeholder="Select Section"
-                                        isSearchable={false}
-                                        className="w-full"
-                                        value={formik.values.incharge_section}
-                                        onChange={(val) =>
-                                            formik.setFieldValue("incharge_section", val)
-                                        }
-                                    />
-                                </>
+                                <div className="flex gap-2 w-full">
+                                    <div className="w-full md:w-1/2">
+                                        <CustomSelect
+                                            options={classOptions}
+                                            selectType="classroom"
+                                            label="Classroom"
+                                            placeholder="Select Classroom"
+                                            isSearchable={false}
+                                            className="w-full"
+                                            value={formik.values.incharge_classroom}
+                                            onChange={(val) =>
+                                                formik.setFieldValue("incharge_classroom", val)
+                                            }
+                                        />
+                                    </div>
+                                    <div className="w-full md:w-1/2">
+                                        <CustomSelect
+                                            options={sectionOptions}
+                                            selectType="section"
+                                            label="Section"
+                                            placeholder="Select Section"
+                                            isSearchable={false}
+                                            className="w-full"
+                                            value={formik.values.incharge_section}
+                                            onChange={(val) =>
+                                                formik.setFieldValue("incharge_section", val)
+                                            }
+                                        />
+                                    </div>
+                                </div>
                             }
                             <div className="w-full">
                                 <label className="flex justify-between items-center text-sm font-medium text-navy">
