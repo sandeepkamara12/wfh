@@ -1,6 +1,6 @@
 import { ImageUp, Trash2, UserRound } from 'lucide-react'
 
-const ImageUploader = ({ ref, updateImageHandler, removeImageHandler, preview, handleImageUploadTrigger, formik }) => {
+const ImageUploader = ({ fileRef, updateImageHandler, removeImageHandler, preview, handleImageUploadTrigger, error }) => {
     return (
         <div className='w-full'>
             <div className='flex flex-wrap items-center gap-2'>
@@ -8,7 +8,7 @@ const ImageUploader = ({ ref, updateImageHandler, removeImageHandler, preview, h
                     <span className="inline-flex flex-wrap items-center justify-center border-2 border-navy size-20 rounded-full overflow-hidden relative z-50">
                         <input
                             type="file"
-                            ref={ref}
+                            ref={fileRef}
                             accept="image/*"
                             className="absolute opacity-0 w-full h-full cursor-pointer z-40 hidden"
                             onChange={updateImageHandler}
@@ -34,9 +34,8 @@ const ImageUploader = ({ ref, updateImageHandler, removeImageHandler, preview, h
                 </div>
             </div>
                 {
-                    // formik.touched.file && 
-                    formik.errors.file && (
-                        <p className="text-red-500 text-sm">{formik.errors.file}</p>
+                    error && (
+                        <p className="text-red-500 text-sm">{error}</p>
                     )}
         </div>
     )

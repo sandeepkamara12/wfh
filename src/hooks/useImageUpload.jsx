@@ -1,12 +1,11 @@
 import { useEffect, useMemo } from "react";
 
-const useImageUpload = (formik, fieldName) => {
-  const file = formik.values[fieldName];
+const useImageUpload = ({ value, setValue, setTouched}) => {
 
   const preview = useMemo(() => {
-    if (!file) return null;
-    return URL.createObjectURL(file);
-  }, [file]);
+    if (!value) return null;
+    return URL.createObjectURL(value);
+  }, [value]);
 
   useEffect(() => {
     return () => {
@@ -15,19 +14,17 @@ const useImageUpload = (formik, fieldName) => {
   }, [preview]);
 
   const handleChange = (e) => {
-    const selectedFile = e.currentTarget.files[0];
-    formik.setFieldValue(fieldName, selectedFile);
+    const file = e.target.files[0];
+    setValue(file);
+    setTouched(true);
   };
 
   const handleRemove = () => {
-    formik.setFieldValue(fieldName, null);
+    setValue(null);
+    setTouched(false);
   };
 
-  return {
-    preview,
-    handleChange,
-    handleRemove,
-  };
+  return { preview, handleChange, handleRemove };
 };
 
 export default useImageUpload;

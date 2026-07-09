@@ -11,7 +11,6 @@ const SubAdmin = () => {
     };
     const [open, setOpen] = useState(null);
     const handleOpen = (type) => {
-        console.log(type, 'state is')
         setOpen(type);
     };
 
@@ -24,7 +23,7 @@ const SubAdmin = () => {
             <Drawer handleClose={handleClose} open={open}>
                 {
                     open === 'teachers' ? <AddTeacher role="teacher" open={open} />
-                        : open === 'students' ? <AddTeacher role="student" />
+                        : open === 'students' ? <AddTeacher role="student" open={open} />
                             : null
                 }
 

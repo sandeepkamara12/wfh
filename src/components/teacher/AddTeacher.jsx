@@ -1,4 +1,4 @@
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { classOptions, sectionOptions, streamOptions, subjectOptions } from "../../const/constant"
 import ImageUploader from "../common/ImageUploader"
 import CustomSelect from "../ui/CustomSelect"
@@ -25,14 +25,41 @@ const AddTeacher = ({ role, open }) => {
 
     const [activeStep, setActiveStep] = useState(0);
 
+    const stepFields = [
+        ["first_name", "file"], // Step 0
+        ["email", "phone", "dob"], // Step 1
+        ["custom_id"] // Step 2
+    ];
+
     const steps = [
         "Basic Info",
         "Other Info",
         "Academic Info",
     ];
 
-    const nextStep = () => {
-        if (activeStep < steps.length - 1) {
+    const nextStep = async () => {
+        const currentFields = stepFields[activeStep];
+
+        // Validate all
+        const errors = await formik.validateForm();
+
+        // Filter only current step errors
+        const stepErrors = Object.keys(errors).filter(field =>
+            currentFields.includes(field)
+        );
+
+        // Mark only current step fields touched
+        const touchedFields = {};
+        currentFields.forEach(field => {
+            touchedFields[field] = true;
+        });
+
+        formik.setTouched({
+            ...formik.touched,
+            ...touchedFields
+        });
+
+        if (stepErrors.length === 0) {
             setActiveStep(prev => prev + 1);
         }
     };
@@ -42,6 +69,28 @@ const AddTeacher = ({ role, open }) => {
             setActiveStep(prev => prev - 1);
         }
     };
+
+    let initialValues = {
+        role: role,
+        custom_id: "",
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone: "",
+        married: false,
+        incharge: false,
+        spouse_name: "",
+        father_name: "",
+        mother_name: "",
+        dob: null,
+        gender: "male",
+        file: null,
+        sub_admin_id: user?.id || "",
+        incharge_classroom: "",
+        incharge_section: "",
+        other_classes: [{ id: uuidv4(), classroom: "", stream: "", section: "", subject: "" }]
+    }
+
 
     //Validations
     const validationSchema = Yup.object({
@@ -56,6 +105,7 @@ const AddTeacher = ({ role, open }) => {
         spouse_name: Yup.string().nullable(),
         father_name: Yup.string().nullable(),
         mother_name: Yup.string().nullable(),
+        custom_id: Yup.string().required("Teacher/Student Id is required"),
         file: Yup.mixed()
             .required("Picture required")
             .test("fileType", "only .png, .jpg, .jpeg are allowed", (value) => {
@@ -133,6 +183,8 @@ const AddTeacher = ({ role, open }) => {
             other_classes: [{ id: uuidv4(), classroom: "", stream: "", section: "", subject: "" }]
         },
         validationSchema,
+        validateOnBlur: false,
+        validateOnChange: true,
         onSubmit: async (values, { resetForm }) => {
             const payload = buildPayload(values);
             // for (let [key, value] of payload.entries()) {
@@ -188,7 +240,14 @@ const AddTeacher = ({ role, open }) => {
         formik.setFieldValue("dob", date)
     }
 
-    const { preview, handleChange, handleRemove } = useImageUpload(formik, "file");
+    // const { preview, handleChange, handleRemove } = useImageUpload(formik, "file");
+    const { preview, handleChange, handleRemove } = useImageUpload({
+        value: formik.values.file,
+        setValue: (val) => formik.setFieldValue("file", val),
+        setTouched: (val) => formik.setFieldTouched("file", val),
+        // setBlur: () => formik.setFieldBlur("file", true),
+    });
+
     const handleImageUploadTrigger = () => {
         if (fileRef.current) {
             fileRef.current.click()
@@ -215,8 +274,6 @@ const AddTeacher = ({ role, open }) => {
 
     const showParents = formik.values.role === "student" || (formik.values.role === "teacher" && !formik.values.married);
 
-    console.log(formik.values, 'baby')
-
     const handleClassFieldChange = (id, field, value) => {
         const updated = formik.values.other_classes.map(item => {
             if (item.id === id) {
@@ -234,12 +291,22 @@ const AddTeacher = ({ role, open }) => {
     // If backend does NOT need id, remove before API call
     // const cleaned = values.other_classes.map(({ id, ...rest }) => rest);
 
-    return (
+    useEffect(() => {
+        return (() => {
+            formik.resetForm();
+        })
+    }, [open])
 
+    return (
         <form onSubmit={formik.handleSubmit}>
             {/* 🔵 Tabs */}
             <div className="bg-navy/10 p-4 sticky top-0">
-                <div className="grid grid-cols-4 items-center justify-between mb-2">
+                <h2 className="font-bold text-lg">Add <span className='text-orange'>{
+                    open === 'teachers' ? "Teacher"
+                        : open === 'students' ? "Student"
+                            : null
+                }</span></h2>
+                <div className="grid grid-cols-4 items-center justify-between mt-2">
                     {steps.map((step, index) => (
                         <div
                             key={index}
@@ -255,18 +322,13 @@ const AddTeacher = ({ role, open }) => {
                         </div>
                     ))}
                 </div>
-                <h2 className="font-bold text-lg">Add <span className='text-orange'>{
-                    open === 'teachers' ? "Teacher"
-                        : open === 'students' ? "Student"
-                            : null
-                }</span></h2>
             </div>
             <div className="flex flex-wrap gap-4 items-start p-4">
                 {
                     activeStep === 0 && (
                         <>
                             <div className="w-full">
-                                <ImageUploader formik={formik} ref={fileRef} updateImageHandler={handleChange} removeImageHandler={handleRemove} preview={preview} handleImageUploadTrigger={handleImageUploadTrigger} />
+                                <ImageUploader fileRef={fileRef} updateImageHandler={handleChange} removeImageHandler={handleRemove} preview={preview} handleImageUploadTrigger={handleImageUploadTrigger} error={formik.touched.file && formik.errors.file} />
                             </div>
                             <div className="w-full flex gap-2">
                                 <div className="w-full md:w-1/2">
@@ -307,7 +369,7 @@ const AddTeacher = ({ role, open }) => {
                         <EmailField className="w-full" label="Email Address" id="email" {...formik.getFieldProps("email")} error={formik.touched.email && formik.errors.email} required={true} />
                         <PhoneField className="w-full" label="Phone" id="phone" {...formik.getFieldProps("phone")} error={formik.touched.phone && formik.errors.phone} required={true} />
                         <div className="w-full">
-                            <OpenCalendar selected={formik.values.dob} onChangeHandler={onChangeHandler} maxDate={maxDate} minDate={minDate} name="dob" label="Date of Birth" required={true} error={formik.errors.dob} />
+                            <OpenCalendar selected={formik.values.dob} onChangeHandler={onChangeHandler} maxDate={maxDate} minDate={minDate} name="dob" label="Date of Birth" required={true} error={formik.touched.dob && formik.errors.dob} />
                         </div>
                     </>)
                 }
@@ -436,7 +498,6 @@ const AddTeacher = ({ role, open }) => {
                 }
 
                 <div className="flex justify-between w-full">
-                    {console.log(steps.length, typeof steps.length, 'steps.length')}
                     <button
                         type="button"
                         onClick={prevStep}
@@ -453,7 +514,7 @@ const AddTeacher = ({ role, open }) => {
                             <Redo2 className="size-5 shrink-0" />
                         </button>
                     ) : null}
-                    {activeStep === steps.length-1 ?
+                    {activeStep === steps.length - 1 ?
                         (<button type="submit" className="btn btn_with_text">Create {role}</button>)
                         : null
                     }
