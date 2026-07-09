@@ -71,7 +71,7 @@ export const branchOptions = [
   { value: "salford_chd_road", label: "Salford Chandigarh Road" },
   { value: "salford_dugri", label: "Salford Dugri" },
 ];
-
+// Shown in dropdown
 export const classOptions = [
   { value: "nursery", label: "Nursery" },
   { value: "lkg", label: "LKG" },
@@ -90,26 +90,42 @@ export const classOptions = [
   { value: "12", label: "12th" },
 ];
 
+// Shown in dropdown
 export const streamOptions = [
-  { value: "1235678941", label: "Medical", icon: Stethoscope },
-  { value: "2457896312", label: "Non Medical", icon: Microscope },
-  { value: "0265314783", label: "Arts", icon: Brush },
-  { value: "0265314784", label: "Commerce", icon: Laptop },
+  { value: "medical", label: "Medical", icon: Stethoscope },
+  { value: "non_medical", label: "Non Medical", icon: Microscope },
+  { value: "arts", label: "Arts", icon: Brush },
+  { value: "commerce", label: "Commerce", icon: Laptop },
 ];
 
+// Shown in dropdown
 export const sectionOptions = [
-  { value: "1235678941", label: "Milton" },
-  { value: "2457896312", label: "Chaucer" },
-  { value: "0265314783", label: "Keats" },
-  { value: "0265314784", label: "Byron" },
-  { value: "0265314785", label: "Tennyson" },
-  { value: "0265314786", label: "Shakespeare" },
+  { value: "milton", label: "Milton" },
+  { value: "chaucer", label: "Chaucer" },
+  { value: "keats", label: "Keats" },
+  { value: "byron", label: "Byron" },
+  { value: "tennyson", label: "Tennyson" },
+  { value: "shakespeare", label: "Shakespeare" },
 ];
 
+// Shown in dropdown
 export const subjectOptions = [
-  { value: "maths", label: "Maths", icon: Divide },
+  { value: "maths", label: "Mathematics", icon: Divide },
   { value: "english", label: "English", icon: SpellCheck },
+  { value: "science", label: "Science", icon: Heading },
   { value: "hindi", label: "Hindi", icon: Heading },
+  { value: "physics", label: "Physics", icon: Heading },
+  { value: "chemistry", label: "Chemistry", icon: Heading },
+  { value: "computer_science", label: "Computer Science", icon: Heading },
+  { value: "physical_education", label: "Physical Education", icon: Heading },
+  { value: "accountancy", label: "Accountancy", icon: Heading },
+  { value: "business_studies", label: "Business Studies", icon: Heading },
+  { value: "economics", label: "Economics", icon: Heading },
+  { value: "history", label: "History", icon: Heading },
+  { value: "political_science", label: "Political Science", icon: Heading },
+  { value: "sociology", label: "Sociology", icon: Heading },
+  { value: "geography", label: "Geography", icon: Heading },
+  { value: "psychology", label: "Psychology", icon: Heading },
 ];
 
 export const teachersData = [

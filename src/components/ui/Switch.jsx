@@ -1,13 +1,13 @@
-const Switch = ({ checked, onChangeHandler, label, previousLabel }) => {
+const Switch = ({ checked, onChangeHandler, label, id, previousLabel }) => {
     return (
             <div className="flex items-center gap-2">
                 {
-                    previousLabel && <label htmlFor="hs-basic-usage" className="text-sm font-medium">{previousLabel}</label>
+                    previousLabel && <label htmlFor={id} className="text-sm font-medium">{previousLabel}</label>
                 }
-                <label htmlFor="hs-basic-usage" className="relative inline-block w-11 h-6 cursor-pointer">
+                <label htmlFor={id} className="relative inline-block w-11 h-6 cursor-pointer">
                     <input
                         type="checkbox"
-                        id="hs-basic-usage"
+                        id={id}
                         className="peer sr-only"
                         onChange={onChangeHandler}
                         checked={checked}
@@ -16,7 +16,7 @@ const Switch = ({ checked, onChangeHandler, label, previousLabel }) => {
                     <span className="absolute top-1/2 inset-s-1 -translate-y-1/2 size-4 bg-navy rounded-full shadow-sm transition-transform duration-200 ease-in-out peer-checked:translate-x-[calc(100%+5px)] peer-checked:bg-white"></span>
                 </label>
                 {
-                    label && <label htmlFor="hs-basic-usage" className="text-sm font-medium">{label}</label>
+                    label && <label htmlFor={id} className="text-sm font-medium">{label}</label>
                 }
             </div>
     )
