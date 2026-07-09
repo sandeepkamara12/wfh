@@ -263,7 +263,7 @@ const AddTeacher = ({ role }) => {
                                 <ImageUploader formik={formik} ref={fileRef} updateImageHandler={handleChange} removeImageHandler={handleRemove} preview={preview} handleImageUploadTrigger={handleImageUploadTrigger} />
                             </div>
                             <div className="w-full flex gap-2">
-                                <div className="w-1/2">
+                                <div className="w-full md:w-1/2">
                                     <Gender formik={formik} alignment="" label="Choose Gender" />
                                 </div>
                             </div>
