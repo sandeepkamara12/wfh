@@ -6,7 +6,7 @@ const BottomBar = ({ links, handleLogout }) => {
    
 
   return (
-    <div className="fixed bottom-0 left-0 w-full bg-navy border-t border-navy flex justify-around items-center py-4 z-50">
+    <div className="fixed bottom-0 left-0 w-full bg-navy border-t border-navy flex justify-around items-center py-4 z-40">
       {
       links.map((link) => {
         const Icon = link.icon;
