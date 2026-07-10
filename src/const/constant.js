@@ -1,4 +1,5 @@
 import {
+  Bell,
   Brush,
   Divide,
   Heading,
@@ -35,10 +36,10 @@ export const subAdminSidebarLinks = [
 
 export const subAdminBottombarLinks = [
   { id: 1, path: "/subadmin/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { id: 2, path: "/subadmin/create-role", label: "Create Role", icon: UserRoundPlus },
+  // { id: 2, path: "/subadmin/create-role", label: "Create Role", icon: UserRoundPlus },
   { id: 3, path: "/subadmin/assignments", label: "Assignments", icon: ArrowLeftRight },
   { id: 4, path: "/subadmin/homework", label: "Homework", icon: SquareChartGantt}, // this one is fine
-  { id: 5, path: "/subadmin/settings", label: "Settings", icon: Settings}, // this one is fine
+  { id: 5, path: "/subadmin/notifications", label: "Notifications", icon: Bell}, // this one is fine
 ];
 
 export const teacherSidebarLinks = [
