@@ -422,8 +422,8 @@ export const partners = [
 export const dashboardCardData = [
   { label: "Teachers", count: "72", id: "teacher", icon: "UserRoundPen", link:"/subadmin/teachers" },
   { label: "Students", count: "9999", id: "student", icon: "GraduationCap", link:"/subadmin/students" },
-  { label: "Classrooms", count: "12", id: "classroom", icon: "GalleryThumbnails", link:"" },
-  { label: "Streams", count: "12", id: "stream", icon: "Globe", link:"" },
-  { label: "Sections", count: "5", id: "section", icon: "LayoutGrid", link:"" },
-  { label: "Subjects", count: "10", id: "subject", icon: "BookOpenText", link:"" },
+  { label: "Classrooms", count: "12", id: "classroom", icon: "GalleryThumbnails", link:"/subadmin/classrooms" },
+  { label: "Streams", count: "12", id: "stream", icon: "Globe", link:"/subadmin/streams" },
+  { label: "Sections", count: "5", id: "section", icon: "LayoutGrid", link:"/subadmin/sections" },
+  { label: "Subjects", count: "10", id: "subject", icon: "BookOpenText", link:"/subadmin/subjects" },
 ];
