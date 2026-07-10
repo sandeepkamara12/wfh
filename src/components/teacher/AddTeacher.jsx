@@ -387,8 +387,8 @@ const AddTeacher = ({ role, open, handleClose }) => {
                             }
                             {
                                 formik.values.incharge &&
-                                <div className="flex gap-2 w-full">
-                                    <div className="w-full md:w-1/3">
+                                <div className="grid grid-cols-2 md:grid-cols-3 gap-2 w-full">
+                                    <div className="w-full">
                                         <CustomSelect
                                             options={classOptions}
                                             selectType="classroom"
@@ -402,21 +402,24 @@ const AddTeacher = ({ role, open, handleClose }) => {
                                             }
                                         />
                                     </div>
-                                    <div className="w-full md:w-1/3">
-                                        <CustomSelect
-                                            options={streamOptions}
-                                            selectType="stream"
-                                            label="Stream"
-                                            placeholder="Select Stream"
-                                            isSearchable={false}
-                                            className="w-full"
-                                            value={formik.values.incharge_stream}
-                                            onChange={(val) =>
-                                                formik.setFieldValue("incharge_stream", val)
-                                            }
-                                        />
-                                    </div>
-                                    <div className="w-full md:w-1/3">
+                                    {
+                                        (formik.values.incharge_classroom === '11' || formik.values.incharge_classroom === '12') &&
+                                        <div className="w-full">
+                                            <CustomSelect
+                                                options={streamOptions}
+                                                selectType="stream"
+                                                label="Stream"
+                                                placeholder="Select Stream"
+                                                isSearchable={false}
+                                                className="w-full"
+                                                value={formik.values.incharge_stream}
+                                                onChange={(val) =>
+                                                    formik.setFieldValue("incharge_stream", val)
+                                                }
+                                            />
+                                        </div>
+                                    }
+                                    <div className="w-full">
                                         <CustomSelect
                                             options={sectionOptions}
                                             selectType="section"
@@ -437,9 +440,9 @@ const AddTeacher = ({ role, open, handleClose }) => {
 
                                     {formik.values.role === "teacher" && (
                                         <button
-                                        type="button"
-                                        onClick={handleAdd}
-                                        className="btn icon_btn_small"
+                                            type="button"
+                                            onClick={handleAdd}
+                                            className="btn icon_btn_small"
                                         >
                                             <Plus className="size-5" />
                                         </button>
@@ -456,14 +459,14 @@ const AddTeacher = ({ role, open, handleClose }) => {
                                                 <button
                                                     type="button"
                                                     onClick={() => handleRemoveClass(item.id)}
-                                                    className="btn icon_btn_remove absolute right-0 bottom-18"
+                                                    className="btn icon_btn_remove absolute right-0 -top-1"
                                                 >
                                                     <Trash2 className="size-5" />
                                                 </button>
                                             )
                                         }
 
-                                        <div className={`grid ${(item?.classroom === '11' || item?.classroom === '12') ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-2 md:grid-cols-3'} gap-2`}>
+                                        <div className={`grid grid-cols-2 gap-2`}>
                                             <CustomSelect
                                                 options={classOptions}
                                                 label="Classroom"
