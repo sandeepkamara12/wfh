@@ -16,12 +16,12 @@ const BottomBar = ({ links, handleLogout }) => {
           <Link
             key={link.id}
             to={link.path}
-            className={`flex flex-col items-center text-xs ${
+            className={`flex flex-col items-center ${
               isActive ? "text-orange" : "text-white"
             }`}
           >
             <Icon className="size-5 shrink-0 mb-1" />
-            {link.label}
+            <span className="text-sm">{link.label}</span>
           </Link>
         );
       })}

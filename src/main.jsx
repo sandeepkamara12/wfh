@@ -55,8 +55,7 @@ const router = createBrowserRouter([
     path: "/subadmin",
     element: (
       <ProtectedRoute allowedRoles={["subadmin"]}>
-        <SubAdmin />
-        
+        <SubAdmin />        
       </ProtectedRoute>
     ),
     children: [
