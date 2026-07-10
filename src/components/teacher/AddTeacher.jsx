@@ -300,7 +300,7 @@ const AddTeacher = ({ role, open, handleClose }) => {
     }, [open])
 
     return (
-        <form onSubmit={formik.handleSubmit}>
+        <form onSubmit={formik.handleSubmit} className="h-full">
             {/* 🔵 Tabs */}
 
             <div className="bg-orange-100 p-4 sticky top-0 z-30">
