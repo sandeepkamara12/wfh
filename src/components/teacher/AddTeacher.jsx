@@ -304,7 +304,7 @@ const AddTeacher = ({ role, open, handleClose }) => {
             {/* 🔵 Tabs */}
 
             <div className="bg-orange-100 p-4 sticky top-0 z-30">
-                <div className="grid grid-cols-3 lg:grid-cols-4 items-center justify-between">
+                <div className="grid grid-cols-4 items-center justify-between">
                     {steps.map((step, index) => (
                         <div
                             key={index}
