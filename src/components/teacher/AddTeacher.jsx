@@ -88,6 +88,7 @@ const AddTeacher = ({ role, open, handleClose }) => {
         sub_admin_id: user?.id || "",
         incharge_classroom: "",
         incharge_section: "",
+        incharge_stream: "",
         other_classes: [{ id: uuidv4(), classroom: "", stream: "", section: "", subject: "" }]
     }
 
@@ -387,7 +388,7 @@ const AddTeacher = ({ role, open, handleClose }) => {
                             {
                                 formik.values.incharge &&
                                 <div className="flex gap-2 w-full">
-                                    <div className="w-full md:w-1/2">
+                                    <div className="w-full md:w-1/3">
                                         <CustomSelect
                                             options={classOptions}
                                             selectType="classroom"
@@ -401,7 +402,21 @@ const AddTeacher = ({ role, open, handleClose }) => {
                                             }
                                         />
                                     </div>
-                                    <div className="w-full md:w-1/2">
+                                    <div className="w-full md:w-1/3">
+                                        <CustomSelect
+                                            options={streamOptions}
+                                            selectType="stream"
+                                            label="Stream"
+                                            placeholder="Select Stream"
+                                            isSearchable={false}
+                                            className="w-full"
+                                            value={formik.values.incharge_stream}
+                                            onChange={(val) =>
+                                                formik.setFieldValue("incharge_stream", val)
+                                            }
+                                        />
+                                    </div>
+                                    <div className="w-full md:w-1/3">
                                         <CustomSelect
                                             options={sectionOptions}
                                             selectType="section"
@@ -418,22 +433,22 @@ const AddTeacher = ({ role, open, handleClose }) => {
                                 </div>
                             }
                             <div className="w-full">
-                                <label className="flex justify-between items-center text-sm font-medium text-navy">
-                                    {formik.values.role === "teacher" ? "Teach Other Classes" : "I Study In"}
+                                <label className="inline-flex cursor-pointer items-center gap-2 text-sm font-medium text-navy mb-4">
 
                                     {formik.values.role === "teacher" && (
                                         <button
-                                            type="button"
-                                            onClick={handleAdd}
-                                            className="btn icon_btn_small"
+                                        type="button"
+                                        onClick={handleAdd}
+                                        className="btn icon_btn_small"
                                         >
                                             <Plus className="size-5" />
                                         </button>
                                     )}
+                                    {formik.values.role === "teacher" ? "Teach Other Classes?" : "I Study In"}
                                 </label>
 
                                 {formik.values.other_classes.map((item) => (
-                                    <div key={item.id} className="pt-8 first-of-type:pt-4 rounded relative">
+                                    <div key={item.id} className="pb-8 rounded relative">
 
                                         {/* ✅ delete button */}
                                         {formik.values.role === "teacher" &&
@@ -441,7 +456,7 @@ const AddTeacher = ({ role, open, handleClose }) => {
                                                 <button
                                                     type="button"
                                                     onClick={() => handleRemoveClass(item.id)}
-                                                    className="btn icon_btn_remove absolute right-0 top-3"
+                                                    className="btn icon_btn_remove absolute right-0 bottom-18"
                                                 >
                                                     <Trash2 className="size-5" />
                                                 </button>
