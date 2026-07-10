@@ -311,9 +311,9 @@ const AddTeacher = ({ role, open, handleClose }) => {
                             onClick={() => {
                                 if (index <= activeStep) setActiveStep(index);
                             }}
-                            className={`flex-1 cursor-pointer relative z-10 last:after:hidden after:absolute after:inset-x-0 after:-translate-y-10.5 after:border-t-2 after:border-navy after:z-0 ${index < activeStep ? 'after:border-orange' : ''}`}
+                            className={`flex-1 cursor-pointer relative z-10 last:after:hidden after:absolute after:inset-x-0 after:-translate-y-11 after:border-t-2 after:border-navy after:z-0 ${index < activeStep ? 'after:border-orange' : ''}`}
                         >
-                            <div className={`z-10 relative w-8 h-8 rounded-full flex items-center justify-center text-white ${index <= activeStep ? "bg-orange" : "bg-navy"}`}>
+                            <div className={`z-10 relative w-9 h-9 rounded-full flex items-center justify-center text-white ${index <= activeStep ? "bg-orange" : "bg-navy"}`}>
                                 {index + 1}
                             </div>
                             <p className="text-sm font-semibold mt-2 leading-4">{step}</p>
@@ -321,8 +321,8 @@ const AddTeacher = ({ role, open, handleClose }) => {
                     ))}
                 </div>
             </div>
-            <div className="flex flex-wrap gap-4 items-start p-4">
-                <h2 className="font-bold text-lg leading-4">Add {
+            <div className="flex flex-wrap gap-4 items-start px-4 py-6">
+                <h2 className="font-bold text-lg leading-4 mb-4">Add {
                     open === 'teachers' ? "Teacher"
                         : open === 'students' ? "Student"
                             : null
@@ -330,9 +330,7 @@ const AddTeacher = ({ role, open, handleClose }) => {
                 {
                     activeStep === 0 && (
                         <>
-                            <div className="w-full">
                                 <ImageUploader fileRef={fileRef} updateImageHandler={handleChange} removeImageHandler={handleRemove} preview={preview} handleImageUploadTrigger={handleImageUploadTrigger} error={formik.touched.file && formik.errors.file} />
-                            </div>
                             <div className="w-full flex gap-2">
                                 <div className="w-full md:w-1/2">
                                     <Gender formik={formik} alignment="" label="Choose Gender" />
