@@ -323,13 +323,13 @@ const AddTeacher = ({ role, open, handleClose }) => {
                 {/* <button onClick={handleClose} className="btn icon_btn_small absolute inset-e-4 top-4 z-40">
                     <X />
                 </button> */}
+            </div>
+            <div className="flex flex-wrap gap-4 items-start p-4">
                 <h2 className="font-bold text-lg leading-4">Add {
                     open === 'teachers' ? "Teacher"
                         : open === 'students' ? "Student"
                             : null
                 }</h2>
-            </div>
-            <div className="flex flex-wrap gap-4 items-start p-4">
                 {
                     activeStep === 0 && (
                         <>
