@@ -1,7 +1,6 @@
 import { useOutletContext } from 'react-router-dom';
-import DashboardCard from '../components/assignment/DashboardCard'
 import { dashboardCardData } from '../const/constant'
-
+import DashboardCard from '../components/subadmin/dashboard/DashboardCard';
 const Dashboard = () => {
     const { handleOpen } = useOutletContext();
     return (

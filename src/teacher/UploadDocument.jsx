@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import Note from "../components/Note";
 import { BookOpenText } from "lucide-react";
-import RadioCard from "../components/assignment/RadioCard";
+import RadioCard from "../components/ui/RadioCard";
 import OpenCalendar from "../components/ui/OpenCalendar";
 import { useDispatch, useSelector } from "react-redux";
 import { format, subYears } from "date-fns";

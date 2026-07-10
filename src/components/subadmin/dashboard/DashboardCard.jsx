@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { iconMap } from "../../const/iconMap";
+import { iconMap } from "../../../const/iconMap";
 
 const DashboardCard = ({ label, count, id, link, onPlusClick }) => {
     const Icon = iconMap[id] || null;

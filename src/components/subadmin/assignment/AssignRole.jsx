@@ -1,4 +1,3 @@
-import { useEffect, useMemo, useRef } from "react";
 import {
     BookOpenText,
     Download,
@@ -7,7 +6,7 @@ import {
     LayoutGrid,
     Pencil,
 } from "lucide-react";
-import CustomSelect from "../ui/CustomSelect";
+import CustomSelect from "../../ui/CustomSelect";
 import {
     classOptions,
     studentOptions,
@@ -15,17 +14,17 @@ import {
     sectionData,
     subjectData,
     streamData,
-} from "../../const/constant";
-import RadioCard from "./RadioCard";
-import CheckboxCard from "../ui/CheckboxCard";
+} from "../../../const/constant";
+import RadioCard from "../../ui/RadioCard";
+import CheckboxCard from "../../ui/CheckboxCard";
 import { useState } from "react";
-import Switch from "../ui/Switch";
+import Switch from "../../ui/Switch";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useSelector } from "react-redux";
 import { useOutletContext } from "react-router-dom";
 
-const AssignTeacher = () => {
+const AssignRole = () => {
     const { toggleSidebar } = useOutletContext();
     let user = useSelector((state) => state.auth.user);
     const [selected, setSelected] = useState([]);
@@ -303,4 +302,4 @@ const AssignTeacher = () => {
     );
 };
 
-export default AssignTeacher;
+export default AssignRole;

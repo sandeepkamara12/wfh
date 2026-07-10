@@ -1,20 +1,20 @@
-import TextField from "../ui/TextField"
-import EmailField from "../ui/EmailField"
-import PhoneField from "../ui/PhoneField"
+import TextField from "../../ui/TextField"
+import EmailField from "../../ui/EmailField"
+import PhoneField from "../../ui/PhoneField"
 import { format, subYears } from "date-fns";
 import { useDispatch, useSelector } from "react-redux"
 import { toast } from "react-toastify"
-import { createRoleThunk } from "../../features/subAdmin/createRoleSlice"
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import {useRef } from "react"
-import ImageUploader from '../common/ImageUploader';
-import Gender from '../common/Gender';
-import Role from '../common/Role';
-import OpenCalendar from '../ui/OpenCalendar';
-import Switch from "../ui/Switch"
+import ImageUploader from '../../common/ImageUploader';
+import Gender from '../../common/Gender';
+import Role from '../../common/Role';
+import OpenCalendar from '../../ui/OpenCalendar';
+import Switch from "../../ui/Switch"
 import { Download } from "lucide-react";
-import useImageUpload from "../../hooks/useImageUpload";
+import useImageUpload from "../../../hooks/useImageUpload";
+import { createRoleThunk } from "../../../features/subAdmin/createRoleSlice";
 
 const CreateRole = () => {
     // Redux

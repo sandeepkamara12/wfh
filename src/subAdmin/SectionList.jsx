@@ -239,7 +239,7 @@ const SectionList = () => {
               subLabel="Add Section, edit and more."
             />
 
-            <Drawer handleClose={handleClose} open={open}>
+            {/* <Drawer handleClose={handleClose} open={open}>
               <form onSubmit={formik.handleSubmit}>
                 <div className="grid grid-cols-1 gap-4 items-start">
                   <TextField
@@ -265,7 +265,7 @@ const SectionList = () => {
                   </button>
                 </div>
               </form>
-            </Drawer>
+            </Drawer> */}
           </div>
         </div>
       </div>

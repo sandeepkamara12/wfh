@@ -3,7 +3,7 @@ import { Clock, Copy, Eye, GalleryThumbnails, Mail, Pencil, Phone, Plus, Trash2,
 import { studentOptions, classOptions, streamOptions, sectionOptions } from '../const/constant';
 import Table from "../components/common/Table";
 import { useIsMobile } from "../hooks/useIsMobile";
-import Drawer from "../components/common/Drawer";
+// import Drawer from "../components/common/Drawer";
 import CustomSelect from "../components/ui/CustomSelect";
 
 const StudentList = () => {
@@ -242,7 +242,7 @@ const StudentList = () => {
 
               <Table id="students" columns={columns} data={data} handleOpen={handleOpen} btnText="Add Student" btnIcon={<Plus className="w-5 h-5 mx-auto" />} label="Students" subLabel="Add, edit, delete and search a student." />
 
-              <Drawer handleClose={handleClose} open={open}>
+              {/* <Drawer handleClose={handleClose} open={open}>
                 <form>
                   <div className="grid gap-y-4 h-screen overflow-auto">
                     <div className="grid gap-y-4">
@@ -361,7 +361,7 @@ const StudentList = () => {
 
                   </div>
                 </form>
-              </Drawer>
+              </Drawer> */}
 
             </div>
           </div>

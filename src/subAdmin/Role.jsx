@@ -1,4 +1,4 @@
-import CreateRole from '../components/assignment/CreateRole'
+import CreateRole from '../components/subadmin/assignment/CreateRole'
 
 const Role = () => {
   return (

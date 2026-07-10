@@ -20,22 +20,23 @@ const SubAdmin = () => {
         setOpen(null);
     };
 
-console.log(open, 'open');
-
     return (
         <SidebarLayout isOpen={isSidebarOpen} toggleSidebar={toggleSidebar}>
-            <Drawer handleClose={handleClose} open={open}>
-                {
-                    open === 'teachers' ? <AddTeacher role="teacher" open={open} handleClose={handleClose} />
-                        : open === 'students' ? <AddTeacher role="student" open={open} handleClose={handleClose} />
-                        : open === 'classrooms' ? <AddClassroom role="classrooms" open={open} handleClose={handleClose} />
-                        // : open === 'streams' ? <AddStream role="streams" open={open} handleClose={handleClose} />
-                        : open === 'sections' ? <AddSection role="sections" open={open} handleClose={handleClose} />
-                        // : open === 'subjects' ? <AddSubject role="subjects" open={open} handleClose={handleClose} />
-                            : null
-                }
+            {
+                open !== null &&
+                <Drawer handleClose={handleClose} open={open}>
+                    {
+                        open === 'teachers' ? <AddTeacher role="teacher" open={open} handleClose={handleClose} />
+                            : open === 'students' ? <AddTeacher role="student" open={open} handleClose={handleClose} />
+                                : open === 'classrooms' ? <AddClassroom role="classrooms" open={open} handleClose={handleClose} />
+                                    // : open === 'streams' ? <AddStream role="streams" open={open} handleClose={handleClose} />
+                                    : open === 'sections' ? <AddSection role="sections" open={open} handleClose={handleClose} />
+                                        // : open === 'subjects' ? <AddSubject role="subjects" open={open} handleClose={handleClose} />
+                                        : null
+                    }
 
-            </Drawer>
+                </Drawer>
+            }
             <Outlet context={{ isSidebarOpen, toggleSidebar, handleClose, handleOpen, open, setOpen }} />
         </SidebarLayout>
     )
