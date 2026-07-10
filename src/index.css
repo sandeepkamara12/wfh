@@ -306,6 +306,7 @@
 /* Month & year text */
 .react-datepicker__current-month,
 .react-datepicker__day-name {
+  display: none;
   color: white;
   font-size: 14px !important;
   font-family: Inter;
@@ -338,11 +339,15 @@
   @apply m-0! p-2 grid grid-cols-7 gap-2;
 }
 
+.react-datepicker__month-dropdown-container {margin-left: 0!important; margin-right: 8px!important;}
+.react-datepicker__month-read-view,
 .react-datepicker__year-read-view {
   font-family: "Inter", sans-serif;
+  min-width: 80px;
   @apply bg-navy rounded! py-2 pl-2 pr-6 visible!;
 }
-
+.react-datepicker__month-read-view
+  .react-datepicker__month-read-view--down-arrow,
 .react-datepicker__year-read-view
   .react-datepicker__year-read-view--down-arrow {
   right: 5px;
@@ -396,23 +401,28 @@
   @apply text-orange!;
 }
 
+.react-datepicker__month-dropdown,
 .react-datepicker__year-dropdown {
-  @apply top-full! bg-navy! w-18! left-0!;
+  @apply top-full! bg-navy! w-28! left-0!;
 }
 
+.react-datepicker__month-dropdown-container,
 .react-datepicker__year-dropdown-container {
   position: relative;
-  margin: 0 !important;
+  margin: 0 8px 0 0!important;
 }
 
+.react-datepicker__month-option--selected,
 .react-datepicker__year-option--selected {
   @apply hidden;
 }
 
+.react-datepicker__month-dropdown-container .react-datepicker__month-option,
 .react-datepicker__year-dropdown-container .react-datepicker__year-option {
   @apply text-start pb-1 px-2 pt-1.5 hover:bg-orange;
 }
 
+.react-datepicker__month-read-view--selected-month,
 .react-datepicker__year-read-view--selected-year {
   @apply text-xs;
 }

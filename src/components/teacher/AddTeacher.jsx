@@ -303,7 +303,7 @@ const AddTeacher = ({ role, open, handleClose }) => {
         <form onSubmit={formik.handleSubmit}>
             {/* 🔵 Tabs */}
 
-            <div className="bg-gray-200 p-4 sticky top-0 z-30">
+            <div className="bg-orange-100 p-4 sticky top-0 z-30">
                 <div className="grid grid-cols-4 items-center justify-between mb-2">
                     {steps.map((step, index) => (
                         <div
@@ -323,11 +323,11 @@ const AddTeacher = ({ role, open, handleClose }) => {
                 {/* <button onClick={handleClose} className="btn icon_btn_small absolute inset-e-4 top-4 z-40">
                     <X />
                 </button> */}
-                <h2 className="font-bold text-lg leading-4">Add <span className='text-orange'>{
+                <h2 className="font-bold text-lg leading-4">Add {
                     open === 'teachers' ? "Teacher"
                         : open === 'students' ? "Student"
                             : null
-                }</span></h2>
+                }</h2>
             </div>
             <div className="flex flex-wrap gap-4 items-start p-4">
                 {
