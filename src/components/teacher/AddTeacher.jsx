@@ -22,7 +22,7 @@ const AddTeacher = ({ role, open, handleClose }) => {
     const fileRef = useRef(null);
     const dispatch = useDispatch();
     let user = useSelector(state => state.auth.user);
-    
+
     const [activeStep, setActiveStep] = useState(0);
 
     const stepFields = [
@@ -299,7 +299,7 @@ const AddTeacher = ({ role, open, handleClose }) => {
     return (
         <form onSubmit={formik.handleSubmit}>
             {/* 🔵 Tabs */}
-           
+
             <div className="bg-gray-200 p-4 sticky top-0 z-30">
                 <div className="grid grid-cols-4 items-center justify-between mb-2">
                     {steps.map((step, index) => (
@@ -317,9 +317,9 @@ const AddTeacher = ({ role, open, handleClose }) => {
                         </div>
                     ))}
                 </div>
-                     <button onClick={handleClose} className="btn icon_btn_small absolute inset-e-4 top-4 z-40">
-                <X />
-            </button>
+                {/* <button onClick={handleClose} className="btn icon_btn_small absolute inset-e-4 top-4 z-40">
+                    <X />
+                </button> */}
                 <h2 className="font-bold text-lg">Add <span className='text-orange'>{
                     open === 'teachers' ? "Teacher"
                         : open === 'students' ? "Student"
@@ -433,7 +433,7 @@ const AddTeacher = ({ role, open, handleClose }) => {
                                 </label>
 
                                 {formik.values.other_classes.map((item) => (
-                                    <div key={item.id} className="pt-4 rounded relative">
+                                    <div key={item.id} className="pt-8 first-of-type:pt-4 rounded relative">
 
                                         {/* ✅ delete button */}
                                         {formik.values.role === "teacher" &&
