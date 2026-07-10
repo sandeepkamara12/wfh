@@ -1,22 +1,22 @@
 import { useEffect, useRef, useState } from "react"
-import { classOptions, sectionOptions, streamOptions, subjectOptions } from "../../const/constant"
-import ImageUploader from "../common/ImageUploader"
-import CustomSelect from "../ui/CustomSelect"
-import TextField from "../ui/TextField"
-import useImageUpload from "../../hooks/useImageUpload"
 import { toast } from "react-toastify"
-import { createRoleThunk } from "../../features/subAdmin/createRoleSlice"
 import { format, subYears } from "date-fns"
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux"
-import EmailField from "../ui/EmailField"
-import PhoneField from "../ui/PhoneField"
 import { Plus, Redo2, Trash2, Undo2, X } from "lucide-react"
-import Switch from "../ui/Switch"
-import Gender from "../common/Gender"
-import OpenCalendar from "../ui/OpenCalendar"
 import { v4 as uuidv4 } from "uuid";
+import { classOptions, sectionOptions, streamOptions, subjectOptions } from "../../../const/constant"
+import ImageUploader from "../../common/ImageUploader"
+import TextField from "../../ui/TextField"
+import CustomSelect from "../../ui/CustomSelect"
+import useImageUpload from "../../../hooks/useImageUpload";
+import { createRoleThunk } from "../../../features/subAdmin/createRoleSlice";
+import EmailField from "../../ui/EmailField";
+import PhoneField from "../../ui/PhoneField";
+import OpenCalendar from "../../ui/OpenCalendar";
+import Gender from "../../common/Gender";
+import Switch from "../../ui/Switch";
 
 const AddTeacher = ({ role, open, handleClose }) => {
     const fileRef = useRef(null);
@@ -301,9 +301,9 @@ const AddTeacher = ({ role, open, handleClose }) => {
 
     return (
         <form onSubmit={formik.handleSubmit} className="h-full">
-            {/* 🔵 Tabs */}
 
-            <div className="bg-orange-100 p-4 sticky top-0 z-30">
+            {/* 🔵 Tabs */}
+            <div className="px-4 pb-4 sticky top-0 z-30">
                 <div className="grid grid-cols-4 items-center justify-between">
                     {steps.map((step, index) => (
                         <div
@@ -321,16 +321,12 @@ const AddTeacher = ({ role, open, handleClose }) => {
                     ))}
                 </div>
             </div>
+
             <div className="flex flex-wrap gap-4 items-start px-4 py-6">
-                <h2 className="font-bold text-lg leading-4 mb-4">Add {
-                    open === 'teachers' ? "Teacher"
-                        : open === 'students' ? "Student"
-                            : null
-                }</h2>
                 {
                     activeStep === 0 && (
                         <>
-                                <ImageUploader fileRef={fileRef} updateImageHandler={handleChange} removeImageHandler={handleRemove} preview={preview} handleImageUploadTrigger={handleImageUploadTrigger} error={formik.touched.file && formik.errors.file} />
+                            <ImageUploader fileRef={fileRef} updateImageHandler={handleChange} removeImageHandler={handleRemove} preview={preview} handleImageUploadTrigger={handleImageUploadTrigger} error={formik.touched.file && formik.errors.file} />
                             <div className="w-full flex gap-2">
                                 <div className="w-full md:w-1/2">
                                     <Gender formik={formik} alignment="" label="Choose Gender" />

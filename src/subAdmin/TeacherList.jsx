@@ -7,7 +7,6 @@ import { useDispatch } from "react-redux";
 import { addTeacher } from "../features/teachers/teachersSlice";
 import { useSelector } from "react-redux";
 import TextField from "../components/ui/TextField";
-import AddTeacher from "../components/teacher/AddTeacher";
 import { useOutletContext } from "react-router-dom";
 
 const TeacherList = () => {
@@ -286,8 +285,6 @@ const TeacherList = () => {
                         </div>
 
                         <Table id="teachers" columns={columns} data={teachers} handleOpen={handleOpen} btnText="Add Teacher" btnIcon={<Plus className="w-5 h-5 mx-auto" />} label="Teachers" subLabel="Add, edit, delete and search a teacher." />
-                        <AddTeacher />
-
                     </div>
                 </div>
             </div>
