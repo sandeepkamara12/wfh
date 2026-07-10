@@ -304,25 +304,22 @@ const AddTeacher = ({ role, open, handleClose }) => {
             {/* 🔵 Tabs */}
 
             <div className="bg-orange-100 p-4 sticky top-0 z-30">
-                <div className="grid grid-cols-4 items-center justify-between mb-2">
+                <div className="grid grid-cols-3 lg:grid-cols-4 items-center justify-between">
                     {steps.map((step, index) => (
                         <div
                             key={index}
                             onClick={() => {
                                 if (index <= activeStep) setActiveStep(index);
                             }}
-                            className={`flex-1 cursor-pointer relative z-10 last:after:hidden after:absolute after:inset-x-0 after:-translate-y-11.5 after:border-t-2 after:border-navy after:z-0 ${index < activeStep ? 'after:border-orange' : ''}`}
+                            className={`flex-1 cursor-pointer relative z-10 last:after:hidden after:absolute after:inset-x-0 after:-translate-y-10.5 after:border-t-2 after:border-navy after:z-0 ${index < activeStep ? 'after:border-orange' : ''}`}
                         >
                             <div className={`z-10 relative w-8 h-8 rounded-full flex items-center justify-center text-white ${index <= activeStep ? "bg-orange" : "bg-navy"}`}>
                                 {index + 1}
                             </div>
-                            <p className="text-sm font-semibold mt-2">{step}</p>
+                            <p className="text-sm font-semibold mt-2 leading-4">{step}</p>
                         </div>
                     ))}
                 </div>
-                {/* <button onClick={handleClose} className="btn icon_btn_small absolute inset-e-4 top-4 z-40">
-                    <X />
-                </button> */}
             </div>
             <div className="flex flex-wrap gap-4 items-start p-4">
                 <h2 className="font-bold text-lg leading-4">Add {
