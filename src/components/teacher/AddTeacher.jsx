@@ -23,6 +23,8 @@ const AddTeacher = ({ role, open, handleClose }) => {
     const dispatch = useDispatch();
     let user = useSelector(state => state.auth.user);
 
+
+
     const [activeStep, setActiveStep] = useState(0);
 
     const stepFields = [
@@ -321,7 +323,7 @@ const AddTeacher = ({ role, open, handleClose }) => {
                 {/* <button onClick={handleClose} className="btn icon_btn_small absolute inset-e-4 top-4 z-40">
                     <X />
                 </button> */}
-                <h2 className="font-bold text-lg">Add <span className='text-orange'>{
+                <h2 className="font-bold text-lg leading-4">Add <span className='text-orange'>{
                     open === 'teachers' ? "Teacher"
                         : open === 'students' ? "Student"
                             : null
