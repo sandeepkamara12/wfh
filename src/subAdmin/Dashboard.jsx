@@ -7,9 +7,9 @@ import { useSelector } from 'react-redux';
 import { Clock, Copy, Eye, Mail, Pencil, Phone, Plus, Trash2, UserRound } from 'lucide-react';
 const Dashboard = () => {
     const { handleOpen } = useOutletContext();
-    const { isBelow1440, isBelow1024, isAbove1024 } = useIsMobile();
+    const { isBelow1440, isBelow640, isBelow1024, isAbove1024 } = useIsMobile();
     const teachers = useSelector((state) => state.teachers);
-console.log(teachers, 'teachers');
+
     const columns = [
         {
             name: "Name",
@@ -24,7 +24,7 @@ console.log(teachers, 'teachers');
                                 {row.id}
                                 <Copy className='size-3 text-gray-500 mt-0.5' />
                             </span>
-
+                    <span className="inline-block text-xs sm:hidden">{row.inchargeOf} {row.stream} {row.section} Maths</span>
                         </div>
                     </div>
                 </div>
@@ -51,7 +51,8 @@ console.log(teachers, 'teachers');
         },
         {
             name: "In Charge",
-            grow: 2,
+            omit: isBelow640,
+            // grow: 2,
             cell: row => (
                 <span className="inline-block bg-navy/10 text-sm rounded py-1 px-2">{row.inchargeOf} {row.stream} {row.section} Maths</span>
             ),
@@ -60,11 +61,13 @@ console.log(teachers, 'teachers');
 
         {
             name: '',
-            minWidth: "160px",
+            minWidth: "200px",
+             omit: isBelow1024,
             cell: row => (
                 <div className="w-full flex flex-wrap flex-col items-end text-sm">
                     <span>Joined At: </span>
-                    <span className=''>{row.createdAt}</span>
+                    {/* <span className=''>{row.createdAt}</span> */}
+                    <span className=''>{'25 Dec 2026 12:25 PM'}</span>
                 </div>
             ),
         },
