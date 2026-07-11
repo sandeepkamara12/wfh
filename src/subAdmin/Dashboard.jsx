@@ -1,5 +1,5 @@
 import { useOutletContext } from 'react-router-dom';
-import { dashboardCardData, romanNumbers } from '../const/constant'
+import { dashboardCardData, romanNumbers, sectionData } from '../const/constant'
 import DashboardCard from '../components/subadmin/dashboard/DashboardCard';
 import Table from '../components/common/Table';
 import { useIsMobile } from '../hooks/useIsMobile';
@@ -64,7 +64,7 @@ const Dashboard = () => {
     ];
     return (
         <div className="grid gap-4">
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 3xl:gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-3 3xl:gap-4">
                 {
                     dashboardCardData.map((item, index) => (
                         <DashboardCard key={index}
@@ -77,17 +77,37 @@ const Dashboard = () => {
                 }
             </div>
             <div className="grid grid-cols-6 gap-4">
-                <div className="col-span-1 w-full flex flex-col bg-white rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
+                <div className="col-span-6 rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
                     <div className="bg-navy py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white">Classerooms</div>
-                    {romanNumbers.map((roman, index) => (
-                        <a
-                            key={roman}
-                            href="#"
-                            className=" py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-navy -mt-px"
-                        >
-                            {roman}
-                        </a>
-                    ))}
+                    <div className="grid grid-cols-12 bg-white">
+                        {romanNumbers.map((roman, index) => (
+                            <div className="col-span-1 text-center border-e last:border-none border-gray-200">
+                                <a
+                                    key={roman}
+                                    href="#"
+                                    className="inline-block py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-navy -mt-px"
+                                >
+                                    {roman}
+                                </a>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div className="col-span-6 rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
+                    <div className="bg-navy py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white">Sections</div>
+                    <div className="grid grid-cols-6 bg-white">
+                        {sectionData.map((section, index) => (
+                            <div className="col-span-1 text-center border-e last:border-none border-gray-200">
+                                <a
+                                    key={section?.id}
+                                    href="#"
+                                    className="inline-block py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-navy -mt-px"
+                                >
+                                    {section.section}
+                                </a>
+                            </div>
+                        ))}
+                    </div>
                 </div>
                 <div className="col-span-3 w-full flex flex-col bg-white rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
                     <div className="bg-navy py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white">Classroom In Charge</div>
