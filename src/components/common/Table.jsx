@@ -1,28 +1,15 @@
 import DataTable from 'react-data-table-component';
 const Table = ({ id = "", columns, data, handleOpen, btnText, btnIcon, label, subLabel, isButtonDisabled = false, needHeader = false, customStyle }) => {
+    
+    // Remove Table Header if no need it (needHeader above prop)
     const dashboardTableStyle = {
         headRow: {
             style: {
                 display: needHeader ? 'flex' : 'none',
             },
         },
-        headCells: {
-            style: {
-                paddingTop: needHeader ? '16px' : '20px',
-                paddingBottom: needHeader ? '16px' : '20px',
-                paddingLeft: needHeader ? '16px' : '14px',
-                paddingRight: needHeader ? '16px' : '14px',
-            },
-        },
-        cells: {
-            style: {
-                paddingTop: needHeader ? '16px' : '20px',
-                paddingBottom: needHeader ? '16px' : '20px',
-                paddingLeft: needHeader ? '16px' : '14px',
-                paddingRight: needHeader ? '16px' : '14px',
-            },
-        },
     };
+
     return (
         <>
             <div className={`gap-3 md:justify-between md:items-center bg-white p-4 rounded-t ${needHeader ? 'flex' : 'hidden'}`}>
@@ -59,7 +46,8 @@ const Table = ({ id = "", columns, data, handleOpen, btnText, btnIcon, label, su
                     customStyles={dashboardTableStyle}
                     responsive={true}
                     paginationPerPage={10}
-                    pagination={needHeader}
+                    // pagination={needHeader}
+                    pagination
                     selectableRows={needHeader}
                 />
             </div>
