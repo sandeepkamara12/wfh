@@ -1,5 +1,5 @@
 import { useOutletContext } from 'react-router-dom';
-import { dashboardCardData, romanNumbers, sectionData } from '../const/constant'
+import { dashboardCardData, romanNumbers, sectionData, streamData } from '../const/constant'
 import DashboardCard from '../components/subadmin/dashboard/DashboardCard';
 import Table from '../components/common/Table';
 import { useIsMobile } from '../hooks/useIsMobile';
@@ -79,34 +79,106 @@ const Dashboard = () => {
             <div className="grid grid-cols-6 gap-4">
                 <div className="col-span-6 rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
                     <div className="bg-navy py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white">Classerooms</div>
-                    <div className="grid grid-cols-12 bg-white">
-                        {romanNumbers.map((roman, index) => (
-                            <div className="col-span-1 text-center border-e last:border-none border-gray-200">
-                                <a
+                    <div className="grid grid-cols-3 sm:grid-cols-6 lg:grid-cols-12 bg-white">
+                        {romanNumbers.map((roman, index) => {
+                            const isLastColMobile = (index + 1) % 3 === 0;
+                            const isLastColSm = (index + 1) % 6 === 0;
+                            const isLastColLg = (index + 1) % 12 === 0;
+
+                            return (
+                                <div
                                     key={roman}
-                                    href="#"
-                                    className="inline-block py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-navy -mt-px"
+                                    className={`col-span-1 text-center border-gray-200 
+                                        ${!isLastColMobile ? "border-e" : ""}
+                                        ${!isLastColSm ? "sm:border-e" : "sm:border-e-0"}
+                                        ${!isLastColLg ? "lg:border-e" : "lg:border-e-0"}
+
+                                        ${index < romanNumbers.length - 3 ? "border-b" : ""}
+                                        ${index < romanNumbers.length - 6 ? "sm:border-b" : "sm:border-b-0"}
+                                        lg:border-b-0
+                                    `}
                                 >
-                                    {roman}
-                                </a>
-                            </div>
-                        ))}
+                                    <a
+                                        href="#"
+                                        className="inline-block py-3 px-4 text-sm font-medium no-underline text-navy"
+                                    >
+                                        {roman}
+                                    </a>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
-                <div className="col-span-6 rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
+                <div className="col-span-6 2xl:col-span-3 rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
                     <div className="bg-navy py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white">Sections</div>
-                    <div className="grid grid-cols-6 bg-white">
-                        {sectionData.map((section, index) => (
-                            <div className="col-span-1 text-center border-e last:border-none border-gray-200">
-                                <a
-                                    key={section?.id}
-                                    href="#"
-                                    className="inline-block py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-navy -mt-px"
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 bg-white">
+                        {sectionData.map((section, index) => {
+                            const isLastColMobile = (index + 1) % 2 === 0;
+                            const isLastColSm = (index + 1) % 3 === 0;
+                            const isLastColLg = (index + 1) % 6 === 0;
+
+                            return (
+                                <div
+                                    key={section.id}
+                                    className={`
+                                        col-span-1
+                                        text-center
+                                        border-gray-200
+
+                                        ${!isLastColMobile ? "border-e" : ""}
+                                        ${!isLastColSm ? "sm:border-e" : "sm:border-e-0"}
+                                        ${!isLastColLg ? "lg:border-e" : "lg:border-e-0"}
+
+                                        ${index < sectionData.length - 2 ? "border-b" : ""}
+                                        ${index < sectionData.length - 3 ? "sm:border-b" : "sm:border-b-0"}
+                                        ${index < sectionData.length - 6 ? "lg:border-b" : "lg:border-b-0"}
+                                    `}
                                 >
-                                    {section.section}
-                                </a>
-                            </div>
-                        ))}
+                                    <a
+                                        href="#"
+                                        className="inline-block py-3 px-4 text-sm font-medium no-underline text-navy"
+                                    >
+                                        {section.section}
+                                    </a>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+                <div className="col-span-6 2xl:col-span-3 rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
+                    <div className="bg-navy py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white">Sections</div>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 bg-white">
+                        {streamData.map((stream, index) => {
+                            const isLastColMobile = (index + 1) % 2 === 0;
+                            const isLastColSm = (index + 1) % 4 === 0;
+                            // const isLastColLg = (index + 1) % 6 === 0;
+
+                            return (
+                                <div
+                                    key={stream.id}
+                                    className={`
+                                        col-span-1
+                                        text-center
+                                        border-gray-200
+
+                                        ${!isLastColMobile ? "border-e" : ""}
+                                        ${!isLastColSm ? "sm:border-e" : "sm:border-e-0"}
+                                        
+                                        ${index < streamData.length - 2 ? "border-b" : ""}
+                                        ${index < streamData.length - 4 ? "sm:border-b" : "sm:border-b-0"}
+                                        `}
+                                        >
+                                            {/* ${!isLastColLg ? "lg:border-e" : "lg:border-e-0"} */}
+                                    {/* ${index < streamData.length - 6 ? "lg:border-b" : "lg:border-b-0"} */}
+                                    <a
+                                        href="#"
+                                        className="inline-block py-3 px-4 text-sm font-medium no-underline text-navy"
+                                    >
+                                        {stream.stream}
+                                    </a>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
                 <div className="col-span-3 w-full flex flex-col bg-white rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
