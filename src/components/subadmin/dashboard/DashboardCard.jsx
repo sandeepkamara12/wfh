@@ -16,7 +16,7 @@ const DashboardCard = ({ label, count, id, link, onPlusClick }) => {
                 {Icon && <Icon />}
                 <p className="text-sm capitalize text-navy leading-4">Total <br/>{label}</p>
             </div>
-            <h3 className="text-lg sm:text-lg font-bold text-orange leading-5">{count}</h3>
+            <h3 className="text-lg font-bold text-orange leading-5">{count}</h3>
         </div>
     )
 }
