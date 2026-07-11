@@ -53,7 +53,7 @@ const SidebarLayout = ({ isOpen, toggleSidebar, children }) => {
       />
       {/* <div className="w-full xl:ps-65 bg-navy/10 h-[calc(100dvh-68px)]"> */}
       <div className="w-full bg-navy/10 h-[calc(100dvh-68px)]">
-        <div className="p-4 sm:p-6 h-full overflow-y-auto">
+        <div className="px-4 pt-4 pb-24 xl:pb-4 h-full overflow-y-auto">
           {children}
         </div>
       </div>
