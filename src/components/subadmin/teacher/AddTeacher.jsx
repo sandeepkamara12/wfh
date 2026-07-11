@@ -129,24 +129,49 @@ const AddTeacher = ({ role, open, handleClose }) => {
             })
     });
 
+    // const buildPayload = (values) => {
+    //     const formData = new FormData();
+    //     Object.keys(values).forEach((key) => {
+
+    //         if (key === "dob" && values.dob) {
+    //             formData.append(key, format(values.dob, "dd-MM-yyyy"));
+    //         }
+    //         else if (key === "file") {
+    //             if (values.file) {
+    //                 formData.append("file", values.file); // ✅ important
+    //             }
+    //         } else {
+    //             formData.append(key, values[key]);
+    //         }
+    //     });
+
+    //     return formData;
+    // };
+
     const buildPayload = (values) => {
-        const formData = new FormData();
-        Object.keys(values).forEach((key) => {
+  const formData = new FormData();
 
-            if (key === "dob" && values.dob) {
-                formData.append(key, format(values.dob, "dd-MM-yyyy"));
-            }
-            else if (key === "file") {
-                if (values.file) {
-                    formData.append("file", values.file); // ✅ important
-                }
-            } else {
-                formData.append(key, values[key]);
-            }
-        });
+  for (const [key, value] of Object.entries(values)) {
+    if (
+      key === "incharge" ||
+      key === "incharge_classroom" ||
+      key === "incharge_section" ||
+      key === "other_classes"
+    ) {
+      continue;
+    }
 
-        return formData;
-    };
+    if (key === "dob" && value) {
+      formData.append("dob", format(value, "dd-MM-yyyy"));
+    } else if (key === "file" && value) {
+      formData.append("file", value);
+    } else {
+      formData.append(key, value);
+    }
+  }
+
+  return formData;
+};
 
     const handleAdd = () => {
         const updated = [...formik.values.other_classes];

@@ -427,3 +427,17 @@ export const dashboardCardData = [
   { label: "Sections", count: "5", id: "section", icon: "LayoutGrid", link:"/subadmin/sections" },
   { label: "Subjects", count: "10", id: "subject", icon: "BookOpenText", link:"/subadmin/subjects" },
 ];
+export const romanNumbers = [
+  "I",
+  "II",
+  "III",
+  "IV",
+  "V",
+  "VI",
+  "VII",
+  "VIII",
+  "IX",
+  "X",
+  "XI",
+  "XII",
+];
