@@ -12,11 +12,11 @@ const DashboardCard = ({ label, count, id, link, onPlusClick }) => {
                 className="plus-animate cursor-pointer absolute -right-px -top-px bg-navy text-white pb-2.5 ps-2.5 pe-1 pt-1 rounded-bl-full flex flex-wrap items-center justify-center custom_transition hover:bg-orange">
                 <PlusIcon className="size-4" />
             </div>
-            <div className="flex flex-col  flex-wrap justify-between gap-3">
+            <div className="flex flex-col  flex-wrap justify-between gap-2">
                 {Icon && <Icon />}
-                <p className="text-xs uppercase text-navy font-semibold">{label}</p>
+                <p className="text-sm capitalize text-navy leading-4">Total <br/>{label}</p>
             </div>
-            <h3 className="text-xl sm:text-lg font-bold text-orange leading-5">{count}</h3>
+            <h3 className="text-lg sm:text-lg font-bold text-orange leading-5">{count}</h3>
         </div>
     )
 }
