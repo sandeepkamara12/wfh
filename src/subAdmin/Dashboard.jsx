@@ -109,6 +109,42 @@ const Dashboard = () => {
                         })}
                     </div>
                 </div>
+                 <div className="col-span-6 2xl:col-span-3 rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
+                    <div className="bg-navy py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white">Streams</div>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 bg-white">
+                        {streamData.map((stream, index) => {
+                            const isLastColMobile = (index + 1) % 2 === 0;
+                            const isLastColSm = (index + 1) % 4 === 0;
+                            // const isLastColLg = (index + 1) % 6 === 0;
+
+                            return (
+                                <div
+                                    key={stream.id}
+                                    className={`
+                                        col-span-1
+                                        text-center
+                                        border-gray-200
+
+                                        ${!isLastColMobile ? "border-e" : ""}
+                                        ${!isLastColSm ? "sm:border-e" : "sm:border-e-0"}
+                                        
+                                        ${index < streamData.length - 2 ? "border-b" : ""}
+                                        ${index < streamData.length - 4 ? "sm:border-b" : "sm:border-b-0"}
+                                        `}
+                                        >
+                                            {/* ${!isLastColLg ? "lg:border-e" : "lg:border-e-0"} */}
+                                    {/* ${index < streamData.length - 6 ? "lg:border-b" : "lg:border-b-0"} */}
+                                    <a
+                                        href="#"
+                                        className="inline-block py-3 px-4 text-sm font-medium no-underline text-navy"
+                                    >
+                                        {stream.stream}
+                                    </a>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
                 <div className="col-span-6 2xl:col-span-3 rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
                     <div className="bg-navy py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white">Sections</div>
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 bg-white">
@@ -145,42 +181,7 @@ const Dashboard = () => {
                         })}
                     </div>
                 </div>
-                <div className="col-span-6 2xl:col-span-3 rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
-                    <div className="bg-navy py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white">Sections</div>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 bg-white">
-                        {streamData.map((stream, index) => {
-                            const isLastColMobile = (index + 1) % 2 === 0;
-                            const isLastColSm = (index + 1) % 4 === 0;
-                            // const isLastColLg = (index + 1) % 6 === 0;
-
-                            return (
-                                <div
-                                    key={stream.id}
-                                    className={`
-                                        col-span-1
-                                        text-center
-                                        border-gray-200
-
-                                        ${!isLastColMobile ? "border-e" : ""}
-                                        ${!isLastColSm ? "sm:border-e" : "sm:border-e-0"}
-                                        
-                                        ${index < streamData.length - 2 ? "border-b" : ""}
-                                        ${index < streamData.length - 4 ? "sm:border-b" : "sm:border-b-0"}
-                                        `}
-                                        >
-                                            {/* ${!isLastColLg ? "lg:border-e" : "lg:border-e-0"} */}
-                                    {/* ${index < streamData.length - 6 ? "lg:border-b" : "lg:border-b-0"} */}
-                                    <a
-                                        href="#"
-                                        className="inline-block py-3 px-4 text-sm font-medium no-underline text-navy"
-                                    >
-                                        {stream.stream}
-                                    </a>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
+               
                 <div className="col-span-3 w-full flex flex-col bg-white rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
                     <div className="bg-navy py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white">Classroom In Charge</div>
                     <Table id="teachers" needHeader={false} columns={columns} data={teachers} handleOpen={handleOpen} btnText="Add Teacher" btnIcon={<Plus className="w-5 h-5 mx-auto" />} label="Teachers" subLabel="Add, edit, delete and search a teacher." />
