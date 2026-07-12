@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { Clock, Copy, ExternalLink, Eye, Mail, Pencil, Phone, Plus, Trash2, UserRound } from 'lucide-react';
 const Dashboard = () => {
     const { handleOpen } = useOutletContext();
-    const { isBelow1440, isBelow640, isBelow1024, isAbove1024 } = useIsMobile();
+    const { isBelow1440, isBelow640, isBelow768, isBelow1024, isAbove1024 } = useIsMobile();
     const teachers = useSelector((state) => state.teachers);
 
     const columns = [
@@ -20,24 +20,27 @@ const Dashboard = () => {
                         <span className='inline-flex items-center justify-center size-12 aspect-square rounded-full overflow-hidden bg-navy/10'><img src={row.photo} alt="" className='h-full rounded-full max-w-full aspect-square' /></span>
                         <div className="flex flex-col gap-0.5">
                             <span className="text-sm font-medium text-navy leading-4">{row.name}</span>
+                            <span className="inline-block text-sm">{row.inchargeOf} {row.stream} {row.section} Maths</span>
                             <span className="inline-flex items-center tracking-wide gap-x-1.5 rounded text-xs text-gray-400">
                                 {row.id}
                                 <Copy className='size-3 text-gray-500 mt-0.5' />
                             </span>
                         </div>
                     </div>
-                        <div className="flex lg:hidden flex-wrap flex-col gap-1">
-
-                            <span className="inline-block text-sm sm:hidden">{row.inchargeOf} {row.stream} {row.section} Maths</span>
-                            <a className="flex items-center gap-1 text-sm text-navy hover:no-underline hover:text-orange" href={`mailto:${row.email}`}>
-                                <Mail className='size-4 shrink-0 ' />
-                                {row.email}
-                            </a>
-                            <a className="flex items-center gap-1 text-sm text-navy hover:no-underline hover:text-orange" href={`tel:${row.phone}`}>
-                                <Phone className="size-4 shrink-0" />
-                                {row.phone}
-                            </a>
-                        </div>
+                    <div className="flex md:hidden flex-wrap flex-col gap-1 text-sm">
+                        <Link className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`mailto:${row.email}`}>
+                            <Mail className='size-4 shrink-0 ' />
+                            {row.email}
+                        </Link>
+                        <Link className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`tel:${row.phone}`}>
+                            <Phone className="size-4 shrink-0" />
+                            {row.phone}
+                        </Link>
+                    <div className="flex flex-wrap sm:hidden">
+                        Joined At: {'25 Dec 2026 12:25 PM'}
+                        {/* <span className=''>{row.createdAt}</span> */}
+                    </div>
+                    </div>
                 </div>
             ),
             selector: row => row.name,
@@ -45,7 +48,7 @@ const Dashboard = () => {
         {
             name: "Contact",
             grow: 2,
-            omit: isBelow1024,
+            omit: isBelow768,
             cell: row => (
                 <div className="flex flex-wrap flex-col gap-1">
 
@@ -62,23 +65,26 @@ const Dashboard = () => {
             selector: row => row.contact
         },
         {
-            name: "In Charge",
-            omit: isBelow640,
-            // grow: 2,
-            cell: row => (
-                <span className="inline-block bg-navy/10 text-sm rounded py-1 px-2">{row.inchargeOf} {row.stream} {row.section} Maths</span>
-            ),
-            selector: row => row.contact
-        },
-
-        {
             name: '',
             minWidth: "200px",
             cell: row => (
-                <div className="w-full flex flex-wrap flex-col items-end text-sm">
-                    <span>Joined At: </span>
-                    {/* <span className=''>{row.createdAt}</span> */}
-                    <span className=''>{'25 Dec 2026 12:25 PM'}</span>
+                <div className="w-full flex flex-wrap flex-col items-end text-sm gap-1">
+                    <div className="hidden sm:flex flex-wrap flex-col items-end">
+                        <span>Joined At: </span>
+                        {/* <span className=''>{row.createdAt}</span> */}
+                        <span className=''>{'25 Dec 2026 12:25 PM'}</span>
+                    </div>
+                    <div className="flex flex-wrap items-center justify-end w-full gap-1">
+                        <button type="button" className="btn icon_btn_small">
+                            <Eye className="size-5 mx-auto" />
+                        </button>
+                        <button type="button" className="btn icon_btn_small">
+                            <Trash2 className="size-5 mx-auto" />
+                        </button>
+                        <button type="button" className="btn icon_btn_small">
+                            <Pencil className="size-5 mx-auto" />
+                        </button>
+                    </div>
                 </div>
             ),
         },
@@ -220,7 +226,7 @@ const Dashboard = () => {
                 </div>
 
                 {/* Classroom In charge */}
-                <div className="col-span-6 w-full flex flex-col bg-white rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
+                <div className="col-span-6 xl:col-span-3 w-full flex flex-col bg-white rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
                     <div className="bg-navy py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white">Classroom In Charge</div>
                     <Table id="teachers" needHeader={false} columns={columns} data={teachers} handleOpen={handleOpen} btnText="Add Teacher" btnIcon={<Plus className="w-5 h-5 mx-auto" />} label="Teachers" subLabel="Add, edit, delete and search a teacher." />
                 </div>
