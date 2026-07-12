@@ -1,10 +1,10 @@
-import { useOutletContext } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom';
 import { dashboardCardData, romanNumbers, sectionData, streamData } from '../const/constant'
 import DashboardCard from '../components/subadmin/dashboard/DashboardCard';
 import Table from '../components/common/Table';
 import { useIsMobile } from '../hooks/useIsMobile';
 import { useSelector } from 'react-redux';
-import { Clock, Copy, Eye, Mail, Pencil, Phone, Plus, Trash2, UserRound } from 'lucide-react';
+import { Clock, Copy, ExternalLink, Eye, Mail, Pencil, Phone, Plus, Trash2, UserRound } from 'lucide-react';
 const Dashboard = () => {
     const { handleOpen } = useOutletContext();
     const { isBelow1440, isBelow640, isBelow1024, isAbove1024 } = useIsMobile();
@@ -19,7 +19,7 @@ const Dashboard = () => {
                     <div className='flex items-center gap-3'>
                         <span className='inline-flex items-center justify-center size-12 aspect-square rounded-full overflow-hidden bg-navy/10'><img src={row.photo} alt="" className='h-full rounded-full max-w-full aspect-square' /></span>
                         <div className="flex flex-col gap-0.5">
-                            <span className="text-sm font-semibold text-navy leading-4">{row.name}</span>
+                            <span className="text-sm font-medium text-navy leading-4">{row.name}</span>
                             <span className="inline-flex items-center tracking-wide gap-x-1.5 rounded text-xs text-gray-400">
                                 {row.id}
                                 <Copy className='size-3 text-gray-500 mt-0.5' />
@@ -92,7 +92,11 @@ const Dashboard = () => {
 
                 {/* Classrooms */}
                 <div className="col-span-6 rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
-                    <div className="bg-navy py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white">Classerooms</div>
+                    <div className="bg-navy py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white flex justify-between items-center">Classerooms
+                        <Link to="/subadmin/classrooms" className='text-white hover:text-orange'>
+                            <ExternalLink className='size-5 shrink-0' />                        
+                        </Link>
+                    </div>
                     <div className="grid grid-cols-3 sm:grid-cols-6 lg:grid-cols-12 bg-white">
                         {romanNumbers.map((roman, index) => {
                             const isLastColMobile = (index + 1) % 3 === 0;
@@ -126,7 +130,11 @@ const Dashboard = () => {
 
                 {/* Streams */}
                 <div className="col-span-6 2xl:col-span-3 rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
-                    <div className="bg-navy py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white">Streams</div>
+                    <div className="bg-navy py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white flex justify-between items-center">Streams
+                         <Link to="/subadmin/streams" className='text-white hover:text-orange'>
+                            <ExternalLink className='size-5 shrink-0' />          
+                         </Link>
+                    </div>
                     <div className="grid grid-cols-2 sm:grid-cols-4 bg-white">
                         {streamData.map((stream, index) => {
                             const isLastColMobile = (index + 1) % 2 === 0;
@@ -160,7 +168,11 @@ const Dashboard = () => {
 
                 {/* Sections */}
                 <div className="col-span-6 2xl:col-span-3 rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
-                    <div className="bg-navy py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white">Sections</div>
+                    <div className="bg-navy py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white flex justify-between items-center">Sections 
+                        <Link to="/subadmin/sections" className='text-white hover:text-orange'>
+                            <ExternalLink className='size-5 shrink-0' />   
+                        </Link>
+                    </div>
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 bg-white">
                         {sectionData.map((section, index) => {
                             const isLastColMobile = (index + 1) % 2 === 0;
