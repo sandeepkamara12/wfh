@@ -24,9 +24,20 @@ const Dashboard = () => {
                                 {row.id}
                                 <Copy className='size-3 text-gray-500 mt-0.5' />
                             </span>
-                    <span className="inline-block text-xs sm:hidden">{row.inchargeOf} {row.stream} {row.section} Maths</span>
                         </div>
                     </div>
+                        <div className="flex lg:hidden flex-wrap flex-col gap-1">
+
+                            <span className="inline-block text-sm sm:hidden">{row.inchargeOf} {row.stream} {row.section} Maths</span>
+                            <a className="flex items-center gap-1 text-sm text-navy hover:no-underline hover:text-orange" href={`mailto:${row.email}`}>
+                                <Mail className='size-4 shrink-0 ' />
+                                {row.email}
+                            </a>
+                            <a className="flex items-center gap-1 text-sm text-navy hover:no-underline hover:text-orange" href={`tel:${row.phone}`}>
+                                <Phone className="size-4 shrink-0" />
+                                {row.phone}
+                            </a>
+                        </div>
                 </div>
             ),
             selector: row => row.name,
@@ -34,6 +45,7 @@ const Dashboard = () => {
         {
             name: "Contact",
             grow: 2,
+            omit: isBelow1024,
             cell: row => (
                 <div className="flex flex-wrap flex-col gap-1">
 
@@ -62,7 +74,6 @@ const Dashboard = () => {
         {
             name: '',
             minWidth: "200px",
-             omit: isBelow1024,
             cell: row => (
                 <div className="w-full flex flex-wrap flex-col items-end text-sm">
                     <span>Joined At: </span>
@@ -94,7 +105,7 @@ const Dashboard = () => {
                 <div className="col-span-6 rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
                     <div className="bg-navy py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white flex justify-between items-center">Classerooms
                         <Link to="/subadmin/classrooms" className='text-white hover:text-orange'>
-                            <ExternalLink className='size-5 shrink-0' />                        
+                            <ExternalLink className='size-5 shrink-0' />
                         </Link>
                     </div>
                     <div className="grid grid-cols-3 sm:grid-cols-6 lg:grid-cols-12 bg-white">
@@ -131,9 +142,9 @@ const Dashboard = () => {
                 {/* Streams */}
                 <div className="col-span-6 2xl:col-span-3 rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
                     <div className="bg-navy py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white flex justify-between items-center">Streams
-                         <Link to="/subadmin/streams" className='text-white hover:text-orange'>
-                            <ExternalLink className='size-5 shrink-0' />          
-                         </Link>
+                        <Link to="/subadmin/streams" className='text-white hover:text-orange'>
+                            <ExternalLink className='size-5 shrink-0' />
+                        </Link>
                     </div>
                     <div className="grid grid-cols-2 sm:grid-cols-4 bg-white">
                         {streamData.map((stream, index) => {
@@ -168,9 +179,9 @@ const Dashboard = () => {
 
                 {/* Sections */}
                 <div className="col-span-6 2xl:col-span-3 rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
-                    <div className="bg-navy py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white flex justify-between items-center">Sections 
+                    <div className="bg-navy py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white flex justify-between items-center">Sections
                         <Link to="/subadmin/sections" className='text-white hover:text-orange'>
-                            <ExternalLink className='size-5 shrink-0' />   
+                            <ExternalLink className='size-5 shrink-0' />
                         </Link>
                     </div>
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 bg-white">
