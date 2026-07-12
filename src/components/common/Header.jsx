@@ -1,4 +1,4 @@
-import { LogOut, PanelLeftClose, Settings, UserRound, UserRoundArrowLeft, UserRoundCog, UserStar, UserStarIcon } from "lucide-react"
+import { Bell, LogOut, PanelLeftClose, Settings, UserRound, UserRoundArrowLeft, UserRoundCog, UserStar, UserStarIcon } from "lucide-react"
 import { useRef, useState } from "react";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
 import { Link } from "react-router-dom";
@@ -11,8 +11,8 @@ const Header = ({ isOpen, toggleSidebar }) => {
     let user = useSelector(state => state.auth.user);
 
     return (
-        <header className="sticky top-0 inset-x-0 flex flex-wrap md:justify-start bg-navy backdrop-blur text-sm py-2.5 lg:ps-65 text-white z-50">
-            <nav className="px-4 sm:px-10 flex basis-full items-center w-full mx-auto">
+        <header className="sticky top-0 inset-x-0 flex flex-wrap md:justify-start bg-navy backdrop-blur text-sm p-4 text-white z-50">
+            <nav className="flex basis-full items-center w-full mx-auto">
                 <div className="me-5 lg:me-0 flex items-center">
                     <PanelLeftClose className="size-5 flex" onClick={toggleSidebar} />
                 </div>
@@ -55,13 +55,13 @@ const Header = ({ isOpen, toggleSidebar }) => {
   before:border-l-transparent before:border-r-transparent before:border-b-white`} role="menu" aria-orientation="vertical" aria-labelledby="hs-dropdown-account">
                                 <div className="py-3 px-5 bg-navy/10 rounded-t">
                                     <div className="text-sm font-medium text-black flex flex-wrap items-end gap-2">
-                                        <UserStarIcon className="size-5 shrink-0 text-navy" />
+                                        {/* <UserStarIcon className="size-5 shrink-0 text-navy" /> */}
                                         <div className="flex flex-wrap gap-0 w-[calc(100%-28px)]">
                                             <div className="flex flex-wrap items-center gap-0.5">
                                                 <span>{user?.first_name + ' ' + user?.last_name}</span>
                                                 <span className="text-xs">(Sub Admin)</span>
                                             </div>
-                                            <p className="text-xs text-navy uppercase">{user.custom_id}</p>
+                                            <p className="text-xs text-navy uppercase">ID: {user.custom_id}</p>
                                         </div>
 
                                     </div>
@@ -71,6 +71,10 @@ const Header = ({ isOpen, toggleSidebar }) => {
                                     <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy hover:bg-navy hover:text-white no-underline" to="#">
                                         <UserRound className="size-5 shrink-0" />
                                         Profile
+                                    </Link>
+                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy hover:bg-navy hover:text-white no-underline" to="#">
+                                        <Bell className="size-5 shrink-0" />
+                                        Notification
                                     </Link>
                                     <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy hover:bg-navy hover:text-white no-underline" to="#">
                                         <UserRoundCog className="size-5 shrink-0" />

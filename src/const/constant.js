@@ -23,7 +23,7 @@ import {
 export const subAdminSidebarLinks = [
   { id: 1, path: "/subadmin/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { id: 2, path: "/subadmin/create-role", label: "Create Role", icon: UserRoundPlus },
-  { id: 3, path: "/subadmin/assignments", label: "Assignments", icon: ArrowLeftRight },
+  { id: 3, path: "/subadmin/assignments", label: "Assign Role", icon: ArrowLeftRight },
   { id: 4, path: "/subadmin/teachers", label: "Teachers", icon: UserRoundPen },
   { id: 5, path: "/subadmin/students", label: "Students", icon: GraduationCap },
   { id: 6, path: "/subadmin/classrooms", label: "Classrooms", icon: GalleryThumbnails },
@@ -37,7 +37,7 @@ export const subAdminSidebarLinks = [
 export const subAdminBottombarLinks = [
   { id: 1, path: "/subadmin/dashboard", label: "Dashboard", icon: LayoutDashboard },
   // { id: 2, path: "/subadmin/create-role", label: "Create Role", icon: UserRoundPlus },
-  { id: 3, path: "/subadmin/assignments", label: "Assignments", icon: ArrowLeftRight },
+  { id: 3, path: "/subadmin/assignments", label: "Assign Role", icon: ArrowLeftRight },
   { id: 4, path: "/subadmin/homework", label: "Homework", icon: SquareChartGantt}, // this one is fine
   { id: 5, path: "/subadmin/notifications", label: "Notifications", icon: Bell}, // this one is fine
 ];
