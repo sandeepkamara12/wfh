@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { Clock, Copy, ExternalLink, Eye, Mail, Pencil, Phone, Plus, Trash2, UserRound } from 'lucide-react';
 const Dashboard = () => {
     const { handleOpen } = useOutletContext();
-    const { isBelow1440, isBelow640, isBelow768, isBelow1024, isAbove1024 } = useIsMobile();
+    const { isBelow1440, isBelow640, isBelow768, isBelow1024, isBelow480, isAbove1024 } = useIsMobile();
     const teachers = useSelector((state) => state.teachers);
 
     const columns = [
@@ -36,10 +36,21 @@ const Dashboard = () => {
                             <Phone className="size-4 shrink-0" />
                             {row.phone}
                         </Link>
-                    <div className="flex flex-wrap sm:hidden">
-                        Joined At: {'25 Dec 2026 12:25 PM'}
-                        {/* <span className=''>{row.createdAt}</span> */}
-                    </div>
+                        <div className="flex xxs:hidden flex-wrap sm:hidden">
+                            Joined At: {'25 Dec 2026 12:25 PM'}
+                            {/* <span className=''>{row.createdAt}</span> */}
+                        </div>
+                        <div className="flex xxs:hidden flex-wrap items-center w-full gap-1">
+                            <button type="button" className="btn icon_btn_small">
+                                <Eye className="size-5 mx-auto" />
+                            </button>
+                            <button type="button" className="btn icon_btn_small">
+                                <Trash2 className="size-5 mx-auto" />
+                            </button>
+                            <button type="button" className="btn icon_btn_small">
+                                <Pencil className="size-5 mx-auto" />
+                            </button>
+                        </div>
                     </div>
                 </div>
             ),
@@ -67,9 +78,10 @@ const Dashboard = () => {
         {
             name: '',
             minWidth: "200px",
+            omit: isBelow480,
             cell: row => (
                 <div className="w-full flex flex-wrap flex-col items-end text-sm gap-1">
-                    <div className="hidden sm:flex flex-wrap flex-col items-end">
+                    <div className="flex flex-wrap flex-col items-end">
                         <span>Joined At: </span>
                         {/* <span className=''>{row.createdAt}</span> */}
                         <span className=''>{'25 Dec 2026 12:25 PM'}</span>
