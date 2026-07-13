@@ -104,7 +104,7 @@ const AssignRole = () => {
                             </h2>
                         </div>
                         <button className="btn icon_btn w-auto">
-                            <Download />
+                            <Download className="size-5 shrink-0" />
                         </button>
                     </div>
                     <div className="col-span-1">
