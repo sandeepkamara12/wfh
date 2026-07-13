@@ -4,11 +4,18 @@ import DashboardCard from '../components/subadmin/dashboard/DashboardCard';
 import Table from '../components/common/Table';
 import { useIsMobile } from '../hooks/useIsMobile';
 import { useSelector } from 'react-redux';
-import { Clock, Copy, ExternalLink, Eye, Mail, Pencil, Phone, Plus, Trash2, UserRound } from 'lucide-react';
+import { BookOpenText, Copy, ExternalLink, Eye, FunnelPlus, GalleryThumbnails, IdCardLanyard, LayoutGrid, Mail, Network, Pencil, Phone, Plus, Trash2, UserRound } from 'lucide-react';
+import TextField from '../components/ui/TextField';
+import { useOutsideClick } from '../hooks/useOutsideClick';
+import { useRef, useState } from 'react';
+
 const Dashboard = () => {
     const { handleOpen } = useOutletContext();
-    const { isBelow1440, isBelow640, isBelow768, isBelow1024, isBelow480, isAbove1024 } = useIsMobile();
+    const { isBelow640, isBelow480 } = useIsMobile();
     const teachers = useSelector((state) => state.teachers);
+    const filterSearchInchargeRef = useRef(null);
+    const [openIncharge, setOpenIncharge] = useState(false);
+    useOutsideClick(filterSearchInchargeRef, () => setOpenIncharge(false));
 
     const columns = [
         {
@@ -245,7 +252,59 @@ const Dashboard = () => {
 
                 {/* Classroom In charge */}
                 <div className="col-span-6 xl:col-span-3 w-full flex flex-col bg-white rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
-                    <div className="bg-navy py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white">Classroom In Charge</div>
+                    <div className="bg-navy py-1.5 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white flex items-center justify-between">
+                        Classroom In Charge
+                        <div className='flex gap-4 items-center relative'>
+                            <TextField inputClassName="py-1!" label="" name="search_incharge" id="search_incharge" ref={filterSearchInchargeRef} />
+                            {/* <div className={`${openIncharge ? "opacity-100" : "opacity-0 hidden"} divide-y divide-dropdown-divider absolute transition-[opacity,margin] duration min-w-60 rounded top-8 -right-3 z-50 bg-white border border-white shadow-lg before:content-[''] before:absolute before:-top-1.5 before:right-4 before:w-0 before:h-0 before:border-l-[6px] before:border-r-[6px] before:border-b-[6px] before:border-l-transparent before:border-r-transparent before:border-b-white`}>
+                                <div className="p-1.5 space-y-0.5 border-gray-200">
+                                    <span className="block pt-2 pb-1 px-3 text-xs font-medium uppercase text-gray-400">
+                                        Personal info
+                                    </span>
+                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
+                                        <IdCardLanyard className="size-5 shrink-0" />
+                                        ID
+                                    </Link>
+                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
+                                        <UserRound className="size-5 shrink-0" />
+                                        Name
+                                    </Link>
+                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
+                                        <Phone className="size-5 shrink-0" />
+                                        Phone
+                                    </Link>
+                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
+                                        <Mail className="size-5 shrink-0" />
+                                        Email
+                                    </Link>
+                                </div>
+                                <div className="p-1.5 space-y-0.5">
+                                    <span className="block pt-2 pb-1 px-3 text-xs font-medium uppercase text-gray-400">
+                                        Other info
+                                    </span>
+                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
+                                        <GalleryThumbnails className="size-5 shrink-0" />
+                                        Classroom
+                                    </Link>
+                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
+                                        <Network className="size-5 shrink-0" />
+                                        Stream
+                                    </Link>
+                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
+                                        <LayoutGrid className="size-5 shrink-0" />
+                                        Section
+                                    </Link>
+                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
+                                        <BookOpenText className="size-5 shrink-0" />
+                                        Subject
+                                    </Link>
+                                </div>
+                            </div>
+                            <FunnelPlus className='size-5 shrink-0 text-white' onClick={() => setOpenIncharge((prev) => !prev)} /> */}
+
+                         
+                        </div>
+                    </div>
                     <Table id="teachers" needHeader={false} columns={columns} data={teachers} handleOpen={handleOpen} btnText="Add Teacher" btnIcon={<Plus className="w-5 h-5 mx-auto" />} label="Teachers" subLabel="Add, edit, delete and search a teacher." />
                 </div>
             </div>

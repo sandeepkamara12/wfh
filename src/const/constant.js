@@ -294,6 +294,7 @@ export const icons = {
   spouse_name: 'UserRound',
   custom_id: 'IdCardLanyard',
   name: 'GalleryThumbnails',
+  search_incharge: 'GalleryThumbnails',
   login:'Mail'
 }
 

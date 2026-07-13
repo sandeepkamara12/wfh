@@ -1,16 +1,20 @@
-import {icons} from '../../const/constant';
+import { icons } from '../../const/constant';
 import * as Icons from 'lucide-react';
 
-const TextField = ({ label, id, error, required=false, className="", ...props }) => {
+const TextField = ({ label, id, error, required = false, inputClassName = "", className = "", ...props }) => {
     const IconComponent = Icons[icons[id]];
+    console.log(icons[id], 'hi')
     return (
         <div className={`${className ? className : 'w-full'}`}>
-            <label htmlFor={id} className="block text-sm font-medium text-navy mb-1">
-                {label}
-                {required?<span className='text-red-500 ms-1'>*</span>:null}
-            </label>
+            {
+                label &&
+                <label htmlFor={id} className="block text-sm font-medium text-navy mb-1">
+                    {label}
+                    {required ? <span className='text-red-500 ms-1'>*</span> : null}
+                </label>
+            }
             <div className="relative">
-                <input type="text" {...props} name={id} id={id} className={`input-field ps-10 ${error ? 'border-red-500' : ''}`} />
+                <input type="text" {...props} name={id} id={id} className={`${inputClassName ? inputClassName : ''} input-field ${IconComponent ? 'ps-10' : ''} ${error ? 'border-red-500' : ''}`} />
                 <div className="absolute inset-y-0 inset-s-0 flex items-center pointer-events-none z-20 ps-4">
                     {IconComponent && <IconComponent className="size-4 text-muted-foreground" />}
                 </div>

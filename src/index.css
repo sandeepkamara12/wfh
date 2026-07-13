@@ -571,3 +571,12 @@
 .animate-slideUp {
  animation: slideUp 0.3s ease-out;
 }
+
+input#search_incharge {
+    /* width: 32px; */
+    transition: width 0.3s ease;
+}
+
+input#search_incharge:focus {
+    width: 300px;
+}

@@ -92,7 +92,7 @@ const AssignRole = () => {
         <form className="assignment">
             <div className="grid gap-y-4">
                 {/* <div className="grid grid-cols-2 gap-6"> */}
-                <div className="col-span-2 grid grid-cols-1 gap-6 bg-white p-6 rounded">
+                <div className="col-span-2 grid grid-cols-1 gap-6 lg:bg-white lg:p-6 rounded">
                     <div className="flex items-center justify-between gap-6 ">
                         <div className="flex flex-wrap gap-2">
                             <h2 className="font-bold text-lg text-orange">
