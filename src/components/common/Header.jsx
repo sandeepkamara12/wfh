@@ -1,4 +1,4 @@
-import { Bell, LogOut, PanelLeftClose, Settings, UserRound, UserRoundArrowLeft, UserRoundCog, UserStar, UserStarIcon } from "lucide-react"
+import { Bell, LogOut, PanelLeftClose, Settings, UserRound, UserRoundCog, UserStar, UserStarIcon } from "lucide-react"
 import { useRef, useState } from "react";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
 import { Link } from "react-router-dom";
@@ -43,114 +43,114 @@ const Header = ({ isOpen, toggleSidebar }) => {
                         </div>
 
                     </div>
-                    <div className="flex flex-row items-center justify-end gap-1">
+                    <div className="flex flex-row items-center justify-end gap-4">
                         <div className="hs-dropdown relative inline-flex" ref={notificationRef}>
-                            <button className="btn icon_btn relative" onClick={() => setOpenNotification((prev) => !prev)} >
-                                <Bell className="size-5 shrink-0" />
-                            </button>
+                            <Bell className="size-5 shrink-0 cursor-pointer hover:text-orange" onClick={() => setOpenNotification((prev) => !prev)} />
 
-                            <div className={`${openNotification ? "opacity-100" : "opacity-0 hidden"} relative before:content-[''] before:absolute before:top-[calc(100%+6px)] before:right-4 before:w-0 before:h-0 before:border-l-[6px] before:border-r-[6px] before:border-b-[6px] before:border-l-transparent before:border-r-transparent before:border-b-white`}  role="menu" aria-orientation="vertical" aria-labelledby="hs-dropdown-account">
-                                <div className={`absolute transition-[opacity,margin] duration min-w-60 bg-white border border-white shadow-lg rounded top-13 right-0 max-h-72 overflow-hidden overflow-y-auto [&amp;::-webkit-scrollbar]:w-2 [&amp;::-webkit-scrollbar-thumb]:rounded-full [&amp;::-webkit-scrollbar-track]:bg-gray-100 [&amp;::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&amp;::-webkit-scrollbar-track]:bg-neutral-700 dark:[&amp;::-webkit-scrollbar-thumb]:bg-neutral-500`}>
-                                    <div className="flex items-center cursor-pointer py-2 px-4 w-full text-sm text-gray-800 hover:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-200">
-                                        <div className="flex items-center w-full">
-                                            <div className="flex items-center justify-center rounded-full bg-gray-200 size-8 overflow-hidden me-2.5">
-                                                <img className="shrink-0 object-cover object-center w-full h-full" src="post-1.jpeg" alt="Ella Lauda" />
+                            <div className={`${openNotification ? "opacity-100" : "opacity-0 hidden"} relative before:content-[''] before:absolute before:top-[calc(100%+6px)] before:right-1 before:w-0 before:h-0 before:border-l-[6px] before:border-r-[6px] before:border-b-[6px] before:border-l-transparent before:border-r-transparent before:border-b-white`} role="menu" aria-orientation="vertical" aria-labelledby="hs-dropdown-account">
+                                <div className={`absolute transition-[opacity,margin] duration min-w-60 bg-white border border-white shadow-lg rounded top-8 -right-3 max-h-72 overflow-hidden overflow-y-auto [&amp;::-webkit-scrollbar]:w-2 [&amp;::-webkit-scrollbar-thumb]:rounded-full [&amp;::-webkit-scrollbar-track]:bg-gray-100 [&amp;::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&amp;::-webkit-scrollbar-track]:bg-neutral-700 dark:[&amp;::-webkit-scrollbar-thumb]:bg-neutral-500`}>
+                                    <div className={`w-full h-full`}>
+                                        <div className="flex items-center cursor-pointer py-2 px-4 w-full text-sm text-gray-800 hover:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-200">
+                                            <div className="flex items-center w-full">
+                                                <div className="flex items-center justify-center rounded-full bg-gray-200 size-8 overflow-hidden me-2.5">
+                                                    <img className="shrink-0 object-cover object-center w-full h-full" src="post-1.jpeg" alt="Ella Lauda" />
+                                                </div>
+                                                <div className="flex flex-wrap items-start flex-col w-[calc(100%-42px)]">
+                                                    <span className="w-full font-medium text-md text-gray-800 dark:text-neutral-200 truncate">His mother had always taught him</span>
+                                                    <span className="text-sm text-gray-500 dark:text-neutral-500">Elly muskon</span>
+                                                </div>
                                             </div>
-                                            <div className="flex flex-wrap items-start flex-col w-[calc(100%-42px)]">
-                                                <span className="w-full font-medium text-md text-gray-800 dark:text-neutral-200 truncate">His mother had always taught him</span>
-                                                <span className="text-sm text-gray-500 dark:text-neutral-500">Elly muskon</span>
+                                        </div>
+                                        <div className="flex items-center cursor-pointer py-2 px-4 w-full text-sm text-gray-800 hover:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-200">
+                                            <div className="flex items-center w-full">
+                                                <div className="flex items-center justify-center rounded-full bg-gray-200 size-8 overflow-hidden me-2.5">
+                                                    <img className="shrink-0 object-cover object-center w-full h-full" src="post-1.jpeg" alt="Ella Lauda" />
+                                                </div>
+                                                <div className="flex flex-wrap items-start flex-col w-[calc(100%-42px)]">
+                                                    <span className="w-full font-medium text-md text-gray-800 dark:text-neutral-200 truncate">His mother had always taught him</span>
+                                                    <span className="text-sm text-gray-500 dark:text-neutral-500">Elly muskon</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center cursor-pointer py-2 px-4 w-full text-sm text-gray-800 hover:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-200">
+                                            <div className="flex items-center w-full">
+                                                <div className="flex items-center justify-center rounded-full bg-gray-200 size-8 overflow-hidden me-2.5">
+                                                    <img className="shrink-0 object-cover object-center w-full h-full" src="post-1.jpeg" alt="Ella Lauda" />
+                                                </div>
+                                                <div className="flex flex-wrap items-start flex-col w-[calc(100%-42px)]">
+                                                    <span className="w-full font-medium text-md text-gray-800 dark:text-neutral-200 truncate">His mother had always taught him</span>
+                                                    <span className="text-sm text-gray-500 dark:text-neutral-500">Elly muskon</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center cursor-pointer py-2 px-4 w-full text-sm text-gray-800 hover:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-200">
+                                            <div className="flex items-center w-full">
+                                                <div className="flex items-center justify-center rounded-full bg-gray-200 size-8 overflow-hidden me-2.5">
+                                                    <img className="shrink-0 object-cover object-center w-full h-full" src="post-1.jpeg" alt="Ella Lauda" />
+                                                </div>
+                                                <div className="flex flex-wrap items-start flex-col w-[calc(100%-42px)]">
+                                                    <span className="w-full font-medium text-md text-gray-800 dark:text-neutral-200 truncate">His mother had always taught him</span>
+                                                    <span className="text-sm text-gray-500 dark:text-neutral-500">Elly muskon</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center cursor-pointer py-2 px-4 w-full text-sm text-gray-800 hover:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-200">
+                                            <div className="flex items-center w-full">
+                                                <div className="flex items-center justify-center rounded-full bg-gray-200 size-8 overflow-hidden me-2.5">
+                                                    <img className="shrink-0 object-cover object-center w-full h-full" src="post-1.jpeg" alt="Ella Lauda" />
+                                                </div>
+                                                <div className="flex flex-wrap items-start flex-col w-[calc(100%-42px)]">
+                                                    <span className="w-full font-medium text-md text-gray-800 dark:text-neutral-200 truncate">His mother had always taught him</span>
+                                                    <span className="text-sm text-gray-500 dark:text-neutral-500">Elly muskon</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center cursor-pointer py-2 px-4 w-full text-sm text-gray-800 hover:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-200">
+                                            <div className="flex items-center w-full">
+                                                <div className="flex items-center justify-center rounded-full bg-gray-200 size-8 overflow-hidden me-2.5">
+                                                    <img className="shrink-0 object-cover object-center w-full h-full" src="post-1.jpeg" alt="Ella Lauda" />
+                                                </div>
+                                                <div className="flex flex-wrap items-start flex-col w-[calc(100%-42px)]">
+                                                    <span className="w-full font-medium text-md text-gray-800 dark:text-neutral-200 truncate">His mother had always taught him</span>
+                                                    <span className="text-sm text-gray-500 dark:text-neutral-500">Elly muskon</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center cursor-pointer py-2 px-4 w-full text-sm text-gray-800 hover:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-200">
+                                            <div className="flex items-center w-full">
+                                                <div className="flex items-center justify-center rounded-full bg-gray-200 size-8 overflow-hidden me-2.5">
+                                                    <img className="shrink-0 object-cover object-center w-full h-full" src="post-1.jpeg" alt="Ella Lauda" />
+                                                </div>
+                                                <div className="flex flex-wrap items-start flex-col w-[calc(100%-42px)]">
+                                                    <span className="w-full font-medium text-md text-gray-800 dark:text-neutral-200 truncate">His mother had always taught him</span>
+                                                    <span className="text-sm text-gray-500 dark:text-neutral-500">Elly muskon</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center cursor-pointer py-2 px-4 w-full text-sm text-gray-800 hover:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-200">
+                                            <div className="flex items-center w-full">
+                                                <div className="flex items-center justify-center rounded-full bg-gray-200 size-8 overflow-hidden me-2.5">
+                                                    <img className="shrink-0 object-cover object-center w-full h-full" src="post-1.jpeg" alt="Ella Lauda" />
+                                                </div>
+                                                <div className="flex flex-wrap items-start flex-col w-[calc(100%-42px)]">
+                                                    <span className="w-full font-medium text-md text-gray-800 dark:text-neutral-200 truncate">His mother had always taught him</span>
+                                                    <span className="text-sm text-gray-500 dark:text-neutral-500">Elly muskon</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center cursor-pointer py-2 px-4 w-full text-sm text-gray-800 hover:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-200">
+                                            <div className="flex items-center w-full">
+                                                <div className="flex items-center justify-center rounded-full bg-gray-200 size-8 overflow-hidden me-2.5">
+                                                    <img className="shrink-0 object-cover object-center w-full h-full" src="post-1.jpeg" alt="Ella Lauda" />
+                                                </div>
+                                                <div className="flex flex-wrap items-start flex-col w-[calc(100%-42px)]">
+                                                    <span className="w-full font-medium text-md text-gray-800 dark:text-neutral-200 truncate">His mother had always taught him</span>
+                                                    <span className="text-sm text-gray-500 dark:text-neutral-500">Elly muskon</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="flex items-center cursor-pointer py-2 px-4 w-full text-sm text-gray-800 hover:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-200">
-                                        <div className="flex items-center w-full">
-                                            <div className="flex items-center justify-center rounded-full bg-gray-200 size-8 overflow-hidden me-2.5">
-                                                <img className="shrink-0 object-cover object-center w-full h-full" src="post-1.jpeg" alt="Ella Lauda" />
-                                            </div>
-                                            <div className="flex flex-wrap items-start flex-col w-[calc(100%-42px)]">
-                                                <span className="w-full font-medium text-md text-gray-800 dark:text-neutral-200 truncate">His mother had always taught him</span>
-                                                <span className="text-sm text-gray-500 dark:text-neutral-500">Elly muskon</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center cursor-pointer py-2 px-4 w-full text-sm text-gray-800 hover:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-200">
-                                        <div className="flex items-center w-full">
-                                            <div className="flex items-center justify-center rounded-full bg-gray-200 size-8 overflow-hidden me-2.5">
-                                                <img className="shrink-0 object-cover object-center w-full h-full" src="post-1.jpeg" alt="Ella Lauda" />
-                                            </div>
-                                            <div className="flex flex-wrap items-start flex-col w-[calc(100%-42px)]">
-                                                <span className="w-full font-medium text-md text-gray-800 dark:text-neutral-200 truncate">His mother had always taught him</span>
-                                                <span className="text-sm text-gray-500 dark:text-neutral-500">Elly muskon</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center cursor-pointer py-2 px-4 w-full text-sm text-gray-800 hover:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-200">
-                                        <div className="flex items-center w-full">
-                                            <div className="flex items-center justify-center rounded-full bg-gray-200 size-8 overflow-hidden me-2.5">
-                                                <img className="shrink-0 object-cover object-center w-full h-full" src="post-1.jpeg" alt="Ella Lauda" />
-                                            </div>
-                                            <div className="flex flex-wrap items-start flex-col w-[calc(100%-42px)]">
-                                                <span className="w-full font-medium text-md text-gray-800 dark:text-neutral-200 truncate">His mother had always taught him</span>
-                                                <span className="text-sm text-gray-500 dark:text-neutral-500">Elly muskon</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center cursor-pointer py-2 px-4 w-full text-sm text-gray-800 hover:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-200">
-                                        <div className="flex items-center w-full">
-                                            <div className="flex items-center justify-center rounded-full bg-gray-200 size-8 overflow-hidden me-2.5">
-                                                <img className="shrink-0 object-cover object-center w-full h-full" src="post-1.jpeg" alt="Ella Lauda" />
-                                            </div>
-                                            <div className="flex flex-wrap items-start flex-col w-[calc(100%-42px)]">
-                                                <span className="w-full font-medium text-md text-gray-800 dark:text-neutral-200 truncate">His mother had always taught him</span>
-                                                <span className="text-sm text-gray-500 dark:text-neutral-500">Elly muskon</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center cursor-pointer py-2 px-4 w-full text-sm text-gray-800 hover:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-200">
-                                        <div className="flex items-center w-full">
-                                            <div className="flex items-center justify-center rounded-full bg-gray-200 size-8 overflow-hidden me-2.5">
-                                                <img className="shrink-0 object-cover object-center w-full h-full" src="post-1.jpeg" alt="Ella Lauda" />
-                                            </div>
-                                            <div className="flex flex-wrap items-start flex-col w-[calc(100%-42px)]">
-                                                <span className="w-full font-medium text-md text-gray-800 dark:text-neutral-200 truncate">His mother had always taught him</span>
-                                                <span className="text-sm text-gray-500 dark:text-neutral-500">Elly muskon</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center cursor-pointer py-2 px-4 w-full text-sm text-gray-800 hover:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-200">
-                                        <div className="flex items-center w-full">
-                                            <div className="flex items-center justify-center rounded-full bg-gray-200 size-8 overflow-hidden me-2.5">
-                                                <img className="shrink-0 object-cover object-center w-full h-full" src="post-1.jpeg" alt="Ella Lauda" />
-                                            </div>
-                                            <div className="flex flex-wrap items-start flex-col w-[calc(100%-42px)]">
-                                                <span className="w-full font-medium text-md text-gray-800 dark:text-neutral-200 truncate">His mother had always taught him</span>
-                                                <span className="text-sm text-gray-500 dark:text-neutral-500">Elly muskon</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center cursor-pointer py-2 px-4 w-full text-sm text-gray-800 hover:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-200">
-                                        <div className="flex items-center w-full">
-                                            <div className="flex items-center justify-center rounded-full bg-gray-200 size-8 overflow-hidden me-2.5">
-                                                <img className="shrink-0 object-cover object-center w-full h-full" src="post-1.jpeg" alt="Ella Lauda" />
-                                            </div>
-                                            <div className="flex flex-wrap items-start flex-col w-[calc(100%-42px)]">
-                                                <span className="w-full font-medium text-md text-gray-800 dark:text-neutral-200 truncate">His mother had always taught him</span>
-                                                <span className="text-sm text-gray-500 dark:text-neutral-500">Elly muskon</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center cursor-pointer py-2 px-4 w-full text-sm text-gray-800 hover:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-200">
-                                        <div className="flex items-center w-full">
-                                            <div className="flex items-center justify-center rounded-full bg-gray-200 size-8 overflow-hidden me-2.5">
-                                                <img className="shrink-0 object-cover object-center w-full h-full" src="post-1.jpeg" alt="Ella Lauda" />
-                                            </div>
-                                            <div className="flex flex-wrap items-start flex-col w-[calc(100%-42px)]">
-                                                <span className="w-full font-medium text-md text-gray-800 dark:text-neutral-200 truncate">His mother had always taught him</span>
-                                                <span className="text-sm text-gray-500 dark:text-neutral-500">Elly muskon</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {/* <Link to="#" className="bottom-0 sticky text-sm text-center text-navy bg-white inset-x-0 block py-2 no-underline hover:bg-navy hover:text-orange">Read more</Link> */}
+                                    <Link to="#" className="bottom-0 sticky text-sm text-center text-navy bg-white inset-x-0 block py-2 font-medium no-underline hover:text-orange">Mark as read</Link>
                                 </div>
                             </div>
                         </div>
@@ -184,24 +184,24 @@ const Header = ({ isOpen, toggleSidebar }) => {
 
                                 </div>
                                 <div className="p-1.5 space-y-0.5">
-                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy hover:bg-navy hover:text-white no-underline" to="#">
+                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
                                         <UserRound className="size-5 shrink-0" />
                                         Profile
                                     </Link>
-                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy hover:bg-navy hover:text-white no-underline" to="#">
+                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
                                         <Bell className="size-5 shrink-0" />
                                         Notification
                                     </Link>
-                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy hover:bg-navy hover:text-white no-underline" to="#">
+                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
                                         <UserRoundCog className="size-5 shrink-0" />
                                         Settings
                                     </Link>
-                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy hover:bg-navy hover:text-white no-underline" to="#">
+                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
                                         <Bell className="size-5 shrink-0" />
                                         Change Password
                                     </Link>
-                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy hover:bg-navy hover:text-white no-underline" to="#">
-                                        <UserRoundArrowLeft className="size-5 shrink-0" />
+                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
+                                        {/* <UserRoundArrowLeft className="size-5 shrink-0" /> */}
                                         Logout
                                     </Link>
                                 </div>

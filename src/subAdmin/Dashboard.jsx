@@ -17,11 +17,10 @@ const Dashboard = () => {
             cell: row => (
                 <div className='flex items-start flex-col gap-2 w-full'>
                     <div className='flex items-end justify-between gap-2 w-full'>
-                        <div className='flex items-center gap-3'>
-                            <span className='inline-flex items-center justify-center size-12 aspect-square rounded-full overflow-hidden bg-navy/10'><img src={row.photo} alt="" className='h-full rounded-full max-w-full aspect-square' /></span>
+                        <div className='flex items-center gap-2'>
+                            <span className='inline-flex items-center justify-center size-9 aspect-square rounded-full overflow-hidden bg-navy/10'><img src={row.photo} alt="" className='h-full rounded-full max-w-full aspect-square' /></span>
                             <div className="flex flex-col gap-0.5">
-                                <span className="text-sm font-medium text-navy leading-4">{row.name}</span>
-                                <span className="inline-block text-sm">{row.inchargeOf} {row.stream} {row.section} Maths</span>
+                                <span className="text-sm font-semibold text-navy leading-4">{row.name}</span>
                                 <span className="inline-flex items-center tracking-wide gap-x-1.5 rounded text-xs text-gray-400">
                                     {row.id}
                                     <Copy className='size-3 text-gray-500 mt-0.5' />
@@ -29,12 +28,12 @@ const Dashboard = () => {
                             </div>
                         </div>
                         <div className="flex xxs:hidden flex-col items-end text-sm justify-end flex-wrap sm:hidden">
-                            <span>Joined At: </span>
-                            <span>{'25 Dec 2026 12:25 PM'}</span>
+                            <span className="inline-block text-sm">{row.inchargeOf} {row.stream} {row.section} Maths</span>
+                            <span>Joined At {'25 Dec 2026'}</span>
                             {/* <span className=''>{row.createdAt}</span> */}
                         </div>
                     </div>
-                    <div className="sm:hidden grid grid-cols-2 xxs:grid-cols-1 justify-between gap-1 text-sm w-full">
+                    <div className="sm:hidden grid grid-cols-2 xxs:grid-cols-1 justify-between gap-1 text-sm w-full items-center">
                         <div className="flex flex-wrap flex-col gap-1">
                             <Link className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`mailto:${row.email}`}>
                                 <Mail className='size-4 shrink-0 ' />
@@ -89,9 +88,9 @@ const Dashboard = () => {
             cell: row => (
                 <div className="w-full flex flex-wrap flex-col items-end text-sm gap-1">
                     <div className="flex flex-wrap flex-col items-end">
-                        <span>Joined At: </span>
+                        <span className="inline-block text-sm">{row.inchargeOf} {row.stream} {row.section} Maths</span>
+                        <span>Joined At {'25 Dec 2026'}</span>
                         {/* <span className=''>{row.createdAt}</span> */}
-                        <span className=''>{'25 Dec 2026 12:25 PM'}</span>
                     </div>
                     <div className="flex flex-wrap items-center justify-end w-full gap-1">
                         <button type="button" className="btn icon_btn_small">
