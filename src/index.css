@@ -113,10 +113,10 @@
     @apply py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded bg-white border border-gray-400 text-navy shadow-2xs hover:bg-white focus:outline-hidden focus:bg-white;
   }
   .radioCard {
-    @apply flex text-start gap-2 min-h-10.5 cursor-pointer rounded text-navy p-3 bg-white border-2 border-navy text-xs font-semibold uppercase transition-all duration-300 ease-in-out hover:bg-orange hover:border-orange hover:text-white peer-checked:bg-orange peer-checked:text-white peer-checked:border-orange;
+    @apply flex text-start gap-2 min-h-10.5 cursor-pointer rounded text-navy p-3 bg-white border border-gray-200 shadow-sm hover:shadow-lg text-sm font-medium transition-all duration-300 ease-in-out hover:bg-orange hover:border-orange hover:text-white peer-checked:bg-orange peer-checked:text-white peer-checked:border-orange;
   }
   .assignment .radioCard {
-    @apply lg:items-center flex-col lg:flex-row;
+    /* @apply lg:items-center flex-col lg:flex-row; */
   }
   .custom_transition {
     @apply transition-all duration-300 ease-in-out;

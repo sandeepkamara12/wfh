@@ -4,6 +4,7 @@ import {
     GalleryThumbnails,
     GraduationCap,
     LayoutGrid,
+    Network,
     Pencil,
 } from "lucide-react";
 import CustomSelect from "../../ui/CustomSelect";
@@ -173,7 +174,7 @@ const AssignRole = () => {
                             </div>
                         </div>
                         <div>
-                            <div className="grid grid-cols-3 lg:grid-cols-5 gap-2">
+                            <div className="grid grid-cols-3  lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7 gap-2">
                                 {classOptions !== null &&
                                     classOptions.map((cls) => (
                                         <RadioCard
@@ -200,7 +201,7 @@ const AssignRole = () => {
                             </div>
                         </div>
                         <div>
-                            <div className="grid grid-cols-2 lg:grid-cols-5 gap-2">
+                            <div className="grid grid-cols-2 sm:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7 gap-2">
                                 {
                                     streamData?.length > 0 && streamData?.map(stream => {
                                         return (
@@ -209,7 +210,7 @@ const AssignRole = () => {
                                                 value={`teacher_${stream.stream}`}
                                                 checked={formik.values.classroom_id === `teacher_${stream.stream}`}
                                                 onChange={formik.handleChange}
-                                                icon={<Pencil className="size-5" />}
+                                                icon={<Network className="size-5" />}
                                                 text={stream?.stream}
                                                 group="stream"
                                                 id={`teacher_${stream.stream}`}
@@ -230,7 +231,7 @@ const AssignRole = () => {
                             </div>
                         </div>
                         <div>
-                            <div className="grid grid-cols-2 lg:grid-cols-5 gap-2">
+                            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7 gap-2">
                                 {
                                     sectionData?.length > 0 && sectionData?.map(section => {
                                         return (
@@ -260,7 +261,7 @@ const AssignRole = () => {
                             </div>
                         </div>
                         <div>
-                            <div className="grid grid-cols-2 lg:grid-cols-5 gap-2">
+                            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7 gap-2">
                                 {
                                     subjectData?.length > 0 && subjectData?.map(subject => {
                                         return formik.values.assignment ? (
