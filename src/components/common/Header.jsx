@@ -1,4 +1,4 @@
-import { Bell, LogOut, PanelLeftClose, Settings, UserRound, UserRoundCog, UserStar, UserStarIcon } from "lucide-react"
+import { Bell, LogOut, PanelLeftClose, Settings, UserLock, UserRound, UserRoundCog, UserStar, UserStarIcon, LogOutIcon } from "lucide-react"
 import { useRef, useState } from "react";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
 import { Link } from "react-router-dom";
@@ -197,11 +197,11 @@ const Header = ({ isOpen, toggleSidebar }) => {
                                         Settings
                                     </Link>
                                     <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
-                                        <Bell className="size-5 shrink-0" />
+                                        <UserLock className="size-5 shrink-0" />
                                         Change Password
                                     </Link>
                                     <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
-                                        {/* <UserRoundArrowLeft className="size-5 shrink-0" /> */}
+                                        <LogOutIcon className="size-5 shrink-0" />
                                         Logout
                                     </Link>
                                 </div>
