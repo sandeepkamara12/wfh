@@ -1,8 +1,5 @@
 import { Link, useOutletContext } from "react-router-dom";
-import {
-  dashboardCardData,
-  streamData,
-} from "../const/constant";
+import { dashboardCardData, streamData } from "../const/constant";
 import DashboardCard from "../components/subadmin/dashboard/DashboardCard";
 import Table from "../components/common/Table";
 import { useIsMobile } from "../hooks/useIsMobile";
@@ -29,9 +26,13 @@ import {
   deleteSectionThunk,
   getSectionThunk,
 } from "../features/subAdmin/sectionSlice";
+import {
+  deleteStreamThunk,
+  getStreamThunk,
+} from "../features/subAdmin/streamSlice";
 
 const Dashboard = () => {
-  const { handleOpen, setClassrooms, setIsEdit, setSections } =
+  const { handleOpen, setClassrooms, setIsEdit, setSections, setStreams } =
     useOutletContext();
   const { isBelow640, isBelow480 } = useIsMobile();
   const teachers = useSelector((state) => state.teachers);
@@ -43,6 +44,7 @@ const Dashboard = () => {
 
   let classrooms = useSelector((state) => state.classroom.classrooms);
   let sections = useSelector((state) => state.section.sections);
+  let streams = useSelector((state) => state.stream.streams);
 
   const [loadingId, setLoadingId] = useState(null);
 
@@ -68,14 +70,23 @@ const Dashboard = () => {
         console.log(error);
       }
     };
+    const fetchStreams = async () => {
+      try {
+        const result = await dispatch(getStreamThunk()).unwrap();
+        if (result?.success) {
+          setStreams(result?.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
     fetchClassrooms();
     fetchSections();
+    fetchStreams();
   }, []);
 
-  useEffect(() => {}, []);
-
   const handleDeleteClassroom = async (id) => {
-    if (id=="") return;
+    if (id == "") return;
     try {
       setLoadingId(id);
       const result = await dispatch(deleteClassroomThunk({ id })).unwrap();
@@ -91,10 +102,26 @@ const Dashboard = () => {
   };
 
   const handleDeleteSection = async (id) => {
-    if (id=="") return;
+    if (id == "") return;
     try {
-        setLoadingId(id);
+      setLoadingId(id);
       const result = await dispatch(deleteSectionThunk({ id })).unwrap();
+      if (result?.success) {
+        toast.dismiss();
+        toast.success(result?.message);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoadingId(null);
+    }
+  };
+
+  const handleDeleteStream = async (id) => {
+    if (id == "") return;
+    try {
+      setLoadingId(id);
+      const result = await dispatch(deleteStreamThunk({ id })).unwrap();
       if (result?.success) {
         toast.dismiss();
         toast.success(result?.message);
@@ -226,7 +253,7 @@ const Dashboard = () => {
       ),
     },
   ];
-  console.log(sections, "sections");
+
   return (
     <div className="grid gap-4">
       <h2 className="font-bold text-lg">Dashboard</h2>
@@ -277,7 +304,11 @@ const Dashboard = () => {
                         onClick={() => handleDeleteClassroom(room?.id)}
                         disabled={loadingId === room?.id}
                       >
-                        {loadingId === room?.id ? <Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" /> : <Trash2 className="size-5 mx-auto" />}
+                        {loadingId === room?.id ? (
+                          <Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" />
+                        ) : (
+                          <Trash2 className="size-5 mx-auto" />
+                        )}
                       </button>
 
                       <button
@@ -309,44 +340,57 @@ const Dashboard = () => {
             Streams
           </div>
           <div className="bg-white md:h-86 overflow-y-auto">
-            {streamData.map((stream) => {
-              return (
-                <div
-                  key={stream.id}
-                  className={
-                    "border-gray-200 flex items-center justify-between p-2 border-b last:border-b-0"
-                  }
-                >
-                  <div className="flex items-center gap-2">
-                    <GripVertical className="size-5 shrink-0 opacity-50 cursor-grab" />
-                    <Link
-                      to="#"
-                      className="inline-block text-sm font-medium no-underline text-navy"
-                    >
-                      {stream.stream}
-                    </Link>
+            {streams?.length > 0 ? (
+              streams.map((stream) => {
+                return (
+                  <div
+                    key={stream?.id}
+                    className={
+                      "border-gray-200 flex items-center justify-between p-2 border-b last:border-b-0"
+                    }
+                  >
+                    <div className="flex items-center gap-2">
+                      <GripVertical className="size-5 shrink-0 opacity-50 cursor-grab" />
+                      <Link
+                        to="#"
+                        className="inline-block text-sm font-medium no-underline text-navy"
+                      >
+                        {stream?.name}
+                      </Link>
+                    </div>
+                    <div className="inline-flex flex-wrap items-center justify-end gap-1">
+                      <button
+                        type="button"
+                        className="btn icon_btn"
+                        onClick={() => handleDeleteStream(stream?.id)}
+                        disabled={loadingId === stream?.id}
+                      >
+                        {loadingId === stream?.id ? (
+                          <Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" />
+                        ) : (
+                          <Trash2 className="size-5 mx-auto" />
+                        )}
+                      </button>
+                      <button
+                        type="button"
+                        className="btn icon_btn"
+                        onClick={() => {
+                          setIsEdit(stream);
+                          handleOpen("streams");
+                        }}
+                        disabled={loadingId === stream?.id}
+                      >
+                        <Pencil className="size-5 mx-auto" />
+                      </button>
+                    </div>
                   </div>
-                  <div className="inline-flex flex-wrap items-center justify-end gap-1">
-                    <button
-                      type="button"
-                      className="btn icon_btn"
-                      onClick={() => handleDeleteClassroom(stream)}
-                      //   disabled={streamLoading}
-                    >
-                      <Trash2 className="size-5 mx-auto" />
-                    </button>
-                    <button
-                      type="button"
-                      className="btn icon_btn"
-                      //   onClick={() => handleUpdateClassstream(room)}
-                      //   disabled={streamLoading}
-                    >
-                      <Pencil className="size-5 mx-auto" />
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })
+            ) : (
+              <div className="p-4 flex items-center justify-center h-full text-gray-400 text-sm capitalize font-medium leading-4">
+                No stream found
+              </div>
+            )}
           </div>
         </div>
 
@@ -379,9 +423,13 @@ const Dashboard = () => {
                         type="button"
                         className="btn icon_btn"
                         onClick={() => handleDeleteSection(section?.id)}
-                       disabled={loadingId === section?.id}
+                        disabled={loadingId === section?.id}
                       >
-                        {loadingId === section?.id ? <Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" /> : <Trash2 className="size-5 mx-auto" />}
+                        {loadingId === section?.id ? (
+                          <Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" />
+                        ) : (
+                          <Trash2 className="size-5 mx-auto" />
+                        )}
                       </button>
                       <button
                         type="button"

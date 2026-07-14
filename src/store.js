@@ -8,6 +8,7 @@ import teachersReducer from "./features/teachers/teachersSlice";
 import roleReducer from "./features/subAdmin/createRoleSlice";
 import classroomReducer from "./features/subAdmin/classroomSlice";
 import sectionReducer from "./features/subAdmin/sectionSlice";
+import streamReducer from "./features/subAdmin/streamSlice";
 import localStorage from "redux-persist/es/storage";
 
 // 2. Combine reducers
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   role: roleReducer,
   classroom: classroomReducer,
   section: sectionReducer,
+  stream: streamReducer,
 });
 
 

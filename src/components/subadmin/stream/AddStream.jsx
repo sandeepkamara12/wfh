@@ -1,21 +1,21 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { createSectionThunk, getSectionThunk, updateSectionThunk } from '../../../features/subAdmin/sectionSlice';
+import { createStreamThunk, updateStreamThunk } from '../../../features/subAdmin/streamSlice';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import TextField from '../../ui/TextField';
 import { Loader } from 'lucide-react';
 
-const AddSection = ({ handleClose, setSections, setIsEdit, isEdit}) => {
+const AddStream = ({ handleClose, setStreams, setIsEdit, isEdit}) => {
 
     const dispatch = useDispatch();
 
     let user = useSelector((state) => state.auth.user);
-    let loading = useSelector((state) => state.section.loading.section);
+    let loading = useSelector((state) => state.stream.loading.stream);
 
      const validationSchema = Yup.object({
-    name: Yup.string().required("Classroom is required"),
+    name: Yup.string().required("Stream is required"),
   });
   const formik = useFormik({
     initialValues: {
@@ -30,13 +30,14 @@ const AddSection = ({ handleClose, setSections, setIsEdit, isEdit}) => {
 
         if (isEdit) {
           result = await dispatch(
-            updateSectionThunk({
+            updateStreamThunk({
               id: isEdit.id,
               data: values,
             }),
           ).unwrap();
+          handleClose();
         } else {
-          result = await dispatch(createSectionThunk(values)).unwrap();
+          result = await dispatch(createStreamThunk(values)).unwrap();
         }
 
         if (result?.success) {
@@ -45,7 +46,6 @@ const AddSection = ({ handleClose, setSections, setIsEdit, isEdit}) => {
 
           resetForm();
           setIsEdit(null);
-          // handleClose();
 
         } else {
           toast.dismiss();
@@ -62,8 +62,8 @@ const AddSection = ({ handleClose, setSections, setIsEdit, isEdit}) => {
          <form onSubmit={formik.handleSubmit} className="h-full">
            <div className="flex flex-wrap gap-4 items-start px-4 py-6">
                 <TextField
-                    placeholder="Section: A, B, Rose, Milton etc."
-                    label="Section"
+                    placeholder="Stream: Arts, Non Medical, Medical etc."
+                    label="Stream"
                     id="name"
                     {...formik.getFieldProps("name")}
                     error={formik.touched.name && formik.errors.name}
@@ -79,12 +79,12 @@ const AddSection = ({ handleClose, setSections, setIsEdit, isEdit}) => {
                             ? <><Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" /> Updating</>
                             : <><Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" /> Creating</>
                         : isEdit
-                            ? "Update Section"
-                            : "Create Section"}
+                            ? "Update Stream"
+                            : "Create Stream"}
                 </button>
             </div>
         </form>
     )
 }
 
-export default AddSection
+export default AddStream
