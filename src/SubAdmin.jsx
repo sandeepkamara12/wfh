@@ -22,6 +22,7 @@ const SubAdmin = () => {
 
     const handleClose = () => {
         setOpen(null);
+        setIsEdit(null);
     };
 
     return (

@@ -5,6 +5,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import TextField from '../../ui/TextField';
+import { Loader } from 'lucide-react';
 
 const AddSection = ({ handleClose, setSections, setIsEdit, isEdit}) => {
 
@@ -45,6 +46,7 @@ console.log(isEdit, 'eisdti')
 
           resetForm();
           setIsEdit(null);
+          // handleClose();
 
         } else {
           toast.dismiss();
@@ -75,8 +77,8 @@ console.log(isEdit, 'eisdti')
                 >
                     {loading
                         ? isEdit
-                            ? "Updating..."
-                            : "Creating..."
+                            ? <><Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" /> Updating</>
+                            : <><Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" /> Creating</>
                         : isEdit
                             ? "Update Section"
                             : "Create Section"}

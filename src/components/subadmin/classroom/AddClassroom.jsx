@@ -4,14 +4,13 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import {
   createClassroomThunk,
-  getClassroomThunk,
   updateClassroomThunk,
 } from "../../../features/subAdmin/classroomSlice";
 import { toast } from "react-toastify";
+import { Loader } from "lucide-react";
 
 const AddClassroom = ({
   handleClose,
-  setClassrooms,
   setIsEdit,
   isEdit,
 }) => {
@@ -86,8 +85,8 @@ const AddClassroom = ({
         >
           {loading
             ? isEdit
-              ? "Updating..."
-              : "Creating..."
+              ? <><Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" /> Updating</>
+              : <><Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" /> Creating</>
             : isEdit
               ? "Update Classroom"
               : "Create Classroom"}

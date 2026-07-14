@@ -1,8 +1,6 @@
 import { Link, useOutletContext } from "react-router-dom";
 import {
   dashboardCardData,
-  romanNumbers,
-  sectionData,
   streamData,
 } from "../const/constant";
 import DashboardCard from "../components/subadmin/dashboard/DashboardCard";
@@ -13,6 +11,7 @@ import {
   Copy,
   Eye,
   GripVertical,
+  Loader,
   Mail,
   Pencil,
   Phone,
@@ -20,13 +19,16 @@ import {
   Trash2,
 } from "lucide-react";
 import TextField from "../components/ui/TextField";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   deleteClassroomThunk,
   getClassroomThunk,
 } from "../features/subAdmin/classroomSlice";
 import { toast } from "react-toastify";
-import { getSectionThunk } from "../features/subAdmin/sectionSlice";
+import {
+  deleteSectionThunk,
+  getSectionThunk,
+} from "../features/subAdmin/sectionSlice";
 
 const Dashboard = () => {
   const { handleOpen, setClassrooms, setIsEdit, setSections } =
@@ -39,9 +41,10 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   //   useOutsideClick(filterSearchInchargeRef, () => setOpenIncharge(false));
 
-  let loading = useSelector((state) => state.classroom.loading.classroom);
   let classrooms = useSelector((state) => state.classroom.classrooms);
   let sections = useSelector((state) => state.section.sections);
+
+  const [loadingId, setLoadingId] = useState(null);
 
   // Get Classrooms on component mount
   useEffect(() => {
@@ -71,18 +74,35 @@ const Dashboard = () => {
 
   useEffect(() => {}, []);
 
-  const handleDeleteClassroom = async (row) => {
-    if (loading) return;
+  const handleDeleteClassroom = async (id) => {
+    if (id=="") return;
     try {
-      const result = await dispatch(
-        deleteClassroomThunk({ id: row.id }),
-      ).unwrap();
+      setLoadingId(id);
+      const result = await dispatch(deleteClassroomThunk({ id })).unwrap();
       if (result?.success) {
         toast.dismiss();
         toast.success(result?.message);
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoadingId(null);
+    }
+  };
+
+  const handleDeleteSection = async (id) => {
+    if (id=="") return;
+    try {
+        setLoadingId(id);
+      const result = await dispatch(deleteSectionThunk({ id })).unwrap();
+      if (result?.success) {
+        toast.dismiss();
+        toast.success(result?.message);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoadingId(null);
     }
   };
 
@@ -254,10 +274,10 @@ const Dashboard = () => {
                       <button
                         type="button"
                         className="btn icon_btn"
-                        onClick={() => handleDeleteClassroom(room)}
-                        disabled={loading}
+                        onClick={() => handleDeleteClassroom(room?.id)}
+                        disabled={loadingId === room?.id}
                       >
-                        <Trash2 className="size-5 mx-auto" />
+                        {loadingId === room?.id ? <Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" /> : <Trash2 className="size-5 mx-auto" />}
                       </button>
 
                       <button
@@ -267,7 +287,7 @@ const Dashboard = () => {
                           setIsEdit(room);
                           handleOpen("classrooms");
                         }}
-                        disabled={loading}
+                        disabled={loadingId === room?.id}
                       >
                         <Pencil className="size-5 mx-auto" />
                       </button>
@@ -276,8 +296,8 @@ const Dashboard = () => {
                 );
               })
             ) : (
-              <div className="p-4 flex items-center justify-center h-full text-gray-400">
-                No classrooms found
+              <div className="p-4 flex items-center justify-center h-full text-gray-400 text-sm capitalize font-medium leading-4">
+                No classroom found
               </div>
             )}
           </div>
@@ -311,7 +331,7 @@ const Dashboard = () => {
                       type="button"
                       className="btn icon_btn"
                       onClick={() => handleDeleteClassroom(stream)}
-                      disabled={loading}
+                      //   disabled={streamLoading}
                     >
                       <Trash2 className="size-5 mx-auto" />
                     </button>
@@ -319,7 +339,7 @@ const Dashboard = () => {
                       type="button"
                       className="btn icon_btn"
                       //   onClick={() => handleUpdateClassstream(room)}
-                      disabled={loading}
+                      //   disabled={streamLoading}
                     >
                       <Pencil className="size-5 mx-auto" />
                     </button>
@@ -358,10 +378,10 @@ const Dashboard = () => {
                       <button
                         type="button"
                         className="btn icon_btn"
-                        //   onClick={() => handleDeleteClassroom(stream)}
-                        disabled={loading}
+                        onClick={() => handleDeleteSection(section?.id)}
+                       disabled={loadingId === section?.id}
                       >
-                        <Trash2 className="size-5 mx-auto" />
+                        {loadingId === section?.id ? <Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" /> : <Trash2 className="size-5 mx-auto" />}
                       </button>
                       <button
                         type="button"
@@ -370,7 +390,7 @@ const Dashboard = () => {
                           setIsEdit(section);
                           handleOpen("sections");
                         }}
-                        disabled={loading}
+                        disabled={loadingId === section?.id}
                       >
                         <Pencil className="size-5 mx-auto" />
                       </button>
@@ -379,8 +399,8 @@ const Dashboard = () => {
                 );
               })
             ) : (
-              <div className="p-4 flex items-center justify-center h-full text-gray-400">
-                No sections found
+              <div className="p-4 flex items-center justify-center h-full text-gray-400 text-sm capitalize font-medium leading-4">
+                No section found
               </div>
             )}
           </div>
