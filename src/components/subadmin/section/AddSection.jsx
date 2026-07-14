@@ -6,10 +6,7 @@ import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import TextField from '../../ui/TextField';
 
-const AddSection = () => {
-    const [isEdit, setIsEdit] = useState(false);
-    const [selectedSection, setSelectedSection] = useState(null);
-    const [sections, setSections] = useState([]);
+const AddSection = ({ handleClose, setSections, setIsEdit, isEdit}) => {
 
     const dispatch = useDispatch();
 
@@ -19,10 +16,10 @@ const AddSection = () => {
      const validationSchema = Yup.object({
     name: Yup.string().required("Classroom is required"),
   });
-
+console.log(isEdit, 'eisdti')
   const formik = useFormik({
     initialValues: {
-      name: "",
+      name: isEdit?.name || "",
       sub_admin_id: user?.id || null,
     },
     enableReinitialize: true,
@@ -34,7 +31,7 @@ const AddSection = () => {
         if (isEdit) {
           result = await dispatch(
             updateSectionThunk({
-              id: selectedSection.id,
+              id: isEdit.id,
               data: values,
             }),
           ).unwrap();
@@ -47,13 +44,8 @@ const AddSection = () => {
           toast.success(result?.message);
 
           resetForm();
-          setIsEdit(false);
-          setSelectedSection(null);
+          setIsEdit(null);
 
-          const refreshed = await dispatch(getSectionThunk()).unwrap();
-          if (refreshed?.success) {
-            setSections(refreshed.data);
-          }
         } else {
           toast.dismiss();
           toast.warning(result.message);

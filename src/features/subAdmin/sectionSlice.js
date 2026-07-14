@@ -90,6 +90,7 @@ const sectionSlice = createSlice({
       .addCase(createSectionThunk.fulfilled, (state, action) => {
         state.loading.section = false;
         state.message = action.payload?.message;
+        state.sections.push(action.payload.data);
       })
       .addCase(createSectionThunk.rejected, (state, action) => {
         state.loading.section = false;
@@ -105,6 +106,7 @@ const sectionSlice = createSlice({
       .addCase(getSectionThunk.fulfilled, (state, action) => {
         state.loading.section = false;
         state.message = action.payload?.message;
+        state.sections = action.payload.data;
       })
       .addCase(getSectionThunk.rejected, (state, action) => {
         state.loading.section = false;
@@ -119,6 +121,16 @@ const sectionSlice = createSlice({
       .addCase(updateSectionThunk.fulfilled, (state, action) => {
         state.loading.section = false;
         state.message = action.payload?.message;
+        const updatedSection = action.payload.data;
+        // Find index of classroom
+        const index = state.sections.findIndex(
+          (item) => item.id === updatedSection.id,
+        );
+
+        // Replace the old item with updated one
+        if (index !== -1) {
+          state.sections[index] = updatedSection;
+        }
       })
       .addCase(updateSectionThunk.rejected, (state, action) => {
         state.loading.section = false;
@@ -133,6 +145,11 @@ const sectionSlice = createSlice({
       .addCase(deleteSectionThunk.fulfilled, (state, action) => {
         state.loading.section = false;
         state.message = action.payload?.message;
+        const deletedId = action.meta.arg.id;
+
+        state.sections = state.sections.filter(
+          (item) => item.id !== deletedId,
+        );
       })
       .addCase(deleteSectionThunk.rejected, (state, action) => {
         state.loading.section = false;

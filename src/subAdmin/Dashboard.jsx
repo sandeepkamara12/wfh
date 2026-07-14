@@ -11,7 +11,6 @@ import { useIsMobile } from "../hooks/useIsMobile";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Copy,
-  ExternalLink,
   Eye,
   GripVertical,
   Mail,
@@ -27,9 +26,11 @@ import {
   getClassroomThunk,
 } from "../features/subAdmin/classroomSlice";
 import { toast } from "react-toastify";
+import { getSectionThunk } from "../features/subAdmin/sectionSlice";
 
 const Dashboard = () => {
-  const { handleOpen, setClassrooms, setIsEdit } = useOutletContext();
+  const { handleOpen, setClassrooms, setIsEdit, setSections } =
+    useOutletContext();
   const { isBelow640, isBelow480 } = useIsMobile();
   const teachers = useSelector((state) => state.teachers);
   const filterSearchInchargeRef = useRef(null);
@@ -40,6 +41,7 @@ const Dashboard = () => {
 
   let loading = useSelector((state) => state.classroom.loading.classroom);
   let classrooms = useSelector((state) => state.classroom.classrooms);
+  let sections = useSelector((state) => state.section.sections);
 
   // Get Classrooms on component mount
   useEffect(() => {
@@ -53,8 +55,21 @@ const Dashboard = () => {
         console.log(error);
       }
     };
+    const fetchSections = async () => {
+      try {
+        const result = await dispatch(getSectionThunk()).unwrap();
+        if (result?.success) {
+          setSections(result?.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
     fetchClassrooms();
+    fetchSections();
   }, []);
+
+  useEffect(() => {}, []);
 
   const handleDeleteClassroom = async (row) => {
     if (loading) return;
@@ -65,10 +80,6 @@ const Dashboard = () => {
       if (result?.success) {
         toast.dismiss();
         toast.success(result?.message);
-        const refreshed = await dispatch(getClassroomThunk()).unwrap();
-        if (refreshed?.success) {
-          setClassrooms(refreshed.data);
-        }
       }
     } catch (error) {
       console.log(error);
@@ -195,7 +206,7 @@ const Dashboard = () => {
       ),
     },
   ];
-
+  console.log(sections, "sections");
   return (
     <div className="grid gap-4">
       <h2 className="font-bold text-lg">Dashboard</h2>
@@ -325,44 +336,53 @@ const Dashboard = () => {
             Sections
           </div>
           <div className="bg-white md:h-86 overflow-y-auto">
-            {sectionData.map((section) => {
-              return (
-                <div
-                  key={section.id}
-                  className={
-                    "border-gray-200 flex items-center justify-between p-2 border-b last:border-b-0"
-                  }
-                >
-                  <div className="flex items-center gap-2">
-                    <GripVertical className="size-5 shrink-0 opacity-50 cursor-grab" />
-                    <Link
-                      to="#"
-                      className="inline-block text-sm font-medium no-underline text-navy"
-                    >
-                      {section.section}
-                    </Link>
+            {sections?.length > 0 ? (
+              sections.map((section) => {
+                return (
+                  <div
+                    key={section?.id}
+                    className={
+                      "border-gray-200 flex items-center justify-between p-2 border-b last:border-b-0"
+                    }
+                  >
+                    <div className="flex items-center gap-2">
+                      <GripVertical className="size-5 shrink-0 opacity-50 cursor-grab" />
+                      <Link
+                        to="#"
+                        className="inline-block text-sm font-medium no-underline text-navy"
+                      >
+                        {section?.name}
+                      </Link>
+                    </div>
+                    <div className="inline-flex flex-wrap items-center justify-end gap-1">
+                      <button
+                        type="button"
+                        className="btn icon_btn"
+                        //   onClick={() => handleDeleteClassroom(stream)}
+                        disabled={loading}
+                      >
+                        <Trash2 className="size-5 mx-auto" />
+                      </button>
+                      <button
+                        type="button"
+                        className="btn icon_btn"
+                        onClick={() => {
+                          setIsEdit(section);
+                          handleOpen("sections");
+                        }}
+                        disabled={loading}
+                      >
+                        <Pencil className="size-5 mx-auto" />
+                      </button>
+                    </div>
                   </div>
-                  <div className="inline-flex flex-wrap items-center justify-end gap-1">
-                    <button
-                      type="button"
-                      className="btn icon_btn"
-                      //   onClick={() => handleDeleteClassroom(stream)}
-                      disabled={loading}
-                    >
-                      <Trash2 className="size-5 mx-auto" />
-                    </button>
-                    <button
-                      type="button"
-                      className="btn icon_btn"
-                      //   onClick={() => handleUpdateClassstream(room)}
-                      disabled={loading}
-                    >
-                      <Pencil className="size-5 mx-auto" />
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })
+            ) : (
+              <div className="p-4 flex items-center justify-center h-full text-gray-400">
+                No sections found
+              </div>
+            )}
           </div>
         </div>
 

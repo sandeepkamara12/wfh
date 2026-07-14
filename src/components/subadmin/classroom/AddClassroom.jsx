@@ -56,10 +56,6 @@ const AddClassroom = ({
           resetForm();
           setIsEdit(null);
 
-          const refreshed = await dispatch(getClassroomThunk()).unwrap();
-          if (refreshed?.success) {
-            setClassrooms(refreshed.data);
-          }
         } else {
           toast.dismiss();
           toast.warning(result.message);

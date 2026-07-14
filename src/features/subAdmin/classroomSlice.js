@@ -6,7 +6,7 @@ const updateClassroomUrl = `${import.meta.env.VITE_API_BASE_URL}/sub-admin/class
 
 export const createClassroomThunk = createAsyncThunk(
   "classroom/createClassroom",
-  async (payload , { rejectWithValue }) => {
+  async (payload, { rejectWithValue }) => {
     try {
       const response = await axiosinstance.post(createClassroomUrl, payload);
       return response.data;
@@ -35,9 +35,12 @@ export const getClassroomThunk = createAsyncThunk(
 
 export const updateClassroomThunk = createAsyncThunk(
   "classroom/updateClassroom",
-  async ({id, data}, { rejectWithValue }) => {
+  async ({ id, data }, { rejectWithValue }) => {
     try {
-       const response = await axiosinstance.put(`${updateClassroomUrl}${id}`, data);
+      const response = await axiosinstance.put(
+        `${updateClassroomUrl}${id}`,
+        data,
+      );
       return response.data;
     } catch (error) {
       return rejectWithValue({
@@ -50,9 +53,9 @@ export const updateClassroomThunk = createAsyncThunk(
 
 export const deleteClassroomThunk = createAsyncThunk(
   "classroom/deleteClassroom",
-  async ({id}, { rejectWithValue }) => {
+  async ({ id }, { rejectWithValue }) => {
     try {
-       const response = await axiosinstance.delete(`${updateClassroomUrl}${id}`);
+      const response = await axiosinstance.delete(`${updateClassroomUrl}${id}`);
       return response.data;
     } catch (error) {
       return rejectWithValue({
@@ -74,7 +77,7 @@ const classroomSlice = createSlice({
       classroom: null,
     },
     message: "",
-    classrooms:[]
+    classrooms: [],
   },
   reducers: {
     deleteClassroom: (state) => {
@@ -110,7 +113,8 @@ const classroomSlice = createSlice({
       })
       .addCase(getClassroomThunk.rejected, (state, action) => {
         state.loading.classroom = false;
-        state.error.classroom = action.payload?.message || "Something went wrong";
+        state.error.classroom =
+          action.payload?.message || "Something went wrong";
         state.status = action.payload?.status || 500;
       });
     builder
@@ -121,10 +125,21 @@ const classroomSlice = createSlice({
       .addCase(updateClassroomThunk.fulfilled, (state, action) => {
         state.loading.classroom = false;
         state.message = action.payload?.message;
+        const updatedClassroom = action.payload.data;
+        // Find index of classroom
+        const index = state.classrooms.findIndex(
+          (item) => item.id === updatedClassroom.id,
+        );
+
+        // Replace the old item with updated one
+        if (index !== -1) {
+          state.classrooms[index] = updatedClassroom;
+        }
       })
       .addCase(updateClassroomThunk.rejected, (state, action) => {
         state.loading.classroom = false;
-        state.error.classroom = action.payload?.message || "Something went wrong";
+        state.error.classroom =
+          action.payload?.message || "Something went wrong";
         state.status = action.payload?.status || 500;
       });
     builder
@@ -135,10 +150,16 @@ const classroomSlice = createSlice({
       .addCase(deleteClassroomThunk.fulfilled, (state, action) => {
         state.loading.classroom = false;
         state.message = action.payload?.message;
+        const deletedId = action.meta.arg.id;
+
+        state.classrooms = state.classrooms.filter(
+          (item) => item.id !== deletedId,
+        );
       })
       .addCase(deleteClassroomThunk.rejected, (state, action) => {
         state.loading.classroom = false;
-        state.error.classroom = action.payload?.message || "Something went wrong";
+        state.error.classroom =
+          action.payload?.message || "Something went wrong";
         state.status = action.payload?.status || 500;
       });
   },
