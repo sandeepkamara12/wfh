@@ -223,10 +223,11 @@ const ClassRoomList = () => {
   ];
 
   return (
-    <div className="flex flex-col">
-      <div className="overflow-x-auto [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb">
+    <div className="grid gap-4">
+      <h2 className='font-bold text-lg'>Classrooms</h2>
+      {/* <div className="overflow-x-auto [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb">
         <div className="min-w-full inline-block align-middle">
-          <div className="">
+          <div className=""> */}
             <Table
               id="classrooms"
               columns={columns}
@@ -266,9 +267,9 @@ const ClassRoomList = () => {
                 </div>
               </form>
             </Drawer> */}
-          </div>
+          {/* </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

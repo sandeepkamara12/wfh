@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 
 const Unauhtorized = () => {
     const {role, token} = useSelector((state) => state.auth.user);
-    console.log(role, token, 'bab7')
     // let role = auth?.user?.role;
     // const {jwtToken, role} = JSON.parse(localStorage.getItem('jwtToken'));
     return (

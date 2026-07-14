@@ -1,97 +1,104 @@
-import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import TextField from '../../ui/TextField';
+import { useDispatch, useSelector } from "react-redux";
+import TextField from "../../ui/TextField";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { createClassroomThunk, getClassroomThunk, updateClassroomThunk } from '../../../features/subAdmin/classroomSlice';
-import { toast } from 'react-toastify';
+import {
+  createClassroomThunk,
+  getClassroomThunk,
+  updateClassroomThunk,
+} from "../../../features/subAdmin/classroomSlice";
+import { toast } from "react-toastify";
 
-const AddClassroom = ({role, open, handleClose}) => {
-    // const [open, setOpen] = useState(false);
-    const [isEdit, setIsEdit] = useState(false);
-    const [selectedClassroom, setSelectedClassroom] = useState(null);
-    const dispatch = useDispatch();
+const AddClassroom = ({
+  handleClose,
+  setClassrooms,
+  setIsEdit,
+  isEdit,
+}) => {
+  
 
-    let user = useSelector((state) => state.auth.user);
-    let loading = useSelector((state) => state.classroom.loading.classroom);
+  const dispatch = useDispatch();
 
-    const validationSchema = Yup.object({
-        name: Yup.string().required("Classroom is required"),
-    });
+  let user = useSelector((state) => state.auth.user);
+  let loading = useSelector((state) => state.classroom.loading.classroom);
 
-    const formik = useFormik({
-        initialValues: {
-            name: "",
-            sub_admin_id: user?.id || null,
-        },
-        enableReinitialize: true,
-        validationSchema,
-        onSubmit: async (values, { resetForm }) => {
-            try {
-                let result;
+  const validationSchema = Yup.object({
+    name: Yup.string().required("Classroom is required"),
+  });
 
-                if (isEdit) {
-                    result = await dispatch(
-                        updateClassroomThunk({
-                            id: selectedClassroom.id,
-                            data: values,
-                        })
-                    ).unwrap();
-                } else {
-                    result = await dispatch(createClassroomThunk(values)).unwrap();
-                }
+  const formik = useFormik({
+    initialValues: {
+      name: isEdit?.name || "",
+      sub_admin_id: user?.id || null,
+    },
+    enableReinitialize: true,
+    validationSchema,
+    onSubmit: async (values, { resetForm }) => {
+      try {
+        let result;
 
-                if (result?.success) {
-                    toast.dismiss();
-                    toast.success(result?.message);
+        if (isEdit!==null) {
+          result = await dispatch(
+            updateClassroomThunk({
+              id: isEdit?.id,
+              data: values,
+            }),
+          ).unwrap();
+          handleClose()
+        } else {
+          result = await dispatch(createClassroomThunk(values)).unwrap();
+        }
 
-                    resetForm();
-                    // setOpen(false);
-                    setIsEdit(false);
-                    setSelectedClassroom(null);
+        if (result?.success) {
+          toast.dismiss();
+          toast.success(result?.message);
 
-                    const refreshed = await dispatch(getClassroomThunk()).unwrap();
-                    if (refreshed?.success) {
-                        // setClassrooms(refreshed.data);
-                    }
-                } else {
-                    toast.dismiss();
-                    toast.warning(result.message);
-                }
-            } catch (error) {
-                toast.dismiss();
-                toast.error(error?.message || "Something went wrong");
-            }
-        },
-    });
+          resetForm();
+          setIsEdit(null);
 
-    return (
-        <form onSubmit={formik.handleSubmit} className="h-full">
-           <div className="flex flex-wrap gap-4 items-start px-4 py-6">
-                <TextField
-                    placeholder="Classroom: 1st, 2nd etc."
-                    label="Classroom"
-                    id="name"
-                    {...formik.getFieldProps("name")}
-                    error={formik.touched.name && formik.errors.name}
-                    required={true}
-                />
-                <button
-                    type="submit"
-                    className="btn btn_with_text"
-                    disabled={loading || !(formik.isValid && formik.dirty)}
-                >
-                    {loading
-                        ? isEdit
-                            ? "Updating..."
-                            : "Creating..."
-                        : isEdit
-                            ? "Update Classroom"
-                            : "Create Classroom"}
-                </button>
-            </div>
-        </form>
-    )
-}
+          const refreshed = await dispatch(getClassroomThunk()).unwrap();
+          if (refreshed?.success) {
+            setClassrooms(refreshed.data);
+          }
+        } else {
+          toast.dismiss();
+          toast.warning(result.message);
+        }
+      } catch (error) {
+        toast.dismiss();
+        toast.error(error?.message || "Something went wrong");
+      }
+    },
+  });
 
-export default AddClassroom
+
+  return (
+    <form onSubmit={formik.handleSubmit} className="h-full">
+      <div className="flex flex-wrap gap-4 items-start px-4 py-6">
+        <TextField
+          placeholder="Classroom: 1st, 2nd etc."
+          label="Classroom"
+          id="name"
+          {...formik.getFieldProps("name")}
+          error={formik.touched.name && formik.errors.name}
+          required={true}
+        />
+        <button
+          type="submit"
+          className="btn btn_with_text"
+          disabled={loading || !(formik.isValid && formik.dirty)}
+        >
+          {loading
+            ? isEdit
+              ? "Updating..."
+              : "Creating..."
+            : isEdit
+              ? "Update Classroom"
+              : "Create Classroom"}
+        </button>
+      </div>
+    </form>
+  );
+};
+
+export default AddClassroom;

@@ -1,5 +1,5 @@
 import DataTable from 'react-data-table-component';
-const Table = ({ id = "", columns, data, handleOpen, btnText, btnIcon, label, subLabel, isButtonDisabled = false, needHeader = false, customStyle }) => {
+const Table = ({ id = "", columns, data, handleOpen, btnText, btnIcon, label, subLabel, isButtonDisabled = false, paginationPerPage, needHeader = false, customStyle }) => {
     
     // Remove Table Header if no need it (needHeader above prop)
     const dashboardTableStyle = {
@@ -45,7 +45,7 @@ const Table = ({ id = "", columns, data, handleOpen, btnText, btnIcon, label, su
                     }}
                     customStyles={dashboardTableStyle}
                     responsive={true}
-                    paginationPerPage={10}
+                    paginationPerPage={paginationPerPage}
                     // pagination={needHeader}
                     pagination
                     selectableRows={needHeader}

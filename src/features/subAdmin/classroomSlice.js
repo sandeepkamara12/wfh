@@ -90,6 +90,7 @@ const classroomSlice = createSlice({
       .addCase(createClassroomThunk.fulfilled, (state, action) => {
         state.loading.classroom = false;
         state.message = action.payload?.message;
+        state.classrooms.push(action.payload.data);
       })
       .addCase(createClassroomThunk.rejected, (state, action) => {
         state.loading.classroom = false;
@@ -105,6 +106,7 @@ const classroomSlice = createSlice({
       .addCase(getClassroomThunk.fulfilled, (state, action) => {
         state.loading.classroom = false;
         state.message = action.payload?.message;
+        state.classrooms = action.payload.data;
       })
       .addCase(getClassroomThunk.rejected, (state, action) => {
         state.loading.classroom = false;

@@ -172,8 +172,6 @@ const CreateRole = () => {
         formik.setFieldValue("dob", date)
     }
 
-    // console.log(formik, 'formik');
-
     const showParents = formik.values.role === "student" || (formik.values.role === "teacher" && !formik.values.married);
 
     return (

@@ -12,6 +12,9 @@ const SubAdmin = () => {
         setIsSidebarOpen((prev) => !prev);
     };
     const [open, setOpen] = useState(null);
+    const [classrooms, setClassrooms] = useState([]);
+    const [isEdit, setIsEdit] = useState(null);
+    
     const handleOpen = (type) => {
         setOpen(type);
     };
@@ -28,16 +31,14 @@ const SubAdmin = () => {
                     {
                         open === 'teachers' ? <AddTeacher role="teacher" open={open} handleClose={handleClose} />
                             : open === 'students' ? <AddTeacher role="student" open={open} handleClose={handleClose} />
-                                : open === 'classrooms' ? <AddClassroom role="classrooms" open={open} handleClose={handleClose} />
-                                    // : open === 'streams' ? <AddStream role="streams" open={open} handleClose={handleClose} />
+                                : open === 'classrooms' ? <AddClassroom handleClose={handleClose} setClassrooms={setClassrooms} classrooms={classrooms} setIsEdit={setIsEdit} isEdit={isEdit} />
                                     : open === 'sections' ? <AddSection role="sections" open={open} handleClose={handleClose} />
-                                        // : open === 'subjects' ? <AddSubject role="subjects" open={open} handleClose={handleClose} />
                                         : null
                     }
 
                 </Drawer>
             }
-            <Outlet context={{ isSidebarOpen, toggleSidebar, handleClose, handleOpen, open, setOpen }} />
+            <Outlet context={{ isSidebarOpen, toggleSidebar, handleClose, handleOpen, open, setOpen, setClassrooms, setIsEdit }} />
         </SidebarLayout>
     )
 }

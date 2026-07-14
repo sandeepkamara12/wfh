@@ -3,7 +3,7 @@ import * as Icons from 'lucide-react';
 
 const TextField = ({ label, id, error, required = false, inputClassName = "", className = "", ...props }) => {
     const IconComponent = Icons[icons[id]];
-    console.log(icons[id], 'hi')
+    
     return (
         <div className={`${className ? className : 'w-full'}`}>
             {

@@ -429,6 +429,9 @@ export const dashboardCardData = [
   { label: "Subjects", count: "10", id: "subject", icon: "BookOpenText", link:"/subadmin/subjects" },
 ];
 export const romanNumbers = [
+  "Nursery",
+  "LKG",
+  "UKG",
   "I",
   "II",
   "III",

@@ -28,7 +28,6 @@ export const updateTeacherThunk = createAsyncThunk(
       //   console.log(key, value);
       // }
       const response = await axiosInstance.post(`${updateTeacherUrl}`, payload);
-      // console.log(response, "output is");
       return response?.data;
     } catch (error) {
       return rejectWithValue({
