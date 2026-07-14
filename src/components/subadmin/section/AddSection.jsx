@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import TextField from '../../ui/TextField';
 import { Loader } from 'lucide-react';
 
-const AddSection = ({ handleClose, setSections, setIsEdit, isEdit}) => {
+const AddSection = ({ setIsEdit, isEdit}) => {
 
     const dispatch = useDispatch();
 
@@ -62,7 +62,7 @@ const AddSection = ({ handleClose, setSections, setIsEdit, isEdit}) => {
          <form onSubmit={formik.handleSubmit} className="h-full">
            <div className="flex flex-wrap gap-4 items-start px-4 py-6">
                 <TextField
-                    placeholder="Section: A, B, Rose, Milton etc."
+                    placeholder="Section: Keats, Chaucer, Milton"
                     label="Section"
                     id="name"
                     {...formik.getFieldProps("name")}

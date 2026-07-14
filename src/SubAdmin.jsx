@@ -30,14 +30,14 @@ const SubAdmin = () => {
     return (
         <SidebarLayout isOpen={isSidebarOpen} toggleSidebar={toggleSidebar}>
             {
-                open !== null &&
+                // open !== null &&
                 <Drawer handleClose={handleClose} open={open}>
                     {
                         open === 'teachers' ? <AddTeacher role="teacher" open={open} handleClose={handleClose} />
                             : open === 'students' ? <AddTeacher role="student" open={open} handleClose={handleClose} />
-                                : open === 'classrooms' ? <AddClassroom handleClose={handleClose} setClassrooms={setClassrooms} setIsEdit={setIsEdit} isEdit={isEdit} />
-                                : open === 'streams' ? <AddStream handleClose={handleClose} setStreams={setStreams} setIsEdit={setIsEdit} isEdit={isEdit} />
-                                    : open === 'sections' ? <AddSection handleClose={handleClose} setSections={setSections} setIsEdit={setIsEdit} isEdit={isEdit} />
+                                : open === 'classrooms' ? <AddClassroom setIsEdit={setIsEdit} isEdit={isEdit} />
+                                : open === 'streams' ? <AddStream setIsEdit={setIsEdit} isEdit={isEdit} />
+                                    : open === 'sections' ? <AddSection setIsEdit={setIsEdit} isEdit={isEdit} />
                                         : null
                     }
 

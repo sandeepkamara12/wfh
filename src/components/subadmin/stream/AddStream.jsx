@@ -62,7 +62,7 @@ const AddStream = ({ handleClose, setStreams, setIsEdit, isEdit}) => {
          <form onSubmit={formik.handleSubmit} className="h-full">
            <div className="flex flex-wrap gap-4 items-start px-4 py-6">
                 <TextField
-                    placeholder="Stream: Arts, Non Medical, Medical etc."
+                    placeholder="Stream: Arts, Non Medical, Medical"
                     label="Stream"
                     id="name"
                     {...formik.getFieldProps("name")}

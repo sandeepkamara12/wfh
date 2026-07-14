@@ -71,7 +71,7 @@ const AddClassroom = ({
     <form onSubmit={formik.handleSubmit} className="h-full">
       <div className="flex flex-wrap gap-4 items-start px-4 py-6">
         <TextField
-          placeholder="Classroom: 1st, 2nd etc."
+          placeholder="Classroom: I, II, III, IV, V"
           label="Classroom"
           id="name"
           {...formik.getFieldProps("name")}

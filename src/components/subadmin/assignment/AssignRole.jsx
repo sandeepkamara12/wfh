@@ -5,31 +5,73 @@ import {
     GraduationCap,
     LayoutGrid,
     Network,
-    Pencil,
 } from "lucide-react";
 import CustomSelect from "../../ui/CustomSelect";
 import {
-    classOptions,
     studentOptions,
     teacherOptions,
-    sectionData,
     subjectData,
-    streamData,
 } from "../../../const/constant";
 import RadioCard from "../../ui/RadioCard";
 import CheckboxCard from "../../ui/CheckboxCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Switch from "../../ui/Switch";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useOutletContext } from "react-router-dom";
+import { getClassroomThunk } from "../../../features/subAdmin/classroomSlice";
+import { getSectionThunk } from "../../../features/subAdmin/sectionSlice";
+import { getStreamThunk } from "../../../features/subAdmin/streamSlice";
 
 const AssignRole = () => {
     const { toggleSidebar } = useOutletContext();
     let user = useSelector((state) => state.auth.user);
     const [selected, setSelected] = useState([]);
 
+    let classrooms = useSelector(state => state.classroom.classrooms);
+    let streams = useSelector(state => state.stream.streams);
+    let sections = useSelector(state => state.section.sections);
+
+    const { setClassrooms, setSections, setStreams } = useOutletContext();
+    const dispatch = useDispatch();
+
+    // Get Classrooms on component mount
+    useEffect(() => {
+        const fetchClassrooms = async () => {
+            try {
+                const result = await dispatch(getClassroomThunk()).unwrap();
+                if (result?.success) {
+                    setClassrooms(result?.data);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        const fetchSections = async () => {
+            try {
+                const result = await dispatch(getSectionThunk()).unwrap();
+                if (result?.success) {
+                    setSections(result?.data);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        const fetchStreams = async () => {
+            try {
+                const result = await dispatch(getStreamThunk()).unwrap();
+                if (result?.success) {
+                    setStreams(result?.data);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchClassrooms();
+        fetchSections();
+        fetchStreams();
+    }, []);
 
     const handleChange = (cls) => {
         const newValues = formik.values.subjects.includes(cls)
@@ -175,17 +217,17 @@ const AssignRole = () => {
                         </div>
                         <div>
                             <div className="grid grid-cols-3  lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7 gap-2">
-                                {classOptions !== null &&
-                                    classOptions.map((cls) => (
+                                {classrooms?.length > 0 &&
+                                    classrooms.map((cls) => (
                                         <RadioCard
-                                            key={`teacher_${cls.value}`}
-                                            value={`teacher_${cls.value}`}
-                                            checked={formik.values.classroom_id === `teacher_${cls.value}`}
+                                            key={`teacher_${cls?.name?.toLowerCase()}`}
+                                            value={`teacher_${cls.name}`}
+                                            checked={formik.values.classroom_id === `teacher_${cls?.name?.toLowerCase()}`}
                                             onChange={formik.handleChange}
                                             icon={<GalleryThumbnails className="size-5" />}
-                                            text={cls.label}
+                                            text={cls.name}
                                             group="class"
-                                            id={`teacher_${cls.value}`}
+                                            id={`teacher_${cls?.name?.toLowerCase()}`}
                                         />
                                     ))}
                             </div>
@@ -203,17 +245,17 @@ const AssignRole = () => {
                         <div>
                             <div className="grid grid-cols-2 sm:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7 gap-2">
                                 {
-                                    streamData?.length > 0 && streamData?.map(stream => {
+                                    streams?.length > 0 && streams?.map(stream => {
                                         return (
                                             <RadioCard
                                                 key={stream?.id}
-                                                value={`teacher_${stream.stream}`}
-                                                checked={formik.values.classroom_id === `teacher_${stream.stream}`}
+                                                value={`teacher_${stream.name.toLowerCase()}`}
+                                                checked={formik.values.classroom_id === `teacher_${stream.name.toLowerCase()}`}
                                                 onChange={formik.handleChange}
                                                 icon={<Network className="size-5" />}
-                                                text={stream?.stream}
+                                                text={stream?.name}
                                                 group="stream"
-                                                id={`teacher_${stream.stream}`}
+                                                id={`teacher_${stream.name.toLowerCase()}`}
                                             />
                                         )
                                     })
@@ -233,17 +275,17 @@ const AssignRole = () => {
                         <div>
                             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7 gap-2">
                                 {
-                                    sectionData?.length > 0 && sectionData?.map(section => {
+                                    sections?.length > 0 && sections?.map(section => {
                                         return (
                                             <RadioCard
                                                 key={section?.id}
-                                                value={`teacher_${section.section}`}
-                                                checked={formik.values.classroom_id === `teacher_${section.section}`}
+                                                value={`teacher_${section.name.toLowerCase()}`}
+                                                checked={formik.values.classroom_id === `teacher_${section.name.toLowerCase()}`}
                                                 onChange={formik.handleChange}
                                                 icon={<LayoutGrid className="size-5" />}
-                                                text={section.section}
+                                                text={section.name}
                                                 group="section"
-                                                id={`teacher_${section.section}`}
+                                                id={`teacher_${section.name.toLowerCase()}`}
                                             />
                                         )
                                     })

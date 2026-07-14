@@ -1,5 +1,5 @@
 import { Link, useOutletContext } from "react-router-dom";
-import { dashboardCardData, streamData } from "../const/constant";
+import { dashboardCardData } from "../const/constant";
 import DashboardCard from "../components/subadmin/dashboard/DashboardCard";
 import Table from "../components/common/Table";
 import { useIsMobile } from "../hooks/useIsMobile";
@@ -277,6 +277,9 @@ const Dashboard = () => {
         <div className="col-span-6 md:col-span-2 2xl:col-span-1 rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
           <div className="bg-navy py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white flex justify-between items-center">
             Classerooms
+            <div className="btn icon_btn_small cursor-pointer">
+              <Plus onClick={() => handleOpen('classrooms')} className="size-5 shrink-0" />
+            </div>
           </div>
 
           <div className="bg-white md:h-86 overflow-y-auto">
@@ -338,6 +341,9 @@ const Dashboard = () => {
         <div className="col-span-6 md:col-span-2 2xl:col-span-1 rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
           <div className="bg-navy py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white flex justify-between items-center">
             Streams
+            <div className="btn icon_btn_small cursor-pointer">
+              <Plus onClick={() => handleOpen('streams')} className="size-5 shrink-0" />
+            </div>
           </div>
           <div className="bg-white md:h-86 overflow-y-auto">
             {streams?.length > 0 ? (
@@ -398,6 +404,9 @@ const Dashboard = () => {
         <div className="col-span-6 md:col-span-2 2xl:col-span-1 rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
           <div className="bg-navy py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white flex justify-between items-center">
             Sections
+            <div className="btn icon_btn_small cursor-pointer">
+              <Plus onClick={() => handleOpen('sections')} className="size-5 shrink-0" />
+            </div>
           </div>
           <div className="bg-white md:h-86 overflow-y-auto">
             {sections?.length > 0 ? (
@@ -532,3 +541,24 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+// import {
+//   DndContext,
+//   closestCenter
+// } from "@dnd-kit/core";
+
+// import {
+//   SortableContext,
+//   verticalListSortingStrategy,
+//   arrayMove
+// } from "@dnd-kit/sortable";
+// <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+//   <SortableContext
+//     items={sections.map((s) => s.id)}
+//     strategy={verticalListSortingStrategy}
+//   >
+//     {sections.map((section) => (
+//       <SortableItem key={section.id} section={section} />
+//     ))}
+//   </SortableContext>
+// </DndContext>

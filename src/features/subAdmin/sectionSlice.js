@@ -63,6 +63,30 @@ export const deleteSectionThunk = createAsyncThunk(
   },
 );
 
+export const updateSectionOrderThunk = createAsyncThunk(
+  "section/updateOrder",
+  async (sections, { rejectWithValue }) => {
+    try {
+      // convert to backend format
+      const payload = sections.map((item, index) => ({
+        id: item.id,
+        order: index + 1,
+      }));
+
+      const response = await axiosinstance.put(
+        `/sub-admin/section/reorder`,
+        payload
+      );
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error?.response?.data || "Failed to update order"
+      );
+    }
+  }
+);
+
 //  router.put("/sub-admin/section/:id");
 
 const sectionSlice = createSlice({
@@ -152,6 +176,24 @@ const sectionSlice = createSlice({
         );
       })
       .addCase(deleteSectionThunk.rejected, (state, action) => {
+        state.loading.section = false;
+        state.error.section = action.payload?.message || "Something went wrong";
+        state.status = action.payload?.status || 500;
+      });
+    builder
+      .addCase(updateSectionOrderThunk.pending, (state) => {
+        state.loading.section = true;
+        state.error.section = null;
+      })
+      .addCase(updateSectionOrderThunk.fulfilled, (state, action) => {
+        state.loading.section = false;
+        state.message = action.payload?.message;
+         state.loading.section = false;
+
+        // IMPORTANT: update state with new order
+        state.sections = action.meta.arg; 
+      })
+      .addCase(updateSectionOrderThunk.rejected, (state, action) => {
         state.loading.section = false;
         state.error.section = action.payload?.message || "Something went wrong";
         state.status = action.payload?.status || 500;
