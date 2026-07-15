@@ -175,14 +175,14 @@
 }
 
 .rdt_TableCell {
-  @apply py-2 text-navy font-medium text-xs;
+  @apply py-2 px-2! text-navy font-medium text-xs;
 }
 
 .rdt_TableCol {
   @apply text-xs font-semibold uppercase text-white;
 }
 .rdt_cellExpander {
-  @apply pe-0! min-w-0!;
+  @apply pe-0! min-w-0! ps-2!;
 }
 .rdt_cellExpander .rdt_expanderButton:not(:disabled):hover,
 .rdt_cellExpander .rdt_expanderButton:focus {background-color: transparent;}
