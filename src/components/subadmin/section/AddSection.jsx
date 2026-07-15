@@ -59,7 +59,7 @@ const AddSection = ({ handleClose, setIsEdit, isEdit}) => {
 
     return (
          <form onSubmit={formik.handleSubmit} className="h-full">
-           <div className="flex flex-wrap gap-4 items-start px-4 py-6">
+           <div className="flex flex-wrap gap-4 items-start">
                 <TextField
                     placeholder="Section: Keats, Chaucer, Milton"
                     label="Section"

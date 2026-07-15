@@ -6,6 +6,7 @@ import AddClassroom from './components/subadmin/classroom/AddClassroom';
 import AddSection from './components/subadmin/section/AddSection';
 import AddTeacher from './components/subadmin/teacher/AddTeacher';
 import AddStream from './components/subadmin/stream/AddStream';
+import Modal from './components/ui/Modal';
 
 const SubAdmin = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -31,17 +32,24 @@ const SubAdmin = () => {
         <SidebarLayout isOpen={isSidebarOpen} toggleSidebar={toggleSidebar}>
             {
                 // open !== null &&
+                <>
                 <Drawer handleClose={handleClose} open={open}>
                     {
                         open === 'teachers' ? <AddTeacher role="teacher" open={open} handleClose={handleClose} />
-                            : open === 'students' ? <AddTeacher role="student" open={open} handleClose={handleClose} />
-                                : open === 'classrooms' ? <AddClassroom setIsEdit={setIsEdit} isEdit={isEdit} handleClose={handleClose} />
-                                : open === 'streams' ? <AddStream setIsEdit={setIsEdit} isEdit={isEdit} handleClose={handleClose} />
-                                    : open === 'sections' ? <AddSection setIsEdit={setIsEdit} isEdit={isEdit} handleClose={handleClose} />
-                                        : null
+                        : open === 'students' ? <AddTeacher role="student" open={open} handleClose={handleClose} />
+                        : null
                     }
 
                 </Drawer>
+                <Modal handleClose={handleClose} open={open}>
+                    {
+                        open === 'streams' ? <AddStream setIsEdit={setIsEdit} isEdit={isEdit} handleClose={handleClose} />
+                        : open === 'classrooms' ? <AddClassroom setIsEdit={setIsEdit} isEdit={isEdit} handleClose={handleClose} />                                
+                        : open === 'sections' ? <AddSection setIsEdit={setIsEdit} isEdit={isEdit} handleClose={handleClose} />
+                        : null
+                    }
+                </Modal>
+                </>
             }
             <Outlet context={{ isSidebarOpen, toggleSidebar, handleClose, handleOpen, open, setOpen, setClassrooms, setIsEdit, setSections, setStreams }} />
         </SidebarLayout>
