@@ -14,6 +14,7 @@ import {
   Phone,
   Plus,
   Trash2,
+  UserRoundPen,
 } from "lucide-react";
 import TextField from "../components/ui/TextField";
 import { useEffect, useRef, useState } from "react";
@@ -34,7 +35,7 @@ import {
 const Dashboard = () => {
   const { handleOpen, setClassrooms, setIsEdit, setSections, setStreams } =
     useOutletContext();
-  const { isBelow640, isBelow480 } = useIsMobile();
+  const { isBelow640, isBelow480, isBelow768 } = useIsMobile();
   const teachers = useSelector((state) => state.teachers);
   const filterSearchInchargeRef = useRef(null);
   //   const [openIncharge, setOpenIncharge] = useState(false);
@@ -138,75 +139,48 @@ const Dashboard = () => {
       name: "Name",
       grow: 2,
       cell: (row) => (
-        <div className="flex items-start flex-col gap-2 w-full">
-          <div className="flex items-end justify-between gap-2 w-full">
-            <div className="flex items-center gap-2">
-              <span className="inline-flex items-center justify-center size-9 aspect-square rounded-full overflow-hidden bg-navy/10">
-                <img
-                  src={row.photo}
-                  alt=""
-                  className="h-full rounded-full max-w-full aspect-square"
-                />
+        // <div className="flex items-start flex-col gap-2 w-full">
+        <div className="flex flex-col xxs:flex-row xxs:items-end justify-between gap-2 w-full">
+          <div className="flex items-center gap-2">
+            <span className="inline-flex items-center justify-center size-9 aspect-square rounded-full overflow-hidden bg-navy/10">
+              <img
+                src={row.photo}
+                alt=""
+                className="h-full w-full rounded-full max-w-full aspect-square"
+              />
+            </span>
+            <div className="flex flex-col gap-0">
+              <span className="text-sm font-semibold text-navy leading-4">
+                {row.name}
               </span>
-              <div className="flex flex-col gap-0.5">
-                <span className="text-sm font-semibold text-navy leading-4">
-                  {row.name}
-                </span>
-                <span className="inline-flex items-center tracking-wide gap-x-1.5 rounded text-xs text-gray-400">
-                  {row.id}
-                  <Copy className="size-3 text-gray-500 mt-0.5" />
-                </span>
-              </div>
-            </div>
-            <div className="flex xxs:hidden flex-col items-end text-sm justify-end flex-wrap sm:hidden">
-              <span className="inline-block text-sm">
-                {row.inchargeOf} {row.stream} {row.section} Maths
+              <span className="inline-flex items-center tracking-wide gap-x-1.5 rounded text-xs text-gray-400">
+                {row.id}
+                <Copy className="size-3 text-gray-500 mt-0.5" />
               </span>
-              {/* <span>Joined At {"25 Dec 2026"}</span> */}
-              {/* <span className=''>{row.createdAt}</span> */}
             </div>
           </div>
-          <div className="sm:hidden grid grid-cols-2 xxs:grid-cols-1 justify-between gap-1 text-sm w-full items-center">
-            <div className="flex flex-wrap flex-col gap-1">
-              <Link
-                className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange"
-                href={`mailto:${row.email}`}
-              >
-                <Mail className="size-4 shrink-0 " />
-                {row.email}
-              </Link>
-              <Link
-                className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange"
-                href={`tel:${row.phone}`}
-              >
-                <Phone className="size-4 shrink-0" />
-                {row.phone}
-              </Link>
-            </div>
-            <div className="flex xxs:hidden items-end gap-1">
-              <div className="flex flex-wrap items-center justify-end w-full gap-1">
-                <button type="button" className="btn icon_btn">
-                  <Eye className="size-5 mx-auto" />
-                </button>
-                <button type="button" className="btn icon_btn">
-                  <Trash2 className="size-5 mx-auto" />
-                </button>
-                <button type="button" className="btn icon_btn">
-                  <Pencil className="size-5 mx-auto" />
-                </button>
-              </div>
-            </div>
+          <div className="flex xxs:hidden flex-wrap items-center w-full gap-1">
+            <button type="button" className="btn icon_btn">
+              <Eye className="size-5 mx-auto" />
+            </button>
+            <button type="button" className="btn icon_btn">
+              <Trash2 className="size-5 mx-auto" />
+            </button>
+            <button type="button" className="btn icon_btn">
+              <Pencil className="size-5 mx-auto" />
+            </button>
           </div>
         </div>
+        // </div>
       ),
       selector: (row) => row.name,
     },
     {
       name: "Contact",
       grow: 2,
-      omit: isBelow640,
+      omit: isBelow768,
       cell: (row) => (
-        <div className="flex flex-wrap flex-col gap-1">
+        <div className="flex flex-wrap flex-col gap-0">
           <a
             className="flex items-center gap-1 text-sm text-navy hover:no-underline hover:text-orange"
             href={`mailto:${row.email}`}
@@ -227,33 +201,73 @@ const Dashboard = () => {
     },
     {
       name: "",
-      minWidth: "200px",
+      grow: 2,
+      omit: isBelow640,
+      cell: (row) => (
+        <div className="flex flex-wrap flex-col gap-0">
+          <div className="flex flex-col text-sm gap-0 flex-wrap">
+            <div className="flex gap-1 flex-wrap">
+              <UserRoundPen className="size-4 shrink-0" />
+              <span className="inline-block text-sm">{row.inchargeOf} {row.stream} {row.section} </span>
+            </div>
+            <span className="inline-block text-sm"> Non Medical Maths</span>
+          </div>
+        </div>
+      ),
+      selector: (row) => row.contact,
+    },
+    {
+      name: "",
+      minWidth: "165px",
       omit: isBelow480,
       cell: (row) => (
-        <div className="w-full flex flex-wrap flex-col items-end text-sm gap-1">
-          <div className="flex flex-wrap flex-col items-end">
-            <span className="inline-block text-sm">
-              {row.inchargeOf} {row.stream} {row.section} Maths
-            </span>
-            {/* <span>Joined At {"25 Dec 2026"}</span> */}
-            {/* <span className=''>{row.createdAt}</span> */}
-          </div>
-          <div className="flex flex-wrap items-center justify-end w-full gap-1">
-            <button type="button" className="btn icon_btn">
-              <Eye className="size-5 mx-auto" />
-            </button>
-            <button type="button" className="btn icon_btn">
-              <Trash2 className="size-5 mx-auto" />
-            </button>
-            <button type="button" className="btn icon_btn">
-              <Pencil className="size-5 mx-auto" />
-            </button>
-          </div>
+        <div className="flex flex-wrap items-center justify-end w-full gap-1">
+          <button type="button" className="btn icon_btn">
+            <Eye className="size-5 mx-auto" />
+          </button>
+          <button type="button" className="btn icon_btn">
+            <Trash2 className="size-5 mx-auto" />
+          </button>
+          <button type="button" className="btn icon_btn">
+            <Pencil className="size-5 mx-auto" />
+          </button>
         </div>
       ),
     },
   ];
-
+  const ExpandedComponent = ({ data }) => (
+    <div className="grid grid-cols-2 px-4 py-2 justify-between gap-1 text-sm w-full items-center border-b border-gray-200">
+      <div className="flex flex-wrap flex-col gap-0">
+        <Link
+          className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange"
+          href={`mailto:${data.email}`}
+        >
+          <Mail className="size-4 shrink-0 " />
+          {data.email}
+        </Link>
+        <Link
+          className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange"
+          href={`tel:${data.phone}`}
+        >
+          <Phone className="size-4 shrink-0" />
+          {data.phone}
+        </Link>
+      </div>
+      <div className="flex flex-wrap flex-col gap-0">
+        <span
+          className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange"
+        >
+          <UserRoundPen className="size-4 shrink-0 " />
+          {data.inchargeOf} {data.section}
+        </span>
+        <span
+          className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange"
+        >
+          Non Medical Maths
+        </span>
+      </div>
+    </div>
+  );
   return (
     <div className="grid gap-4">
       <h2 className="font-bold text-lg">Dashboard</h2>
@@ -464,7 +478,7 @@ const Dashboard = () => {
         </div>
 
         {/* Classroom In charge */}
-        <div className="col-span-6 xl:col-span-3 w-full flex flex-col bg-white rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
+        <div className="col-span-6 2xl:col-span-3 w-full flex flex-col bg-white rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
           <div className="bg-navy py-1.5 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white flex items-center justify-between">
             Classroom In Charge
             <div className="flex gap-4 items-center relative">
@@ -527,6 +541,8 @@ const Dashboard = () => {
             needHeader={false}
             columns={columns}
             data={teachers}
+            expandableRows={isBelow768}
+            expandableRowsComponent={ExpandedComponent}
             handleOpen={handleOpen}
             paginationPerPage={3}
             btnText="Add Teacher"

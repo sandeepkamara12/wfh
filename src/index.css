@@ -181,6 +181,11 @@
 .rdt_TableCol {
   @apply text-xs font-semibold uppercase text-white;
 }
+.rdt_cellExpander {
+  @apply pe-0! min-w-0!;
+}
+.rdt_cellExpander .rdt_expanderButton:not(:disabled):hover,
+.rdt_cellExpander .rdt_expanderButton:focus {background-color: transparent;}
 
 .rdt_cellCheckbox {
   @apply p-4!;
