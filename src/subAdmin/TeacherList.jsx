@@ -1,4 +1,4 @@
-import { CalendarDays, Clock, Copy, Eye, Mail, Pencil, Phone, Plus, Trash2, UserRound, UserRoundPen } from "lucide-react";
+import { CalendarDays, Copy, EllipsisVertical, Eye, Mail, Pencil, Phone, Plus, Trash2, UserRound, UserRoundPen } from "lucide-react";
 import { teacherOptions, classOptions, streamOptions, sectionOptions, subjectOptions } from '../const/constant';
 import Table from "../components/common/Table";
 import CustomSelect from "../components/ui/CustomSelect";
@@ -7,15 +7,31 @@ import { useDispatch } from "react-redux";
 import { addTeacher } from "../features/teachers/teachersSlice";
 import { useSelector } from "react-redux";
 import TextField from "../components/ui/TextField";
-import { Link, useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
+import { useRef, useState } from "react";
+import { useOutsideClick } from "../hooks/useOutsideClick";
+import { createPortal } from "react-dom";
 
 const TeacherList = () => {
 
-    const { isBelow1440, isBelow1024, isAbove1024, isBelow768, isBelow1280 } = useIsMobile();
+    const { isBelow768, isBelow1280 } = useIsMobile();
     const { handleOpen } = useOutletContext();
     const teachers = useSelector((state) => state.teachers);
-    console.log(teachers, 'teachers');
+    const [openRowId, setOpenRowId] = useState(null);
+    const [dropdownPos, setDropdownPos] = useState(null);
+  const handleOpens = (e) => {
+  const rect = e.currentTarget.getBoundingClientRect(); // ✅ FIXED
+
+  setDropdownPos({
+    top: rect.bottom + window.scrollY + 5, // small gap
+    left: rect.right + window.scrollX - 120, // align right
+  });
+};
+
+    const ref = useRef(null);
+    useOutsideClick(ref, () => setOpenRowId(null));
     const dispatch = useDispatch();
+
     const handleAdd = () => {
         dispatch(
             addTeacher({
@@ -138,101 +154,119 @@ const TeacherList = () => {
                 </div>
             ),
         },
-        {
-            name: '',
-            minWidth: "160px",
-            // omit: isBelow1024,
-            cell: row => (
-                <div className="flex flex-col gap-3 w-full items-end">
-                    {/* <div className="flex flex-col gap-0 items-end">
-                        <span>Account Created At:</span>
-                        <div className="flex items-center gap-1">
-                            <Clock className='size-4' />
-                            {row.createdAt}
-                        </div>
-                    </div> */}
-                    <div className="flex flex-wrap items-center justify-end w-full gap-1">
-                        <button type="button" className="btn icon_btn">
-                            <Eye className="size-5 mx-auto" />
-                        </button>
-                        <button type="button" className="btn icon_btn">
-                            <Trash2 className="size-5 mx-auto" />
-                        </button>
-                        <button type="button" className="btn icon_btn">
-                            <Pencil className="size-5 mx-auto" />
-                        </button>
-                    </div>
-                </div>
-            ),
-        },
+       {
+  name: "",
+  minWidth: "160px",
+  cell: (row) => (
+    <div className="flex flex-col gap-3 w-full items-end pe-3.5">
+      <div className="relative inline-flex">
+        <button
+          onClick={(e) => {
+            setOpenRowId((prev) => (prev === row.id ? null : row.id));
+            handleOpens(e);
+          }}
+          type="button"
+        >
+          <EllipsisVertical className="size-5 shrink-0" />
+        </button>
+
+        {openRowId === row.id &&
+          dropdownPos &&
+          createPortal(
+            <div
+              ref={ref}
+              role="menu"
+              style={{
+                position: "absolute",
+                top: dropdownPos.top,
+                left: dropdownPos.left,
+                zIndex: 9999,
+              }}
+              className="bg-white border rounded-md shadow-lg min-w-[120px]"
+            >
+              <div className="p-2 flex items-center gap-2">
+                <button className="btn icon_btn">
+                  <Eye className="size-5 mx-auto" />
+                </button>
+                <button className="btn icon_btn">
+                  <Trash2 className="size-5 mx-auto" />
+                </button>
+                <button className="btn icon_btn">
+                  <Pencil className="size-5 mx-auto" />
+                </button>
+              </div>
+            </div>,
+            document.body
+          )}
+      </div>
+    </div>
+  ),
+}
     ];
 
     const ExpandedComponent = ({ data }) => (
-        <>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 py-4 justify-between gap-3 sm:gap-2 lg:gap-1 text-sm font-medium w-full items-center">
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 py-4 justify-between gap-3 sm:gap-2 lg:gap-1 text-sm font-medium w-full items-center">
+            <div className="col-span-1 flex xl:hidden flex-wrap flex-col gap-1 text-navy ">
+                <span className="flex items-center gap-1 text-gray-400 font-normal">
+                    <UserRoundPen className="size-4 shrink-0 " />
+                    In charge:
+                </span>
+                <span className="font-medium">{data.inchargeOf} {data.section} Non Medical Maths</span>
+            </div>
 
-                <div className="col-span-1 flex xl:hidden flex-wrap flex-col gap-1 text-navy ">
-                    <span className="flex items-center gap-1 text-gray-400 font-normal">
-                        <UserRoundPen className="size-4 shrink-0 " />
-                        In charge:
-                    </span>
-                    <span className="font-medium">{data.inchargeOf} {data.section} Non Medical Maths</span>
-                </div>
+            <div className="col-span-1 flex flex-wrap flex-col gap-0">
+                <span className="flex items-center gap-1 text-gray-400 font-normal">
+                    <UserRound className="size-4 shrink-0 " />
+                    Spouse Name:
+                </span>
+                <span className="flex items-center gap-1 text-navy font-medium">
+                    {data.spouseName}
+                </span>
+            </div>
 
-                <div className="col-span-1 flex flex-wrap flex-col gap-0">
-                    <span className="flex items-center gap-1 text-gray-400 font-normal">
-                        <UserRound className="size-4 shrink-0 " />
-                        Spouse Name:
-                    </span>
-                    <span className="flex items-center gap-1 text-navy font-medium">
-                        {data.spouseName}
-                    </span>
-                </div>
+            <div className="col-span-1 flex flex-wrap flex-col gap-0">
+                <span className="flex items-center gap-1 text-gray-400 font-normal">
+                    <CalendarDays className="size-4 shrink-0" /> Joined At:
+                </span>
+                <span
+                    className="text-navy font-medium"
+                >
+                    {data.createdAt}
+                </span>
+            </div>
 
-                <div className="col-span-1 flex flex-wrap flex-col gap-0">
-                    <span className="flex items-center gap-1 text-gray-400 font-normal">
-                        <CalendarDays className="size-4 shrink-0" /> Joined At:
-                    </span>
-                    <span
-                        className="text-navy font-medium"
-                    >
-                        {data.createdAt}
-                    </span>
-                </div>
+            <div className="col-span-1 flex xl:hidden flex-wrap flex-col gap-1">
+                <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`mailto:${data.email}`}>
+                    <Mail className='size-4' />
+                    {data.email}
+                </a>
+                <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`tel:${data.phone}`}>
+                    <Phone className="size-4" />
+                    {data.phone}
+                </a>
+            </div>
 
-                <div className="col-span-1 flex xl:hidden flex-wrap flex-col gap-1">
-                    <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`mailto:${data.email}`}>
-                        <Mail className='size-4' />
-                        {data.email}
-                    </a>
-                    <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`tel:${data.phone}`}>
-                        <Phone className="size-4" />
-                        {data.phone}
-                    </a>
-                </div>
-
-                <div className="col-span-1 sm:col-span-2 flex md:hidden flex-col gap-1">
-                    <span className="flex items-center gap-1 text-gray-400 font-normal">
-                        <UserRoundPen className="size-4 shrink-0 " />
-                        Teach Other Classes:
-                    </span>
-                    <div className="flex flex-wrap gap-1">
-                        {groupClasses(data.classesTeach).map((c, i) => (
-                            <span
-                                key={i}
-                                className="inline-block text-xs font-medium leading-4 rounded bg-gray-100 px-1.5 py-1"
-                            >
-                                {c.class} {c.section}
-                                {c.stream && ` • ${c.stream}`}
-                                {" • "}
-                                {c.subjects.join(", ")}
-                            </span>
-                        ))}
-                    </div>
+            <div className="col-span-1 sm:col-span-2 flex md:hidden flex-col gap-1">
+                <span className="flex items-center gap-1 text-gray-400 font-normal">
+                    <UserRoundPen className="size-4 shrink-0 " />
+                    Teach Other Classes:
+                </span>
+                <div className="flex flex-wrap gap-1">
+                    {groupClasses(data.classesTeach).map((c, i) => (
+                        <span
+                            key={i}
+                            className="inline-block text-xs font-medium leading-4 rounded bg-gray-100 px-1.5 py-1"
+                        >
+                            {c.class} {c.section}
+                            {c.stream && ` • ${c.stream}`}
+                            {" • "}
+                            {c.subjects.join(", ")}
+                        </span>
+                    ))}
                 </div>
             </div>
-        </>
+        </div>
     );
 
     return (
