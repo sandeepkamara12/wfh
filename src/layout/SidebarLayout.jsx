@@ -50,7 +50,7 @@ const SidebarLayout = ({ isOpen, toggleSidebar, children }) => {
         }
         handleLogout={handleLogout}
       />
-      <div className="w-full bg-navy/10 h-[calc(100dvh-80px)]">
+      <div className="w-full bg-navy/10 h-[calc(100dvh-56px)]">
         <div className="px-4 pt-4 pb-24 xl:pb-4 h-full overflow-y-auto">
           {children}
         </div>

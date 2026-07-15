@@ -18,3 +18,4 @@
 18. Need to change all the fields border color because everywhere it looks blue-2.
 19. Need to correct the height of react select field when there is no search option.
 20. Need to add month dropdown in open calendar.
+21. Make dropdown common so no need to adjust top spacing.

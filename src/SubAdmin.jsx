@@ -35,9 +35,9 @@ const SubAdmin = () => {
                     {
                         open === 'teachers' ? <AddTeacher role="teacher" open={open} handleClose={handleClose} />
                             : open === 'students' ? <AddTeacher role="student" open={open} handleClose={handleClose} />
-                                : open === 'classrooms' ? <AddClassroom setIsEdit={setIsEdit} isEdit={isEdit} />
-                                : open === 'streams' ? <AddStream setIsEdit={setIsEdit} isEdit={isEdit} />
-                                    : open === 'sections' ? <AddSection setIsEdit={setIsEdit} isEdit={isEdit} />
+                                : open === 'classrooms' ? <AddClassroom setIsEdit={setIsEdit} isEdit={isEdit} handleClose={handleClose} />
+                                : open === 'streams' ? <AddStream setIsEdit={setIsEdit} isEdit={isEdit} handleClose={handleClose} />
+                                    : open === 'sections' ? <AddSection setIsEdit={setIsEdit} isEdit={isEdit} handleClose={handleClose} />
                                         : null
                     }
 

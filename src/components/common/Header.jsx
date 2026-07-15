@@ -14,7 +14,7 @@ const Header = ({ isOpen, toggleSidebar }) => {
     let user = useSelector(state => state.auth.user);
 
     return (
-        <header className="sticky top-0 inset-x-0 flex flex-wrap md:justify-start bg-navy backdrop-blur text-sm p-4 text-white z-50">
+        <header className="sticky top-0 inset-x-0 flex flex-wrap md:justify-start bg-navy backdrop-blur text-sm px-4 py-2 text-white z-50">
             <nav className="flex basis-full items-center w-full mx-auto">
                 <div className="me-5 lg:me-0 flex items-center">
                     <PanelLeftClose className="size-5 flex" onClick={toggleSidebar} />
@@ -156,11 +156,11 @@ const Header = ({ isOpen, toggleSidebar }) => {
                         </div>
                         {/* </div> */}
                         <div className="relative inline-flex" ref={dropdownRef}>
-                            <button onClick={() => setOpen((prev) => !prev)} type="button" className="size-12 rounded-full" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
+                            <button onClick={() => setOpen((prev) => !prev)} type="button" className="size-10 rounded-full" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
                                 <img className="shrink-0 size-full rounded-full" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80" alt="Avatar" />
                             </button>
                             <div className={`${open ? "opacity-100" : "opacity-0 hidden"} absolute transition-[opacity,margin] duration min-w-60 
-  rounded top-13 right-0
+  rounded top-11 right-0
   bg-white border border-white shadow-lg  
   before:content-[''] before:absolute before:-top-1.5 before:right-4
   before:w-0 before:h-0

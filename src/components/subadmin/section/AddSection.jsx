@@ -1,13 +1,12 @@
-import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { createSectionThunk, getSectionThunk, updateSectionThunk } from '../../../features/subAdmin/sectionSlice';
+import { createSectionThunk, updateSectionThunk } from '../../../features/subAdmin/sectionSlice';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import TextField from '../../ui/TextField';
 import { Loader } from 'lucide-react';
 
-const AddSection = ({ setIsEdit, isEdit}) => {
+const AddSection = ({ handleClose, setIsEdit, isEdit}) => {
 
     const dispatch = useDispatch();
 
@@ -35,6 +34,7 @@ const AddSection = ({ setIsEdit, isEdit}) => {
               data: values,
             }),
           ).unwrap();
+          handleClose();
         } else {
           result = await dispatch(createSectionThunk(values)).unwrap();
         }
@@ -45,7 +45,6 @@ const AddSection = ({ setIsEdit, isEdit}) => {
 
           resetForm();
           setIsEdit(null);
-          // handleClose();
 
         } else {
           toast.dismiss();

@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { createStreamThunk, updateStreamThunk } from '../../../features/subAdmin/streamSlice';
 import { useFormik } from 'formik';
@@ -7,7 +6,7 @@ import { toast } from 'react-toastify';
 import TextField from '../../ui/TextField';
 import { Loader } from 'lucide-react';
 
-const AddStream = ({ handleClose, setStreams, setIsEdit, isEdit}) => {
+const AddStream = ({ handleClose, setIsEdit, isEdit}) => {
 
     const dispatch = useDispatch();
 

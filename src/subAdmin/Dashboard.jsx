@@ -290,7 +290,7 @@ const Dashboard = () => {
                     key={room?.id}
                     className="border-gray-200 flex items-center justify-between p-2 border-b last:border-b-0"
                   >
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 w-3/5">
                       <GripVertical className="size-5 shrink-0 opacity-50 cursor-grab" />
                       <Link
                         to="#"
@@ -355,7 +355,7 @@ const Dashboard = () => {
                       "border-gray-200 flex items-center justify-between p-2 border-b last:border-b-0"
                     }
                   >
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 w-3/5">
                       <GripVertical className="size-5 shrink-0 opacity-50 cursor-grab" />
                       <Link
                         to="#"
@@ -418,7 +418,7 @@ const Dashboard = () => {
                       "border-gray-200 flex items-center justify-between p-2 border-b last:border-b-0"
                     }
                   >
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 w-3/5">
                       <GripVertical className="size-5 shrink-0 opacity-50 cursor-grab" />
                       <Link
                         to="#"
