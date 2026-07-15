@@ -17,41 +17,101 @@ import {
   UserRoundPlus,
   LayoutDashboard,
   ArrowLeftRight,
-  Settings
+  Settings,
 } from "lucide-react";
 
 export const subAdminSidebarLinks = [
-  { id: 1, path: "/subadmin/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { id: 2, path: "/subadmin/create-role", label: "Create Role", icon: UserRoundPlus },
-  { id: 3, path: "/subadmin/assignments", label: "Assign Role", icon: ArrowLeftRight },
+  {
+    id: 1,
+    path: "/subadmin/dashboard",
+    label: "Dashboard",
+    icon: LayoutDashboard,
+  },
+  {
+    id: 2,
+    path: "/subadmin/create-role",
+    label: "Create Role",
+    icon: UserRoundPlus,
+  },
+  {
+    id: 3,
+    path: "/subadmin/assignments",
+    label: "Assign Role",
+    icon: ArrowLeftRight,
+  },
   { id: 4, path: "/subadmin/teachers", label: "Teachers", icon: UserRoundPen },
   { id: 5, path: "/subadmin/students", label: "Students", icon: GraduationCap },
-  { id: 6, path: "/subadmin/classrooms", label: "Classrooms", icon: GalleryThumbnails },
+  {
+    id: 6,
+    path: "/subadmin/classrooms",
+    label: "Classrooms",
+    icon: GalleryThumbnails,
+  },
   { id: 7, path: "/subadmin/streams", label: "Streams", icon: Network },
   { id: 8, path: "/subadmin/sections", label: "Sections", icon: LayoutGrid },
   { id: 9, path: "/subadmin/subjects", label: "Subjects", icon: BookOpenText },
-  { id: 10, path: "/subadmin/homework", label: "Homework", icon: SquareChartGantt}, // this one is fine
-  { id: 11, path: "/subadmin/settings", label: "Settings", icon: Settings}, // this one is fine
+  {
+    id: 10,
+    path: "/subadmin/homework",
+    label: "Homework",
+    icon: SquareChartGantt,
+  }, // this one is fine
+  { id: 11, path: "/subadmin/settings", label: "Settings", icon: Settings }, // this one is fine
 ];
 
 export const subAdminBottombarLinks = [
-  { id: 1, path: "/subadmin/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  {
+    id: 1,
+    path: "/subadmin/dashboard",
+    label: "Dashboard",
+    icon: LayoutDashboard,
+  },
   // { id: 2, path: "/subadmin/create-role", label: "Create Role", icon: UserRoundPlus },
-  { id: 3, path: "/subadmin/assignments", label: "Assign Role", icon: ArrowLeftRight },
-  { id: 4, path: "/subadmin/homework", label: "Homework", icon: SquareChartGantt}, // this one is fine
-  { id: 5, path: "/subadmin/notifications", label: "Notifications", icon: Bell}, // this one is fine
+  {
+    id: 3,
+    path: "/subadmin/assignments",
+    label: "Assign Role",
+    icon: ArrowLeftRight,
+  },
+  {
+    id: 4,
+    path: "/subadmin/homework",
+    label: "Homework",
+    icon: SquareChartGantt,
+  }, // this one is fine
+  {
+    id: 5,
+    path: "/subadmin/notifications",
+    label: "Notifications",
+    icon: Bell,
+  }, // this one is fine
 ];
 
 export const teacherSidebarLinks = [
   { id: 1, path: "/teacher/profile", label: "Profile", icon: UserRoundPlus },
-  { id: 2, path: "/teacher/upload-document", label: "Upload Documemt", icon: UserRoundPen },
+  {
+    id: 2,
+    path: "/teacher/upload-document",
+    label: "Upload Documemt",
+    icon: UserRoundPen,
+  },
   { id: 3, path: "/teacher/students", label: "Students", icon: GraduationCap },
-  { id: 8, path: "/teacher/homework", label: "Homework", icon: SquareChartGantt },
+  {
+    id: 8,
+    path: "/teacher/homework",
+    label: "Homework",
+    icon: SquareChartGantt,
+  },
 ];
 
 export const studentSidebarLinks = [
   { id: 1, path: "/student", label: "Student", icon: UserRoundPlus },
-  { id: 8, path: "/student/homework", label: "Homework", icon: SquareChartGantt },
+  {
+    id: 8,
+    path: "/student/homework",
+    label: "Homework",
+    icon: SquareChartGantt,
+  },
 ];
 
 export const teacherOptions = [
@@ -132,7 +192,7 @@ export const subjectOptions = [
 export const teachersData = [
   {
     id: "#2154879633",
-    name: "Aria Chen",
+    name: "Alexander Jonathan",
     photo: "/public/student.jpg",
     email: "christina@site.com",
     phone: 7986602514,
@@ -140,85 +200,60 @@ export const teachersData = [
     section: "A",
     classesTeach: [
       { class: "3rd", section: "A", stream: "", subject: "Maths" },
-      { class: "4th", section: "C", stream: "", subject: "Hindi" },
-      { class: "5th", section: "C", stream: "", subject: "English" },
+      { class: "3rd", section: "A", stream: "", subject: "Science" },
+
+      { class: "12th", section: "C", stream: "Medical", subject: "Biology" },
+      { class: "12th", section: "C", stream: "Medical", subject: "English" },
+
       {
         class: "12th",
         section: "C",
         stream: "Non Medical",
         subject: "Physics",
       },
-      { class: "3rd", section: "A", stream: "", subject: "Maths" },
-      { class: "4th", section: "C", stream: "", subject: "Hindi" },
-      { class: "5th", section: "C", stream: "", subject: "English" },
-      {
-        class: "12th",
-        section: "C",
-        stream: "Non Medical",
-        subject: "Physics",
-      },
+      { class: "12th", section: "C", stream: "Non Medical", subject: "Maths" },
     ],
     spouseName: "Mr. Charanjeet Singh",
     createdAt: "28 Dec, 12:12",
   },
   {
     id: "#2154879630",
-    name: "Aria Chen",
+    name: "Samantha Elizabeth",
     photo: "/public/student.jpg",
     email: "christina@site.com",
     phone: 7986602514,
     inchargeOf: "3rd",
     section: "A",
     classesTeach: [
-      { class: "3rd", section: "A", stream: "", subject: "Maths" },
-      { class: "4th", section: "C", stream: "", subject: "Hindi" },
-      { class: "5th", section: "C", stream: "", subject: "English" },
-      {
-        class: "12th",
-        section: "C",
-        stream: "Non Medical",
-        subject: "Physics",
-      },
-      { class: "3rd", section: "A", stream: "", subject: "Maths" },
-      { class: "4th", section: "C", stream: "", subject: "Hindi" },
-      { class: "5th", section: "C", stream: "", subject: "English" },
-      {
-        class: "12th",
-        section: "C",
-        stream: "Non Medical",
-        subject: "Physics",
-      },
+      { class: "6th", section: "B", stream: "", subject: "Maths" },
+      { class: "6th", section: "B", stream: "", subject: "Science" },
+
+      { class: "7th", section: "A", stream: "", subject: "English" },
+      { class: "7th", section: "A", stream: "", subject: "Hindi" },
+
+      { class: "11th", section: "A", stream: "Commerce", subject: "Accounts" },
+      { class: "11th", section: "A", stream: "Commerce", subject: "Economics" },
     ],
     spouseName: "Mr. Charanjeet Singh",
     createdAt: "28 Dec, 12:12",
   },
   {
     id: "#2154879631",
-    name: "Marcus Webb",
+    name: "Amelia Charlotte",
     photo: "/public/student.jpg",
     email: "christina@site.com",
     phone: 7986602514,
     inchargeOf: "3rd",
     section: "B",
     classesTeach: [
-      { class: "3rd", section: "A", stream: "", subject: "Maths" },
-      { class: "4th", section: "C", stream: "", subject: "Hindi" },
-      { class: "5th", section: "C", stream: "", subject: "English" },
-      {
-        class: "12th",
-        section: "C",
-        stream: "Non Medical",
-        subject: "Physics",
-      },
-      { class: "3rd", section: "A", stream: "", subject: "Maths" },
-      { class: "4th", section: "C", stream: "", subject: "Hindi" },
-      { class: "5th", section: "C", stream: "", subject: "English" },
-      {
-        class: "12th",
-        section: "C",
-        stream: "Non Medical",
-        subject: "Physics",
-      },
+      { class: "2nd", section: "A", stream: "", subject: "English" },
+      { class: "2nd", section: "A", stream: "", subject: "EVS" },
+
+      { class: "8th", section: "C", stream: "", subject: "Maths" },
+      { class: "8th", section: "C", stream: "", subject: "Science" },
+
+      { class: "12th", section: "B", stream: "Medical", subject: "Biology" },
+      { class: "12th", section: "B", stream: "Medical", subject: "Chemistry" },
     ],
     spouseName: "Mr. Charanjeet Singh",
     createdAt: "28 Dec, 12:12",
@@ -261,23 +296,60 @@ export const subjectData = [
   { id: "#2154879633", subject: "Hindi", createdAt: "28 Dec, 12:12" },
   { id: "#2154879634", subject: "Physics", createdAt: "28 Dec, 12:12" },
   { id: "#2154879635", subject: "Chemistry", createdAt: "28 Dec, 12:12" },
-  { id: "#2154879636", subject: "Computer Science", createdAt: "28 Dec, 12:12"},
-  { id: "#2154879637", subject: "Physical Education", createdAt: "28 Dec, 12:12"},
+  {
+    id: "#2154879636",
+    subject: "Computer Science",
+    createdAt: "28 Dec, 12:12",
+  },
+  {
+    id: "#2154879637",
+    subject: "Physical Education",
+    createdAt: "28 Dec, 12:12",
+  },
   { id: "#2154879638", subject: "Accountancy", createdAt: "28 Dec, 12:12" },
-  { id: "#2154879639", subject: "Business Studies", createdAt: "28 Dec, 12:12"},
+  {
+    id: "#2154879639",
+    subject: "Business Studies",
+    createdAt: "28 Dec, 12:12",
+  },
   { id: "#2154879610", subject: "Economics", createdAt: "28 Dec, 12:12" },
   { id: "#2154879611", subject: "History", createdAt: "28 Dec, 12:12" },
-  { id: "#2154879612", subject: "Political Science", createdAt: "28 Dec, 12:12"},
+  {
+    id: "#2154879612",
+    subject: "Political Science",
+    createdAt: "28 Dec, 12:12",
+  },
   { id: "#2154879613", subject: "Sociology", createdAt: "28 Dec, 12:12" },
   { id: "#2154879614", subject: "Geography", createdAt: "28 Dec, 12:12" },
   { id: "#2154879615", subject: "Psychology", createdAt: "28 Dec, 12:12" },
 ];
 
 export const homeworkData = [
-  { id: "#2154879630", name: "Aria Chen", photo: "/public/student.jpg", phone: 7986602514, inchargeOf: "3rd", stream: "Arts", section: "A", subject: "Maths", note: "", createdAt: "28 Dec, 12:12"},
-  { id: "#2154879631", name: "Marcus Webb", photo: "/public/student.jpg", phone: 7986602514, inchargeOf: "3rd", stream: "Medical", section: "B", subject: "English", note: "", createdAt: "28 Dec, 12:12"},
+  {
+    id: "#2154879630",
+    name: "Aria Chen",
+    photo: "/public/student.jpg",
+    phone: 7986602514,
+    inchargeOf: "3rd",
+    stream: "Arts",
+    section: "A",
+    subject: "Maths",
+    note: "",
+    createdAt: "28 Dec, 12:12",
+  },
+  {
+    id: "#2154879631",
+    name: "Marcus Webb",
+    photo: "/public/student.jpg",
+    phone: 7986602514,
+    inchargeOf: "3rd",
+    stream: "Medical",
+    section: "B",
+    subject: "English",
+    note: "",
+    createdAt: "28 Dec, 12:12",
+  },
 ];
-
 
 export const roleRedirect = {
   subadmin: "/subadmin/assignments",
@@ -286,147 +358,183 @@ export const roleRedirect = {
 };
 
 export const icons = {
-  teacher_name: 'UserRoundPen',
-  first_name: 'UserRound',
-  last_name: 'UserRound',
-  father_name: 'UserRound',
-  mother_name: 'UserRound',
-  spouse_name: 'UserRound',
-  custom_id: 'IdCardLanyard',
-  name: 'GalleryThumbnails',
-  search_incharge: 'GalleryThumbnails',
-  login:'Mail'
-}
+  teacher_name: "UserRoundPen",
+  first_name: "UserRound",
+  last_name: "UserRound",
+  father_name: "UserRound",
+  mother_name: "UserRound",
+  spouse_name: "UserRound",
+  custom_id: "IdCardLanyard",
+  name: "GalleryThumbnails",
+  search_incharge: "GalleryThumbnails",
+  login: "Mail",
+};
 
 export const partners = [
   {
-    title:'CGC Chandigarh',
+    title: "CGC Chandigarh",
     location: "Tokyo, Japan",
     img: "/public/school-logo-1.png",
   },
   {
-    title:'CGC Chandigarh',
+    title: "CGC Chandigarh",
     location: "Barcelona, Spain",
     img: "/public/school-logo-2.png",
   },
   {
-    title:'CGC Chandigarh',
+    title: "CGC Chandigarh",
     location: "Rome, Italy",
     img: "/public/school-logo-3.png",
   },
   {
-    title:'CGC Chandigarh',
+    title: "CGC Chandigarh",
     location: "Tokyo, Japan",
     img: "/public/school-logo-1.png",
   },
   {
-    title:'CGC Chandigarh',
+    title: "CGC Chandigarh",
     location: "Barcelona, Spain",
     img: "/public/school-logo-2.png",
   },
   {
-    title:'CGC Chandigarh',
+    title: "CGC Chandigarh",
     location: "Rome, Italy",
     img: "/public/school-logo-3.png",
   },
   {
-    title:'CGC Chandigarh',
+    title: "CGC Chandigarh",
     location: "Tokyo, Japan",
     img: "/public/school-logo-1.png",
   },
   {
-    title:'CGC Chandigarh',
+    title: "CGC Chandigarh",
     location: "Barcelona, Spain",
     img: "/public/school-logo-2.png",
   },
   {
-    title:'CGC Chandigarh',
+    title: "CGC Chandigarh",
     location: "Rome, Italy",
     img: "/public/school-logo-3.png",
   },
   {
-    title:'CGC Chandigarh',
+    title: "CGC Chandigarh",
     location: "Tokyo, Japan",
     img: "/public/school-logo-1.png",
   },
   {
-    title:'CGC Chandigarh',
+    title: "CGC Chandigarh",
     location: "Barcelona, Spain",
     img: "/public/school-logo-2.png",
   },
   {
-    title:'CGC Chandigarh',
+    title: "CGC Chandigarh",
     location: "Rome, Italy",
     img: "/public/school-logo-3.png",
   },
   {
-    title:'CGC Chandigarh',
+    title: "CGC Chandigarh",
     location: "Tokyo, Japan",
     img: "/public/school-logo-1.png",
   },
   {
-    title:'CGC Chandigarh',
+    title: "CGC Chandigarh",
     location: "Barcelona, Spain",
     img: "/public/school-logo-2.png",
   },
   {
-    title:'CGC Chandigarh',
+    title: "CGC Chandigarh",
     location: "Rome, Italy",
     img: "/public/school-logo-3.png",
   },
   {
-    title:'CGC Chandigarh',
+    title: "CGC Chandigarh",
     location: "Tokyo, Japan",
     img: "/public/school-logo-1.png",
   },
   {
-    title:'CGC Chandigarh',
+    title: "CGC Chandigarh",
     location: "Barcelona, Spain",
     img: "/public/school-logo-2.png",
   },
   {
-    title:'CGC Chandigarh',
+    title: "CGC Chandigarh",
     location: "Rome, Italy",
     img: "/public/school-logo-3.png",
   },
   {
-    title:'CGC Chandigarh',
+    title: "CGC Chandigarh",
     location: "Tokyo, Japan",
     img: "/public/school-logo-1.png",
   },
   {
-    title:'CGC Chandigarh',
+    title: "CGC Chandigarh",
     location: "Barcelona, Spain",
     img: "/public/school-logo-2.png",
   },
   {
-    title:'CGC Chandigarh',
+    title: "CGC Chandigarh",
     location: "Rome, Italy",
     img: "/public/school-logo-3.png",
   },
   {
-    title:'CGC Chandigarh',
+    title: "CGC Chandigarh",
     location: "Tokyo, Japan",
     img: "/public/school-logo-1.png",
   },
   {
-    title:'CGC Chandigarh',
+    title: "CGC Chandigarh",
     location: "Barcelona, Spain",
     img: "/public/school-logo-2.png",
   },
   {
-    title:'CGC Chandigarh',
+    title: "CGC Chandigarh",
     location: "Rome, Italy",
     img: "/public/school-logo-3.png",
   },
 ];
 export const dashboardCardData = [
-  { label: "Teachers", count: "72", id: "teacher", icon: "UserRoundPen", link:"/subadmin/teachers" },
-  { label: "Students", count: "9999", id: "student", icon: "GraduationCap", link:"/subadmin/students" },
-  { label: "Classrooms", count: "12", id: "classroom", icon: "GalleryThumbnails", link:"/subadmin/classrooms" },
-  { label: "Streams", count: "12", id: "stream", icon: "Globe", link:"/subadmin/streams" },
-  { label: "Sections", count: "5", id: "section", icon: "LayoutGrid", link:"/subadmin/sections" },
-  { label: "Subjects", count: "10", id: "subject", icon: "BookOpenText", link:"/subadmin/subjects" },
+  {
+    label: "Teachers",
+    count: "72",
+    id: "teacher",
+    icon: "UserRoundPen",
+    link: "/subadmin/teachers",
+  },
+  {
+    label: "Students",
+    count: "9999",
+    id: "student",
+    icon: "GraduationCap",
+    link: "/subadmin/students",
+  },
+  {
+    label: "Classrooms",
+    count: "12",
+    id: "classroom",
+    icon: "GalleryThumbnails",
+    link: "/subadmin/classrooms",
+  },
+  {
+    label: "Streams",
+    count: "12",
+    id: "stream",
+    icon: "Globe",
+    link: "/subadmin/streams",
+  },
+  {
+    label: "Sections",
+    count: "5",
+    id: "section",
+    icon: "LayoutGrid",
+    link: "/subadmin/sections",
+  },
+  {
+    label: "Subjects",
+    count: "10",
+    id: "subject",
+    icon: "BookOpenText",
+    link: "/subadmin/subjects",
+  },
 ];
 export const romanNumbers = [
   "Nursery",

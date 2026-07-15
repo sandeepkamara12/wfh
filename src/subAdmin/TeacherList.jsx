@@ -1,4 +1,4 @@
-import { Clock, Copy, Eye, Mail, Pencil, Phone, Plus, Trash2, UserRound } from "lucide-react";
+import { CalendarDays, Clock, Copy, Eye, Mail, Pencil, Phone, Plus, Trash2, UserRound, UserRoundPen } from "lucide-react";
 import { teacherOptions, classOptions, streamOptions, sectionOptions, subjectOptions } from '../const/constant';
 import Table from "../components/common/Table";
 import CustomSelect from "../components/ui/CustomSelect";
@@ -7,15 +7,15 @@ import { useDispatch } from "react-redux";
 import { addTeacher } from "../features/teachers/teachersSlice";
 import { useSelector } from "react-redux";
 import TextField from "../components/ui/TextField";
-import { useOutletContext } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 
 const TeacherList = () => {
- 
-    const { isBelow1440, isBelow1024, isAbove1024 } = useIsMobile();
+
+    const { isBelow1440, isBelow1024, isAbove1024, isBelow768, isBelow1280 } = useIsMobile();
     const { handleOpen } = useOutletContext();
     const teachers = useSelector((state) => state.teachers);
+    console.log(teachers, 'teachers');
     const dispatch = useDispatch();
-
     const handleAdd = () => {
         dispatch(
             addTeacher({
@@ -26,137 +26,53 @@ const TeacherList = () => {
         );
     };
 
- 
+    const groupClasses = (data) => {
+        const map = new Map();
+
+        data.forEach((item) => {
+            const key = `${item.class}-${item.section}-${item.stream || ""}`;
+
+            if (!map.has(key)) {
+                map.set(key, {
+                    class: item.class,
+                    section: item.section,
+                    stream: item.stream,
+                    subjects: new Set(),
+                });
+            }
+
+            map.get(key).subjects.add(item.subject);
+        });
+
+        return Array.from(map.values()).map((item) => ({
+            ...item,
+            subjects: Array.from(item.subjects),
+        }));
+    };
 
     const columns = [
         {
-            name: "Teachers",
-            grow: 12,
-            omit: isAbove1024,
-            cell: row => (
-                <div className='flex items-start flex-col gap-4 xl:gap-2'>
-                    <div className='flex items-start gap-2'>
-                        <span className='inline-flex items-center justify-center size-9 rounded-full overflow-hidden bg-navy/10'><img src={row.photo} alt="" className='h-full rounded-full max-w-full ' /></span>
-                        <div className="flex flex-col gap-0.5">
-                            <span className="text-sm font-semibold text-navy leading-4 mb-1">{row.name}</span>
-
-                            <span className="inline-flex items-center tracking-wide gap-x-1.5 pt-0.5 pb-1 px-2 rounded-full text-xs font-semibold bg-navy/10 text-navy">
-                                {row.id}
-                                <button className='shrink-0 size-3 inline-flex items-center justify-center rounded-full hover:bg-primary-200 pt-0.5'>
-                                    <Copy className='size-4 text-navy' />
-                                </button>
-                            </span>
-                        </div>
-                    </div>
-                    <div className="flex flex-wrap xl:flex-col items-end gap-4 xl:gap-1">
-                        <span className="text-xs text-navy leading-4 flex flex-col gap-1">
-                            <span className="ps-5">Spouse Name:</span>
-                            <div className="flex items-start gap-1">
-                                <UserRound className='size-4' />
-                                <span className="block font-semibold pt-0.5">{row.spouseName}</span>
-                            </div>
-                        </span>
-                        <div className="flex flex-col gap-1">
-                            <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`mailto:${row.email}`}>
-                                <Mail className='size-4' />
-                                {row.email}
-                            </a>
-                            <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`tel:${row.phone}`}>
-                                <Phone className="size-4" />
-                                {row.phone}
-                            </a>
-                        </div>
-                        <div className="flex items-center gap-1">
-                            <Clock className='size-4' /> Created At: {row.createdAt}
-                        </div>
-                    </div>
-                    <div className="flex flex-wrap items-center gap-1">
-                        {Array.isArray(row.classesTeach) ? (
-                            row.classesTeach.map((c, i) => (
-                                <span
-                                    key={i}
-                                    className="inline-block bg-navy/10 rounded py-1 px-2"
-                                >
-                                    {c.class} {c.section}
-                                    {c.stream ? `, ${c.stream}` : ""}
-                                    {c.subject ? `, ${c.subject}` : ""}
-                                </span>
-                            ))
-                        ) : (
-                            <span>{row.classesTeach}</span>
-                        )}
-
-                        <div className="block w-full py-1">
-                            Incharge Of: <span className="text-orange">{row.inchargeOf} {row.stream} {row.section}</span>
-                        </div>
-
-                    </div>
-
-                    <div className="flex flex-col gap-3">
-                        <div className="flex flex-col gap-0 xl:items-end">
-                            <span className="ps-5">Account Created At:</span>
-                            <div className="flex items-center gap-1">
-                                <Clock className='size-4' />
-                                {row.createdAt}
-                            </div>
-                        </div>
-                        <div className="flex flex-wrap items-center w-full gap-1">
-                            <button type="button" className="btn icon_btn">
-                                <Eye className="size-5 mx-auto" />
-                            </button>
-                            <button type="button" className="btn icon_btn">
-                                <Trash2 className="size-5 mx-auto" />
-                            </button>
-                            <button type="button" className="btn icon_btn">
-                                <Pencil className="size-5 mx-auto" />
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            ),
-            selector: row => row.name,
-            sortable: true
-        },
-        {
             name: "Name",
             grow: 2,
-            omit: isBelow1024,
+            // omit: isBelow1024,
             cell: row => (
-                <div className='flex items-start flex-col gap-2'>
-
-                    <div className='flex items-start gap-2'>
-                        <span className='inline-flex items-center justify-center size-9 rounded-full overflow-hidden bg-navy/10'><img src={row.photo} alt="" className='h-full rounded-full max-w-full ' /></span>
-                        <div className="flex flex-col gap-0.5">
-                            <span className="text-sm font-semibold text-navy leading-4 mb-1">{row.name}</span>
-
-                            <span className="inline-flex items-center tracking-wide gap-x-1.5 pt-0.5 pb-1 px-2 rounded-full text-xs font-semibold bg-navy/10 text-navy">
-                                {row.id}
-                                <button className='shrink-0 size-3 inline-flex items-center justify-center rounded-full hover:bg-primary-200 pt-0.5'>
-                                    <Copy className='size-4 text-navy' />
-                                </button>
-                            </span>
-
-                        </div>
-                    </div>
-                    <div className="flex flex-wrap flex-col gap-1">
-                        <span className="text-xs text-navy leading-4">
-                            <span className="ps-5">Spouse Name:</span>
-                            <div className="flex items-start gap-1">
-                                <UserRound className='size-4' />
-                                <span className="block font-semibold pt-0.5">{row.spouseName}</span>
-                            </div>
+                <div className="flex items-center gap-2">
+                    {console.log(row, 'row')}
+                    <span className="inline-flex items-center justify-center size-9 aspect-square rounded-full overflow-hidden bg-navy/10">
+                        <img
+                            src={row.photo}
+                            alt=""
+                            className="h-full w-full rounded-full max-w-full aspect-square"
+                        />
+                    </span>
+                    <div className="flex flex-col gap-0">
+                        <span className="text-sm font-semibold text-navy leading-4">
+                            {row.name}
                         </span>
-                        <div className="3xl:hidden flex flex-col gap-1">
-
-                            <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`mailto:${row.email}`}>
-                                <Mail className='size-4' />
-                                {row.email}
-                            </a>
-                            <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`tel:${row.phone}`}>
-                                <Phone className="size-4" />
-                                {row.phone}
-                            </a>
-                        </div>
+                        <span className="inline-flex items-center tracking-wide gap-x-1.5 rounded text-xs text-gray-400">
+                            {row.id}
+                            <Copy className="size-3 text-gray-500 mt-0.5" />
+                        </span>
                     </div>
                 </div>
             ),
@@ -166,10 +82,10 @@ const TeacherList = () => {
         {
             name: "Contact",
             grow: 2,
-            omit: isBelow1440,
+            minWidth: "200px",
+            omit: isBelow1280,
             cell: row => (
                 <div className="flex flex-wrap flex-col gap-1">
-
                     <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`mailto:${row.email}`}>
                         <Mail className='size-4' />
                         {row.email}
@@ -183,47 +99,58 @@ const TeacherList = () => {
             selector: row => row.contact
         },
         {
-            name: "Classes Teach",
+            name: "Class In charge",
             wrap: true,
-            grow: 3,
-            omit: isBelow1024,
+            minWidth: "200px",
+            // grow: 1,
+            omit: isBelow1280,
             cell: row => (
-                <div className="flex flex-wrap items-center gap-1">
-                    {Array.isArray(row.classesTeach) ? (
-                        row.classesTeach.map((c, i) => (
-                            <span
-                                key={i}
-                                className="inline-block bg-navy/10 rounded py-1 px-2"
-                            >
-                                {c.class} {c.section}
-                                {c.stream ? `, ${c.stream}` : ""}
-                                {c.subject ? `, ${c.subject}` : ""}
-                            </span>
-                        ))
-                    ) : (
-                        <span>{row.classesTeach}</span>
-                    )}
-
-                    <div className="block w-full py-1">
-                        Incharge Of: <span className="text-orange">{row.inchargeOf} {row.stream} {row.section}</span>
-                    </div>
-
+                <div className="flex flex-wrap flex-col gap-1 text-navy">
+                    <span
+                        className="flex items-center gap-1"
+                    >
+                        <UserRoundPen className="size-4 shrink-0 " />
+                        {row.inchargeOf} {row.section}
+                    </span>
+                    <span>Non Medical Maths</span>
                 </div>
             )
         },
         {
+            name: 'Teach Other Classes',
+            grow: 3,
+            omit: isBelow768,
+            cell: row => (
+                <div className="flex flex-wrap gap-1.5 items-start">
+                    <div className="flex flex-wrap gap-1.5 items-start">
+                        {groupClasses(row.classesTeach).map((c, i) => (
+                            <span
+                                key={i}
+                                className="inline-block text-xs font-medium leading-4 rounded bg-gray-100 px-1.5 py-1"
+                            >
+                                {c.class} {c.section}
+                                {c.stream && ` • ${c.stream}`}
+                                {" • "}
+                                {c.subjects.join(", ")}
+                            </span>
+                        ))}
+                    </div>
+                </div>
+            ),
+        },
+        {
             name: '',
             minWidth: "160px",
-            omit: isBelow1024,
+            // omit: isBelow1024,
             cell: row => (
                 <div className="flex flex-col gap-3 w-full items-end">
-                    <div className="flex flex-col gap-0 items-end">
+                    {/* <div className="flex flex-col gap-0 items-end">
                         <span>Account Created At:</span>
                         <div className="flex items-center gap-1">
                             <Clock className='size-4' />
                             {row.createdAt}
                         </div>
-                    </div>
+                    </div> */}
                     <div className="flex flex-wrap items-center justify-end w-full gap-1">
                         <button type="button" className="btn icon_btn">
                             <Eye className="size-5 mx-auto" />
@@ -239,6 +166,74 @@ const TeacherList = () => {
             ),
         },
     ];
+
+    const ExpandedComponent = ({ data }) => (
+        <>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 py-4 justify-between gap-3 sm:gap-2 lg:gap-1 text-sm font-medium w-full items-center">
+
+                <div className="col-span-1 flex xl:hidden flex-wrap flex-col gap-1 text-navy ">
+                    <span className="flex items-center gap-1 text-gray-400 font-normal">
+                        <UserRoundPen className="size-4 shrink-0 " />
+                        In charge:
+                    </span>
+                    <span className="font-medium">{data.inchargeOf} {data.section} Non Medical Maths</span>
+                </div>
+
+                <div className="col-span-1 flex flex-wrap flex-col gap-0">
+                    <span className="flex items-center gap-1 text-gray-400 font-normal">
+                        <UserRound className="size-4 shrink-0 " />
+                        Spouse Name:
+                    </span>
+                    <span className="flex items-center gap-1 text-navy font-medium">
+                        {data.spouseName}
+                    </span>
+                </div>
+
+                <div className="col-span-1 flex flex-wrap flex-col gap-0">
+                    <span className="flex items-center gap-1 text-gray-400 font-normal">
+                        <CalendarDays className="size-4 shrink-0" /> Joined At:
+                    </span>
+                    <span
+                        className="text-navy font-medium"
+                    >
+                        {data.createdAt}
+                    </span>
+                </div>
+
+                <div className="col-span-1 flex xl:hidden flex-wrap flex-col gap-1">
+                    <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`mailto:${data.email}`}>
+                        <Mail className='size-4' />
+                        {data.email}
+                    </a>
+                    <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`tel:${data.phone}`}>
+                        <Phone className="size-4" />
+                        {data.phone}
+                    </a>
+                </div>
+
+                <div className="col-span-1 sm:col-span-2 flex md:hidden flex-col gap-1">
+                    <span className="flex items-center gap-1 text-gray-400 font-normal">
+                        <UserRoundPen className="size-4 shrink-0 " />
+                        Teach Other Classes:
+                    </span>
+                    <div className="flex flex-wrap gap-1">
+                        {groupClasses(data.classesTeach).map((c, i) => (
+                            <span
+                                key={i}
+                                className="inline-block text-xs font-medium leading-4 rounded bg-gray-100 px-1.5 py-1"
+                            >
+                                {c.class} {c.section}
+                                {c.stream && ` • ${c.stream}`}
+                                {" • "}
+                                {c.subjects.join(", ")}
+                            </span>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </>
+    );
 
     return (
         <div className="flex flex-col">
@@ -283,8 +278,24 @@ const TeacherList = () => {
                                 <TextField label="Email & Phone" id="email_phone" />
                             </div>
                         </div>
-
-                        <Table id="teachers" columns={columns} data={teachers} handleOpen={handleOpen} btnText="Add Teacher" btnIcon={<Plus className="w-5 h-5 mx-auto" />} label="Teachers" subLabel="Add, edit, delete and search a teacher." />
+                        <div className="col-span-6 2xl:col-span-3 w-full flex flex-col bg-white rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
+                            <div className="bg-navy py-3 px-4 text-sm font-medium text-white flex justify-between items-center">
+                                All Teachers
+                                <div className="btn icon_btn_small cursor-pointer">
+                                    <Plus onClick={() => handleOpen('teacher')} className="size-5 shrink-0" />
+                                </div>
+                            </div>
+                            <Table id="teachers" columns={columns} data={teachers}
+                                needHeader={true}
+                                expandableRows
+                                expandableRowsComponent={ExpandedComponent}
+                                handleOpen={handleOpen}
+                                btnText="Add Teacher"
+                                btnIcon={<Plus className="w-5 h-5 mx-auto" />}
+                                label="Teachers"
+                                subLabel="Add, edit, delete and search a teacher."
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

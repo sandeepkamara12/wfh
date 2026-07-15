@@ -12,7 +12,7 @@ const Table = ({ id = "", columns, data, handleOpen, expandableRows, expandableR
 
     return (
         <>
-            <div className={`gap-3 md:justify-between md:items-center bg-white p-4 rounded-t ${needHeader ? 'flex' : 'hidden'}`}>
+            {/* <div className={`gap-3 md:justify-between md:items-center bg-white p-4 rounded-t ${needHeader ? 'flex' : 'hidden'}`}>
                 <div>
                     <h2 className="font-bold text-lg">
                         {label}
@@ -34,7 +34,7 @@ const Table = ({ id = "", columns, data, handleOpen, expandableRows, expandableR
                         </div>
                     </div>
                 }
-            </div>
+            </div> */}
             <div className={`${id}`}>
                 <DataTable
                     columns={columns}

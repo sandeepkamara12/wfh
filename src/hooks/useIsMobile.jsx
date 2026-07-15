@@ -7,6 +7,8 @@ export const useIsMobile = () => {
     return {
       isBelow1920: width < 1920,
       isBelow1440: width < 1440,
+      isBelow1280: width < 1280,
+      isAbove1280: width > 1280,
       isBelow1024: width < 1024,
       isAbove1024: width > 1024,
       isBelow768: width < 768,

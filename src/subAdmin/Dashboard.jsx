@@ -234,7 +234,7 @@ const Dashboard = () => {
     },
   ];
   const ExpandedComponent = ({ data }) => (
-    <div className="grid grid-cols-2 px-4 py-2 justify-between gap-1 text-sm w-full items-center border-b border-gray-200">
+    <div className="grid grid-cols-2 justify-between gap-1 text-sm w-full items-center">
       <div className="flex flex-wrap flex-col gap-0">
         <Link
           className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange"
@@ -477,11 +477,11 @@ const Dashboard = () => {
 
         {/* Classroom In charge */}
         <div className="col-span-6 2xl:col-span-3 w-full flex flex-col bg-white rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
-          <div className="bg-navy py-1.5 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white flex items-center justify-between">
+          <div className="bg-navy py-2.5 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white flex items-center justify-between">
             Classroom In Charge
             <div className="flex gap-4 items-center relative">
               <TextField
-                inputClassName="py-1!"
+                inputClassName="py-1.5!"
                 label=""
                 name="search_incharge"
                 id="search_incharge"
@@ -542,7 +542,7 @@ const Dashboard = () => {
             expandableRows={isBelow768}
             expandableRowsComponent={ExpandedComponent}
             handleOpen={handleOpen}
-            paginationPerPage={3}
+            // paginationPerPage={3}
             btnText="Add Teacher"
             btnIcon={<Plus className="w-5 h-5 mx-auto" />}
             label="Teachers"
