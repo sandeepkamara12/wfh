@@ -139,8 +139,7 @@ const Dashboard = () => {
       name: "Name",
       grow: 2,
       cell: (row) => (
-        // <div className="flex items-start flex-col gap-2 w-full">
-        <div className="flex flex-col xxs:flex-row xxs:items-end justify-between gap-2 w-full">
+        // <div className="flex flex-col xxs:flex-row xxs:items-end justify-between gap-2 w-full">
           <div className="flex items-center gap-2">
             <span className="inline-flex items-center justify-center size-9 aspect-square rounded-full overflow-hidden bg-navy/10">
               <img
@@ -158,20 +157,19 @@ const Dashboard = () => {
                 <Copy className="size-3 text-gray-500 mt-0.5" />
               </span>
             </div>
+            {/* <div className="flex xxs:hidden flex-wrap items-center w-full gap-1">
+              <button type="button" className="btn icon_btn">
+                <Eye className="size-5 mx-auto" />
+              </button>
+              <button type="button" className="btn icon_btn">
+                <Trash2 className="size-5 mx-auto" />
+              </button>
+              <button type="button" className="btn icon_btn">
+                <Pencil className="size-5 mx-auto" />
+              </button>
+            </div>
+          </div> */}
           </div>
-          <div className="flex xxs:hidden flex-wrap items-center w-full gap-1">
-            <button type="button" className="btn icon_btn">
-              <Eye className="size-5 mx-auto" />
-            </button>
-            <button type="button" className="btn icon_btn">
-              <Trash2 className="size-5 mx-auto" />
-            </button>
-            <button type="button" className="btn icon_btn">
-              <Pencil className="size-5 mx-auto" />
-            </button>
-          </div>
-        </div>
-        // </div>
       ),
       selector: (row) => row.name,
     },
@@ -219,7 +217,7 @@ const Dashboard = () => {
     {
       name: "",
       minWidth: "165px",
-      omit: isBelow480,
+      // omit: isBelow480,
       cell: (row) => (
         <div className="flex flex-wrap items-center justify-end w-full gap-1">
           <button type="button" className="btn icon_btn">
