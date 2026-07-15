@@ -27,7 +27,7 @@ const SubAdmin = () => {
         setOpen(null);
         setIsEdit(null);
     };
-
+console.log(open, 'open');
     return (
         <SidebarLayout isOpen={isSidebarOpen} toggleSidebar={toggleSidebar}>
             {
@@ -35,17 +35,17 @@ const SubAdmin = () => {
                 <>
                 <Drawer handleClose={handleClose} open={open}>
                     {
-                        open === 'teachers' ? <AddTeacher role="teacher" open={open} handleClose={handleClose} />
-                        : open === 'students' ? <AddTeacher role="student" open={open} handleClose={handleClose} />
+                        open === 'teacher' ? <AddTeacher role="teacher" open={open} handleClose={handleClose} />
+                        : open === 'student' ? <AddTeacher role="student" open={open} handleClose={handleClose} />
                         : null
                     }
 
                 </Drawer>
-                <Modal handleClose={handleClose} open={open}>
+                <Modal handleClose={handleClose} open={open} isEdit={isEdit}>
                     {
-                        open === 'streams' ? <AddStream setIsEdit={setIsEdit} isEdit={isEdit} handleClose={handleClose} />
-                        : open === 'classrooms' ? <AddClassroom setIsEdit={setIsEdit} isEdit={isEdit} handleClose={handleClose} />                                
-                        : open === 'sections' ? <AddSection setIsEdit={setIsEdit} isEdit={isEdit} handleClose={handleClose} />
+                        open === 'stream' ? <AddStream setIsEdit={setIsEdit} isEdit={isEdit} handleClose={handleClose} />
+                        : open === 'classroom' ? <AddClassroom setIsEdit={setIsEdit} isEdit={isEdit} handleClose={handleClose} />                                
+                        : open === 'section' ? <AddSection setIsEdit={setIsEdit} isEdit={isEdit} handleClose={handleClose} />
                         : null
                     }
                 </Modal>

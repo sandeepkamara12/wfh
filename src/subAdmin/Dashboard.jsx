@@ -278,7 +278,7 @@ const Dashboard = () => {
           <div className="bg-navy py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white flex justify-between items-center">
             Classerooms
             <div className="btn icon_btn_small cursor-pointer">
-              <Plus onClick={() => handleOpen('classrooms')} className="size-5 shrink-0" />
+              <Plus onClick={() => handleOpen('classroom')} className="size-5 shrink-0" />
             </div>
           </div>
 
@@ -319,7 +319,7 @@ const Dashboard = () => {
                         className="btn icon_btn"
                         onClick={() => {
                           setIsEdit(room);
-                          handleOpen("classrooms");
+                          handleOpen("classroom");
                         }}
                         disabled={loadingId === room?.id}
                       >
@@ -342,7 +342,7 @@ const Dashboard = () => {
           <div className="bg-navy py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white flex justify-between items-center">
             Streams
             <div className="btn icon_btn_small cursor-pointer">
-              <Plus onClick={() => handleOpen('streams')} className="size-5 shrink-0" />
+              <Plus onClick={() => handleOpen('stream')} className="size-5 shrink-0" />
             </div>
           </div>
           <div className="bg-white md:h-86 overflow-y-auto">
@@ -382,7 +382,7 @@ const Dashboard = () => {
                         className="btn icon_btn"
                         onClick={() => {
                           setIsEdit(stream);
-                          handleOpen("streams");
+                          handleOpen("stream");
                         }}
                         disabled={loadingId === stream?.id}
                       >
@@ -405,7 +405,7 @@ const Dashboard = () => {
           <div className="bg-navy py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white flex justify-between items-center">
             Sections
             <div className="btn icon_btn_small cursor-pointer">
-              <Plus onClick={() => handleOpen('sections')} className="size-5 shrink-0" />
+              <Plus onClick={() => handleOpen('section')} className="size-5 shrink-0" />
             </div>
           </div>
           <div className="bg-white md:h-86 overflow-y-auto">
@@ -445,7 +445,7 @@ const Dashboard = () => {
                         className="btn icon_btn"
                         onClick={() => {
                           setIsEdit(section);
-                          handleOpen("sections");
+                          handleOpen("section");
                         }}
                         disabled={loadingId === section?.id}
                       >
