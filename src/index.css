@@ -175,7 +175,7 @@
 }
 
 .rdt_TableCell {
-  @apply py-4 text-navy font-medium text-xs;
+  @apply py-2 text-navy font-medium text-xs;
 }
 
 .rdt_TableCol {
