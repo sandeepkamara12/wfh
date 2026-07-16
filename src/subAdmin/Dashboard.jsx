@@ -5,7 +5,9 @@ import Table from "../components/common/Table";
 import { useIsMobile } from "../hooks/useIsMobile";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  CalendarDays,
   Copy,
+  EllipsisVertical,
   Eye,
   GripVertical,
   Loader,
@@ -14,6 +16,7 @@ import {
   Phone,
   Plus,
   Trash2,
+  UserRound,
   UserRoundPen,
 } from "lucide-react";
 import TextField from "../components/ui/TextField";
@@ -31,11 +34,12 @@ import {
   deleteStreamThunk,
   getStreamThunk,
 } from "../features/subAdmin/streamSlice";
+import FloatingDropdown from "../components/ui/FloatingDropdown";
 
 const Dashboard = () => {
   const { handleOpen, setClassrooms, setIsEdit, setSections, setStreams } =
     useOutletContext();
-  const { isBelow640, isBelow480, isBelow768 } = useIsMobile();
+  const { isBelow640, isBelow480, isBelow1024, isBelow1280, isBelow768 } = useIsMobile();
   const teachers = useSelector((state) => state.teachers);
   const filterSearchInchargeRef = useRef(null);
   //   const [openIncharge, setOpenIncharge] = useState(false);
@@ -138,8 +142,9 @@ const Dashboard = () => {
     {
       name: "Name",
       grow: 2,
-      cell: (row) => (
-        // <div className="flex flex-col xxs:flex-row xxs:items-end justify-between gap-2 w-full">
+      // omit: isBelow1024,
+      cell: row => (
+        <div className="flex justify-between w-full">
           <div className="flex items-center gap-2">
             <span className="inline-flex items-center justify-center size-9 aspect-square rounded-full overflow-hidden bg-navy/10">
               <img
@@ -157,115 +162,215 @@ const Dashboard = () => {
                 <Copy className="size-3 text-gray-500 mt-0.5" />
               </span>
             </div>
-            {/* <div className="flex xxs:hidden flex-wrap items-center w-full gap-1">
-              <button type="button" className="btn icon_btn">
-                <Eye className="size-5 mx-auto" />
-              </button>
-              <button type="button" className="btn icon_btn">
-                <Trash2 className="size-5 mx-auto" />
-              </button>
-              <button type="button" className="btn icon_btn">
-                <Pencil className="size-5 mx-auto" />
-              </button>
-            </div>
-          </div> */}
           </div>
+          <div className="flex sm:hidden flex-col gap-3 items-end">
+            <div className="relative inline-flex">
+              <FloatingDropdown
+                trigger={
+                  <button className="p-2">
+                    <EllipsisVertical className="size-5 shrink-0" />
+                  </button>
+                }
+              >
+                <div className="flex items-center gap-2">
+                  <button className="btn icon_btn">
+                    <Eye className="size-5 mx-auto" />
+                  </button>
+                  <button className="btn icon_btn">
+                    <Trash2 className="size-5 mx-auto" />
+                  </button>
+                  <button className="btn icon_btn">
+                    <Pencil className="size-5 mx-auto" />
+                  </button>
+                </div>
+              </FloatingDropdown>
+            </div>
+          </div>
+        </div>
       ),
-      selector: (row) => row.name,
+      selector: row => row.name,
+      sortable: true
     },
     {
       name: "Contact",
       grow: 2,
-      omit: isBelow768,
-      cell: (row) => (
-        <div className="flex flex-wrap flex-col gap-0">
-          <a
-            className="flex items-center gap-1 text-sm text-navy hover:no-underline hover:text-orange"
-            href={`mailto:${row.email}`}
-          >
-            <Mail className="size-4 shrink-0 " />
+      minWidth: "200px",
+      omit: isBelow1024,
+      cell: row => (
+        <div className="flex flex-wrap flex-col gap-1">
+          <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`mailto:${row.email}`}>
+            <Mail className='size-4' />
             {row.email}
           </a>
-          <a
-            className="flex items-center gap-1 text-sm text-navy hover:no-underline hover:text-orange"
-            href={`tel:${row.phone}`}
-          >
-            <Phone className="size-4 shrink-0" />
+          <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`tel:${row.phone}`}>
+            <Phone className="size-4" />
             {row.phone}
           </a>
         </div>
       ),
-      selector: (row) => row.contact,
+      selector: row => row.contact
+    },
+    {
+      name: "Class In charge",
+      wrap: true,
+      minWidth: "200px",
+      // grow: 1,
+      omit: isBelow640,
+      cell: row => (
+        <div className="flex flex-wrap flex-col gap-1 text-navy">
+          <span
+            className="flex items-center gap-1"
+          >
+            <UserRoundPen className="size-4 shrink-0 " />
+            {row.inchargeOf} {row.section}
+          </span>
+          <span>Non Medical Maths</span>
+        </div>
+      )
+    },
+    {
+      name: 'Teach Other Classes',
+      grow: 3,
+      omit: isBelow1280,
+      cell: row => (
+        <div className="flex flex-wrap gap-1 items-start">
+            {groupClasses(row.classesTeach).map((c, i) => (
+              <span
+                key={i}
+                className="inline-block text-sm font-medium leading-4 rounded bg-gray-100 px-2 py-1.5"
+              >
+                {c.class} {c.section}
+                {c.stream && ` • ${c.stream}`}
+                {" • "}
+                {c.subjects.join(", ")}
+              </span>
+            ))}
+        </div>
+      ),
     },
     {
       name: "",
-      grow: 2,
+      minWidth: "50px",
+      maxWidth:"50px",
       omit: isBelow640,
       cell: (row) => (
-        <div className="flex flex-wrap flex-col gap-0">
-          <div className="flex flex-col text-sm gap-0 flex-wrap">
-            <div className="flex gap-1 flex-wrap">
-              <UserRoundPen className="size-4 shrink-0" />
-              <span className="inline-block text-sm">{row.inchargeOf} {row.stream} {row.section} </span>
-            </div>
-            <span className="inline-block text-sm"> Non Medical Maths</span>
+        <div className="flex flex-col gap-3 w-full items-end">
+          <div className="relative inline-flex">
+            <FloatingDropdown
+              trigger={
+                <button className="p-2">
+                  <EllipsisVertical className="size-5 shrink-0" />
+                </button>
+              }
+            >
+              <div className="flex items-center gap-2">
+                <button className="btn icon_btn">
+                  <Eye className="size-5 mx-auto" />
+                </button>
+                <button className="btn icon_btn">
+                  <Trash2 className="size-5 mx-auto" />
+                </button>
+                <button className="btn icon_btn">
+                  <Pencil className="size-5 mx-auto" />
+                </button>
+              </div>
+            </FloatingDropdown>
           </div>
         </div>
       ),
-      selector: (row) => row.contact,
-    },
-    {
-      name: "",
-      minWidth: "165px",
-      // omit: isBelow480,
-      cell: (row) => (
-        <div className="flex flex-wrap items-center justify-end w-full gap-1">
-          <button type="button" className="btn icon_btn">
-            <Eye className="size-5 mx-auto" />
-          </button>
-          <button type="button" className="btn icon_btn">
-            <Trash2 className="size-5 mx-auto" />
-          </button>
-          <button type="button" className="btn icon_btn">
-            <Pencil className="size-5 mx-auto" />
-          </button>
-        </div>
-      ),
-    },
+    }
   ];
+
+  const groupClasses = (data) => {
+    const map = new Map();
+
+    data.forEach((item) => {
+      const key = `${item.class}-${item.section}-${item.stream || ""}`;
+
+      if (!map.has(key)) {
+        map.set(key, {
+          class: item.class,
+          section: item.section,
+          stream: item.stream,
+          subjects: new Set(),
+        });
+      }
+
+      map.get(key).subjects.add(item.subject);
+    });
+
+    return Array.from(map.values()).map((item) => ({
+      ...item,
+      subjects: Array.from(item.subjects),
+    }));
+  };
+
   const ExpandedComponent = ({ data }) => (
-    <div className="grid grid-cols-2 justify-between gap-1 text-sm w-full items-center">
-      <div className="flex flex-wrap flex-col gap-0">
-        <Link
-          className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange"
-          href={`mailto:${data.email}`}
-        >
-          <Mail className="size-4 shrink-0 " />
+    <div className="grid grid-cols-2 lg:grid-cols-4 py-4 justify-between gap-3 xxs:gap-2 lg:gap-1 text-sm font-medium w-full items-center">
+
+      <div className="col-span-1 flex lg:hidden flex-wrap flex-col gap-0">
+        <a className="flex items-center gap-1 text-navy font-medium hover:no-underline hover:text-orange" href={`mailto:${data.email}`}>
+          <Mail className='size-4' />
           {data.email}
-        </Link>
-        <Link
-          className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange"
-          href={`tel:${data.phone}`}
-        >
-          <Phone className="size-4 shrink-0" />
+        </a>
+        <a className="flex items-center gap-1 text-navy font-medium hover:no-underline hover:text-orange" href={`tel:${data.phone}`}>
+          <Phone className="size-4" />
           {data.phone}
-        </Link>
+        </a>
       </div>
-      <div className="flex flex-wrap flex-col gap-0">
+
+      <div className="col-span-1 flex flex-wrap flex-col gap-0">
+        <span className="flex items-center gap-1 text-gray-400">
+          <UserRound className="size-4 shrink-0 " />
+          Spouse Name:
+        </span>
+        <span className="flex items-center gap-1 text-navy font-medium">
+          {data.spouseName}
+        </span>
+      </div>
+
+      <div className="col-span-1 flex flex-wrap flex-col gap-0">
+        <span className="flex items-center gap-1 text-gray-400">
+          <CalendarDays className="size-4 shrink-0" /> Joined At:
+        </span>
         <span
-          className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange"
+          className="text-navy font-medium"
         >
+          {data.createdAt}
+        </span>
+      </div>
+
+
+      <div className="col-span-1 flex sm:hidden flex-wrap flex-col gap-0 text-navy ">
+        <span className="flex items-center gap-1 text-gray-400">
           <UserRoundPen className="size-4 shrink-0 " />
-          {data.inchargeOf} {data.section}
+          In charge:
         </span>
-        <span
-          className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange"
-        >
-          Non Medical Maths
+        <span className="font-medium">{data.inchargeOf} {data.section} Non Medical Maths</span>
+      </div>
+
+      <div className="col-span-2 lg:col-span-4 flex xl:hidden flex-col gap-1">
+        <span className="flex items-center gap-1 text-gray-400">
+          <UserRoundPen className="size-4 shrink-0 " />
+          Teach Other Classes:
         </span>
+        <div className="flex flex-wrap gap-1">
+          {groupClasses(data.classesTeach).map((c, i) => (
+            <span
+              key={i}
+              className="inline-block font-medium leading-4 rounded bg-gray-200 px-2 py-1.5"
+            >
+              {c.class} {c.section}
+              {c.stream && ` • ${c.stream}`}
+              {" • "}
+              {c.subjects.join(", ")}
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   );
+
   return (
     <div className="grid gap-4">
       <h2 className="font-bold text-lg">Dashboard</h2>
@@ -285,6 +390,76 @@ const Dashboard = () => {
       </div>
 
       <div className="grid grid-cols-6 gap-4">
+        {/* Classroom In charge */}
+        <div className="col-span-6 w-full flex flex-col bg-white rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
+          <div className="bg-navy py-2.5 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white flex items-center justify-between">
+            Classroom In Charge
+            <div className="flex gap-4 items-center relative">
+              <TextField
+                inputClassName="py-1.5!"
+                label=""
+                name="search_incharge"
+                id="search_incharge"
+                ref={filterSearchInchargeRef}
+              />
+              {/* <div className={`${openIncharge ? "opacity-100" : "opacity-0 hidden"} divide-y divide-dropdown-divider absolute transition-[opacity,margin] duration min-w-60 rounded top-8 -right-3 z-50 bg-white border border-white shadow-lg before:content-[''] before:absolute before:-top-1.5 before:right-4 before:w-0 before:h-0 before:border-l-[6px] before:border-r-[6px] before:border-b-[6px] before:border-l-transparent before:border-r-transparent before:border-b-white`}>
+                                <div className="p-1.5 space-y-0.5 border-gray-200">
+                                    <span className="block pt-2 pb-1 px-3 text-xs font-medium uppercase text-gray-400">
+                                        Personal info
+                                    </span>
+                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
+                                        <IdCardLanyard className="size-5 shrink-0" />
+                                        ID
+                                    </Link>
+                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
+                                        <UserRound className="size-5 shrink-0" />
+                                        Name
+                                    </Link>
+                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
+                                        <Phone className="size-5 shrink-0" />
+                                        Phone
+                                    </Link>
+                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
+                                        <Mail className="size-5 shrink-0" />
+                                        Email
+                                    </Link>
+                                </div>
+                                <div className="p-1.5 space-y-0.5">
+                                    <span className="block pt-2 pb-1 px-3 text-xs font-medium uppercase text-gray-400">
+                                        Other info
+                                    </span>
+                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
+                                        <GalleryThumbnails className="size-5 shrink-0" />
+                                        Classroom
+                                    </Link>
+                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
+                                        <Network className="size-5 shrink-0" />
+                                        Stream
+                                    </Link>
+                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
+                                        <LayoutGrid className="size-5 shrink-0" />
+                                        Section
+                                    </Link>
+                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
+                                        <BookOpenText className="size-5 shrink-0" />
+                                        Subject
+                                    </Link>
+                                </div>
+                            </div>
+                            <FunnelPlus className='size-5 shrink-0 text-white' onClick={() => setOpenIncharge((prev) => !prev)} /> */}
+            </div>
+          </div>
+          <Table
+            needHeader={true}
+            id="teachers"
+            columns={columns}
+            data={teachers}
+            expandableRows
+            expandableRowsComponent={ExpandedComponent}
+            handleOpen={handleOpen}
+          />
+        </div>
+
         {/* Classrooms */}
         <div className="col-span-6 md:col-span-2 2xl:col-span-1 rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
           <div className="bg-navy py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white flex justify-between items-center">
@@ -475,80 +650,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Classroom In charge */}
-        <div className="col-span-6 2xl:col-span-3 w-full flex flex-col bg-white rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
-          <div className="bg-navy py-2.5 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white flex items-center justify-between">
-            Classroom In Charge
-            <div className="flex gap-4 items-center relative">
-              <TextField
-                inputClassName="py-1.5!"
-                label=""
-                name="search_incharge"
-                id="search_incharge"
-                ref={filterSearchInchargeRef}
-              />
-              {/* <div className={`${openIncharge ? "opacity-100" : "opacity-0 hidden"} divide-y divide-dropdown-divider absolute transition-[opacity,margin] duration min-w-60 rounded top-8 -right-3 z-50 bg-white border border-white shadow-lg before:content-[''] before:absolute before:-top-1.5 before:right-4 before:w-0 before:h-0 before:border-l-[6px] before:border-r-[6px] before:border-b-[6px] before:border-l-transparent before:border-r-transparent before:border-b-white`}>
-                                <div className="p-1.5 space-y-0.5 border-gray-200">
-                                    <span className="block pt-2 pb-1 px-3 text-xs font-medium uppercase text-gray-400">
-                                        Personal info
-                                    </span>
-                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
-                                        <IdCardLanyard className="size-5 shrink-0" />
-                                        ID
-                                    </Link>
-                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
-                                        <UserRound className="size-5 shrink-0" />
-                                        Name
-                                    </Link>
-                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
-                                        <Phone className="size-5 shrink-0" />
-                                        Phone
-                                    </Link>
-                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
-                                        <Mail className="size-5 shrink-0" />
-                                        Email
-                                    </Link>
-                                </div>
-                                <div className="p-1.5 space-y-0.5">
-                                    <span className="block pt-2 pb-1 px-3 text-xs font-medium uppercase text-gray-400">
-                                        Other info
-                                    </span>
-                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
-                                        <GalleryThumbnails className="size-5 shrink-0" />
-                                        Classroom
-                                    </Link>
-                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
-                                        <Network className="size-5 shrink-0" />
-                                        Stream
-                                    </Link>
-                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
-                                        <LayoutGrid className="size-5 shrink-0" />
-                                        Section
-                                    </Link>
-                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
-                                        <BookOpenText className="size-5 shrink-0" />
-                                        Subject
-                                    </Link>
-                                </div>
-                            </div>
-                            <FunnelPlus className='size-5 shrink-0 text-white' onClick={() => setOpenIncharge((prev) => !prev)} /> */}
-            </div>
-          </div>
-          <Table
-            id="teachers"
-            needHeader={false}
-            columns={columns}
-            data={teachers}
-            expandableRows={isBelow768}
-            expandableRowsComponent={ExpandedComponent}
-            handleOpen={handleOpen}
-            // paginationPerPage={3}
-            btnText="Add Teacher"
-            btnIcon={<Plus className="w-5 h-5 mx-auto" />}
-            label="Teachers"
-            subLabel="Add, edit, delete and search a teacher."
-          />
-        </div>
+
       </div>
     </div>
   );

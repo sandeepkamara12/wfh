@@ -197,10 +197,10 @@
   @apply p-4!;
 }
 
-.teachers .rdt_Checkbox,
+/* .teachers .rdt_Checkbox,
 .students .rdt_Checkbox {
   @apply self-start;
-}
+} */
 
 .rdt_pagination {
   @apply justify-between! px-4!;

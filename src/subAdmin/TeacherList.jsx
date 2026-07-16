@@ -145,26 +145,25 @@ const TeacherList = () => {
             grow: 3,
             omit: isBelow768,
             cell: row => (
-                <div className="flex flex-wrap gap-1.5 items-start">
-                    <div className="flex flex-wrap gap-1.5 items-start">
-                        {groupClasses(row.classesTeach).map((c, i) => (
-                            <span
-                                key={i}
-                                className="inline-block text-sm font-medium leading-4 rounded bg-gray-100 px-2 py-1.5"
-                            >
-                                {c.class} {c.section}
-                                {c.stream && ` • ${c.stream}`}
-                                {" • "}
-                                {c.subjects.join(", ")}
-                            </span>
-                        ))}
-                    </div>
+                <div className="flex flex-wrap gap-1 items-start">
+                    {groupClasses(row.classesTeach).map((c, i) => (
+                        <span
+                            key={i}
+                            className="inline-block text-sm font-medium leading-4 rounded bg-gray-100 px-2 py-1.5"
+                        >
+                            {c.class} {c.section}
+                            {c.stream && ` • ${c.stream}`}
+                            {" • "}
+                            {c.subjects.join(", ")}
+                        </span>
+                    ))}
                 </div>
             ),
         },
         {
             name: "",
-            minWidth: "160px",
+            minWidth: "50px",
+            maxWidth: "50px",
             omit: isBelow640,
             cell: (row) => (
                 <div className="flex flex-col gap-3 w-full items-end">
@@ -230,7 +229,7 @@ const TeacherList = () => {
             </div>
 
 
-            <div className="col-span-1 flex xl:hidden flex-wrap flex-col gap-1 text-navy ">
+            <div className="col-span-1 flex xl:hidden flex-wrap flex-col gap-0 text-navy ">
                 <span className="flex items-center gap-1 text-gray-400">
                     <UserRoundPen className="size-4 shrink-0 " />
                     In charge:
@@ -315,10 +314,10 @@ const TeacherList = () => {
                                 expandableRows
                                 expandableRowsComponent={ExpandedComponent}
                                 handleOpen={handleOpen}
-                                btnText="Add Teacher"
-                                btnIcon={<Plus className="w-5 h-5 mx-auto" />}
-                                label="Teachers"
-                                subLabel="Add, edit, delete and search a teacher."
+                            // btnText="Add Teacher"
+                            // btnIcon={<Plus className="w-5 h-5 mx-auto" />}
+                            // label="Teachers"
+                            // subLabel="Add, edit, delete and search a teacher."
                             />
                         </div>
                     </div>
