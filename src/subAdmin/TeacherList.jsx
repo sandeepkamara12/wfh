@@ -195,7 +195,7 @@ const TeacherList = () => {
     ];
 
     const ExpandedComponent = ({ data }) => (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 py-4 justify-between gap-3 sm:gap-2 lg:gap-1 text-sm font-medium w-full items-center">
+        <div className="grid grid-cols-1 xxs:grid-cols-2 lg:grid-cols-4 py-4 justify-between gap-3 xxs:gap-2 lg:gap-1 text-xs font-medium w-full items-center">
 
             <div className="col-span-1 flex xl:hidden flex-wrap flex-col gap-1">
                 <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`mailto:${data.email}`}>
