@@ -14,6 +14,7 @@ const TeacherList = () => {
     const { isBelow768, isBelow1280 } = useIsMobile();
     const { handleOpen } = useOutletContext();
     const teachers = useSelector((state) => state.teachers);
+    console.log(teachers,'teachers');
     const dispatch = useDispatch();
 
     const handleAdd = () => {
@@ -119,7 +120,7 @@ const TeacherList = () => {
             omit: isBelow768,
             cell: row => (
                 <div className="flex flex-wrap gap-1 items-start">
-                    {groupClasses(row.classesTeach).map((c, i) => (
+                    {groupClasses(row?.classesTeach).map((c, i) => (
                         <span
                             key={i}
                             className="inline-block text-sm font-medium leading-4 rounded bg-gray-100 px-2 py-1.5"
@@ -240,39 +241,7 @@ const TeacherList = () => {
                         <div className="mb-4">
                             <h2 className='font-bold text-lg' onClick={handleAdd}>Search Teachers</h2>
                             <p className="text-sm text-navy font-medium">Browse teachers by ID, Name, Classroom, Stream, Section, Subject, Email, and Phone.</p>
-                            <div className='hidden grid-cols-6 gap-4 my-4'>
-                                <CustomSelect
-                                    options={teacherOptions}
-                                    selectType="teacher"
-                                    label="Name & Id"
-                                    placeholder=""
-                                />
-                                <CustomSelect
-                                    options={classOptions}
-                                    selectType="classroom"
-                                    label="Classroom"
-                                    placeholder=""
-                                />
-                                <CustomSelect
-                                    options={streamOptions}
-                                    selectType="stream"
-                                    label="Stream"
-                                    placeholder=""
-                                />
-                                <CustomSelect
-                                    options={sectionOptions}
-                                    selectType="section"
-                                    label="Section"
-                                    placeholder=""
-                                />
-                                <CustomSelect
-                                    options={subjectOptions}
-                                    selectType="subject"
-                                    label="Subject"
-                                    placeholder=""
-                                />
-                                <TextField label="Email & Phone" id="email_phone" />
-                            </div>
+
                         </div>
                         <div className="col-span-6 2xl:col-span-3 w-full flex flex-col bg-white rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
                             <div className="bg-navy py-3 px-4 text-sm font-medium text-white flex justify-between items-center">
@@ -281,8 +250,8 @@ const TeacherList = () => {
 
                                 <div className="flex gap-2 ">
                                     <div className="flex gap-2">
-<TextField id="search_teacher" inputClassName="border-white py-1" placeholder="" />
-                                    <button className="btn icon_btn_small active "><Search className="size-5 shrink-0" /></button>
+                                        <TextField id="search_teacher" inputClassName="border-white py-1" placeholder="" />
+                                        <button className="btn icon_btn_small active "><Search className="size-5 shrink-0" /></button>
                                     </div>
                                     <button className="btn icon_btn_small active">
                                         <Plus onClick={() => handleOpen('teacher')} className="size-5 shrink-0" />

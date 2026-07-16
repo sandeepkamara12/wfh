@@ -59,7 +59,7 @@ export default function FloatingDropdown({
             <div
                 ref={refs.setReference}
                 {...getReferenceProps()}
-                style={{ display: 'inline-block' }}
+                className='flex'
             >
                 {trigger}
             </div>
