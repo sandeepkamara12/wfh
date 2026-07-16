@@ -190,7 +190,7 @@
 .rdt_cellExpander .rdt_expanderButton:focus {background-color: transparent;}
 
 .rdt_expanderRow {
-  @apply px-3 bg-navy/10!;
+  @apply px-3 bg-navy/5!;
 }
 
 .rdt_cellCheckbox {
