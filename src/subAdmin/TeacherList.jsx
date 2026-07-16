@@ -54,7 +54,6 @@ const TeacherList = () => {
         {
             name: "Name",
             grow: 2,
-            // omit: isBelow1024,
             cell: row => (
                 <div className="flex justify-between w-full">
                     <div className="flex items-center gap-2">
@@ -105,7 +104,6 @@ const TeacherList = () => {
         },
         {
             name: "Contact",
-            grow: 2,
             minWidth: "200px",
             omit: isBelow1280,
             cell: row => (
@@ -124,9 +122,7 @@ const TeacherList = () => {
         },
         {
             name: "Class In charge",
-            wrap: true,
             minWidth: "200px",
-            // grow: 1,
             omit: isBelow1280,
             cell: row => (
                 <div className="flex flex-wrap flex-col gap-1 text-navy">
@@ -175,15 +171,15 @@ const TeacherList = () => {
                                 </button>
                             }
                         >
-                            <div className="flex items-center gap-2">
-                                <button className="btn icon_btn">
-                                    <Eye className="size-5 mx-auto" />
+                            <div className="flex items-center gap-1">
+                                <button className="btn icon_btn_small">
+                                    <Eye className="size-4 mx-auto" />
                                 </button>
-                                <button className="btn icon_btn">
-                                    <Trash2 className="size-5 mx-auto" />
+                                <button className="btn icon_btn_small">
+                                    <Trash2 className="size-4 mx-auto" />
                                 </button>
-                                <button className="btn icon_btn">
-                                    <Pencil className="size-5 mx-auto" />
+                                <button className="btn icon_btn_small">
+                                    <Pencil className="size-4 mx-auto" />
                                 </button>
                             </div>
                         </FloatingDropdown>

@@ -193,7 +193,7 @@ const Dashboard = () => {
     },
     {
       name: "Contact",
-      grow: 2,
+      // grow: 2,
       minWidth: "200px",
       omit: isBelow1024,
       cell: row => (
@@ -212,7 +212,7 @@ const Dashboard = () => {
     },
     {
       name: "Class In charge",
-      wrap: true,
+      // wrap: true,
       minWidth: "200px",
       // grow: 1,
       omit: isBelow640,
@@ -234,24 +234,24 @@ const Dashboard = () => {
       omit: isBelow1280,
       cell: row => (
         <div className="flex flex-wrap gap-1 items-start">
-            {groupClasses(row.classesTeach).map((c, i) => (
-              <span
-                key={i}
-                className="inline-block text-sm font-medium leading-4 rounded bg-gray-100 px-2 py-1.5"
-              >
-                {c.class} {c.section}
-                {c.stream && ` • ${c.stream}`}
-                {" • "}
-                {c.subjects.join(", ")}
-              </span>
-            ))}
+          {groupClasses(row.classesTeach).map((c, i) => (
+            <span
+              key={i}
+              className="inline-block text-sm font-medium leading-4 rounded bg-gray-100 px-2 py-1.5"
+            >
+              {c.class} {c.section}
+              {c.stream && ` • ${c.stream}`}
+              {" • "}
+              {c.subjects.join(", ")}
+            </span>
+          ))}
         </div>
       ),
     },
     {
       name: "",
       minWidth: "50px",
-      maxWidth:"50px",
+      maxWidth: "50px",
       omit: isBelow640,
       cell: (row) => (
         <div className="flex flex-col gap-3 w-full items-end">
@@ -263,15 +263,15 @@ const Dashboard = () => {
                 </button>
               }
             >
-              <div className="flex items-center gap-2">
-                <button className="btn icon_btn">
-                  <Eye className="size-5 mx-auto" />
+              <div className="flex items-center gap-1">
+                <button className="btn icon_btn_small">
+                  <Eye className="size-4 mx-auto" />
                 </button>
-                <button className="btn icon_btn">
-                  <Trash2 className="size-5 mx-auto" />
+                <button className="btn icon_btn_small">
+                  <Trash2 className="size-4 mx-auto" />
                 </button>
-                <button className="btn icon_btn">
-                  <Pencil className="size-5 mx-auto" />
+                <button className="btn icon_btn_small">
+                  <Pencil className="size-4 mx-auto" />
                 </button>
               </div>
             </FloatingDropdown>
