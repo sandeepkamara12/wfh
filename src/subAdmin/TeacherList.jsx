@@ -75,7 +75,7 @@ const TeacherList = () => {
                             </span>
                         </div>
                     </div>
-                    <div className="flex flex-col gap-3 items-end">
+                    <div className="flex sm:hidden flex-col gap-3 items-end">
                         <div className="relative inline-flex">
                             <FloatingDropdown
                                 trigger={
@@ -150,7 +150,7 @@ const TeacherList = () => {
                         {groupClasses(row.classesTeach).map((c, i) => (
                             <span
                                 key={i}
-                                className="inline-block text-xs font-medium leading-4 rounded bg-gray-100 px-1.5 py-1"
+                                className="inline-block text-sm font-medium leading-4 rounded bg-gray-100 px-2 py-1.5"
                             >
                                 {c.class} {c.section}
                                 {c.stream && ` • ${c.stream}`}
@@ -167,7 +167,7 @@ const TeacherList = () => {
             minWidth: "160px",
             omit: isBelow640,
             cell: (row) => (
-                <div className="flex flex-col gap-3 w-full items-end pe-3.5">
+                <div className="flex flex-col gap-3 w-full items-end">
                     <div className="relative inline-flex">
                         <FloatingDropdown
                             trigger={
@@ -197,7 +197,7 @@ const TeacherList = () => {
     const ExpandedComponent = ({ data }) => (
         <div className="grid grid-cols-2 lg:grid-cols-4 py-4 justify-between gap-3 xxs:gap-2 lg:gap-1 text-sm font-medium w-full items-center">
 
-            <div className="col-span-1 flex xl:hidden flex-wrap flex-col gap-1">
+            <div className="col-span-1 flex xl:hidden flex-wrap flex-col gap-0">
                 <a className="flex items-center gap-1 text-navy font-medium hover:no-underline hover:text-orange" href={`mailto:${data.email}`}>
                     <Mail className='size-4' />
                     {data.email}
