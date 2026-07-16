@@ -195,7 +195,7 @@ const TeacherList = () => {
     ];
 
     const ExpandedComponent = ({ data }) => (
-        <div className="grid grid-cols-2 xxs:grid-cols-2 lg:grid-cols-4 py-4 justify-between gap-3 xxs:gap-2 lg:gap-1 text-xs font-medium w-full items-center">
+        <div className="grid grid-cols-2 lg:grid-cols-4 py-4 justify-between gap-3 xxs:gap-2 lg:gap-1 text-xs font-medium w-full items-center">
 
             <div className="col-span-1 flex xl:hidden flex-wrap flex-col gap-1">
                 <a className="flex items-center gap-1 text-navy font-medium hover:no-underline hover:text-orange" href={`mailto:${data.email}`}>
@@ -238,7 +238,7 @@ const TeacherList = () => {
                 <span className="font-medium">{data.inchargeOf} {data.section} Non Medical Maths</span>
             </div>
 
-            <div className="col-span-1 sm:col-span-2 flex md:hidden flex-col gap-1">
+            <div className="col-span-2 flex md:hidden flex-col gap-1">
                 <span className="flex items-center gap-1 text-gray-400">
                     <UserRoundPen className="size-4 shrink-0 " />
                     Teach Other Classes:
