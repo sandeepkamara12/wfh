@@ -58,7 +58,6 @@ const TeacherList = () => {
             cell: row => (
                 <div className="flex justify-between w-full">
                     <div className="flex items-center gap-2">
-                        {console.log(row, 'row')}
                         <span className="inline-flex items-center justify-center size-9 aspect-square rounded-full overflow-hidden bg-navy/10">
                             <img
                                 src={row.photo}
@@ -198,12 +197,15 @@ const TeacherList = () => {
     const ExpandedComponent = ({ data }) => (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 py-4 justify-between gap-3 sm:gap-2 lg:gap-1 text-sm font-medium w-full items-center">
 
-            <div className="col-span-1 flex xl:hidden flex-wrap flex-col gap-1 text-navy ">
-                <span className="flex items-center gap-1 text-gray-400 font-normal">
-                    <UserRoundPen className="size-4 shrink-0 " />
-                    In charge:
-                </span>
-                <span className="font-medium">{data.inchargeOf} {data.section} Non Medical Maths</span>
+            <div className="col-span-1 flex xl:hidden flex-wrap flex-col gap-1">
+                <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`mailto:${data.email}`}>
+                    <Mail className='size-4' />
+                    {data.email}
+                </a>
+                <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`tel:${data.phone}`}>
+                    <Phone className="size-4" />
+                    {data.phone}
+                </a>
             </div>
 
             <div className="col-span-1 flex flex-wrap flex-col gap-0">
@@ -227,15 +229,13 @@ const TeacherList = () => {
                 </span>
             </div>
 
-            <div className="col-span-1 flex xl:hidden flex-wrap flex-col gap-1">
-                <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`mailto:${data.email}`}>
-                    <Mail className='size-4' />
-                    {data.email}
-                </a>
-                <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`tel:${data.phone}`}>
-                    <Phone className="size-4" />
-                    {data.phone}
-                </a>
+
+            <div className="col-span-1 flex xl:hidden flex-wrap flex-col gap-1 text-navy ">
+                <span className="flex items-center gap-1 text-gray-400 font-normal">
+                    <UserRoundPen className="size-4 shrink-0 " />
+                    In charge:
+                </span>
+                <span className="font-medium">{data.inchargeOf} {data.section} Non Medical Maths</span>
             </div>
 
             <div className="col-span-1 sm:col-span-2 flex md:hidden flex-col gap-1">
