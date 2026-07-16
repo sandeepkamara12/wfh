@@ -247,7 +247,7 @@ const TeacherList = () => {
                     {groupClasses(data.classesTeach).map((c, i) => (
                         <span
                             key={i}
-                            className="inline-block text-xs font-medium leading-4 rounded bg-gray-100 px-1.5 py-1"
+                            className="inline-block font-medium leading-4 rounded bg-gray-100 px-2 py-1.5"
                         >
                             {c.class} {c.section}
                             {c.stream && ` • ${c.stream}`}
