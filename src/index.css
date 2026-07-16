@@ -184,7 +184,7 @@
   @apply text-xs font-semibold uppercase text-navy;
 }
 .rdt_cellExpander {
-  @apply pe-0! min-w-0! ps-2!;
+  @apply px-0! min-w-0!;
 }
 .rdt_cellExpander .rdt_expanderButton:not(:disabled):hover,
 .rdt_cellExpander .rdt_expanderButton:focus {background-color: transparent;}

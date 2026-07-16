@@ -8,28 +8,12 @@ import { addTeacher } from "../features/teachers/teachersSlice";
 import { useSelector } from "react-redux";
 import TextField from "../components/ui/TextField";
 import { useOutletContext } from "react-router-dom";
-import { useRef, useState } from "react";
-import { useOutsideClick } from "../hooks/useOutsideClick";
-import { createPortal } from "react-dom";
+import FloatingDropdown from "../components/ui/FloatingDropdown";
 
 const TeacherList = () => {
-
-    const { isBelow768, isBelow1280 } = useIsMobile();
+    const { isBelow640, isBelow768, isBelow1280 } = useIsMobile();
     const { handleOpen } = useOutletContext();
     const teachers = useSelector((state) => state.teachers);
-    const [openRowId, setOpenRowId] = useState(null);
-    const [dropdownPos, setDropdownPos] = useState(null);
-  const handleOpens = (e) => {
-  const rect = e.currentTarget.getBoundingClientRect(); // ✅ FIXED
-
-  setDropdownPos({
-    top: rect.bottom + window.scrollY + 5, // small gap
-    left: rect.right + window.scrollX - 120, // align right
-  });
-};
-
-    const ref = useRef(null);
-    useOutsideClick(ref, () => setOpenRowId(null));
     const dispatch = useDispatch();
 
     const handleAdd = () => {
@@ -72,23 +56,48 @@ const TeacherList = () => {
             grow: 2,
             // omit: isBelow1024,
             cell: row => (
-                <div className="flex items-center gap-2">
-                    {console.log(row, 'row')}
-                    <span className="inline-flex items-center justify-center size-9 aspect-square rounded-full overflow-hidden bg-navy/10">
-                        <img
-                            src={row.photo}
-                            alt=""
-                            className="h-full w-full rounded-full max-w-full aspect-square"
-                        />
-                    </span>
-                    <div className="flex flex-col gap-0">
-                        <span className="text-sm font-semibold text-navy leading-4">
-                            {row.name}
+                <div className="flex justify-between w-full">
+                    <div className="flex items-center gap-2">
+                        {console.log(row, 'row')}
+                        <span className="inline-flex items-center justify-center size-9 aspect-square rounded-full overflow-hidden bg-navy/10">
+                            <img
+                                src={row.photo}
+                                alt=""
+                                className="h-full w-full rounded-full max-w-full aspect-square"
+                            />
                         </span>
-                        <span className="inline-flex items-center tracking-wide gap-x-1.5 rounded text-xs text-gray-400">
-                            {row.id}
-                            <Copy className="size-3 text-gray-500 mt-0.5" />
-                        </span>
+                        <div className="flex flex-col gap-0">
+                            <span className="text-sm font-semibold text-navy leading-4">
+                                {row.name}
+                            </span>
+                            <span className="inline-flex items-center tracking-wide gap-x-1.5 rounded text-xs text-gray-400">
+                                {row.id}
+                                <Copy className="size-3 text-gray-500 mt-0.5" />
+                            </span>
+                        </div>
+                    </div>
+                    <div className="flex flex-col gap-3 items-end">
+                        <div className="relative inline-flex">
+                            <FloatingDropdown
+                                trigger={
+                                    <button className="p-2">
+                                        <EllipsisVertical className="size-5 shrink-0" />
+                                    </button>
+                                }
+                            >
+                                <div className="flex items-center gap-2">
+                                    <button className="btn icon_btn">
+                                        <Eye className="size-5 mx-auto" />
+                                    </button>
+                                    <button className="btn icon_btn">
+                                        <Trash2 className="size-5 mx-auto" />
+                                    </button>
+                                    <button className="btn icon_btn">
+                                        <Pencil className="size-5 mx-auto" />
+                                    </button>
+                                </div>
+                            </FloatingDropdown>
+                        </div>
                     </div>
                 </div>
             ),
@@ -154,54 +163,36 @@ const TeacherList = () => {
                 </div>
             ),
         },
-       {
-  name: "",
-  minWidth: "160px",
-  cell: (row) => (
-    <div className="flex flex-col gap-3 w-full items-end pe-3.5">
-      <div className="relative inline-flex">
-        <button
-          onClick={(e) => {
-            setOpenRowId((prev) => (prev === row.id ? null : row.id));
-            handleOpens(e);
-          }}
-          type="button"
-        >
-          <EllipsisVertical className="size-5 shrink-0" />
-        </button>
-
-        {openRowId === row.id &&
-          dropdownPos &&
-          createPortal(
-            <div
-              ref={ref}
-              role="menu"
-              style={{
-                position: "absolute",
-                top: dropdownPos.top,
-                left: dropdownPos.left,
-                zIndex: 9999,
-              }}
-              className="bg-white border rounded-md shadow-lg min-w-[120px]"
-            >
-              <div className="p-2 flex items-center gap-2">
-                <button className="btn icon_btn">
-                  <Eye className="size-5 mx-auto" />
-                </button>
-                <button className="btn icon_btn">
-                  <Trash2 className="size-5 mx-auto" />
-                </button>
-                <button className="btn icon_btn">
-                  <Pencil className="size-5 mx-auto" />
-                </button>
-              </div>
-            </div>,
-            document.body
-          )}
-      </div>
-    </div>
-  ),
-}
+        {
+            name: "",
+            minWidth: "160px",
+            omit: isBelow640,
+            cell: (row) => (
+                <div className="flex flex-col gap-3 w-full items-end pe-3.5">
+                    <div className="relative inline-flex">
+                        <FloatingDropdown
+                            trigger={
+                                <button className="p-2">
+                                    <EllipsisVertical className="size-5 shrink-0" />
+                                </button>
+                            }
+                        >
+                            <div className="flex items-center gap-2">
+                                <button className="btn icon_btn">
+                                    <Eye className="size-5 mx-auto" />
+                                </button>
+                                <button className="btn icon_btn">
+                                    <Trash2 className="size-5 mx-auto" />
+                                </button>
+                                <button className="btn icon_btn">
+                                    <Pencil className="size-5 mx-auto" />
+                                </button>
+                            </div>
+                        </FloatingDropdown>
+                    </div>
+                </div>
+            ),
+        }
     ];
 
     const ExpandedComponent = ({ data }) => (
