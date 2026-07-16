@@ -39,7 +39,7 @@ import FloatingDropdown from "../components/ui/FloatingDropdown";
 const Dashboard = () => {
   const { handleOpen, setClassrooms, setIsEdit, setSections, setStreams } =
     useOutletContext();
-  const { isBelow640, isBelow480, isBelow1024, isBelow1280, isBelow768 } = useIsMobile();
+  const { isBelow640, isBelow1024, isBelow1280 } = useIsMobile();
   const teachers = useSelector((state) => state.teachers);
   const filterSearchInchargeRef = useRef(null);
   //   const [openIncharge, setOpenIncharge] = useState(false);
@@ -142,7 +142,6 @@ const Dashboard = () => {
     {
       name: "Name",
       grow: 2,
-      // omit: isBelow1024,
       cell: row => (
         <div className="flex justify-between w-full">
           <div className="flex items-center gap-2">
@@ -163,29 +162,6 @@ const Dashboard = () => {
               </span>
             </div>
           </div>
-          <div className="flex sm:hidden flex-col gap-3 items-end">
-            <div className="relative inline-flex">
-              <FloatingDropdown
-                trigger={
-                  <button className="p-2">
-                    <EllipsisVertical className="size-5 shrink-0" />
-                  </button>
-                }
-              >
-                <div className="flex items-center gap-2">
-                  <button className="btn icon_btn">
-                    <Eye className="size-5 mx-auto" />
-                  </button>
-                  <button className="btn icon_btn">
-                    <Trash2 className="size-5 mx-auto" />
-                  </button>
-                  <button className="btn icon_btn">
-                    <Pencil className="size-5 mx-auto" />
-                  </button>
-                </div>
-              </FloatingDropdown>
-            </div>
-          </div>
         </div>
       ),
       selector: row => row.name,
@@ -193,7 +169,6 @@ const Dashboard = () => {
     },
     {
       name: "Contact",
-      // grow: 2,
       minWidth: "200px",
       omit: isBelow1024,
       cell: row => (
@@ -212,9 +187,7 @@ const Dashboard = () => {
     },
     {
       name: "Class In charge",
-      // wrap: true,
       minWidth: "200px",
-      // grow: 1,
       omit: isBelow640,
       cell: row => (
         <div className="flex flex-wrap flex-col gap-1 text-navy">
@@ -252,8 +225,7 @@ const Dashboard = () => {
       name: "",
       minWidth: "50px",
       maxWidth: "50px",
-      omit: isBelow640,
-      cell: (row) => (
+      cell: () => (
         <div className="flex flex-col gap-3 w-full items-end">
           <div className="relative inline-flex">
             <FloatingDropdown
@@ -263,7 +235,7 @@ const Dashboard = () => {
                 </button>
               }
             >
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1 p-1">
                 <button className="btn icon_btn_small">
                   <Eye className="size-4 mx-auto" />
                 </button>

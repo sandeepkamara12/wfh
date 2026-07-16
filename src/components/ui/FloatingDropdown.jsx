@@ -76,7 +76,7 @@ export default function FloatingDropdown({
                             left: x ?? 0,
                             zIndex: 9999,
                         }}
-                        className="bg-white relative z-50 border border-gray-200 rounded shadow-lg"
+                        className="bg-white relative z-50 border border-white shadow-sm hover:shadow-lg rounded"
                     >
                         {/* 🔺 Arrow */}
                         <div
@@ -94,7 +94,7 @@ export default function FloatingDropdown({
                         />
 
                         {/* 📋 Content */}
-                        <div className="p-2">{children}</div>
+                        {children}
                     </div>,
                     document.body
                 )}

@@ -1,4 +1,4 @@
-import { CalendarDays, Copy, EllipsisVertical, Eye, Mail, Pencil, Phone, Plus, Trash2, UserRound, UserRoundPen } from "lucide-react";
+import { CalendarDays, Copy, EllipsisVertical, Eye, Mail, Pencil, Phone, Plus, Search, Trash2, UserRound, UserRoundPen } from "lucide-react";
 import { teacherOptions, classOptions, streamOptions, sectionOptions, subjectOptions } from '../const/constant';
 import Table from "../components/common/Table";
 import CustomSelect from "../components/ui/CustomSelect";
@@ -11,7 +11,7 @@ import { useOutletContext } from "react-router-dom";
 import FloatingDropdown from "../components/ui/FloatingDropdown";
 
 const TeacherList = () => {
-    const { isBelow640, isBelow768, isBelow1280 } = useIsMobile();
+    const { isBelow768, isBelow1280 } = useIsMobile();
     const { handleOpen } = useOutletContext();
     const teachers = useSelector((state) => state.teachers);
     const dispatch = useDispatch();
@@ -72,29 +72,6 @@ const TeacherList = () => {
                                 {row.id}
                                 <Copy className="size-3 text-gray-500 mt-0.5" />
                             </span>
-                        </div>
-                    </div>
-                    <div className="flex sm:hidden flex-col gap-3 items-end">
-                        <div className="relative inline-flex">
-                            <FloatingDropdown
-                                trigger={
-                                    <button className="p-2">
-                                        <EllipsisVertical className="size-5 shrink-0" />
-                                    </button>
-                                }
-                            >
-                                <div className="flex items-center gap-2">
-                                    <button className="btn icon_btn">
-                                        <Eye className="size-5 mx-auto" />
-                                    </button>
-                                    <button className="btn icon_btn">
-                                        <Trash2 className="size-5 mx-auto" />
-                                    </button>
-                                    <button className="btn icon_btn">
-                                        <Pencil className="size-5 mx-auto" />
-                                    </button>
-                                </div>
-                            </FloatingDropdown>
                         </div>
                     </div>
                 </div>
@@ -160,7 +137,7 @@ const TeacherList = () => {
             name: "",
             minWidth: "50px",
             maxWidth: "50px",
-            omit: isBelow640,
+            // omit: isBelow640,
             cell: (row) => (
                 <div className="flex flex-col gap-3 w-full items-end">
                     <div className="relative inline-flex">
@@ -171,7 +148,7 @@ const TeacherList = () => {
                                 </button>
                             }
                         >
-                            <div className="flex items-center gap-1">
+                            <div className="flex items-center gap-1 p-1">
                                 <button className="btn icon_btn_small">
                                     <Eye className="size-4 mx-auto" />
                                 </button>
@@ -260,11 +237,10 @@ const TeacherList = () => {
             <div className="overflow-x-auto [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb">
                 <div className="min-w-full inline-block align-middle">
                     <div className="">
-                        <div className="bg-white p-4 rounded mb-4">
-
+                        <div className="mb-4">
                             <h2 className='font-bold text-lg' onClick={handleAdd}>Search Teachers</h2>
-                            <p className="text-sm text-navy font-medium">Browse teachers by id, name, classroom, stream, section, subject, email, or phone.</p>
-                            <div className='grid grid-cols-6 gap-4 my-4'>
+                            <p className="text-sm text-navy font-medium">Browse teachers by ID, Name, Classroom, Stream, Section, Subject, Email, and Phone.</p>
+                            <div className='hidden grid-cols-6 gap-4 my-4'>
                                 <CustomSelect
                                     options={teacherOptions}
                                     selectType="teacher"
@@ -301,8 +277,16 @@ const TeacherList = () => {
                         <div className="col-span-6 2xl:col-span-3 w-full flex flex-col bg-white rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
                             <div className="bg-navy py-3 px-4 text-sm font-medium text-white flex justify-between items-center">
                                 All Teachers
-                                <div className="btn icon_btn_small cursor-pointer">
-                                    <Plus onClick={() => handleOpen('teacher')} className="size-5 shrink-0" />
+
+
+                                <div className="flex gap-2 ">
+                                    <div className="flex gap-2">
+<TextField id="search_teacher" inputClassName="border-white py-1" placeholder="" />
+                                    <button className="btn icon_btn_small active "><Search className="size-5 shrink-0" /></button>
+                                    </div>
+                                    <button className="btn icon_btn_small active">
+                                        <Plus onClick={() => handleOpen('teacher')} className="size-5 shrink-0" />
+                                    </button>
                                 </div>
                             </div>
                             <Table id="teachers" columns={columns} data={teachers}

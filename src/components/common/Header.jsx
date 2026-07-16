@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import FloatingDropdown from "../ui/FloatingDropdown";
 
 const Header = ({ isOpen, toggleSidebar }) => {
     const [open, setOpen] = useState(false);
@@ -44,11 +45,13 @@ const Header = ({ isOpen, toggleSidebar }) => {
 
                     </div>
                     <div className="flex flex-row items-center justify-end gap-4">
-                        <div className="hs-dropdown relative inline-flex" ref={notificationRef}>
-                            <Bell className="size-5 shrink-0 cursor-pointer hover:text-orange" onClick={() => setOpenNotification((prev) => !prev)} />
-
-                            <div className={`${openNotification ? "opacity-100" : "opacity-0 hidden"} relative before:content-[''] before:absolute before:top-[calc(100%+6px)] before:right-1 before:w-0 before:h-0 before:border-l-[6px] before:border-r-[6px] before:border-b-[6px] before:border-l-transparent before:border-r-transparent before:border-b-white`} role="menu" aria-orientation="vertical" aria-labelledby="hs-dropdown-account">
-                                <div className={`absolute transition-[opacity,margin] duration min-w-60 bg-white border border-white shadow-lg rounded top-8 -right-3 max-h-72 overflow-hidden overflow-y-auto [&amp;::-webkit-scrollbar]:w-2 [&amp;::-webkit-scrollbar-thumb]:rounded-full [&amp;::-webkit-scrollbar-track]:bg-gray-100 [&amp;::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&amp;::-webkit-scrollbar-track]:bg-neutral-700 dark:[&amp;::-webkit-scrollbar-thumb]:bg-neutral-500`}>
+                        <div className="hs-dropdown relative inline-flex">
+                             <FloatingDropdown
+                                trigger={
+                                    <Bell className="size-5 shrink-0 cursor-pointer hover:text-orange" onClick={() => setOpenNotification((prev) => !prev)} />
+                                }
+                            >
+                                <div className={`max-h-72 overflow-hidden overflow-y-auto [&amp;::-webkit-scrollbar]:w-2 [&amp;::-webkit-scrollbar-thumb]:rounded-full [&amp;::-webkit-scrollbar-track]:bg-gray-100 [&amp;::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&amp;::-webkit-scrollbar-track]:bg-neutral-700 dark:[&amp;::-webkit-scrollbar-thumb]:bg-neutral-500`}>
                                     <div className={`w-full h-full`}>
                                         <div className="flex items-center cursor-pointer py-2 px-4 w-full text-sm text-gray-800 hover:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-200">
                                             <div className="flex items-center w-full">
@@ -152,60 +155,55 @@ const Header = ({ isOpen, toggleSidebar }) => {
                                     </div>
                                     <Link to="#" className="bottom-0 sticky text-sm text-center text-navy bg-white inset-x-0 block py-2 font-medium no-underline hover:text-orange">Mark as read</Link>
                                 </div>
-                            </div>
+                            </FloatingDropdown>
+
                         </div>
                         {/* </div> */}
-                        <div className="relative inline-flex" ref={dropdownRef}>
-                            <button onClick={() => setOpen((prev) => !prev)} type="button" className="size-10 rounded-full" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
-                                <img className="shrink-0 size-full rounded-full" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80" alt="Avatar" />
-                            </button>
-                            <div className={`${open ? "opacity-100" : "opacity-0 hidden"} absolute transition-[opacity,margin] duration min-w-60 
-  rounded top-11 right-0
-  bg-white border border-white shadow-lg  
-  before:content-[''] before:absolute before:-top-1.5 before:right-4
-  before:w-0 before:h-0
-  before:border-l-[6px] before:border-r-[6px] before:border-b-[6px]
-  before:border-l-transparent before:border-r-transparent before:border-b-white`} role="menu" aria-orientation="vertical" aria-labelledby="hs-dropdown-account">
-
-
-
-                                <div className="py-3 px-5 bg-navy/10 rounded-t">
-                                    <div className="text-sm font-medium text-black flex flex-wrap items-end gap-2">
-                                        {/* <UserStarIcon className="size-5 shrink-0 text-navy" /> */}
-                                        <div className="flex flex-wrap gap-0 w-[calc(100%-28px)]">
-                                            <div className="flex flex-wrap items-center gap-0.5">
-                                                <span>{user?.first_name + ' ' + user?.last_name}</span>
-                                                <span className="text-xs">(Sub Admin)</span>
+                        <div className="relative inline-flex">
+                            <FloatingDropdown
+                                trigger={
+                                    <button onClick={() => setOpen((prev) => !prev)} type="button" className="size-10 rounded-full" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
+                                        <img className="shrink-0 size-full rounded-full" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80" alt="Avatar" />
+                                    </button>
+                                }
+                            >
+                                    <div className="py-3 px-5 bg-navy/10 rounded-t">
+                                        <div className="text-sm font-medium text-black flex flex-wrap items-end gap-2">
+                                            {/* <UserStarIcon className="size-5 shrink-0 text-navy" /> */}
+                                            <div className="flex flex-wrap gap-0 w-[calc(100%-28px)]">
+                                                <div className="flex flex-wrap items-center gap-0.5">
+                                                    <span>{user?.first_name + ' ' + user?.last_name}</span>
+                                                    <span className="text-xs">(Sub Admin)</span>
+                                                </div>
+                                                <p className="text-xs text-navy uppercase">ID: {user.custom_id}</p>
                                             </div>
-                                            <p className="text-xs text-navy uppercase">ID: {user.custom_id}</p>
+
                                         </div>
 
                                     </div>
-
-                                </div>
-                                <div className="p-1.5 space-y-0.5">
-                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
-                                        <UserRound className="size-5 shrink-0" />
-                                        Profile
-                                    </Link>
-                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
-                                        <Bell className="size-5 shrink-0" />
-                                        Notification
-                                    </Link>
-                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
-                                        <UserRoundCog className="size-5 shrink-0" />
-                                        Settings
-                                    </Link>
-                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
-                                        <UserLock className="size-5 shrink-0" />
-                                        Change Password
-                                    </Link>
-                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
-                                        <LogOutIcon className="size-5 shrink-0" />
-                                        Logout
-                                    </Link>
-                                </div>
-                            </div>
+                                    <div className="p-1.5 space-y-0.5">
+                                        <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
+                                            <UserRound className="size-5 shrink-0" />
+                                            Profile
+                                        </Link>
+                                        <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
+                                            <Bell className="size-5 shrink-0" />
+                                            Notification
+                                        </Link>
+                                        <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
+                                            <UserRoundCog className="size-5 shrink-0" />
+                                            Settings
+                                        </Link>
+                                        <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
+                                            <UserLock className="size-5 shrink-0" />
+                                            Change Password
+                                        </Link>
+                                        <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
+                                            <LogOutIcon className="size-5 shrink-0" />
+                                            Logout
+                                        </Link>
+                                    </div>
+                            </FloatingDropdown>
                         </div>
 
                     </div>
