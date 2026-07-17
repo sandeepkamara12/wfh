@@ -35,8 +35,6 @@ const TeacherList = () => {
     const allTeachers = useSelector((state) => state.teachers.teachers);
     const dispatch = useDispatch();
     
-    console.log(allTeachers, 'allTeachers');
-
     useEffect(() => {
         const fetchTeachers = async () => {
             try {

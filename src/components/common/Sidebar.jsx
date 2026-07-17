@@ -22,7 +22,7 @@ const Sidebar = ({ isOpen, toggleSidebar, handleLogout }) => {
             `}>
 
             <div className="flex flex-col h-full max-h-full">
-                <div className="block xl:hidden absolute top-2 inset-e-4">
+                <div className="block absolute top-2 inset-e-4">
                     <div className="inline-block">
                         <button onClick={() => toggleSidebar()} type="button" className="hs-tooltip-toggle relative w-9 h-9 inline-flex justify-center items-center gap-x-2 border border-white text-white hover:bg-surface-hover focus:bg-surface-hover rounded-full focus:outline-hidden">
                             <X className="size-5" />

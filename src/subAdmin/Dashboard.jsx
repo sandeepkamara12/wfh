@@ -35,16 +35,33 @@ import {
   getStreamThunk,
 } from "../features/subAdmin/streamSlice";
 import FloatingDropdown from "../components/ui/FloatingDropdown";
+import { getTeacherThunk } from "../features/subAdmin/teacherSlice";
+import { format } from "date-fns";
 
 const Dashboard = () => {
-  const { handleOpen, setIsEdit } =
-    useOutletContext();
+  const base_url = import.meta.env.VITE_API_BASE_URL;
+  const { handleOpen, setIsEdit } = useOutletContext();
   const { isBelow640, isBelow1024, isBelow1280 } = useIsMobile();
-  const teachers = useSelector((state) => state.teachers);
+  // const teachers = useSelector((state) => state.teachers);
+  const allTeachers = useSelector((state) => state.teachers.teachers);
+  const dispatch = useDispatch();
+
+  console.log(allTeachers, 'allTeachers');
+
+  useEffect(() => {
+    const fetchTeachers = async () => {
+      try {
+        await dispatch(getTeacherThunk()).unwrap();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchTeachers();
+  }, [])
+
   const filterSearchInchargeRef = useRef(null);
   //   const [openIncharge, setOpenIncharge] = useState(false);
 
-  const dispatch = useDispatch();
   //   useOutsideClick(filterSearchInchargeRef, () => setOpenIncharge(false));
 
   let classrooms = useSelector((state) => state.classroom.classrooms);
@@ -129,23 +146,38 @@ const Dashboard = () => {
     }
   };
 
+  const classesTeach = [
+    { class: "3rd", section: "A", stream: "", subject: "Maths" },
+    { class: "3rd", section: "A", stream: "", subject: "Science" },
+
+    { class: "12th", section: "C", stream: "Medical", subject: "Biology" },
+    { class: "12th", section: "C", stream: "Medical", subject: "English" },
+
+    {
+      class: "12th",
+      section: "C",
+      stream: "Non Medical",
+      subject: "Physics",
+    },
+    { class: "12th", section: "C", stream: "Non Medical", subject: "Maths" },
+  ];
+
   const columns = [
     {
       name: "Name",
-      grow: 2,
       cell: row => (
         <div className="flex justify-between w-full">
           <div className="flex items-center gap-2">
             <span className="inline-flex items-center justify-center size-9 aspect-square rounded-full overflow-hidden bg-navy/10">
               <img
-                src={row.photo}
+                src={`${base_url}/${row.profile_pic}`}
                 alt=""
                 className="h-full w-full rounded-full max-w-full aspect-square"
               />
             </span>
             <div className="flex flex-col gap-0">
               <span className="text-sm font-semibold text-navy leading-4">
-                {row.name}
+                {row.first_name} {row.last_name}
               </span>
               <span className="inline-flex items-center tracking-wide gap-x-1.5 rounded text-xs text-gray-400">
                 {row.id}
@@ -155,8 +187,6 @@ const Dashboard = () => {
           </div>
         </div>
       ),
-      selector: row => row.name,
-      sortable: true
     },
     {
       name: "Contact",
@@ -174,7 +204,6 @@ const Dashboard = () => {
           </a>
         </div>
       ),
-      selector: row => row.contact
     },
     {
       name: "Class In charge",
@@ -186,7 +215,7 @@ const Dashboard = () => {
             className="flex items-center gap-1"
           >
             <UserRoundPen className="size-4 shrink-0 " />
-            {row.inchargeOf} {row.section}
+            III B
           </span>
           <span>Non Medical Maths</span>
         </div>
@@ -198,7 +227,7 @@ const Dashboard = () => {
       omit: isBelow1280,
       cell: row => (
         <div className="flex flex-wrap gap-1 items-start">
-          {groupClasses(row.classesTeach).map((c, i) => (
+          {groupClasses(classesTeach).map((c, i) => (
             <span
               key={i}
               className="inline-block text-sm font-medium leading-4 rounded bg-gray-100 px-2 py-1.5"
@@ -227,13 +256,13 @@ const Dashboard = () => {
               }
             >
               <div className="flex items-center gap-1 p-1">
-                <button className="btn icon_btn_small">
+                <button className="btn icon_btn">
                   <Eye className="size-4 mx-auto" />
                 </button>
-                <button className="btn icon_btn_small">
+                <button className="btn icon_btn">
                   <Trash2 className="size-4 mx-auto" />
                 </button>
-                <button className="btn icon_btn_small">
+                <button className="btn icon_btn">
                   <Pencil className="size-4 mx-auto" />
                 </button>
               </div>
@@ -268,71 +297,94 @@ const Dashboard = () => {
     }));
   };
 
-  const ExpandedComponent = ({ data }) => (
-    <div className="grid grid-cols-2 lg:grid-cols-4 py-4 justify-between gap-3 xxs:gap-2 lg:gap-1 text-sm font-medium w-full items-center">
+  const getDisplayName = (data) => {
+    if (data?.married) {
+      if (!data?.spouse_name) return "";
+      return `${data.gender === "male" ? "Mrs." : "Mr."} ${data.spouse_name}`;
+    }
 
-      <div className="col-span-1 flex lg:hidden flex-wrap flex-col gap-0">
-        <a className="flex items-center gap-1 text-navy font-medium hover:no-underline hover:text-orange" href={`mailto:${data.email}`}>
-          <Mail className='size-4' />
-          {data.email}
-        </a>
-        <a className="flex items-center gap-1 text-navy font-medium hover:no-underline hover:text-orange" href={`tel:${data.phone}`}>
-          <Phone className="size-4" />
-          {data.phone}
-        </a>
-      </div>
+    const father = data?.father_name ? `Mr. ${data.father_name}` : "";
+    const mother = data?.mother_name ? `Mrs. ${data.mother_name}` : "";
 
-      <div className="col-span-1 flex flex-wrap flex-col gap-0">
-        <span className="flex items-center gap-1 text-gray-400">
-          <UserRound className="size-4 shrink-0 " />
-          Spouse Name:
-        </span>
-        <span className="flex items-center gap-1 text-navy font-medium">
-          {data.spouseName}
-        </span>
-      </div>
+    if (father && mother) return `${father}, ${mother}`;
+    return father || mother || "";
+  };
 
-      <div className="col-span-1 flex flex-wrap flex-col gap-0">
-        <span className="flex items-center gap-1 text-gray-400">
-          <CalendarDays className="size-4 shrink-0" /> Joined At:
-        </span>
-        <span
-          className="text-navy font-medium"
-        >
-          {data.createdAt}
-        </span>
-      </div>
+  const ExpandedComponent = ({ data }) => {
+    const displayName = getDisplayName(data); // 👈 define here
+    return (
+      <div className="grid grid-cols-2 lg:grid-cols-4 py-4 justify-between gap-3 xxs:gap-2 lg:gap-1 text-sm font-medium w-full items-center">
+
+        <div className="col-span-1 flex lg:hidden flex-wrap flex-col gap-0">
+          <a className="flex items-center gap-1 text-navy font-medium hover:no-underline hover:text-orange" href={`mailto:${data.email}`}>
+            <Mail className='size-4' />
+            {data.email}
+          </a>
+          <a className="flex items-center gap-1 text-navy font-medium hover:no-underline hover:text-orange" href={`tel:${data.phone}`}>
+            <Phone className="size-4" />
+            {data.phone}
+          </a>
+        </div>
+
+        {
+          displayName &&
+          <div className="col-span-1 flex flex-wrap flex-col gap-0">
+            <>
+              <span className="flex items-center gap-1 text-gray-400">
+                <UserRound className="size-4 shrink-0 " />
+                {
+                  data?.married ? 'Spouse Nmae:' : 'Parent Name:'
+                }
+              </span>
+              <span className="flex items-center gap-1 text-navy font-medium">
+                {displayName}
+              </span>
+            </>
+          </div>
+        }
+
+        <div className="col-span-1 flex flex-wrap flex-col gap-0">
+          <span className="flex items-center gap-1 text-gray-400">
+            <CalendarDays className="size-4 shrink-0" /> Joined At:
+          </span>
+          <span
+            className="text-navy font-medium"
+          >
+            {format(data.created_at, "dd-MMMM-yyyy")}
+          </span>
+        </div>
 
 
-      <div className="col-span-1 flex sm:hidden flex-wrap flex-col gap-0 text-navy ">
-        <span className="flex items-center gap-1 text-gray-400">
-          <UserRoundPen className="size-4 shrink-0 " />
-          In charge:
-        </span>
-        <span className="font-medium">{data.inchargeOf} {data.section} Non Medical Maths</span>
-      </div>
+        <div className="col-span-1 flex sm:hidden flex-wrap flex-col gap-0 text-navy ">
+          <span className="flex items-center gap-1 text-gray-400">
+            <UserRoundPen className="size-4 shrink-0 " />
+            In charge:
+          </span>
+          <span className="font-medium">XII B Non Medical Maths</span>
+        </div>
 
-      <div className="col-span-2 lg:col-span-4 flex xl:hidden flex-col gap-1">
-        <span className="flex items-center gap-1 text-gray-400">
-          <UserRoundPen className="size-4 shrink-0 " />
-          Teach Other Classes:
-        </span>
-        <div className="flex flex-wrap gap-1">
-          {groupClasses(data.classesTeach).map((c, i) => (
-            <span
-              key={i}
-              className="inline-block font-medium leading-4 rounded bg-gray-200 px-2 py-1.5"
-            >
-              {c.class} {c.section}
-              {c.stream && ` • ${c.stream}`}
-              {" • "}
-              {c.subjects.join(", ")}
-            </span>
-          ))}
+        <div className="col-span-2 lg:col-span-4 flex xl:hidden flex-col gap-1">
+          <span className="flex items-center gap-1 text-gray-400">
+            <UserRoundPen className="size-4 shrink-0 " />
+            Teach Other Classes:
+          </span>
+          <div className="flex flex-wrap gap-1">
+            {groupClasses(classesTeach).map((c, i) => (
+              <span
+                key={i}
+                className="inline-block font-medium leading-4 rounded bg-gray-200 px-2 py-1.5"
+              >
+                {c.class} {c.section}
+                {c.stream && ` • ${c.stream}`}
+                {" • "}
+                {c.subjects.join(", ")}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
-  );
+    )
+  }
 
   return (
     <div className="grid gap-4">
@@ -416,7 +468,7 @@ const Dashboard = () => {
             needHeader={true}
             id="teachers"
             columns={columns}
-            data={teachers}
+            data={allTeachers}
             expandableRows
             expandableRowsComponent={ExpandedComponent}
             handleOpen={handleOpen}
