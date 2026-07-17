@@ -257,7 +257,6 @@ const TeacherList = () => {
                             columns={columns}
                             data={teachers}
                             needHeader={true}
-                            expandableRowExpanded={() => isBelow640}
                             expandableRowsComponent={ExpandedComponent}
                         />
                     </div>

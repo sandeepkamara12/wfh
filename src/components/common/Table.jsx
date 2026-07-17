@@ -16,20 +16,18 @@ const Table = (props) => {
                 <DataTable
                     columns={props.columns}
                     data={props.data}
+                    pagination
+                    animateRows 
+                    expandableRows
+                    responsive={true}
+                    selectableRows={props.needHeader}
+                    customStyles={dashboardTableStyle}
+                    paginationPerPage={props.paginationPerPage}
+                    expandableRowsComponent={props.expandableRowsComponent}
                     paginationComponentOptions={{
                         rowsPerPageText: '',
                         noRowsPerPage: true,
                     }}
-                    expandableRows
-                    expandableRowExpanded={props.expandableRowExpanded}
-                    onRowExpandToggled={props.onRowExpandToggled}
-                    expandableRowsComponent={props.expandableRowsComponent}
-                    customStyles={dashboardTableStyle}
-                    responsive={true}
-                    paginationPerPage={props.paginationPerPage}
-                    pagination
-                    animateRows 
-                    selectableRows={props.needHeader}
                 />
             </div>
         </>
