@@ -594,3 +594,30 @@ input#search_incharge {
 input#search_incharge:focus {
     width: 300px;
 }
+
+/******************Switch******************/
+.switch {
+  @apply flex items-center gap-2;
+}
+.switch-label {
+  @apply text-sm font-medium;
+}
+.switcher {
+  @apply relative inline-block cursor-pointer;
+}
+.switcher-bar {
+  @apply absolute inset-0 bg-white border-2 border-navy rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-orange peer-checked:border-orange;
+}
+.switcher-circle {
+  @apply absolute top-1/2 inset-s-1 -translate-y-1/2 bg-navy rounded-full shadow-sm transition-transform duration-300 ease-in-out peer-checked:bg-white;
+}
+.switcher.big {@apply w-11 h-6;}
+.switcher.big .switcher-circle {
+  @apply size-4 peer-checked:translate-x-[calc(100%+5px)];
+}
+
+.switcher.small {@apply w-8 h-5;}
+.switcher.small .switcher-circle {
+  @apply size-3 peer-checked:translate-x-[calc(100%+1px)];
+}
+/******************Switch******************/

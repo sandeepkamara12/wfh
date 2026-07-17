@@ -4,7 +4,7 @@ import { format, subYears } from "date-fns"
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux"
-import { Plus, Redo2, Trash2, Undo2, X } from "lucide-react"
+import { Plus, Redo2, Trash2, Undo2 } from "lucide-react"
 import { v4 as uuidv4 } from "uuid";
 import { classOptions, sectionOptions, streamOptions, subjectOptions } from "../../../const/constant"
 import ImageUploader from "../../common/ImageUploader"
@@ -18,7 +18,7 @@ import OpenCalendar from "../../ui/OpenCalendar";
 import Gender from "../../common/Gender";
 import Switch from "../../ui/Switch";
 
-const AddTeacher = ({ role, open, handleClose }) => {
+const AddTeacher = ({ role, open }) => {
     const fileRef = useRef(null);
     const dispatch = useDispatch();
     let user = useSelector(state => state.auth.user);
@@ -149,29 +149,29 @@ const AddTeacher = ({ role, open, handleClose }) => {
     // };
 
     const buildPayload = (values) => {
-  const formData = new FormData();
+        const formData = new FormData();
 
-  for (const [key, value] of Object.entries(values)) {
-    if (
-      key === "incharge" ||
-      key === "incharge_classroom" ||
-      key === "incharge_section" ||
-      key === "other_classes"
-    ) {
-      continue;
-    }
+        for (const [key, value] of Object.entries(values)) {
+            if (
+                key === "incharge" ||
+                key === "incharge_classroom" ||
+                key === "incharge_section" ||
+                key === "other_classes"
+            ) {
+                continue;
+            }
 
-    if (key === "dob" && value) {
-      formData.append("dob", format(value, "dd-MM-yyyy"));
-    } else if (key === "file" && value) {
-      formData.append("file", value);
-    } else {
-      formData.append(key, value);
-    }
-  }
+            if (key === "dob" && value) {
+                formData.append("dob", format(value, "yyyy-MM-dd"));
+            } else if (key === "file" && value) {
+                formData.append("file", value);
+            } else {
+                formData.append(key, value);
+            }
+        }
 
-  return formData;
-};
+        return formData;
+    };
 
     const handleAdd = () => {
         const updated = [...formik.values.other_classes];
@@ -205,9 +205,7 @@ const AddTeacher = ({ role, open, handleClose }) => {
             gender: "male",
             file: null,
             sub_admin_id: user?.id || "",
-            incharge_classroom: "",
-            incharge_section: "",
-            other_classes: [{ id: uuidv4(), classroom: "", stream: "", section: "", subject: "" }]
+            other_classes: [{ id: uuidv4(), classroom: "", stream: "", section: "", subject: "", incharge: false }]
         },
         validationSchema,
         validateOnBlur: false,
@@ -238,9 +236,7 @@ const AddTeacher = ({ role, open, handleClose }) => {
                             gender: "male",
                             file: null,
                             sub_admin_id: "",
-                            incharge_classroom: "",
-                            incharge_section: "",
-                            other_classes: [{ classroom: "", stream: "", section: "", subject: "" }]
+                            other_classes: [{ classroom: "", stream: "", section: "", subject: "", incharge: false }]
                         }
                     });
                 }
@@ -294,9 +290,14 @@ const AddTeacher = ({ role, open, handleClose }) => {
         }
     };
 
-    const handleIncharge = (e) => {
-        const incharge = e.target.checked;
-        formik.setFieldValue("incharge", incharge);
+    const handleIncharge = (id) => (e) => {
+        const checked = e.target.checked;
+        const updated = formik.values.other_classes.map(item => ({
+            ...item,
+            incharge: item.id === id ? checked : false
+        }));
+
+        formik.setFieldValue("other_classes", updated);
     };
 
     const showParents = formik.values.role === "student" || (formik.values.role === "teacher" && !formik.values.married);
@@ -322,10 +323,10 @@ const AddTeacher = ({ role, open, handleClose }) => {
         return (() => {
             formik.resetForm();
         })
-    }, [open])
+    }, [open]);
 
     return (
-        <form onSubmit={formik.handleSubmit} className="h-full">
+        <form onSubmit={formik.handleSubmit} className="h-calc(100% - 68px)">
 
             {/* 🔵 Tabs */}
             <div className="px-4 pb-4 sticky top-0 z-30">
@@ -399,60 +400,7 @@ const AddTeacher = ({ role, open, handleClose }) => {
                     activeStep === 2 && (
                         <>
                             <TextField label={`${formik.values.role === 'teacher' ? 'Teacher Id' : 'Student Id'}`} id="custom_id" {...formik.getFieldProps("custom_id")} error={formik.touched.custom_id && formik.errors.custom_id} required={true} />
-                            {
-                                formik.values.role === "teacher" &&
-                                <Switch id="incharge" formik={formik} onChangeHandler={handleIncharge} label={"Are you in charge?"} checked={formik.values.incharge} />
-                            }
-                            {
-                                formik.values.incharge &&
-                                <div className="grid grid-cols-2 md:grid-cols-3 gap-2 w-full">
-                                    <div className="w-full">
-                                        <CustomSelect
-                                            options={classOptions}
-                                            selectType="classroom"
-                                            label="Classroom"
-                                            placeholder="Select Classroom"
-                                            isSearchable={false}
-                                            className="w-full"
-                                            value={formik.values.incharge_classroom}
-                                            onChange={(val) =>
-                                                formik.setFieldValue("incharge_classroom", val)
-                                            }
-                                        />
-                                    </div>
-                                    {
-                                        (formik.values.incharge_classroom === '11' || formik.values.incharge_classroom === '12') &&
-                                        <div className="w-full">
-                                            <CustomSelect
-                                                options={streamOptions}
-                                                selectType="stream"
-                                                label="Stream"
-                                                placeholder="Select Stream"
-                                                isSearchable={false}
-                                                className="w-full"
-                                                value={formik.values.incharge_stream}
-                                                onChange={(val) =>
-                                                    formik.setFieldValue("incharge_stream", val)
-                                                }
-                                            />
-                                        </div>
-                                    }
-                                    <div className="w-full">
-                                        <CustomSelect
-                                            options={sectionOptions}
-                                            selectType="section"
-                                            label="Section"
-                                            placeholder="Select Section"
-                                            isSearchable={false}
-                                            className="w-full"
-                                            value={formik.values.incharge_section}
-                                            onChange={(val) =>
-                                                formik.setFieldValue("incharge_section", val)
-                                            }
-                                        />
-                                    </div>
-                                </div>
-                            }
+
                             <div className="w-full">
                                 <label className="inline-flex cursor-pointer items-center gap-2 text-sm font-medium text-navy mb-4">
 
@@ -473,15 +421,19 @@ const AddTeacher = ({ role, open, handleClose }) => {
 
                                         {/* ✅ delete button */}
                                         {formik.values.role === "teacher" &&
-                                            formik.values.other_classes.length > 1 && (
-                                                <button
-                                                    type="button"
-                                                    onClick={() => handleRemoveClass(item.id)}
-                                                    className="btn icon_btn_remove absolute right-0 -top-1"
-                                                >
-                                                    <Trash2 className="size-5" />
-                                                </button>
-                                            )
+                                            <>
+                                                <Switch id={item.id} type="small" formik={formik} onChangeHandler={handleIncharge(item.id)} label={"Are you in charge?"} checked={item.incharge} />
+                                                {
+                                                    formik.values.other_classes.length > 1 && (
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => handleRemoveClass(item.id)}
+                                                            className="btn icon_btn_remove absolute right-0 -top-1"
+                                                        >
+                                                            <Trash2 className="size-5" />
+                                                        </button>
+                                                    )}
+                                            </>
                                         }
 
                                         <div className={`grid grid-cols-2 gap-2`}>

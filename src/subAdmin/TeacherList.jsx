@@ -30,7 +30,7 @@ const TeacherList = () => {
       { class: "12th", section: "C", stream: "Non Medical", subject: "Maths" },
     ];
 
-    const { isBelow768, isBelow1280 } = useIsMobile();
+    const {isBelow640, isBelow768, isBelow1024, isBelow1280 } = useIsMobile();
     const { handleOpen } = useOutletContext();
     const allTeachers = useSelector((state) => state.teachers.teachers);
     const dispatch = useDispatch();
@@ -121,8 +121,8 @@ const TeacherList = () => {
         },
         {
             name: "Contact",
-            minWidth: "200px",
-            omit: isBelow1280,
+            minWidth: "250px",
+            omit: isBelow1024,
             cell: row => (
                 <div className="flex flex-wrap flex-col gap-1">
                     <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`mailto:${row.email}`}>
@@ -139,7 +139,7 @@ const TeacherList = () => {
         {
             name: "Class In charge",
             minWidth: "200px",
-            omit: isBelow1280,
+            omit: isBelow640,
             cell: row => (
                 <div className="flex flex-wrap flex-col gap-1 text-navy">
                     <span
@@ -155,7 +155,7 @@ const TeacherList = () => {
         {
             name: 'Teach Other Classes',
             grow: 3,
-            omit: isBelow768,
+            omit: isBelow1280,
             cell: row => (
                 <div className="flex flex-wrap gap-1 items-start">
                     {groupClasses(classesTeach).map((c, i) => (
@@ -209,7 +209,7 @@ const TeacherList = () => {
         return (
             <div className="grid grid-cols-2 lg:grid-cols-4 py-4 justify-between gap-3 text-sm font-medium w-full items-center">
 
-                <div className="col-span-1 flex xl:hidden flex-wrap flex-col gap-0">
+                <div className="col-span-2 sm:col-span-1 flex lg:hidden flex-wrap flex-col gap-0">
                     <a className="flex items-center gap-1 text-navy font-medium hover:no-underline hover:text-orange" href={`mailto:${data.email}`}>
                         <Mail className='size-4' />
                         {data.email}
@@ -249,15 +249,16 @@ const TeacherList = () => {
                 </div>
 
 
-                <div className="col-span-1 flex xl:hidden flex-wrap flex-col gap-0 text-navy ">
+                <div className="col-span-1 flex sm:hidden flex-wrap flex-col gap-0 text-navy ">
                     <span className="flex items-center gap-1 text-gray-400">
                         <UserRoundPen className="size-4 shrink-0 " />
-                        In charge:
+                       Class in Charge:
                     </span>
-                    {/* <span className="font-medium">{data.inchargeOf} {data.section} Non Medical Maths</span> */}
+                    <span>III A</span>
+                    <span className="font-medium">{data.inchargeOf} {data.section} Non Medical Maths</span>
                 </div>
 
-                <div className="col-span-2 flex md:hidden flex-col gap-1">
+                <div className="col-span-2 lg:col-span-4 flex xl:hidden flex-col gap-1">
                     <span className="flex items-center gap-1 text-gray-400">
                         <UserRoundPen className="size-4 shrink-0 " />
                         Teach Other Classes:

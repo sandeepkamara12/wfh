@@ -37,6 +37,7 @@ import {
 import FloatingDropdown from "../components/ui/FloatingDropdown";
 import { getTeacherThunk } from "../features/subAdmin/teacherSlice";
 import { format } from "date-fns";
+import Switch from "../components/ui/Switch";
 
 const Dashboard = () => {
   const base_url = import.meta.env.VITE_API_BASE_URL;
@@ -190,7 +191,7 @@ const Dashboard = () => {
     },
     {
       name: "Contact",
-      minWidth: "200px",
+      minWidth: "250px",
       omit: isBelow1024,
       cell: row => (
         <div className="flex flex-wrap flex-col gap-1">
@@ -209,7 +210,7 @@ const Dashboard = () => {
       name: "Class In charge",
       minWidth: "200px",
       omit: isBelow640,
-      cell: row => (
+      cell: () => (
         <div className="flex flex-wrap flex-col gap-1 text-navy">
           <span
             className="flex items-center gap-1"
@@ -225,7 +226,7 @@ const Dashboard = () => {
       name: 'Teach Other Classes',
       grow: 3,
       omit: isBelow1280,
-      cell: row => (
+      cell: () => (
         <div className="flex flex-wrap gap-1 items-start">
           {groupClasses(classesTeach).map((c, i) => (
             <span
@@ -313,9 +314,9 @@ const Dashboard = () => {
   const ExpandedComponent = ({ data }) => {
     const displayName = getDisplayName(data); // 👈 define here
     return (
-      <div className="grid grid-cols-2 lg:grid-cols-4 py-4 justify-between gap-3 xxs:gap-2 lg:gap-1 text-sm font-medium w-full items-center">
+      <div className="grid grid-cols-2 lg:grid-cols-4 py-4 justify-between gap-3 text-sm font-medium w-full items-center">
 
-        <div className="col-span-1 flex lg:hidden flex-wrap flex-col gap-0">
+        <div className="col-span-2 sm:col-span-1 flex lg:hidden flex-wrap flex-col gap-0">
           <a className="flex items-center gap-1 text-navy font-medium hover:no-underline hover:text-orange" href={`mailto:${data.email}`}>
             <Mail className='size-4' />
             {data.email}
@@ -358,9 +359,10 @@ const Dashboard = () => {
         <div className="col-span-1 flex sm:hidden flex-wrap flex-col gap-0 text-navy ">
           <span className="flex items-center gap-1 text-gray-400">
             <UserRoundPen className="size-4 shrink-0 " />
-            In charge:
+            Class in Charge:
           </span>
-          <span className="font-medium">XII B Non Medical Maths</span>
+          <span className="">XII B</span>
+          <span className="font-medium">Non Medical Maths</span>
         </div>
 
         <div className="col-span-2 lg:col-span-4 flex xl:hidden flex-col gap-1">
@@ -389,7 +391,6 @@ const Dashboard = () => {
   return (
     <div className="grid gap-4">
       <h2 className="font-bold text-lg">Dashboard</h2>
-
       {/* Dashbaord Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-3 3xl:gap-4">
         {dashboardCardData.map((item, index) => (

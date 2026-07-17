@@ -48,5 +48,4 @@ export const store = configureStore({
 // 5. Create persistor
 export const persistor = persistStore(store);
 
-// router.get("/sub-admin/all-teachers"
 // router.put("/sub-admin/update-teacher/:id"

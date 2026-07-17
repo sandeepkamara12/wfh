@@ -22,7 +22,7 @@ const Table = (props) => {
                     responsive={true}
                     selectableRows={props.needHeader}
                     customStyles={dashboardTableStyle}
-                    paginationPerPage={props.paginationPerPage}
+                    paginationPerPage={props.paginationPerPage??10}
                     expandableRowsComponent={props.expandableRowsComponent}
                     paginationComponentOptions={{
                         rowsPerPageText: '',
