@@ -37,7 +37,7 @@ import {
 import FloatingDropdown from "../components/ui/FloatingDropdown";
 
 const Dashboard = () => {
-  const { handleOpen, setClassrooms, setIsEdit, setSections, setStreams } =
+  const { handleOpen, setIsEdit } =
     useOutletContext();
   const { isBelow640, isBelow1024, isBelow1280 } = useIsMobile();
   const teachers = useSelector((state) => state.teachers);
@@ -57,30 +57,21 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchClassrooms = async () => {
       try {
-        const result = await dispatch(getClassroomThunk()).unwrap();
-        if (result?.success) {
-          setClassrooms(result?.data);
-        }
+        await dispatch(getClassroomThunk()).unwrap();
       } catch (error) {
         console.log(error);
       }
     };
     const fetchSections = async () => {
       try {
-        const result = await dispatch(getSectionThunk()).unwrap();
-        if (result?.success) {
-          setSections(result?.data);
-        }
+        await dispatch(getSectionThunk()).unwrap();
       } catch (error) {
         console.log(error);
       }
     };
     const fetchStreams = async () => {
       try {
-        const result = await dispatch(getStreamThunk()).unwrap();
-        if (result?.success) {
-          setStreams(result?.data);
-        }
+        await dispatch(getStreamThunk()).unwrap();
       } catch (error) {
         console.log(error);
       }

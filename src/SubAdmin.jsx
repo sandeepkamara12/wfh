@@ -14,9 +14,6 @@ const SubAdmin = () => {
         setIsSidebarOpen((prev) => !prev);
     };
     const [open, setOpen] = useState(null);
-    const [classrooms, setClassrooms] = useState([]);
-    const [streams, setStreams] = useState([]);
-    const [sections, setSections] = useState([]);
     const [isEdit, setIsEdit] = useState(null);
     
     const handleOpen = (type) => {
@@ -27,7 +24,6 @@ const SubAdmin = () => {
         setOpen(null);
         setIsEdit(null);
     };
-console.log(open, 'open');
     return (
         <SidebarLayout isOpen={isSidebarOpen} toggleSidebar={toggleSidebar}>
             {
@@ -51,7 +47,7 @@ console.log(open, 'open');
                 </Modal>
                 </>
             }
-            <Outlet context={{ isSidebarOpen, toggleSidebar, handleClose, handleOpen, open, setOpen, setClassrooms, setIsEdit, setSections, setStreams }} />
+            <Outlet context={{ isSidebarOpen, toggleSidebar, handleClose, handleOpen, open, setOpen, setIsEdit }} />
         </SidebarLayout>
     )
 }

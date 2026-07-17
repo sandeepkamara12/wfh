@@ -4,7 +4,8 @@ import { persistStore, persistReducer, PURGE, REGISTER, PERSIST, PAUSE, REHYDRAT
 import { combineReducers } from "redux";
 
 import loginReducer from "./features/auth/loginSlice";
-import teachersReducer from "./features/teachers/teachersSlice";
+import teacherReducer from "./features/teachers/teachersSlice";
+import teachersReducer from "./features/subAdmin/teacherSlice";
 import roleReducer from "./features/subAdmin/createRoleSlice";
 import classroomReducer from "./features/subAdmin/classroomSlice";
 import sectionReducer from "./features/subAdmin/sectionSlice";
@@ -14,6 +15,7 @@ import localStorage from "redux-persist/es/storage";
 // 2. Combine reducers
 const rootReducer = combineReducers({
   auth: loginReducer,
+  teacher: teacherReducer,
   teachers: teachersReducer,
   role: roleReducer,
   classroom: classroomReducer,

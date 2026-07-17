@@ -5,7 +5,7 @@ import axiosInstance from "../../axiosinstance";
 
 
 const teachersSlice = createSlice({
-  name: "teachers",
+  name: "teacher",
   initialState: teachersData,
   reducers: {
     addTeacher(state, action) {

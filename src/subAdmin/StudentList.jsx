@@ -7,7 +7,7 @@ import TextField from "../components/ui/TextField";
 
 const StudentList = () => {
   const { handleOpen } = useOutletContext();
-  const { isBelow640, isBelow768, isBelow1024, isBelow1280 } = useIsMobile();
+  const { isBelow640, isBelow1280 } = useIsMobile();
 
   const columns = [
     {
@@ -66,7 +66,7 @@ const StudentList = () => {
             <UserRoundPen className="size-4 shrink-0 " />
             {row.classroom} {row.section}
           </span>
-          <span>Non Medical Maths</span>
+          <span>Non Medical</span>
         </div>
       )
     },
@@ -185,7 +185,7 @@ const StudentList = () => {
         <span>
           {data.classroom} {data.section}
         </span>
-        <span>Non Medical Maths</span>
+        <span>Non Medical</span>
       </div>
 
       <div className="col-span-1 flex flex-wrap flex-col gap-0 text-navy ">
