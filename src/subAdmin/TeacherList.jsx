@@ -1,7 +1,5 @@
 import { CalendarDays, Copy, EllipsisVertical, Eye, Mail, Pencil, Phone, Plus, Search, Trash2, UserRound, UserRoundPen } from "lucide-react";
-import { teacherOptions, classOptions, streamOptions, sectionOptions, subjectOptions } from '../const/constant';
 import Table from "../components/common/Table";
-import CustomSelect from "../components/ui/CustomSelect";
 import { useIsMobile } from "../hooks/useIsMobile";
 import { useDispatch } from "react-redux";
 import { addTeacher } from "../features/teachers/teachersSlice";
@@ -11,11 +9,11 @@ import { useOutletContext } from "react-router-dom";
 import FloatingDropdown from "../components/ui/FloatingDropdown";
 
 const TeacherList = () => {
-    const { isBelow768, isBelow1280 } = useIsMobile();
+    const { isBelow640, isBelow768, isBelow1280 } = useIsMobile();
     const { handleOpen } = useOutletContext();
     const teachers = useSelector((state) => state.teachers);
-    console.log(teachers,'teachers');
     const dispatch = useDispatch();
+
 
     const handleAdd = () => {
         dispatch(
@@ -57,6 +55,7 @@ const TeacherList = () => {
             grow: 2,
             cell: row => (
                 <div className="flex justify-between w-full">
+                    {console.log(row.id, 'id is')}
                     <div className="flex items-center gap-2">
                         <span className="inline-flex items-center justify-center size-9 aspect-square rounded-full overflow-hidden bg-navy/10">
                             <img
@@ -138,8 +137,7 @@ const TeacherList = () => {
             name: "",
             minWidth: "50px",
             maxWidth: "50px",
-            // omit: isBelow640,
-            cell: (row) => (
+            cell: () => (
                 <div className="flex flex-col gap-3 w-full items-end">
                     <div className="relative inline-flex">
                         <FloatingDropdown
@@ -150,13 +148,13 @@ const TeacherList = () => {
                             }
                         >
                             <div className="flex items-center gap-1 p-1">
-                                <button className="btn icon_btn_small">
+                                <button className="btn icon_btn">
                                     <Eye className="size-4 mx-auto" />
                                 </button>
-                                <button className="btn icon_btn_small">
+                                <button className="btn icon_btn">
                                     <Trash2 className="size-4 mx-auto" />
                                 </button>
-                                <button className="btn icon_btn_small">
+                                <button className="btn icon_btn">
                                     <Pencil className="size-4 mx-auto" />
                                 </button>
                             </div>
@@ -237,38 +235,31 @@ const TeacherList = () => {
         <div className="flex flex-col">
             <div className="overflow-x-auto [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb">
                 <div className="min-w-full inline-block align-middle">
-                    <div className="">
-                        <div className="mb-4">
-                            <h2 className='font-bold text-lg' onClick={handleAdd}>Search Teachers</h2>
-                            <p className="text-sm text-navy font-medium">Browse teachers by ID, Name, Classroom, Stream, Section, Subject, Email, and Phone.</p>
-
-                        </div>
-                        <div className="col-span-6 2xl:col-span-3 w-full flex flex-col bg-white rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
-                            <div className="bg-navy py-3 px-4 text-sm font-medium text-white flex justify-between items-center">
-                                All Teachers
-
-
-                                <div className="flex gap-2 ">
-                                    <div className="flex gap-2">
-                                        <TextField id="search_teacher" inputClassName="border-white py-1" placeholder="" />
-                                        <button className="btn icon_btn_small active "><Search className="size-5 shrink-0" /></button>
-                                    </div>
-                                    <button className="btn icon_btn_small active">
-                                        <Plus onClick={() => handleOpen('teacher')} className="size-5 shrink-0" />
-                                    </button>
+                    <div className="mb-4">
+                        <h2 className='font-bold text-lg' onClick={handleAdd}>Search Teachers</h2>
+                        <p className="text-sm text-navy font-medium">Browse teachers by ID, Name, Classroom, Stream, Section, Subject, Email, and Phone.</p>
+                    </div>
+                    <div className="col-span-6 2xl:col-span-3 w-full flex flex-col bg-white rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
+                        <div className="bg-navy py-3 px-4 text-sm font-medium text-white flex justify-between items-center">
+                            All Teachers
+                            <div className="flex gap-2 ">
+                                <div className="flex gap-2">
+                                    <TextField id="search_teacher" inputClassName="border-white py-1" placeholder="" />
+                                    <button className="btn icon_btn_small active "><Search className="size-5 shrink-0" /></button>
                                 </div>
+                                <button className="btn icon_btn_small active">
+                                    <Plus onClick={() => handleOpen('teacher')} className="size-5 shrink-0" />
+                                </button>
                             </div>
-                            <Table id="teachers" columns={columns} data={teachers}
-                                needHeader={true}
-                                expandableRows
-                                expandableRowsComponent={ExpandedComponent}
-                                handleOpen={handleOpen}
-                            // btnText="Add Teacher"
-                            // btnIcon={<Plus className="w-5 h-5 mx-auto" />}
-                            // label="Teachers"
-                            // subLabel="Add, edit, delete and search a teacher."
-                            />
                         </div>
+                        <Table
+                            id="teachers"
+                            columns={columns}
+                            data={teachers}
+                            needHeader={true}
+                            expandableRowExpanded={() => isBelow640}
+                            expandableRowsComponent={ExpandedComponent}
+                        />
                     </div>
                 </div>
             </div>

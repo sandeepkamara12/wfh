@@ -1,56 +1,35 @@
 import DataTable from 'react-data-table-component';
-const Table = ({ id = "", columns, data, handleOpen, expandableRows, expandableRowsComponent, btnText, btnIcon, label, subLabel, isButtonDisabled = false, paginationPerPage, needHeader = false, customStyle }) => {
-    
+const Table = (props) => {
+
     // Remove Table Header if no need it (needHeader above prop)
     const dashboardTableStyle = {
         headRow: {
             style: {
-                display: needHeader ? 'flex' : 'none',
+                display: props.needHeader ? 'flex' : 'none',
             },
         },
     };
 
     return (
         <>
-            {/* <div className={`gap-3 md:justify-between md:items-center bg-white p-4 rounded-t ${needHeader ? 'flex' : 'hidden'}`}>
-                <div>
-                    <h2 className="font-bold text-lg">
-                        {label}
-                    </h2>
-                    <p className="text-sm text-navy font-medium">
-                        {subLabel}
-                    </p>
-                </div>
-                {
-                    btnText !== "" && btnIcon !== "" &&
-                    <div>
-                        <div className="inline-flex gap-x-2">
-                            <button type="button"
-                                onClick={handleOpen}
-                                className="btn btn_with_text" disabled={isButtonDisabled}>
-                                {btnIcon}
-                                {btnText}
-                            </button>
-                        </div>
-                    </div>
-                }
-            </div> */}
-            <div className={`${id}`}>
+            <div className={`${props.id}`}>
                 <DataTable
-                    columns={columns}
-                    data={data}
+                    columns={props.columns}
+                    data={props.data}
                     paginationComponentOptions={{
                         rowsPerPageText: '',
                         noRowsPerPage: true,
                     }}
-                    expandableRows={expandableRows}
-                    expandableRowsComponent={expandableRowsComponent}
+                    expandableRows
+                    expandableRowExpanded={props.expandableRowExpanded}
+                    onRowExpandToggled={props.onRowExpandToggled}
+                    expandableRowsComponent={props.expandableRowsComponent}
                     customStyles={dashboardTableStyle}
                     responsive={true}
-                    paginationPerPage={paginationPerPage}
-                    // pagination={needHeader}
+                    paginationPerPage={props.paginationPerPage}
                     pagination
-                    selectableRows={needHeader}
+                    animateRows 
+                    selectableRows={props.needHeader}
                 />
             </div>
         </>
