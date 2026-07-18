@@ -1,40 +1,42 @@
-import { CalendarDays, Copy, EllipsisVertical, Eye, Mail, Pencil, Phone, Plus, Search, Trash2, UserRound, UserRoundPen } from "lucide-react";
-import Table from "../components/common/Table";
-import { useIsMobile } from "../hooks/useIsMobile";
-import { useDispatch } from "react-redux";
-import { addTeacher } from "../features/teachers/teachersSlice";
-import { useSelector } from "react-redux";
-import TextField from "../components/ui/TextField";
-import { useOutletContext } from "react-router-dom";
-import FloatingDropdown from "../components/ui/FloatingDropdown";
 import { useEffect } from "react";
+import { useOutletContext } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+
+// Custom Hooks
+import { useIsMobile } from "../hooks/useIsMobile";
+
+// Utils
+import { groupClasses } from "../utils/classUtility";
+import { getDisplayName } from "../utils/displayUtil";
+
+import { classesTeach } from "../const/constant";
+
+//Slices
+import { addTeacher } from "../features/teachers/teachersSlice";
 import { getTeacherThunk } from "../features/subAdmin/teacherSlice";
-import { format } from "date-fns";
+
+//Components
+import Table from "../components/common/Table";
+import TextField from "../components/ui/TextField";
+import FloatingDropdown from "../components/ui/FloatingDropdown";
+
+//Icons
+import { CalendarDays, Copy, EllipsisVertical, Eye, Mail, Pencil, Phone, Plus, Search, Trash2, UserRound, UserRoundPen } from "lucide-react";
+
+
+const base_url = import.meta.env.VITE_API_BASE_URL;
 
 const TeacherList = () => {
-    const base_url = import.meta.env.VITE_API_BASE_URL;
 
-    const classesTeach = [
-      { class: "3rd", section: "A", stream: "", subject: "Maths" },
-      { class: "3rd", section: "A", stream: "", subject: "Science" },
+    
+    const { handleOpen } = useOutletContext();
 
-      { class: "12th", section: "C", stream: "Medical", subject: "Biology" },
-      { class: "12th", section: "C", stream: "Medical", subject: "English" },
-
-      {
-        class: "12th",
-        section: "C",
-        stream: "Non Medical",
-        subject: "Physics",
-      },
-      { class: "12th", section: "C", stream: "Non Medical", subject: "Maths" },
-    ];
+    const dispatch = useDispatch();
+    const allTeachers = useSelector((state) => state.teachers.teachers);
 
     const {isBelow640, isBelow768, isBelow1024, isBelow1280 } = useIsMobile();
-    const { handleOpen } = useOutletContext();
-    const allTeachers = useSelector((state) => state.teachers.teachers);
-    const dispatch = useDispatch();
-    
+
+  //Fetch Teachers on load
     useEffect(() => {
         const fetchTeachers = async () => {
             try {
@@ -46,6 +48,8 @@ const TeacherList = () => {
         fetchTeachers();
     }, [])
 
+
+    //Add a new Teachers
     const handleAdd = () => {
         dispatch(
             addTeacher({
@@ -54,43 +58,6 @@ const TeacherList = () => {
                 subject: "Math"
             })
         );
-    };
-
-    const groupClasses = (data) => {
-        const map = new Map();
-
-        data.forEach((item) => {
-            const key = `${item.class}-${item.section}-${item.stream || ""}`;
-
-            if (!map.has(key)) {
-                map.set(key, {
-                    class: item.class,
-                    section: item.section,
-                    stream: item.stream,
-                    subjects: new Set(),
-                });
-            }
-
-            map.get(key).subjects.add(item.subject);
-        });
-
-        return Array.from(map.values()).map((item) => ({
-            ...item,
-            subjects: Array.from(item.subjects),
-        }));
-    };
-
-    const getDisplayName = (data) => {
-        if (data?.married) {
-            if (!data?.spouse_name) return "";
-            return `${data.gender === "male" ? "Mrs." : "Mr."} ${data.spouse_name}`;
-        }
-
-        const father = data?.father_name ? `Mr. ${data.father_name}` : "";
-        const mother = data?.mother_name ? `Mrs. ${data.mother_name}` : "";
-
-        if (father && mother) return `${father}, ${mother}`;
-        return father || mother || "";
     };
 
     const columns = [

@@ -1,56 +1,54 @@
-import { Link, useOutletContext } from "react-router-dom";
-import { dashboardCardData } from "../const/constant";
-import DashboardCard from "../components/subadmin/dashboard/DashboardCard";
-import Table from "../components/common/Table";
-import { useIsMobile } from "../hooks/useIsMobile";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  CalendarDays,
-  Copy,
-  EllipsisVertical,
-  Eye,
-  GripVertical,
-  Loader,
-  Mail,
-  Pencil,
-  Phone,
-  Plus,
-  Trash2,
-  UserRound,
-  UserRoundPen,
-} from "lucide-react";
-import TextField from "../components/ui/TextField";
 import { useEffect, useRef, useState } from "react";
-import {
-  deleteClassroomThunk,
-  getClassroomThunk,
-} from "../features/subAdmin/classroomSlice";
-import { toast } from "react-toastify";
-import {
-  deleteSectionThunk,
-  getSectionThunk,
-} from "../features/subAdmin/sectionSlice";
-import {
-  deleteStreamThunk,
-  getStreamThunk,
-} from "../features/subAdmin/streamSlice";
-import FloatingDropdown from "../components/ui/FloatingDropdown";
-import { getTeacherThunk } from "../features/subAdmin/teacherSlice";
+import { Link, useOutletContext } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { format } from "date-fns";
+import { toast } from "react-toastify";
+
+// Custom Hooks
+import { useIsMobile } from "../hooks/useIsMobile";
+
+// Utils
+import {dateFormat} from '../utils/dateUtils';
+import {getDisplayName} from '../utils/displayUtil';
+
+//Constants
+import { dashboardCardData, classesTeach } from "../const/constant";
+
+//Components
 import Switch from "../components/ui/Switch";
+import Table from "../components/common/Table";
+import TextField from "../components/ui/TextField";
 import Cards from "../components/subadmin/dashboard/Cards";
-import Streams from "../components/subadmin/dashboard/Streams";
+import FloatingDropdown from "../components/ui/FloatingDropdown";
+import DashboardCard from "../components/subadmin/dashboard/DashboardCard";
+
+//Slices
+import { getTeacherThunk } from "../features/subAdmin/teacherSlice";
+import { deleteStreamThunk, getStreamThunk } from "../features/subAdmin/streamSlice";
+import { deleteSectionThunk, getSectionThunk } from "../features/subAdmin/sectionSlice";
+import { deleteClassroomThunk, getClassroomThunk } from "../features/subAdmin/classroomSlice";
+
+//Icons
+import { CalendarDays, Copy, EllipsisVertical, Eye, GripVertical, Loader, Mail, Pencil, Phone, Plus, Trash2, UserRound, UserRoundPen } from "lucide-react";
+import { groupClasses } from "../utils/classUtility";
+
+const base_url = import.meta.env.VITE_API_BASE_URL;
 
 const Dashboard = () => {
-  const base_url = import.meta.env.VITE_API_BASE_URL;
-  const { handleOpen, setIsEdit } = useOutletContext();
-  const { isBelow640, isBelow1024, isBelow1280 } = useIsMobile();
-  // const teachers = useSelector((state) => state.teachers);
-  const allTeachers = useSelector((state) => state.teachers.teachers);
   const dispatch = useDispatch();
 
-  console.log(allTeachers, 'allTeachers');
+  const allTeachers = useSelector((state) => state.teachers.teachers);
+  let classrooms = useSelector((state) => state.classroom.classrooms);
+  let sections = useSelector((state) => state.section.sections);
+  let streams = useSelector((state) => state.stream.streams);
 
+  const { handleOpen, setIsEdit } = useOutletContext();
+  const { isBelow640, isBelow1024, isBelow1280 } = useIsMobile();
+
+  const filterSearchInchargeRef = useRef(null);
+  const [loadingId, setLoadingId] = useState(null);
+
+  //Fetch Teachers on load
   useEffect(() => {
     const fetchTeachers = async () => {
       try {
@@ -62,18 +60,7 @@ const Dashboard = () => {
     fetchTeachers();
   }, [])
 
-  const filterSearchInchargeRef = useRef(null);
-  //   const [openIncharge, setOpenIncharge] = useState(false);
-
-  //   useOutsideClick(filterSearchInchargeRef, () => setOpenIncharge(false));
-
-  let classrooms = useSelector((state) => state.classroom.classrooms);
-  let sections = useSelector((state) => state.section.sections);
-  let streams = useSelector((state) => state.stream.streams);
-
-  const [loadingId, setLoadingId] = useState(null);
-
-  // Get Classrooms on component mount
+  // Get Classrooms, Streams and Sections on component mount
   useEffect(() => {
     const fetchClassrooms = async () => {
       try {
@@ -101,7 +88,8 @@ const Dashboard = () => {
     fetchStreams();
   }, []);
 
-  const handleDelete = async (id, deleteType="") => {
+  // Delete function to delete classroom, stream and section.
+  const handleDelete = async (id, deleteType = "") => {
     if (id == "" || deleteType == "") return;
     try {
       setLoadingId(id);
@@ -120,22 +108,7 @@ const Dashboard = () => {
     }
   };
 
-  const classesTeach = [
-    { class: "3rd", section: "A", stream: "", subject: "Maths" },
-    { class: "3rd", section: "A", stream: "", subject: "Science" },
-
-    { class: "12th", section: "C", stream: "Medical", subject: "Biology" },
-    { class: "12th", section: "C", stream: "Medical", subject: "English" },
-
-    {
-      class: "12th",
-      section: "C",
-      stream: "Non Medical",
-      subject: "Physics",
-    },
-    { class: "12th", section: "C", stream: "Non Medical", subject: "Maths" },
-  ];
-
+   // Table Columns
   const columns = [
     {
       name: "Name",
@@ -247,45 +220,9 @@ const Dashboard = () => {
     }
   ];
 
-  const groupClasses = (data) => {
-    const map = new Map();
-
-    data.forEach((item) => {
-      const key = `${item.class}-${item.section}-${item.stream || ""}`;
-
-      if (!map.has(key)) {
-        map.set(key, {
-          class: item.class,
-          section: item.section,
-          stream: item.stream,
-          subjects: new Set(),
-        });
-      }
-
-      map.get(key).subjects.add(item.subject);
-    });
-
-    return Array.from(map.values()).map((item) => ({
-      ...item,
-      subjects: Array.from(item.subjects),
-    }));
-  };
-
-  const getDisplayName = (data) => {
-    if (data?.married) {
-      if (!data?.spouse_name) return "";
-      return `${data.gender === "male" ? "Mrs." : "Mr."} ${data.spouse_name}`;
-    }
-
-    const father = data?.father_name ? `Mr. ${data.father_name}` : "";
-    const mother = data?.mother_name ? `Mrs. ${data.mother_name}` : "";
-
-    if (father && mother) return `${father}, ${mother}`;
-    return father || mother || "";
-  };
-
+  // Expanded Columns for table
   const ExpandedComponent = ({ data }) => {
-    const displayName = getDisplayName(data); // 👈 define here
+    const displayName = getDisplayName(data);
     return (
       <div className="grid grid-cols-2 lg:grid-cols-4 py-4 justify-between gap-3 text-sm font-medium w-full items-center">
 
@@ -321,10 +258,8 @@ const Dashboard = () => {
           <span className="flex items-center gap-1 text-gray-400">
             <CalendarDays className="size-4 shrink-0" /> Joined At:
           </span>
-          <span
-            className="text-black font-medium"
-          >
-            {format(data.created_at, "dd-MMMM-yyyy")}
+          <span className="text-black font-medium">
+            {dateFormat(data.created_at, "dd-MMMM-yyyy")}
           </span>
         </div>
 
@@ -418,6 +353,11 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+
+  // const teachers = useSelector((state) => state.teachers);
+  //   const [openIncharge, setOpenIncharge] = useState(false);
+  //   useOutsideClick(filterSearchInchargeRef, () => setOpenIncharge(false));
 
 // import {
 //   DndContext,

@@ -19,3 +19,4 @@
 19. Need to correct the height of react select field when there is no search option.
 20. Need to add month dropdown in open calendar.
 21. Make dropdown common so no need to adjust top spacing.
+22. Need to update the css for expanded table with classnames instead of inline css.

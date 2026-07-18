@@ -553,3 +553,20 @@ export const romanNumbers = [
   "XI",
   "XII",
 ];
+
+
+  export const classesTeach = [
+      { class: "3rd", section: "A", stream: "", subject: "Maths" },
+      { class: "3rd", section: "A", stream: "", subject: "Science" },
+
+      { class: "12th", section: "C", stream: "Medical", subject: "Biology" },
+      { class: "12th", section: "C", stream: "Medical", subject: "English" },
+
+      {
+        class: "12th",
+        section: "C",
+        stream: "Non Medical",
+        subject: "Physics",
+      },
+      { class: "12th", section: "C", stream: "Non Medical", subject: "Maths" },
+    ];

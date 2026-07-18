@@ -12,23 +12,14 @@
   --color-green: #1f3d33;
   --color-beige: #85abab;
 
-  --breakpoint-3xl: 1440px;
   --breakpoint-xxs: 480px;
+  --breakpoint-3xl: 1440px;
   --breakpoint-4xl: 120rem;
 }
 
 :root {
   --color-navys: #122c4f;
-  /* blue-500 */
-  --color-secondary: 16 185 129;
-  /* green-500 */
-  --color-accent: 236 72 153;
-  /* pink-500 */
-  --color-dark: 17 24 39;
-  /* gray-900 */
-  --color-light: 249 250 251;
-  /* gray-50 */
-
+  
   /* Typography */
   /* --font-sans: "Commissioner", sans-serif;
   --font-heading: "Commissioner", sans-serif; */
@@ -36,11 +27,8 @@
   --font-heading: "Google Sans", sans-serif;
 
   /* Spacing */
-  --radius: 0.5rem;
   --transition: all 0.3s ease;
 }
-
-/* Dark mode variables */
 
 .full-height {
   height: 100dvh;
@@ -698,11 +686,11 @@ input#search_incharge:focus {
 
 /******************Switch******************/
 
-/******************Dashboard other cards ******************/
+/******************Dashboard main cards ******************/
 .dashboard-main-card-wrapper {
   @apply grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-3 3xl:gap-4;
 }
-/******************Dashboard other cards ******************/
+/******************Dashboard main cards ******************/
 /******************Dashboard other cards ******************/
 .dashboard-card-wrapper {
   @apply col-span-6 md:col-span-2 2xl:col-span-1 rounded border border-white shadow-sm hover:shadow-lg overflow-hidden transition-all duration-300 ease-in-out;
