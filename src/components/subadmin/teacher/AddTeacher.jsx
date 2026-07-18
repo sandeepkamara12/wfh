@@ -402,7 +402,7 @@ const AddTeacher = ({ role, open }) => {
                             <TextField label={`${formik.values.role === 'teacher' ? 'Teacher Id' : 'Student Id'}`} id="custom_id" {...formik.getFieldProps("custom_id")} error={formik.touched.custom_id && formik.errors.custom_id} required={true} />
 
                             <div className="w-full">
-                                <label className="inline-flex cursor-pointer items-center gap-2 text-sm font-medium text-navy mb-4">
+                                <label className="inline-flex cursor-pointer items-center gap-2 text-sm font-medium text-black mb-4">
 
                                     {formik.values.role === "teacher" && (
                                         <button
@@ -493,14 +493,14 @@ const AddTeacher = ({ role, open }) => {
                         type="button"
                         onClick={prevStep}
                         disabled={activeStep === 0}
-                        className="btn btn_with_text"
+                        className="btn btn_with_text outline-btn"
                     >
                         <Undo2 className="size-5 shrink-0" />
                         Previous
                     </button>
 
                     {activeStep < steps.length - 1 ? (
-                        <button type="button" onClick={nextStep} className="btn btn_with_text">
+                        <button type="button" onClick={nextStep} className="btn btn_with_text navy-btn">
                             Next
                             <Redo2 className="size-5 shrink-0" />
                         </button>

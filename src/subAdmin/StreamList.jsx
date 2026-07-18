@@ -10,8 +10,8 @@ const StreamList = () => {
       name: "Streams",
       cell: row => (
         <div className="flex md:items-center flex-col md:flex-row gap-1 md:gap-2">
-          <span className="text-sm font-semibold text-navy leading-4">{row.stream}</span>
-          <span className="tracking-wide pt-0.5 pb-1 px-2 rounded-full text-xs font-semibold bg-navy/10 text-navy">
+          <span className="text-sm font-semibold text-black leading-4">{row.stream}</span>
+          <span className="tracking-wide pt-0.5 pb-1 px-2 rounded-full text-xs font-semibold bg-navy/10 text-black">
             {row.id}
           </span>
         </div>

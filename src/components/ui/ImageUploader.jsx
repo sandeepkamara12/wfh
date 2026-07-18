@@ -15,7 +15,7 @@ const ImageUploader = () => {
             <label className="relative cursor-pointer group">
 
                 {/* Image Circle */}
-                <div className="w-24 h-24 rounded-full overflow-hidden border border-navy">
+                <div className="w-24 h-24 rounded-full overflow-hidden border border-gray-200">
                     {image ? (
                         <img
                         src={image}
@@ -42,7 +42,7 @@ const ImageUploader = () => {
                     className="hidden"
                 />
             </label>
-                    <label htmlFor="teacher-name" className="mt-1 block font-medium text-navy text-sm">Upload Teacher Image</label>
+                    <label htmlFor="teacher-name" className="mt-1 block font-medium text-black text-sm">Upload Teacher Image</label>
         </div>
     )
 }

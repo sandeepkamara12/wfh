@@ -225,7 +225,7 @@ const Profile = () => {
                         <img className="shrink-0 size-24 rounded-full" src={IMAGE_BASE_URL + user?.profile_pic} alt="Avatar" />
                     </div>
 
-                    <div className="text-sm text-navy grow flex flex-wrap justify-between gap-2">
+                    <div className="text-sm text-black grow flex flex-wrap justify-between gap-2">
                         <div>
                             <span className="font-semibold tracking-wide pt-0.5 pb-1 px-2 rounded-full text-xs bg-navy/10 uppercase">{userCustomId}</span>
                             <h2 className="font-bold text-lg mt-2 mb-1">
@@ -245,17 +245,17 @@ const Profile = () => {
                                 <span className="flex flex-wrap items-center gap-1">
                                     <div className='bg-navy/10 py-1 ps-1.5 pe-6 rounded flex gap-1 items-center font-medium text-xs relative'>
                                         <span className="text-orange">10th A </span>
-                                        <span className='text-navy'>Medical - Maths</span>
+                                        <span className='text-black'>Medical - Maths</span>
                                         <Flag className='size-3 absolute right-1.5' />
                                     </div>
                                     <div className='bg-navy/10 py-1 ps-1.5 pe-6 rounded flex gap-1 items-center font-medium text-xs relative'>
                                         <span className="text-orange">12th B </span>
-                                        <span className='text-navy'>Medical - Science</span>
+                                        <span className='text-black'>Medical - Science</span>
                                         <Flag className='size-3 absolute right-1.5' />
                                     </div>
                                     <div className='bg-navy/10 py-1 ps-1.5 pe-6 rounded flex gap-1 items-center font-medium text-xs relative'>
                                         <span className="text-orange">8th C </span>
-                                        <span className='text-navy'>English</span>
+                                        <span className='text-black'>English</span>
                                         <Flag className='size-3 absolute right-1.5' />
                                     </div>
                                 </span>

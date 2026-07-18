@@ -38,6 +38,8 @@ import FloatingDropdown from "../components/ui/FloatingDropdown";
 import { getTeacherThunk } from "../features/subAdmin/teacherSlice";
 import { format } from "date-fns";
 import Switch from "../components/ui/Switch";
+import Cards from "../components/subadmin/dashboard/Cards";
+import Streams from "../components/subadmin/dashboard/Streams";
 
 const Dashboard = () => {
   const base_url = import.meta.env.VITE_API_BASE_URL;
@@ -99,43 +101,14 @@ const Dashboard = () => {
     fetchStreams();
   }, []);
 
-  const handleDeleteClassroom = async (id) => {
-    if (id == "") return;
+  const handleDelete = async (id, deleteType="") => {
+    if (id == "" || deleteType == "") return;
     try {
       setLoadingId(id);
-      const result = await dispatch(deleteClassroomThunk({ id })).unwrap();
-      if (result?.success) {
-        toast.dismiss();
-        toast.success(result?.message);
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoadingId(null);
-    }
-  };
-
-  const handleDeleteSection = async (id) => {
-    if (id == "") return;
-    try {
-      setLoadingId(id);
-      const result = await dispatch(deleteSectionThunk({ id })).unwrap();
-      if (result?.success) {
-        toast.dismiss();
-        toast.success(result?.message);
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoadingId(null);
-    }
-  };
-
-  const handleDeleteStream = async (id) => {
-    if (id == "") return;
-    try {
-      setLoadingId(id);
-      const result = await dispatch(deleteStreamThunk({ id })).unwrap();
+      let result = null;
+      result = deleteType == 'classroom' && await dispatch(deleteClassroomThunk({ id })).unwrap()
+      result = deleteType == 'stream' && await dispatch(deleteStreamThunk({ id })).unwrap()
+      result = deleteType == 'section' && await dispatch(deleteSectionThunk({ id })).unwrap()
       if (result?.success) {
         toast.dismiss();
         toast.success(result?.message);
@@ -177,7 +150,7 @@ const Dashboard = () => {
               />
             </span>
             <div className="flex flex-col gap-0">
-              <span className="text-sm font-semibold text-navy leading-4">
+              <span className="text-sm font-semibold text-black leading-4">
                 {row.first_name} {row.last_name}
               </span>
               <span className="inline-flex items-center tracking-wide gap-x-1.5 rounded text-xs text-gray-400">
@@ -195,11 +168,11 @@ const Dashboard = () => {
       omit: isBelow1024,
       cell: row => (
         <div className="flex flex-wrap flex-col gap-1">
-          <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`mailto:${row.email}`}>
+          <a className="flex items-center gap-1 text-black hover:no-underline hover:text-orange" href={`mailto:${row.email}`}>
             <Mail className='size-4' />
             {row.email}
           </a>
-          <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`tel:${row.phone}`}>
+          <a className="flex items-center gap-1 text-black hover:no-underline hover:text-orange" href={`tel:${row.phone}`}>
             <Phone className="size-4" />
             {row.phone}
           </a>
@@ -211,7 +184,7 @@ const Dashboard = () => {
       minWidth: "200px",
       omit: isBelow640,
       cell: () => (
-        <div className="flex flex-wrap flex-col gap-1 text-navy">
+        <div className="flex flex-wrap flex-col gap-1 text-black">
           <span
             className="flex items-center gap-1"
           >
@@ -317,11 +290,11 @@ const Dashboard = () => {
       <div className="grid grid-cols-2 lg:grid-cols-4 py-4 justify-between gap-3 text-sm font-medium w-full items-center">
 
         <div className="col-span-2 sm:col-span-1 flex lg:hidden flex-wrap flex-col gap-0">
-          <a className="flex items-center gap-1 text-navy font-medium hover:no-underline hover:text-orange" href={`mailto:${data.email}`}>
+          <a className="flex items-center gap-1 text-black font-medium hover:no-underline hover:text-orange" href={`mailto:${data.email}`}>
             <Mail className='size-4' />
             {data.email}
           </a>
-          <a className="flex items-center gap-1 text-navy font-medium hover:no-underline hover:text-orange" href={`tel:${data.phone}`}>
+          <a className="flex items-center gap-1 text-black font-medium hover:no-underline hover:text-orange" href={`tel:${data.phone}`}>
             <Phone className="size-4" />
             {data.phone}
           </a>
@@ -337,7 +310,7 @@ const Dashboard = () => {
                   data?.married ? 'Spouse Nmae:' : 'Parent Name:'
                 }
               </span>
-              <span className="flex items-center gap-1 text-navy font-medium">
+              <span className="flex items-center gap-1 text-black font-medium">
                 {displayName}
               </span>
             </>
@@ -349,14 +322,14 @@ const Dashboard = () => {
             <CalendarDays className="size-4 shrink-0" /> Joined At:
           </span>
           <span
-            className="text-navy font-medium"
+            className="text-black font-medium"
           >
             {format(data.created_at, "dd-MMMM-yyyy")}
           </span>
         </div>
 
 
-        <div className="col-span-1 flex sm:hidden flex-wrap flex-col gap-0 text-navy ">
+        <div className="col-span-1 flex sm:hidden flex-wrap flex-col gap-0 text-black ">
           <span className="flex items-center gap-1 text-gray-400">
             <UserRoundPen className="size-4 shrink-0 " />
             Class in Charge:
@@ -392,7 +365,7 @@ const Dashboard = () => {
     <div className="grid gap-4">
       <h2 className="font-bold text-lg">Dashboard</h2>
       {/* Dashbaord Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-3 3xl:gap-4">
+      <div className="dashboard-main-card-wrapper">
         {dashboardCardData.map((item, index) => (
           <DashboardCard
             key={index}
@@ -406,9 +379,10 @@ const Dashboard = () => {
       </div>
 
       <div className="grid grid-cols-6 gap-4">
+
         {/* Classroom In charge */}
-        <div className="col-span-6 w-full flex flex-col bg-white rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
-          <div className="bg-navy py-2.5 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white flex items-center justify-between">
+        <div className="table-wrapper">
+          <div className="table-inner-wrapper">
             Classroom In Charge
             <div className="flex gap-4 items-center relative">
               <TextField
@@ -418,51 +392,6 @@ const Dashboard = () => {
                 id="search_incharge"
                 ref={filterSearchInchargeRef}
               />
-              {/* <div className={`${openIncharge ? "opacity-100" : "opacity-0 hidden"} divide-y divide-dropdown-divider absolute transition-[opacity,margin] duration min-w-60 rounded top-8 -right-3 z-50 bg-white border border-white shadow-lg before:content-[''] before:absolute before:-top-1.5 before:right-4 before:w-0 before:h-0 before:border-l-[6px] before:border-r-[6px] before:border-b-[6px] before:border-l-transparent before:border-r-transparent before:border-b-white`}>
-                                <div className="p-1.5 space-y-0.5 border-gray-200">
-                                    <span className="block pt-2 pb-1 px-3 text-xs font-medium uppercase text-gray-400">
-                                        Personal info
-                                    </span>
-                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
-                                        <IdCardLanyard className="size-5 shrink-0" />
-                                        ID
-                                    </Link>
-                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
-                                        <UserRound className="size-5 shrink-0" />
-                                        Name
-                                    </Link>
-                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
-                                        <Phone className="size-5 shrink-0" />
-                                        Phone
-                                    </Link>
-                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
-                                        <Mail className="size-5 shrink-0" />
-                                        Email
-                                    </Link>
-                                </div>
-                                <div className="p-1.5 space-y-0.5">
-                                    <span className="block pt-2 pb-1 px-3 text-xs font-medium uppercase text-gray-400">
-                                        Other info
-                                    </span>
-                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
-                                        <GalleryThumbnails className="size-5 shrink-0" />
-                                        Classroom
-                                    </Link>
-                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
-                                        <Network className="size-5 shrink-0" />
-                                        Stream
-                                    </Link>
-                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
-                                        <LayoutGrid className="size-5 shrink-0" />
-                                        Section
-                                    </Link>
-                                    <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
-                                        <BookOpenText className="size-5 shrink-0" />
-                                        Subject
-                                    </Link>
-                                </div>
-                            </div>
-                            <FunnelPlus className='size-5 shrink-0 text-white' onClick={() => setOpenIncharge((prev) => !prev)} /> */}
             </div>
           </div>
           <Table
@@ -470,202 +399,18 @@ const Dashboard = () => {
             id="teachers"
             columns={columns}
             data={allTeachers}
-            expandableRows
             expandableRowsComponent={ExpandedComponent}
-            handleOpen={handleOpen}
           />
         </div>
 
         {/* Classrooms */}
-        <div className="col-span-6 md:col-span-2 2xl:col-span-1 rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
-          <div className="bg-navy py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white flex justify-between items-center">
-            Classerooms
-            <div className="btn icon_btn_small cursor-pointer">
-              <Plus onClick={() => handleOpen('classroom')} className="size-5 shrink-0" />
-            </div>
-          </div>
-
-          <div className="bg-white md:h-86 overflow-y-auto">
-            {classrooms?.length > 0 ? (
-              classrooms.map((room) => {
-                return (
-                  <div
-                    key={room?.id}
-                    className="border-gray-200 flex items-center justify-between p-2 border-b last:border-b-0"
-                  >
-                    <div className="flex items-center gap-2 w-3/5">
-                      <GripVertical className="size-5 shrink-0 opacity-50 cursor-grab" />
-                      <Link
-                        to="#"
-                        className="inline-block text-sm font-medium no-underline text-navy ml-2"
-                      >
-                        {room?.name}
-                      </Link>
-                    </div>
-
-                    <div className="flex flex-wrap items-center justify-end gap-1">
-                      <button
-                        type="button"
-                        className="btn icon_btn"
-                        onClick={() => handleDeleteClassroom(room?.id)}
-                        disabled={loadingId === room?.id}
-                      >
-                        {loadingId === room?.id ? (
-                          <Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" />
-                        ) : (
-                          <Trash2 className="size-5 mx-auto" />
-                        )}
-                      </button>
-
-                      <button
-                        type="button"
-                        className="btn icon_btn"
-                        onClick={() => {
-                          setIsEdit(room);
-                          handleOpen("classroom");
-                        }}
-                        disabled={loadingId === room?.id}
-                      >
-                        <Pencil className="size-5 mx-auto" />
-                      </button>
-                    </div>
-                  </div>
-                );
-              })
-            ) : (
-              <div className="p-4 flex items-center justify-center h-full text-gray-400 text-sm capitalize font-medium leading-4">
-                No classroom found
-              </div>
-            )}
-          </div>
-        </div>
+        <Cards handleOpen={handleOpen} label="classroom" data={classrooms} handleDelete={handleDelete} loadingId={loadingId} setIsEdit={setIsEdit} />
 
         {/* Streams */}
-        <div className="col-span-6 md:col-span-2 2xl:col-span-1 rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
-          <div className="bg-navy py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white flex justify-between items-center">
-            Streams
-            <div className="btn icon_btn_small cursor-pointer">
-              <Plus onClick={() => handleOpen('stream')} className="size-5 shrink-0" />
-            </div>
-          </div>
-          <div className="bg-white md:h-86 overflow-y-auto">
-            {streams?.length > 0 ? (
-              streams.map((stream) => {
-                return (
-                  <div
-                    key={stream?.id}
-                    className={
-                      "border-gray-200 flex items-center justify-between p-2 border-b last:border-b-0"
-                    }
-                  >
-                    <div className="flex items-center gap-2 w-3/5">
-                      <GripVertical className="size-5 shrink-0 opacity-50 cursor-grab" />
-                      <Link
-                        to="#"
-                        className="inline-block text-sm font-medium no-underline text-navy"
-                      >
-                        {stream?.name}
-                      </Link>
-                    </div>
-                    <div className="inline-flex flex-wrap items-center justify-end gap-1">
-                      <button
-                        type="button"
-                        className="btn icon_btn"
-                        onClick={() => handleDeleteStream(stream?.id)}
-                        disabled={loadingId === stream?.id}
-                      >
-                        {loadingId === stream?.id ? (
-                          <Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" />
-                        ) : (
-                          <Trash2 className="size-5 mx-auto" />
-                        )}
-                      </button>
-                      <button
-                        type="button"
-                        className="btn icon_btn"
-                        onClick={() => {
-                          setIsEdit(stream);
-                          handleOpen("stream");
-                        }}
-                        disabled={loadingId === stream?.id}
-                      >
-                        <Pencil className="size-5 mx-auto" />
-                      </button>
-                    </div>
-                  </div>
-                );
-              })
-            ) : (
-              <div className="p-4 flex items-center justify-center h-full text-gray-400 text-sm capitalize font-medium leading-4">
-                No stream found
-              </div>
-            )}
-          </div>
-        </div>
+        <Cards handleOpen={handleOpen} label="stream" data={streams} handleDelete={handleDelete} loadingId={loadingId} setIsEdit={setIsEdit} />
 
         {/* Sections */}
-        <div className="col-span-6 md:col-span-2 2xl:col-span-1 rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
-          <div className="bg-navy py-3 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white flex justify-between items-center">
-            Sections
-            <div className="btn icon_btn_small cursor-pointer">
-              <Plus onClick={() => handleOpen('section')} className="size-5 shrink-0" />
-            </div>
-          </div>
-          <div className="bg-white md:h-86 overflow-y-auto">
-            {sections?.length > 0 ? (
-              sections.map((section) => {
-                return (
-                  <div
-                    key={section?.id}
-                    className={
-                      "border-gray-200 flex items-center justify-between p-2 border-b last:border-b-0"
-                    }
-                  >
-                    <div className="flex items-center gap-2 w-3/5">
-                      <GripVertical className="size-5 shrink-0 opacity-50 cursor-grab" />
-                      <Link
-                        to="#"
-                        className="inline-block text-sm font-medium no-underline text-navy"
-                      >
-                        {section?.name}
-                      </Link>
-                    </div>
-                    <div className="inline-flex flex-wrap items-center justify-end gap-1">
-                      <button
-                        type="button"
-                        className="btn icon_btn"
-                        onClick={() => handleDeleteSection(section?.id)}
-                        disabled={loadingId === section?.id}
-                      >
-                        {loadingId === section?.id ? (
-                          <Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" />
-                        ) : (
-                          <Trash2 className="size-5 mx-auto" />
-                        )}
-                      </button>
-                      <button
-                        type="button"
-                        className="btn icon_btn"
-                        onClick={() => {
-                          setIsEdit(section);
-                          handleOpen("section");
-                        }}
-                        disabled={loadingId === section?.id}
-                      >
-                        <Pencil className="size-5 mx-auto" />
-                      </button>
-                    </div>
-                  </div>
-                );
-              })
-            ) : (
-              <div className="p-4 flex items-center justify-center h-full text-gray-400 text-sm capitalize font-medium leading-4">
-                No section found
-              </div>
-            )}
-          </div>
-        </div>
-
+        <Cards handleOpen={handleOpen} label="section" data={sections} handleDelete={handleDelete} loadingId={loadingId} setIsEdit={setIsEdit} />
 
       </div>
     </div>
@@ -694,3 +439,50 @@ export default Dashboard;
 //     ))}
 //   </SortableContext>
 // </DndContext>
+
+
+{/* <div className={`${openIncharge ? "opacity-100" : "opacity-0 hidden"} divide-y divide-dropdown-divider absolute transition-[opacity,margin] duration min-w-60 rounded top-8 -right-3 z-50 bg-white border border-white shadow-lg before:content-[''] before:absolute before:-top-1.5 before:right-4 before:w-0 before:h-0 before:border-l-[6px] before:border-r-[6px] before:border-b-[6px] before:border-l-transparent before:border-r-transparent before:border-b-white`}>
+    <div className="p-1.5 space-y-0.5 border-gray-200">
+        <span className="block pt-2 pb-1 px-3 text-xs font-medium uppercase text-gray-400">
+            Personal info
+        </span>
+        <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-black font-medium hover:bg-navy hover:text-white no-underline" to="#">
+            <IdCardLanyard className="size-5 shrink-0" />
+            ID
+        </Link>
+        <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-black font-medium hover:bg-navy hover:text-white no-underline" to="#">
+            <UserRound className="size-5 shrink-0" />
+            Name
+        </Link>
+        <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-black font-medium hover:bg-navy hover:text-white no-underline" to="#">
+            <Phone className="size-5 shrink-0" />
+            Phone
+        </Link>
+        <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-black font-medium hover:bg-navy hover:text-white no-underline" to="#">
+            <Mail className="size-5 shrink-0" />
+            Email
+        </Link>
+    </div>
+    <div className="p-1.5 space-y-0.5">
+        <span className="block pt-2 pb-1 px-3 text-xs font-medium uppercase text-gray-400">
+            Other info
+        </span>
+        <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-black font-medium hover:bg-navy hover:text-white no-underline" to="#">
+            <GalleryThumbnails className="size-5 shrink-0" />
+            Classroom
+        </Link>
+        <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-black font-medium hover:bg-navy hover:text-white no-underline" to="#">
+            <Network className="size-5 shrink-0" />
+            Stream
+        </Link>
+        <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-black font-medium hover:bg-navy hover:text-white no-underline" to="#">
+            <LayoutGrid className="size-5 shrink-0" />
+            Section
+        </Link>
+        <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-black font-medium hover:bg-navy hover:text-white no-underline" to="#">
+            <BookOpenText className="size-5 shrink-0" />
+            Subject
+        </Link>
+    </div>
+</div>
+<FunnelPlus className='size-5 shrink-0 text-white' onClick={() => setOpenIncharge((prev) => !prev)} /> */}

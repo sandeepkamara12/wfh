@@ -8,7 +8,7 @@ const TextField = ({ label, id, error, required = false, inputClassName = "", cl
         <div className={`${className ? className : 'w-full'}`}>
             {
                 label &&
-                <label htmlFor={id} className="block text-sm font-medium text-navy mb-1">
+                <label htmlFor={id} className="block text-sm font-medium text-black mb-1">
                     {label}
                     {required ? <span className='text-red-500 ms-1'>*</span> : null}
                 </label>

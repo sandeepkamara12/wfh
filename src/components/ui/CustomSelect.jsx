@@ -41,7 +41,7 @@ const CustomSelect = ({ options, selectType, label, value, onChange, placeholder
                     </div>
                     <div className='flex flex-col'>
                         <span>{props.data.label}</span>
-                        <span className="text-navy text-xs leading-3">#{props.data.value}</span>
+                        <span className="text-black text-xs leading-3">#{props.data.value}</span>
                     </div>
                     {/* <button type="button" onClick={(e) => { e.stopPropagation(); props.selectProps.onChange(null); }} className="ml-auto justify-self-end text-red-500 font-bold">✕</button> */}
                 </div>)
@@ -73,7 +73,7 @@ const CustomSelect = ({ options, selectType, label, value, onChange, placeholder
 
     return (
         <div className={`${className} col-span-1`}>
-            <label htmlFor="" className="block text-sm font-medium text-navy mb-1">{label}</label>
+            <label htmlFor="" className="block text-sm font-medium text-black mb-1">{label}</label>
             <Select
                 options={options}
                 value={options.find(opt => opt.value === value) || null}

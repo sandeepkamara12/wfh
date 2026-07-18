@@ -8,7 +8,7 @@ const PasswordField = ({ label, id, error, ...props }) => {
     }
     return (
         <div className={`col-span-1`}>
-            <label htmlFor={id} className="block text-sm font-medium text-navy mb-1">{label}</label>
+            <label htmlFor={id} className="block text-sm font-medium text-black mb-1">{label}</label>
             <div className="relative">
                 <input type={`${viewPassword ? 'text' : 'password'}`} name={id} id={id} className={`input-field ps-10 ${error ? 'border-red-500' : ''}`} {...props} />
                 <div className="absolute inset-y-0 inset-s-0 flex items-center pointer-events-none z-20 ps-4">

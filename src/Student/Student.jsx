@@ -155,7 +155,7 @@ const Student = () => {
                     // <DatePicker selected={selectedDate} onChange={(date) => { setSelectedDate(date); }} inline />
                 }
                 <div className="">
-                    <label className="block text-sm font-medium text-navy mb-1">Select Date</label>
+                    <label className="block text-sm font-medium text-black mb-1">Select Date</label>
                     <DatePicker
                         inline
                         showYearDropdown

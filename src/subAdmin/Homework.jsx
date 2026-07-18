@@ -19,8 +19,8 @@ const Homework = () => {
                 <div className='flex items-center gap-2'>
                     <span className='inline-flex items-center justify-center size-9 rounded-full overflow-hidden bg-navy/10'><img src={row.photo} alt="" className='h-full rounded-full max-w-full ' /></span>
                     <div className="flex flex-col gap-0.5">
-                        <span className="text-sm font-semibold text-navy leading-4">{row.name}</span>
-                        <a className="flex items-center gap-1 text-navy text-xs hover:no-underline hover:text-orange" href={`tel:${row.phone}`}>
+                        <span className="text-sm font-semibold text-black leading-4">{row.name}</span>
+                        <a className="flex items-center gap-1 text-black text-xs hover:no-underline hover:text-orange" href={`tel:${row.phone}`}>
                             <Phone className="size-3" />
                             {row.phone}
                         </a>
@@ -35,10 +35,10 @@ const Homework = () => {
             cell: row => (
                 <div className="flex flex-col gap-1">
                     <div className='flex items-center gap-1.5'>
-                        <span className="text-navy">
+                        <span className="text-black">
                             {row.inchargeOf}
                         </span>
-                        <span className="text-navy bg-navy/10 size-6 rounded-full flex items-center justify-center pb-0.5">
+                        <span className="text-black bg-navy/10 size-6 rounded-full flex items-center justify-center pb-0.5">
                             {row.section}
                         </span>
                     </div>
@@ -140,7 +140,7 @@ const Homework = () => {
         <div className="flex flex-col">
             <div className='bg-white p-4 rounded mb-4'>
                 <h2 className='font-bold text-lg'>Filter Homework</h2>
-                <p className="text-sm text-navy font-medium">Browse homework by teacher, class, stream, section, subject, or date</p>
+                <p className="text-sm text-black font-medium">Browse homework by teacher, class, stream, section, subject, or date</p>
                 <div className='grid grid-cols-6 gap-4 mt-4'>
                     <CustomSelect
                         options={teacherOptions}
@@ -182,7 +182,7 @@ const Homework = () => {
 
             <div className='bg-white rounded p-10 text-center'>
                 <h2 className='mb-3'>All Homework</h2>
-                <p className='text-sm text-navy font-medium'>Showing homework across all teachers, classes, and subjects etc.<br /> Use filters to narrow down results.</p>
+                <p className='text-sm text-black font-medium'>Showing homework across all teachers, classes, and subjects etc.<br /> Use filters to narrow down results.</p>
             </div>
             <div className="mt-4 overflow-x-auto [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb">
                 <div className="min-w-full inline-block align-middle">

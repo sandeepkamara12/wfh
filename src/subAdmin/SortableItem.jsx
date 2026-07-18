@@ -29,7 +29,7 @@ const SortableItem = ({ section }) => {
           <GripVertical className="size-5 cursor-grab opacity-50" />
         </div>
 
-        <Link className="text-sm font-medium text-navy">
+        <Link className="text-sm font-medium text-black">
           {section.name}
         </Link>
       </div>

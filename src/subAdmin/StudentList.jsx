@@ -24,7 +24,7 @@ const StudentList = () => {
               />
             </span>
             <div className="flex flex-col gap-0">
-              <span className="text-sm font-semibold text-navy leading-4">
+              <span className="text-sm font-semibold text-black leading-4">
                 {row.name}
               </span>
               <span className="inline-flex items-center tracking-wide gap-x-1.5 rounded text-xs text-gray-400">
@@ -44,10 +44,10 @@ const StudentList = () => {
       omit: isBelow1280,
       cell: row => (
         <div className="flex flex-wrap flex-col gap-1">
-          <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`mailto:${row.email}`}>
+          <a className="flex items-center gap-1 text-black hover:no-underline hover:text-orange" href={`mailto:${row.email}`}>
             F: {row.fatherPhone}
           </a>
-          <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`tel:${row.phone}`}>
+          <a className="flex items-center gap-1 text-black hover:no-underline hover:text-orange" href={`tel:${row.phone}`}>
             M: {row.motherPhone}
           </a>
         </div>
@@ -59,7 +59,7 @@ const StudentList = () => {
       minWidth: "200px",
       omit: isBelow1280,
       cell: row => (
-        <div className="flex flex-wrap flex-col gap-1 text-navy">
+        <div className="flex flex-wrap flex-col gap-1 text-black">
           <span
             className="flex items-center gap-1"
           >
@@ -75,14 +75,14 @@ const StudentList = () => {
       minWidth: "200px",
       omit: isBelow1280,
       cell: row => (
-        <div className="flex flex-wrap flex-col gap-1 text-navy">
+        <div className="flex flex-wrap flex-col gap-1 text-black">
           <span
             className="flex items-center gap-1"
           >
             <UserRoundPen className="size-4 shrink-0 " />
             {row.classIncharge}
           </span>
-          <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`tel:${row.classInchargePhone}`}>
+          <a className="flex items-center gap-1 text-black hover:no-underline hover:text-orange" href={`tel:${row.classInchargePhone}`}>
             <Phone className="size-4 shrink-0" />
             {row.classInchargePhone}
           </a>
@@ -97,7 +97,7 @@ const StudentList = () => {
         <div className="flex gap-1">
           <CalendarDays className="size-4 shrink-0" />
           <span
-            className="text-navy font-medium"
+            className="text-black font-medium"
           >
             {row.createdAt}
           </span>
@@ -146,7 +146,7 @@ const StudentList = () => {
   const ExpandedComponent = ({ data }) => (
     <div className="grid grid-cols-2 lg:grid-cols-4 py-4 justify-between gap-3 text-sm font-medium w-full">
 
-      <div className="col-span-1 flex flex-col text-navy">
+      <div className="col-span-1 flex flex-col text-black">
         <span className="flex items-center gap-1 text-gray-400 font-medium">
           <UserRound className="size-4 shrink-0 " />
           Father Info:
@@ -156,7 +156,7 @@ const StudentList = () => {
         <span>{data.fatherPhone}</span>
       </div>
 
-      <div className="col-span-1 flex flex-col text-navy">
+      <div className="col-span-1 flex flex-col text-black">
         <span className="flex items-center gap-1 text-gray-400 font-medium">
           <UserRound className="size-4 shrink-0 " />
           Mother Info:
@@ -171,13 +171,13 @@ const StudentList = () => {
           <CalendarDays className="size-4 shrink-0" /> Joined At:
         </span>
         <span
-          className="text-navy font-medium"
+          className="text-black font-medium"
         >
           {data.createdAt}
         </span>
       </div>
 
-      <div className="col-span-1 flex flex-wrap flex-col gap-0 text-navy">
+      <div className="col-span-1 flex flex-wrap flex-col gap-0 text-black">
         <span className="flex items-center gap-1 text-gray-400">
           <GalleryThumbnails className="size-4 shrink-0 " />
           Classroom:
@@ -188,7 +188,7 @@ const StudentList = () => {
         <span>Non Medical</span>
       </div>
 
-      <div className="col-span-1 flex flex-wrap flex-col gap-0 text-navy ">
+      <div className="col-span-1 flex flex-wrap flex-col gap-0 text-black ">
         <span className="flex items-center gap-1 text-gray-400">
           <UserRoundPen className="size-4 shrink-0 " />
           Classroom in Charge:
@@ -196,7 +196,7 @@ const StudentList = () => {
         <span>
           {data.classIncharge}
         </span>
-        <span className="text-navy" href={`tel:${data.classInchargePhone}`}>
+        <span className="text-black" href={`tel:${data.classInchargePhone}`}>
           {data.classInchargePhone}
         </span>
       </div>
@@ -222,7 +222,7 @@ const StudentList = () => {
         <div className="min-w-full inline-block align-middle">
           <div className="mb-4">
             <h2 className='font-bold text-lg'>Search Students</h2>
-            <p className="text-sm text-navy font-medium">Browse students by ID, Name, Classroom, Stream, Section, Email, & Phone.</p>
+            <p className="text-sm text-black font-medium">Browse students by ID, Name, Classroom, Stream, Section, Email, & Phone.</p>
           </div>
           <div className="col-span-6 2xl:col-span-3 w-full flex flex-col bg-white rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
             <div className="bg-navy py-3 px-4 text-sm font-medium text-white flex justify-between items-center">

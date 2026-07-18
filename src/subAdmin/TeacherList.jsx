@@ -107,7 +107,7 @@ const TeacherList = () => {
                             />
                         </span>
                         <div className="flex flex-col gap-0">
-                            <span className="text-sm font-semibold text-navy leading-4">
+                            <span className="text-sm font-semibold text-black leading-4">
                                 {row.first_name}   {row.last_name}
                             </span>
                             <span className="inline-flex items-center tracking-wide gap-x-1.5 rounded text-xs text-gray-400">
@@ -125,11 +125,11 @@ const TeacherList = () => {
             omit: isBelow1024,
             cell: row => (
                 <div className="flex flex-wrap flex-col gap-1">
-                    <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`mailto:${row.email}`}>
+                    <a className="flex items-center gap-1 text-black hover:no-underline hover:text-orange" href={`mailto:${row.email}`}>
                         <Mail className='size-4' />
                         {row.email}
                     </a>
-                    <a className="flex items-center gap-1 text-navy hover:no-underline hover:text-orange" href={`tel:${row.phone}`}>
+                    <a className="flex items-center gap-1 text-black hover:no-underline hover:text-orange" href={`tel:${row.phone}`}>
                         <Phone className="size-4" />
                         {row.phone}
                     </a>
@@ -141,7 +141,7 @@ const TeacherList = () => {
             minWidth: "200px",
             omit: isBelow640,
             cell: row => (
-                <div className="flex flex-wrap flex-col gap-1 text-navy">
+                <div className="flex flex-wrap flex-col gap-1 text-black">
                     <span
                         className="flex items-center gap-1"
                     >
@@ -210,11 +210,11 @@ const TeacherList = () => {
             <div className="grid grid-cols-2 lg:grid-cols-4 py-4 justify-between gap-3 text-sm font-medium w-full items-center">
 
                 <div className="col-span-2 sm:col-span-1 flex lg:hidden flex-wrap flex-col gap-0">
-                    <a className="flex items-center gap-1 text-navy font-medium hover:no-underline hover:text-orange" href={`mailto:${data.email}`}>
+                    <a className="flex items-center gap-1 text-black font-medium hover:no-underline hover:text-orange" href={`mailto:${data.email}`}>
                         <Mail className='size-4' />
                         {data.email}
                     </a>
-                    <a className="flex items-center gap-1 text-navy font-medium hover:no-underline hover:text-orange" href={`tel:${data.phone}`}>
+                    <a className="flex items-center gap-1 text-black font-medium hover:no-underline hover:text-orange" href={`tel:${data.phone}`}>
                         <Phone className="size-4" />
                         {data.phone}
                     </a>
@@ -230,7 +230,7 @@ const TeacherList = () => {
                                     data?.married ? 'Spouse Nmae:' : 'Parent Name:'
                                 }
                             </span>
-                            <span className="flex items-center gap-1 text-navy font-medium">
+                            <span className="flex items-center gap-1 text-black font-medium">
                                 {displayName}
                             </span>
                         </>
@@ -242,14 +242,14 @@ const TeacherList = () => {
                         <CalendarDays className="size-4 shrink-0" /> Joined At:
                     </span>
                     <span
-                        className="text-navy font-medium"
+                        className="text-black font-medium"
                     >
                         {format(data.created_at, "dd-MMMM-yyyy")}
                     </span>
                 </div>
 
 
-                <div className="col-span-1 flex sm:hidden flex-wrap flex-col gap-0 text-navy ">
+                <div className="col-span-1 flex sm:hidden flex-wrap flex-col gap-0 text-black ">
                     <span className="flex items-center gap-1 text-gray-400">
                         <UserRoundPen className="size-4 shrink-0 " />
                        Class in Charge:
@@ -287,7 +287,7 @@ const TeacherList = () => {
                 <div className="min-w-full inline-block align-middle">
                     <div className="mb-4">
                         <h2 className='font-bold text-lg' onClick={handleAdd}>Search Teachers</h2>
-                        <p className="text-sm text-navy font-medium">Browse teachers by ID, Name, Classroom, Stream, Section, Subject, Email, and Phone.</p>
+                        <p className="text-sm text-black font-medium">Browse teachers by ID, Name, Classroom, Stream, Section, Subject, Email, and Phone.</p>
                     </div>
                     <div className="col-span-6 2xl:col-span-3 w-full flex flex-col bg-white rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
                         <div className="bg-navy py-3 px-4 text-sm font-medium text-white flex justify-between items-center">

@@ -27,7 +27,7 @@ const Header = ({ isOpen, toggleSidebar }) => {
                             <div className="absolute inset-y-0 inset-s-0 flex items-center pointer-events-none z-20 ps-3.5">
                                 <svg className="shrink-0 size-4 text-[#fbf9fa]-foreground" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
                             </div>
-                            <input type="text" className="py-2 ps-10 pe-16 block w-full bg-layer border border-navy rounded text-sm text-foreground placeholder:text-[#fbf9fa]-foreground focus:outline-hidden focus:border-primary-focus focus:ring-primary-focus disabled:opacity-50 disabled:pointer-events-none placeholder:text-navy" placeholder="Search" />
+                            <input type="text" className="py-2 ps-10 pe-16 block w-full bg-layer border border-navy rounded text-sm text-foreground placeholder:text-[#fbf9fa]-foreground focus:outline-hidden focus:border-primary-focus focus:ring-primary-focus disabled:opacity-50 disabled:pointer-events-none placeholder:text-black" placeholder="Search" />
                             <div className="hidden absolute inset-y-0 inset-e-0 flex items-center z-20 pe-1">
                                 <button type="button" className="inline-flex shrink-0 justify-center items-center size-6 rounded-full text-[#fbf9fa]-foreground-1 hover:text-primary-hover focus:outline-hidden focus:text-primary-focus" aria-label="Close">
                                     <span className="sr-only">Close</span>
@@ -152,7 +152,7 @@ const Header = ({ isOpen, toggleSidebar }) => {
                                     </div>
                                 </div>
                             </div>
-                            <Link to="#" className="bottom-0 sticky text-sm text-center text-navy bg-white inset-x-0 block py-2 font-medium no-underline hover:text-orange">Mark as read</Link>
+                            <Link to="#" className="bottom-0 sticky text-sm text-center text-black bg-white inset-x-0 block py-2 font-medium no-underline hover:text-orange">Mark as read</Link>
                         </div>
                     </FloatingDropdown>
 
@@ -166,36 +166,36 @@ const Header = ({ isOpen, toggleSidebar }) => {
                         >
                             <div className="py-3 px-5 bg-navy/10 rounded-t">
                                 <div className="text-sm font-medium text-black flex flex-wrap items-end gap-2">
-                                    {/* <UserStarIcon className="size-5 shrink-0 text-navy" /> */}
+                                    {/* <UserStarIcon className="size-5 shrink-0 text-black" /> */}
                                     <div className="flex flex-wrap gap-0 w-[calc(100%-28px)]">
                                         <div className="flex flex-wrap items-center gap-0.5">
                                             <span>{user?.first_name + ' ' + user?.last_name}</span>
                                             <span className="text-xs">(Sub Admin)</span>
                                         </div>
-                                        <p className="text-xs text-navy uppercase">ID: {user.custom_id}</p>
+                                        <p className="text-xs text-black uppercase">ID: {user.custom_id}</p>
                                     </div>
 
                                 </div>
 
                             </div>
                             <div className="p-1.5 space-y-0.5">
-                                <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
+                                <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-black font-medium hover:bg-navy hover:text-white no-underline" to="#">
                                     <UserRound className="size-5 shrink-0" />
                                     Profile
                                 </Link>
-                                <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
+                                <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-black font-medium hover:bg-navy hover:text-white no-underline" to="#">
                                     <Bell className="size-5 shrink-0" />
                                     Notification
                                 </Link>
-                                <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
+                                <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-black font-medium hover:bg-navy hover:text-white no-underline" to="#">
                                     <UserRoundCog className="size-5 shrink-0" />
                                     Settings
                                 </Link>
-                                <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
+                                <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-black font-medium hover:bg-navy hover:text-white no-underline" to="#">
                                     <UserLock className="size-5 shrink-0" />
                                     Change Password
                                 </Link>
-                                <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-navy font-medium hover:bg-navy hover:text-white no-underline" to="#">
+                                <Link className="flex items-center gap-x-3.5 py-2 px-3 rounded text-sm text-black font-medium hover:bg-navy hover:text-white no-underline" to="#">
                                     <LogOutIcon className="size-5 shrink-0" />
                                     Logout
                                 </Link>

@@ -14,8 +14,8 @@ const Partners = () => {
             <div className="h-full w-full  flex flex-wrap items-center justify-center flex-col">
 
                 <div className="text-center max-w-xl mx-auto relative z-20">
-                    <h2 className="text-3xl text-navy md:text-4xl lg:text-5xl mb-6">Our Partners</h2>
-                    <p className="mb-4 text-navy">We collaborate with trusted partners who share our vision and commitment to excellence. Their expertise and support help us deliver high-quality solutions and create lasting value for our customers.</p>
+                    <h2 className="text-3xl text-black md:text-4xl lg:text-5xl mb-6">Our Partners</h2>
+                    <p className="mb-4 text-black">We collaborate with trusted partners who share our vision and commitment to excellence. Their expertise and support help us deliver high-quality solutions and create lasting value for our customers.</p>
                 </div>
                 <Swiper
                     modules={[Navigation, Autoplay]}

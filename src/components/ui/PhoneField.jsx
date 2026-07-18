@@ -3,7 +3,7 @@ import { Phone } from "lucide-react"
 const PhoneField = ({ label, id, error, disabled = false, required=false, className="", ...props }) => {
     return (
         <div className={`${className ? className : 'w-full'}`}>
-            <label htmlFor={id} className="block text-sm font-medium text-navy mb-1">
+            <label htmlFor={id} className="block text-sm font-medium text-black mb-1">
                 {label}
                 {required?<span className='text-red-500 ms-1'>*</span>:null}
             </label>

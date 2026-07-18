@@ -30,8 +30,10 @@
   /* gray-50 */
 
   /* Typography */
-  --font-sans: "Commissioner", sans-serif;
-  --font-heading: "Commissioner", sans-serif;
+  /* --font-sans: "Commissioner", sans-serif;
+  --font-heading: "Commissioner", sans-serif; */
+  --font-sans: "Google Sans", sans-serif;
+  --font-heading: "Google Sans", sans-serif;
 
   /* Spacing */
   --radius: 0.5rem;
@@ -62,8 +64,9 @@
     padding-left: env(safe-area-inset-left, 0px);
     padding-right: env(safe-area-inset-right, 0px);
     font-family: var(--font-sans);
-    @apply text-navy font-sans;
+    @apply text-black font-sans;
   }
+
   .login_wrapper .left_column::before {
     content: "";
     position: fixed;
@@ -75,9 +78,11 @@
     background: #122c4f url("/logo.png") repeat center center;
     background-size: 175px;
 
-    opacity: 0.06; /* watermark transparency */
+    opacity: 0.06;
+    /* watermark transparency */
     z-index: -1;
   }
+
   h1,
   h2,
   h3,
@@ -109,40 +114,48 @@
    COMPONENTS LAYER
 ========================= */
 @layer components {
-  .sign_in_btn {
-    @apply py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded bg-white border border-gray-400 text-navy shadow-2xs hover:bg-white focus:outline-hidden focus:bg-white;
-  }
   .radioCard {
-    @apply flex text-start gap-2 min-h-10.5 cursor-pointer rounded text-navy p-3 bg-white border border-gray-200 shadow-sm hover:shadow-lg text-sm font-medium transition-all duration-300 ease-in-out hover:bg-orange hover:border-orange hover:text-white peer-checked:bg-orange peer-checked:text-white peer-checked:border-orange;
+    @apply flex text-start gap-2 min-h-10.5 cursor-pointer rounded text-black p-3 bg-white border border-gray-200 text-sm font-medium transition-all duration-300 ease-in-out hover:bg-orange hover:border-orange hover:text-white peer-checked:bg-white peer-checked:text-orange peer-checked:border-gray-200;
   }
-  .assignment .radioCard {
-    /* @apply lg:items-center flex-col lg:flex-row; */
-  }
+
   .custom_transition {
     @apply transition-all duration-300 ease-in-out;
   }
 
   .btn {
-    @apply transition-all duration-300 ease-in-out rounded  bg-navy border-2 border-navy text-white hover:bg-orange hover:text-white hover:border-orange focus:outline-hidden disabled:opacity-50 disabled:pointer-events-none;
+    @apply transition-all duration-300 ease-in-out rounded border-2 text-white focus:outline-hidden disabled:bg-gray-200 disabled:text-gray-400 disabled:border-gray-200 disabled:cursor-not-allowed disabled:pointer-events-none;
   }
-  .btn.active {
+
+  .navy-btn {
+    @apply bg-navy border-navy hover:bg-orange hover:border-orange;
+  }
+
+  .navy-btn.active {
     @apply bg-orange border-orange;
   }
+
   .btn_with_text {
     @apply uppercase text-sm font-medium flex justify-center items-center gap-x-2 py-3 px-4;
+  }
+
+  .outline-btn {
+    @apply bg-white border-gray-200! text-black;
   }
 
   .icon_btn {
     @apply py-2 px-2;
   }
+
   .icon_btn_small {
     @apply py-1 px-1;
   }
+
   .icon_btn_remove {
     @apply py-1 px-1 bg-transparent border-none text-red-600 hover:bg-transparent hover:border-none hover:text-red-600;
   }
+
   .input-field {
-    @apply rounded bg-white w-full border-2 border-navy py-2.5 sm:py-3 px-4 text-sm text-navy placeholder:text-navy focus:border-navy focus:outline-none focus-visible:ring-0 disabled:opacity-50 disabled:pointer-events-none;
+    @apply rounded bg-white w-full border-2 border-gray-200 py-2.5 sm:py-3 px-4 text-sm text-black placeholder:text-black focus:border-navy focus:outline-none focus-visible:ring-0 disabled:opacity-50 disabled:pointer-events-none;
   }
 }
 
@@ -150,6 +163,7 @@
    UTILITIES LAYER
 ========================= */
 @layer utilities {
+
   /* Text colors using variables */
   .text-primary {
     color: rgb(var(--color-primary));
@@ -167,30 +181,40 @@
 
 /*************************************/
 .rdt_headRow {
-  min-height: initial !important;
+  min-height: initial!important;
   padding: 6px 0;
-  /* background-color: #122c4f !important; */
+  /* background-color: #122c4f!important; */
   /* color: #122c4f; */
 }
-.rdt_headRow .rdt_columnExpander {@apply min-w-7;}
-.rdt_cellBaseHead {@apply p-2!;}
+
+.rdt_headRow .rdt_columnExpander {
+  @apply min-w-7;
+}
+
+.rdt_cellBaseHead {
+  @apply p-2!;
+}
 
 .rdt_TableCol:before {
   display: none;
 }
 
 .rdt_TableCell {
-  @apply py-2 px-2! text-navy font-medium text-sm;
+  @apply py-2 px-2! text-black font-medium text-sm;
 }
 
 .rdt_TableCol {
-  @apply text-xs font-semibold uppercase text-navy;
+  @apply text-xs font-semibold uppercase text-black;
 }
+
 .rdt_cellExpander {
   @apply px-0! min-w-0!;
 }
+
 .rdt_cellExpander .rdt_expanderButton:not(:disabled):hover,
-.rdt_cellExpander .rdt_expanderButton:focus {background-color: transparent;}
+.rdt_cellExpander .rdt_expanderButton:focus {
+  background-color: transparent;
+}
 
 .rdt_expanderRow {
   @apply px-3 bg-navy/5!;
@@ -213,7 +237,7 @@
   @apply m-0!;
 }
 
-.rdt_responsiveWrapper + div {
+.rdt_responsiveWrapper+div {
   @apply rounded-b! overflow-hidden;
 }
 
@@ -280,9 +304,7 @@
 }
 
 .custom-calendar .react-datepicker__day,
-.custom-calendar
-  .react-datepicker__month-container
-  .react-datepicker__day-name {
+.custom-calendar .react-datepicker__month-container .react-datepicker__day-name {
   @apply w-full m-0 text-white min-h-10 leading-10 text-center font-semibold text-sm rounded bg-orange;
 }
 
@@ -294,21 +316,23 @@
   @apply grid grid-cols-7 gap-2;
 }
 
-.custom-calendar .react-datepicker__week > div {
+.custom-calendar .react-datepicker__week>div {
   @apply w-full;
 }
-.custom-calendar .react-datepicker__week > div.react-datepicker__day--today {
+
+.custom-calendar .react-datepicker__week>div.react-datepicker__day--today {
   @apply bg-orange text-white;
 }
+
 /* .custom-calendar .react-datepicker__day.react-datepicker__day--keyboard-selected {
   @apply bg-orange! text-white!;
 } */
 .custom-calendar .react-datepicker__day {
-  @apply bg-navy/20 text-navy hover:bg-orange! hover:text-white;
+  @apply bg-navy/20 text-black hover:bg-orange! hover:text-white;
 }
 
 .custom-calendar .react-datepicker__day.react-datepicker__day--disabled {
-  @apply bg-navy/10! text-navy cursor-not-allowed opacity-50;
+  @apply bg-navy/10! text-black cursor-not-allowed opacity-50;
 }
 
 /* Header */
@@ -323,7 +347,7 @@
 .react-datepicker__day-name {
   display: none;
   color: white;
-  font-size: 14px !important;
+  font-size: 14px!important;
   font-family: Inter;
 }
 
@@ -354,17 +378,20 @@
   @apply m-0! p-2 grid grid-cols-7 gap-2;
 }
 
-.react-datepicker__month-dropdown-container {margin-left: 0!important; margin-right: 8px!important;}
+.react-datepicker__month-dropdown-container {
+  margin-left: 0!important;
+  margin-right: 8px!important;
+}
+
 .react-datepicker__month-read-view,
 .react-datepicker__year-read-view {
   font-family: "Inter", sans-serif;
   min-width: 80px;
   @apply bg-navy rounded! py-2 pl-2 pr-6 visible!;
 }
-.react-datepicker__month-read-view
-  .react-datepicker__month-read-view--down-arrow,
-.react-datepicker__year-read-view
-  .react-datepicker__year-read-view--down-arrow {
+
+.react-datepicker__month-read-view .react-datepicker__month-read-view--down-arrow,
+.react-datepicker__year-read-view .react-datepicker__year-read-view--down-arrow {
   right: 5px;
   top: 6px;
   border: none;
@@ -391,14 +418,12 @@
   transform: rotate(0deg);
 }
 
-.react-datepicker__navigation
-  .react-datepicker__navigation-icon.react-datepicker__navigation-icon--previous:before {
+.react-datepicker__navigation .react-datepicker__navigation-icon.react-datepicker__navigation-icon--previous:before {
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m15 18-6-6 6-6'/%3E%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m15 18-6-6 6-6'/%3E%3C/svg%3E");
 }
 
-.react-datepicker__navigation
-  .react-datepicker__navigation-icon.react-datepicker__navigation-icon--next:before {
+.react-datepicker__navigation .react-datepicker__navigation-icon.react-datepicker__navigation-icon--next:before {
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 18 6-6-6-6'/%3E%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 18 6-6-6-6'/%3E%3C/svg%3E");
 }
@@ -409,7 +434,7 @@
 
 /* hover color */
 .react-datepicker__navigation {
-  top: 8px !important;
+  top: 8px!important;
 }
 
 .react-datepicker__navigation:hover {
@@ -444,18 +469,22 @@
 
 .react-datepicker__navigation--previous {
   right: 32px;
-  left: initial !important;
+  left: initial!important;
 }
+
 /* Swiper */
 .swiper-pagination {
   @apply flex flex-wrap items-center justify-center gap-2 mt-6;
 }
+
 .swiper-pagination-bullet {
   @apply w-2 h-2 inline-block bg-white rounded-full;
 }
+
 .swiper-pagination-bullet.swiper-pagination-bullet-active {
   @apply bg-orange;
 }
+
 /****************************************** Code for partners ***********************************************************************/
 .swiper-container {
   width: 100%;
@@ -467,100 +496,128 @@
 .swiper-slide {
   @apply grayscale-100 opacity-25;
 }
+
 .swiper-slide-active {
   @apply grayscale-0 opacity-100;
 }
+
 .swiper-wrapper {
-  transition-timing-function: linear !important; /* ✅ KEY for marquee */
+  transition-timing-function: linear!important;
+  /* ✅ KEY for marquee */
 }
+
 /****************************************** Code for partners ***********************************************************************/
 
 /*************************** Code for Login Screen *******************/
 .login_wrapper {
   @apply grid grid-cols-2 h-full bg-navy/10;
 }
+
 .login_wrapper .left_column {
   @apply flex flex-wrap items-center justify-center col-span-2 xl:col-span-1;
 }
+
 .inner_left_column {
   @apply p-6 md:p-12 xl:p-7 w-full max-w-lg mx-auto;
 }
+
 .login_heading {
-  @apply block text-2xl font-bold text-navy;
+  @apply block text-2xl font-bold text-black;
 }
+
 /* .sign_in_btn_wrap {
   @apply grid grid-cols-2 gap-4;
 } */
 /* .or {
-  @apply pt-8 pb-7 flex items-center text-sm text-navy uppercase font-medium before:flex-1 before:border-t before:border-gray-400 before:me-6 after:flex-1 after:border-t after:border-gray-400 after:ms-6;
+  @apply pt-8 pb-7 flex items-center text-sm text-black uppercase font-medium before:flex-1 before:border-t before:border-gray-400 before:me-6 after:flex-1 after:border-t after:border-gray-400 after:ms-6;
 } */
 .login_form_wrapper {
   @apply flex flex-col gap-4;
 }
+
 .remember_me {
   @apply flex flex-wrap items-center justify-end;
 }
+
 .remember_me_label {
   @apply flex items-center gap-2 cursor-pointer select-none;
 }
+
 .remmeber_me_checkbox {
   @apply w-4 h-4 flex items-center justify-center rounded border-2 transition-all;
 }
+
 .remember_me_text {
-  @apply text-sm text-navy font-medium;
+  @apply text-sm text-black font-medium;
 }
+
 .login_forgot_password {
-  @apply text-sm font-medium text-orange no-underline hover:text-navy transition-all duration-200 ease-in-out;
+  @apply text-sm font-medium text-orange no-underline hover:text-black transition-all duration-200 ease-in-out;
 }
+
 .login_donot_have_account {
-  @apply text-sm text-navy font-medium text-center;
+  @apply text-sm text-black font-medium text-center;
 }
+
 .login_donot_have_account_link {
-  @apply ms-1 text-orange no-underline focus:outline-hidden focus:underline font-medium hover:text-navy transition-all duration-200 ease-in-out;
+  @apply ms-1 text-orange no-underline focus:outline-hidden focus:underline font-medium hover:text-black transition-all duration-200 ease-in-out;
 }
+
 .login_slider_wrapper {
   @apply bg-navy hidden xl:flex flex-wrap items-center justify-center;
 }
+
 .login_slider_wrapper .swiper-slide {
   @apply text-white text-center;
 }
+
 .login_slider_wrapper .swiper-slide h2 {
   @apply mb-4 text-[32px];
 }
+
 .login_slider_wrapper .swiper-slide p {
   @apply w-4/6 mx-auto;
 }
+
 /*************************** Code for Login Screen *******************/
 
 /*************************** Code for Modal Screen *******************/
 .overlay {
   @apply fixed inset-x-0 inset-y-0 bg-navy/80 z-40 transition-all duration-300 ease-in-out;
 }
+
 .modal-wrapper {
   @apply size-full fixed top-0 inset-s-0 z-50 overflow-x-hidden overflow-y-auto pointer-events-none;
 }
+
 .modal-inner-wrapper {
   @apply ease-in-out transition-all duration-200 md:max-w-xl md:w-full m-3 sm:mx-auto min-h-[calc(100%-56px)] flex items-center;
 }
+
 .modal {
   @apply max-h-full overflow-hidden w-full flex flex-col bg-white border border-white shadow-2xs rounded pointer-events-auto;
 }
+
 /*************************** Code for Modal Screen *******************/
 
 /**************************** Code for Create Role *******************/
 .create-role-left-area {
   @apply grid grid-cols-6 w-full items-start gap-x-4 gap-y-4 3xl:gap-y-7 xl:w-[calc(100%-350px)];
 }
+
 /**************************** Code for Create Role *******************/
 
 /* animated Plus Icon */
 @keyframes pulseShadow {
   0% {
-    box-shadow: 0 0 0 0 rgba(18, 44, 79, 0.6); /* #122c4f */
+    box-shadow: 0 0 0 0 rgba(18, 44, 79, 0.6);
+    /* #122c4f */
   }
+
   50% {
     box-shadow: 0 0 10px 6px rgba(18, 44, 79, 0.3);
   }
+
   100% {
     box-shadow: 0 0 0 0 rgba(18, 44, 79, 0);
   }
@@ -573,51 +630,120 @@
 .drawer-overlay {
   @apply fixed inset-x-0 inset-y-0 bg-black/75 transition-all duration-300 ease-in-out;
 }
+
 .gender-field .radioCard {
   @apply justify-center! items-center;
 }
+
 /* For bottom Drawer */
 @keyframes slideUp {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
 }
 
 .animate-slideUp {
- animation: slideUp 0.3s ease-out;
+  animation: slideUp 0.3s ease-out;
 }
 
 input#search_incharge {
-    /* width: 32px; */
-    transition: width 0.3s ease;
+  /* width: 32px; */
+  transition: width 0.3s ease;
 }
 
 input#search_incharge:focus {
-    width: 300px;
+  width: 300px;
 }
 
 /******************Switch******************/
 .switch {
   @apply flex items-center gap-2;
 }
+
 .switch-label {
   @apply text-sm font-medium;
 }
+
 .switcher {
   @apply relative inline-block cursor-pointer;
 }
+
 .switcher-bar {
-  @apply absolute inset-0 bg-white border-2 border-navy rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-orange peer-checked:border-orange;
+  @apply absolute inset-0 bg-white border-2 border-gray-200 rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-orange peer-checked:border-orange;
 }
+
 .switcher-circle {
-  @apply absolute top-1/2 inset-s-1 -translate-y-1/2 bg-navy rounded-full shadow-sm transition-transform duration-300 ease-in-out peer-checked:bg-white;
+  @apply absolute top-1/2 inset-s-1 -translate-y-1/2 bg-gray-400 rounded-full shadow-sm transition-transform duration-300 ease-in-out peer-checked:bg-white;
 }
-.switcher.big {@apply w-11 h-6;}
+
+.switcher.big {
+  @apply w-11 h-6;
+}
+
 .switcher.big .switcher-circle {
   @apply size-4 peer-checked:translate-x-[calc(100%+5px)];
 }
 
-.switcher.small {@apply w-8 h-5;}
+.switcher.small {
+  @apply w-8 h-5;
+}
+
 .switcher.small .switcher-circle {
   @apply size-3 peer-checked:translate-x-[calc(100%+1px)];
 }
+
 /******************Switch******************/
+
+/******************Dashboard other cards ******************/
+.dashboard-main-card-wrapper {
+  @apply grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-3 3xl:gap-4;
+}
+/******************Dashboard other cards ******************/
+/******************Dashboard other cards ******************/
+.dashboard-card-wrapper {
+  @apply col-span-6 md:col-span-2 2xl:col-span-1 rounded border border-white shadow-sm hover:shadow-lg overflow-hidden transition-all duration-300 ease-in-out;
+}
+.dashboard-card-header {
+  @apply bg-navy py-3 px-4 text-sm capitalize font-medium border-b last:border-none border-gray-200 no-underline text-white flex justify-between items-center;
+}
+.dashboard-card-content-area {
+  @apply bg-white md:h-86 overflow-y-auto;
+}
+.dashboard-card-content-item {
+  @apply border-gray-200 flex items-center justify-between p-2 border-b last:border-b-0;
+}
+.dashboard-card-link-grab-wrapper {
+  @apply flex items-center gap-2 w-3/5;
+}
+.dashboard-card-content-grab {
+  @apply size-5 shrink-0 opacity-50 cursor-grab;
+}
+.dashboard-card-content-link {
+  @apply inline-block text-sm font-medium no-underline text-black ml-2;
+}
+.dashboard-card-action-wrapper {
+  @apply flex flex-wrap items-center justify-end gap-1;
+}
+.loader {
+  @apply animate-spin [animation-duration:2s];
+}
+.own-icon {
+  @apply size-5 mx-auto shrink-0;
+}
+.no-record-found {
+  @apply p-4 flex items-center justify-center h-full text-gray-400 text-sm capitalize font-medium leading-4;
+}
+/******************Dashboard other cards ******************/
+
+/******************Table ******************/
+.table-wrapper {
+  @apply col-span-6 w-full flex flex-col bg-white rounded border border-white shadow-sm hover:shadow-lg transition-all duration-300 ease-in-out overflow-hidden;
+}
+.table-inner-wrapper {
+  @apply bg-navy py-2.5 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white flex items-center justify-between;
+}
+/******************Table ******************/

@@ -247,7 +247,7 @@ const UploadDocument = () => {
                         </div>
 
                         <div className="">
-                            <label className="block text-sm font-medium text-navy mb-1">Select Classroom</label>
+                            <label className="block text-sm font-medium text-black mb-1">Select Classroom</label>
                             <div className="flex flex-wrap gap-2">
                                 <RadioCard icon={""} text="1 st" group="class" id="teacher_1" />
                                 <RadioCard icon={""} text="2 nd" group="class" id="teacher_2" />
@@ -257,7 +257,7 @@ const UploadDocument = () => {
                         </div>
 
                         <div className="">
-                            <label className="block text-sm font-medium text-navy mb-1">Select Stream</label>
+                            <label className="block text-sm font-medium text-black mb-1">Select Stream</label>
                             <div className="flex flex-wrap gap-2">
                                 <RadioCard icon={""} text="Arts" group="stream" id="teacher_arts" />
                                 <RadioCard icon={""} text="Medical" group="stream" id="teacher_medical" />
@@ -267,7 +267,7 @@ const UploadDocument = () => {
                         </div>
 
                         <div className="">
-                            <label className="block text-sm font-medium text-navy mb-1">Select Section</label>
+                            <label className="block text-sm font-medium text-black mb-1">Select Section</label>
                             <div className="flex flex-wrap gap-2">
                                 <RadioCard icon={""} text="A" group="section" id="teacher_A" />
                                 <RadioCard icon={""} text="B" group="section" id="teacher_B" />
@@ -279,7 +279,7 @@ const UploadDocument = () => {
                         </div>
 
                         <div className="">
-                            <label className="block text-sm font-medium text-navy mb-1">Select Subject</label>
+                            <label className="block text-sm font-medium text-black mb-1">Select Subject</label>
                             <div className="flex flex-wrap gap-2">
                                 <RadioCard icon={<BookOpenText className="size-5" />} text="Computer" group="subject" id="teacher_computer" />
                                 <RadioCard icon={<BookOpenText className="size-5" />} text="Maths" group="subject" id="teacher_maths" />
@@ -296,7 +296,7 @@ const UploadDocument = () => {
                             <OpenCalendar formik={formik} onChangeHandler={onChangeHandler} maxDate={selectedDate} name="dob" label="Select Date" required={true} needWarning={false} />
                         </div>
                         // <div className="mt-4">
-                        //     <label className="block text-sm font-medium text-navy mb-1">Select Date</label>
+                        //     <label className="block text-sm font-medium text-black mb-1">Select Date</label>
                         //     <DatePicker calendarClassName="custom-calendar" className="custom-datepicker-input" selected={selectedDate} onChange={(date) => { setSelectedDate(date); }} inline />
                         // </div>
                     }

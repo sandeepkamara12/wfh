@@ -5,7 +5,7 @@ const ImageUploader = ({ fileRef, updateImageHandler, removeImageHandler, previe
         <div className='w-full'>
             <div className='flex flex-wrap items-center gap-2'>
                 <span className="inline-block size-20 bg-white rounded-full relative group">
-                    <span className="inline-flex flex-wrap items-center justify-center border-2 border-navy size-20 rounded-full overflow-hidden relative z-40">
+                    <span className="inline-flex flex-wrap items-center justify-center border-2 border-gray-200 size-20 rounded-full overflow-hidden relative z-40">
                         <input
                             type="file"
                             ref={fileRef}
