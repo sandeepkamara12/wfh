@@ -83,7 +83,7 @@ const Login = () => {
                                 <TextField label="Email/Phone/ID" id="login" {...formik.getFieldProps("login")} error={formik.touched.login && formik.errors.login} />
                                 <PasswordField label="Password" id="password" {...formik.getFieldProps("password")} error={formik.touched.password && formik.errors.password} />
                                 <RememberField checked={checked} handleChecked={setChecked} handleOpen={setOpen} />
-                                <button type="submit" className="btn btn_with_text" disabled={loading?.login || !formik.isValid}>{loading?.login ? "Signing in..." : "Sign in"}</button>
+                                <button type="submit" className="btn btn_with_text navy-btn" disabled={loading?.login || !formik.isValid}>{loading?.login ? "Signing in..." : "Sign in"}</button>
                                 {/* <p className="login_donot_have_account">Don't have an account? <a className="login_donot_have_account_link" href="#">Sign Up</a></p> */}
                             </form>
 

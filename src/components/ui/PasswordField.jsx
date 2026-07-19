@@ -14,7 +14,7 @@ const PasswordField = ({ label, id, error, ...props }) => {
                 <div className="absolute inset-y-0 inset-s-0 flex items-center pointer-events-none z-20 ps-4">
                     <Lock className="size-4 text-muted-foreground" />
                 </div>
-                <button type="button" className="absolute inset-y-0 inset-e-0 z-20 btn btn_with_text w-auto" onClick={toggleView}>
+                <button type="button" className="absolute inset-y-1 inset-e-1 z-20 btn icon_btn navy-btn w-auto" onClick={toggleView}>
                     {
                         !viewPassword ?
                             <Eye className="size-4 text-muted-foreground" />
