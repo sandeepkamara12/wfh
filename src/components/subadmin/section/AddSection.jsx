@@ -71,7 +71,7 @@ const AddSection = ({ handleClose, setIsEdit, isEdit }) => {
         <div className="w-full">
           <button
             type="submit"
-            className="btn btn_with_text w-full"
+            className="btn btn_with_text navy-btn w-full"
             disabled={loading || !(formik.isValid && formik.dirty)}
           >
             {loading
