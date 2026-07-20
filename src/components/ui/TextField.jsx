@@ -2,7 +2,7 @@ import { icons } from '../../const/constant';
 import * as Icons from 'lucide-react';
 
 const TextField = ({ label, subHeading, id, error, required = false, inputClassName = "", className = "", ...props }) => {
-    const IconComponent = Icons[icons[id]];
+    const IconComponent = Icons[icons[label?.toLowerCase()]];
     
     return (
         <div className={`${className ? className : 'w-full'}`}>

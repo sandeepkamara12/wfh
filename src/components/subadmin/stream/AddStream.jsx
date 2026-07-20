@@ -63,7 +63,7 @@ const AddStream = ({ handleClose, setIsEdit, isEdit }) => {
         <TextField
           {...formik.getFieldProps("name")}
           label="Stream"
-          id="stream"
+          id="name"
           subHeading="Create / Update streams for example Arts, Medical."
           error={formik.touched.name && formik.errors.name}
           required={true}

@@ -64,7 +64,7 @@ const AddSection = ({ handleClose, setIsEdit, isEdit }) => {
           {...formik.getFieldProps("name")}
           subHeading="Create / Update sections for example Milton, Chaucer."
           label="Section"
-          id="section"
+          id="name"
           error={formik.touched.name && formik.errors.name}
           required={true}
         />
