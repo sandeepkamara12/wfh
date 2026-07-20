@@ -14,7 +14,7 @@ const Drawer = ({ handleClose, open, children }) => {
                         <h2 className='font-bold text-lg leading-5'>Add {open}</h2>
                         <p className="text-xs tracking-wide font-light text-gray-400 mb-1">Create / Update a teacher details.</p>
                     </div>
-                    <button onClick={handleClose} className="btn icon_btn_small">
+                    <button onClick={handleClose} className="btn icon_btn_small navy-btn">
                         <X />
                     </button>
                 </div>

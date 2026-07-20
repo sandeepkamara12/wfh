@@ -25,7 +25,7 @@ const CustomDatePicker = ({ formik, onChangeHandler, error, minDate, maxDate, se
                 className="input-field py-3! px-4! "
                 dateFormat="dd-MM-yyyy"
             />
-             {error && (
+            {error && (
                 <p className="text-red-500 text-sm">{error}</p>
             )}
         </div>
