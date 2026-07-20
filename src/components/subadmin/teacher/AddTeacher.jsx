@@ -1,4 +1,4 @@
-import { useEffect, useRef} from "react"
+import { useEffect, useRef } from "react"
 import { toast } from "react-toastify"
 import { format, subYears } from "date-fns"
 import { useFormik } from "formik";
@@ -189,14 +189,10 @@ const AddTeacher = ({ role, open }) => {
     return (
         <form onSubmit={formik.handleSubmit} className="h-calc(100% - 68px)">
             <div className="flex flex-wrap gap-4 items-start px-4 pb-6">
-                <div className="flex gap-2 w-full flex-row">
-                    <div className="w-full md:w-1/2">
-                        <ImageUploader fileRef={fileRef} updateImageHandler={handleChange} removeImageHandler={handleRemove} preview={preview} handleImageUploadTrigger={handleImageUploadTrigger} error={formik.touched.file && formik.errors.file} />
-                    </div>
-                    <div className="w-full md:w-1/2">
+                <ImageUploader fileRef={fileRef} updateImageHandler={handleChange} removeImageHandler={handleRemove} preview={preview} handleImageUploadTrigger={handleImageUploadTrigger} error={formik.touched.file && formik.errors.file} />
+                    <div className="w-full">
                         <Gender formik={formik} alignment="" label="Choose Gender" />
                     </div>
-                </div>
                 <div className="flex gap-2 w-full flex-row">
                     <TextField className="w-full" label="First Name" id="first_name" {...formik.getFieldProps("first_name")} error={formik.touched.first_name && formik.errors.first_name} required={true} />
                     <TextField className="w-full" label="Last Name" id="last_name" {...formik.getFieldProps("last_name")} error={formik.touched.last_name && formik.errors.last_name} />

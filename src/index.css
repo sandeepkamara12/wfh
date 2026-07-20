@@ -232,7 +232,9 @@
 .react-datepicker-wrapper {
   @apply w-full;
 }
-
+.react-datepicker-popper {
+  z-index: 9999 !important;
+}
 .react-datepicker__calendar-icon {
   @apply inset-e-4 top-3.5 py-0! px-0! cursor-pointer hover:fill-orange fill-navy;
 }
