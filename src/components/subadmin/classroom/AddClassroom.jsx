@@ -69,28 +69,31 @@ const AddClassroom = ({
 
   return (
     <form onSubmit={formik.handleSubmit} className="h-full">
-      <div className="flex flex-wrap gap-4 items-start">
+      <div className="flex flex-wrap gap-2 items-start">
         <TextField
-          placeholder="Classroom: I, II, III, IV, V"
+        {...formik.getFieldProps("name")}
           label="Classroom"
           id="name"
-          {...formik.getFieldProps("name")}
+          subHeading="Create classrooms for example IV, V, VI."
           error={formik.touched.name && formik.errors.name}
           required={true}
         />
+        <div className="w-full">
+
         <button
           type="submit"
-          className="btn btn_with_text"
+          className="btn btn_with_text navy-btn w-full"
           disabled={loading || !(formik.isValid && formik.dirty)}
         >
           {loading
             ? isEdit
-              ? <><Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" /> Updating</>
-              : <><Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" /> Creating</>
+            ? <><Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" /> Updating</>
+            : <><Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" /> Creating</>
             : isEdit
-              ? "Update Classroom"
-              : "Create Classroom"}
+            ? "Update Classroom"
+            : "Create Classroom"}
         </button>
+            </div>
       </div>
     </form>
   );

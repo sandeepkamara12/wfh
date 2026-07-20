@@ -123,7 +123,7 @@
   }
 
   .btn_with_text {
-    @apply uppercase text-sm font-medium flex justify-center items-center gap-x-2 py-3 px-4;
+    @apply capitalize text-sm font-medium flex justify-center items-center gap-x-2 py-3 px-4;
   }
 
   .outline-btn {
@@ -143,7 +143,7 @@
   }
 
   .input-field {
-    @apply rounded bg-white w-full border-2 border-gray-200 py-2.5 sm:py-3 px-4 text-sm text-black placeholder:text-black focus:border-navy focus:outline-none focus-visible:ring-0 disabled:opacity-50 disabled:pointer-events-none;
+    @apply rounded bg-white w-full border-1 border-gray-200 py-2.5 sm:py-3 px-4 text-sm text-black placeholder:text-black focus:border-navy focus:outline-none focus-visible:ring-0 disabled:opacity-50 disabled:pointer-events-none;
   }
 }
 
@@ -571,11 +571,11 @@
 
 /*************************** Code for Modal Screen *******************/
 .overlay {
-  @apply fixed inset-x-0 inset-y-0 bg-navy/80 z-40 transition-all duration-300 ease-in-out;
+  @apply fixed inset-x-0 inset-y-0 bg-gray-200/95 z-40 transition-all duration-300 ease-in-out;
 }
 
 .modal-wrapper {
-  @apply size-full fixed top-0 inset-s-0 z-50 overflow-x-hidden overflow-y-auto pointer-events-none;
+  @apply flex size-full fixed top-0 inset-s-0 z-50 overflow-x-hidden overflow-y-auto pointer-events-none shadow-lg;
 }
 
 .modal-inner-wrapper {
@@ -696,7 +696,7 @@ input#search_incharge:focus {
   @apply col-span-6 md:col-span-2 2xl:col-span-1 rounded border border-white shadow-sm hover:shadow-lg overflow-hidden transition-all duration-300 ease-in-out;
 }
 .dashboard-card-header {
-  @apply bg-navy py-3 px-4 text-sm capitalize font-medium border-b last:border-none border-gray-200 no-underline text-white flex justify-between items-center;
+  @apply bg-navy py-2 px-2 text-sm capitalize font-medium border-b last:border-none border-gray-200 no-underline text-white flex justify-between items-center;
 }
 .dashboard-card-content-area {
   @apply bg-white md:h-86 overflow-y-auto;
@@ -708,10 +708,10 @@ input#search_incharge:focus {
   @apply flex items-center gap-2 w-3/5;
 }
 .dashboard-card-content-grab {
-  @apply size-5 shrink-0 opacity-50 cursor-grab;
+  @apply size-5 shrink-0 opacity-50 cursor-grab -ms-1;
 }
 .dashboard-card-content-link {
-  @apply inline-block text-sm font-medium no-underline text-black ml-2;
+  @apply inline-block text-sm font-medium no-underline text-black;
 }
 .dashboard-card-action-wrapper {
   @apply flex flex-wrap items-center justify-end gap-1;

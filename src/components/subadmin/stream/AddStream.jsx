@@ -6,14 +6,14 @@ import { toast } from 'react-toastify';
 import TextField from '../../ui/TextField';
 import { Loader } from 'lucide-react';
 
-const AddStream = ({ handleClose, setIsEdit, isEdit}) => {
+const AddStream = ({ handleClose, setIsEdit, isEdit }) => {
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    let user = useSelector((state) => state.auth.user);
-    let loading = useSelector((state) => state.stream.loading.stream);
+  let user = useSelector((state) => state.auth.user);
+  let loading = useSelector((state) => state.stream.loading.stream);
 
-     const validationSchema = Yup.object({
+  const validationSchema = Yup.object({
     name: Yup.string().required("Stream is required"),
   });
   const formik = useFormik({
@@ -57,33 +57,35 @@ const AddStream = ({ handleClose, setIsEdit, isEdit}) => {
     },
   });
 
-    return (
-         <form onSubmit={formik.handleSubmit} className="h-full">
-           <div className="flex flex-wrap gap-4 items-start">
-                <TextField
-                    placeholder="Stream: Arts, Non Medical, Medical"
-                    label="Stream"
-                    id="name"
-                    {...formik.getFieldProps("name")}
-                    error={formik.touched.name && formik.errors.name}
-                    required={true}
-                />
-                <button
-                    type="submit"
-                    className="btn btn_with_text"
-                    disabled={loading || !(formik.isValid && formik.dirty)}
-                >
-                    {loading
-                        ? isEdit
-                            ? <><Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" /> Updating</>
-                            : <><Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" /> Creating</>
-                        : isEdit
-                            ? "Update Stream"
-                            : "Create Stream"}
-                </button>
-            </div>
-        </form>
-    )
+  return (
+    <form onSubmit={formik.handleSubmit} className="h-full">
+      <div className="flex flex-wrap gap-2 items-start">
+        <TextField
+          {...formik.getFieldProps("name")}
+          label="Stream"
+          id="name"
+          subHeading="Create streams for example Arts, Medical."
+          error={formik.touched.name && formik.errors.name}
+          required={true}
+        />
+        <div className="w-full">
+          <button
+            type="submit"
+            className="btn btn_with_text navy-btn w-full"
+            disabled={loading || !(formik.isValid && formik.dirty)}
+          >
+            {loading
+              ? isEdit
+                ? <><Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" /> Updating</>
+                : <><Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" /> Creating</>
+              : isEdit
+                ? "Update Stream"
+                : "Create Stream"}
+          </button>
+        </div>
+      </div>
+    </form>
+  )
 }
 
 export default AddStream
