@@ -17,7 +17,7 @@ const TextField = ({ label, subHeading, id, error, required = false, inputClassN
             <div className="relative">
                 <input type="text" {...props} name={id} id={id} className={`${inputClassName ? inputClassName : ''} input-field ${IconComponent ? 'ps-10' : ''} ${error ? 'border-red-500' : ''}`} />
                 <div className="absolute inset-y-0 inset-s-0 flex items-center pointer-events-none z-20 ps-4">
-                    {/* {IconComponent && <IconComponent className="size-4 text-muted-foreground" />} */}
+                    {IconComponent && <IconComponent className="own-icon" />}
                 </div>
             </div>
             {

@@ -367,6 +367,8 @@ export const icons = {
   custom_id: "IdCardLanyard",
   name: "GalleryThumbnails",
   search_incharge: "GalleryThumbnails",
+  stream:'Network',
+  section: 'LayoutGrid',
   login: "Mail",
 };
 

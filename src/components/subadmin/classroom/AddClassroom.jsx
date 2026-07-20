@@ -74,7 +74,7 @@ const AddClassroom = ({
         {...formik.getFieldProps("name")}
           label="Classroom"
           id="name"
-          subHeading="Create classrooms for example IV, V, VI."
+          subHeading="Create / Update classrooms for example IV, V, VI."
           error={formik.touched.name && formik.errors.name}
           required={true}
         />

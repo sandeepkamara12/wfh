@@ -62,9 +62,9 @@ const AddSection = ({ handleClose, setIsEdit, isEdit }) => {
       <div className="flex flex-wrap gap-2 items-start">
         <TextField
           {...formik.getFieldProps("name")}
-          subHeading="Create sections for example Milton, Chaucer."
+          subHeading="Create / Update sections for example Milton, Chaucer."
           label="Section"
-          id="name"
+          id="section"
           error={formik.touched.name && formik.errors.name}
           required={true}
         />

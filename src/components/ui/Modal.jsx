@@ -6,7 +6,7 @@ const Modal = ({ open, handleClose, isEdit, children }) => {
             <div onClick={handleClose} className={`overlay ${(open != 'teacher' && open != 'student' && open !== null) ? '' : 'opacity-0 invisible'}`}></div>
             <div className={`modal-wrapper ${(open != 'teacher' && open != 'student' && open !== null) ? '' : 'opacity-0 invisible'}`} role="dialog" tabIndex="-1" aria-labelledby="hs-basic-modal-label">
                 <div className={`${(open != 'teacher' && open != 'student' && open !== null) ? 'mt-7 opacity-100 duration-500' : 'mt-0 opacity-0'} ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto`}>
-                    <div className="flex flex-col bg-white border border-gray-200 shadow-2xs rounded pointer-events-auto">
+                    <div className="modal-inner-wrap">
                         <div className="flex justify-between items-center py-2 px-4 border-b border-gray-200">
                             <h3 id="hs-focus-management-modal-label" className="font-semibold text-foreground capitalize">
                                 {isEdit ? 'Update' : 'Create'} {open}
