@@ -175,7 +175,7 @@ const Dashboard = () => {
           {groupClasses(classesTeach).map((c, i) => (
             <span
               key={i}
-              className="inline-block text-sm font-medium leading-4 rounded bg-gray-100 px-2 py-1.5"
+              className="inline-block text-sm leading-4 rounded bg-gray-100 px-2 py-1.5"
             >
               {c.class} {c.section}
               {c.stream && ` • ${c.stream}`}
@@ -297,6 +297,7 @@ const Dashboard = () => {
   return (
     <div className="grid gap-4">
       <h2 className="font-bold text-lg">Dashboard</h2>
+
       {/* Dashbaord Cards */}
       <div className="dashboard-main-card-wrapper">
         {dashboardCardData.map((item, index) => (
@@ -312,7 +313,7 @@ const Dashboard = () => {
       </div>
 
       <div className="grid grid-cols-6 gap-4">
-
+        
         {/* Classroom In charge */}
         <div className="table-wrapper">
           <div className="table-inner-wrapper">

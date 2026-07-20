@@ -14,7 +14,7 @@ const DashboardCard = ({ label, count, id, link, onPlusClick }) => {
             </div>
             <div className="flex flex-col flex-wrap justify-between gap-2">
                 {Icon && <Icon className="size-6 shrink-0 text-navy" />}
-                <p className="text-sm capitalize font-medium text-black leading-4">Total <br/>{label}</p>
+                <p className="text-sm capitalize font-medium text-black leading-4 wrap-break-words whitespace-pre-line">{label}</p>
             </div>
             <h3 className="text-lg font-bold text-orange leading-5">{count}</h3>
         </div>
