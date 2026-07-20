@@ -7,8 +7,8 @@ import { toast } from "react-toastify";
 import { useIsMobile } from "../hooks/useIsMobile";
 
 // Utils
-import {dateFormat} from '../utils/dateUtils';
-import {getDisplayName} from '../utils/displayUtil';
+import { dateFormat } from '../utils/dateUtils';
+import { getDisplayName } from '../utils/displayUtil';
 
 //Constants
 import { dashboardCardData, classesTeach } from "../const/constant";
@@ -106,7 +106,7 @@ const Dashboard = () => {
     }
   };
 
-   // Table Columns
+  // Table Columns
   const columns = [
     {
       name: "Name",
@@ -149,10 +149,9 @@ const Dashboard = () => {
           </a>
         </div>
       ),
-    },
+    },   
     {
       name: "Class In charge",
-      minWidth: "200px",
       omit: isBelow640,
       cell: () => (
         <div className="flex flex-wrap flex-col gap-1 text-black">
@@ -167,24 +166,14 @@ const Dashboard = () => {
       )
     },
     {
-      name: 'Teach Other Classes',
-      grow: 3,
+      name: "Joined At:.",
       omit: isBelow1280,
-      cell: () => (
-        <div className="flex flex-wrap gap-1 items-start">
-          {groupClasses(classesTeach).map((c, i) => (
-            <span
-              key={i}
-              className="inline-block text-sm leading-4 rounded bg-gray-100 px-2 py-1.5"
-            >
-              {c.class} {c.section}
-              {c.stream && ` • ${c.stream}`}
-              {" • "}
-              {c.subjects.join(", ")}
-            </span>
-          ))}
+      cell: (row) => (
+        <div className="flex flex-wrap items-center gap-1">
+          <CalendarDays className="size-4 shrink-0" />
+          {dateFormat(row.created_at, "dd-MMMM-yyyy")}
         </div>
-      ),
+      )
     },
     {
       name: "",
@@ -252,7 +241,7 @@ const Dashboard = () => {
           </div>
         }
 
-        <div className="col-span-1 flex flex-wrap flex-col gap-0">
+        <div className="col-span-1 flex xl:hidden flex-wrap flex-col gap-0">
           <span className="flex items-center gap-1 text-gray-400">
             <CalendarDays className="size-4 shrink-0" /> Joined At:
           </span>
@@ -271,7 +260,7 @@ const Dashboard = () => {
           <span className="font-medium">Non Medical Maths</span>
         </div>
 
-        <div className="col-span-2 lg:col-span-4 flex xl:hidden flex-col gap-1">
+        <div className="col-span-2 lg:col-span-4 flex flex-col gap-1">
           <span className="flex items-center gap-1 text-gray-400">
             <UserRoundPen className="size-4 shrink-0 " />
             Teach Other Classes:
@@ -314,7 +303,7 @@ const Dashboard = () => {
       </div>
 
       <div className="grid grid-cols-6 gap-4">
-        
+
         {/* Classroom In charge */}
         <div className="table-wrapper">
           <div className="table-inner-wrapper">
@@ -355,9 +344,9 @@ const Dashboard = () => {
 export default Dashboard;
 
 
-  // const teachers = useSelector((state) => state.teachers);
-  //   const [openIncharge, setOpenIncharge] = useState(false);
-  //   useOutsideClick(filterSearchInchargeRef, () => setOpenIncharge(false));
+// const teachers = useSelector((state) => state.teachers);
+//   const [openIncharge, setOpenIncharge] = useState(false);
+//   useOutsideClick(filterSearchInchargeRef, () => setOpenIncharge(false));
 
 // import {
 //   DndContext,
