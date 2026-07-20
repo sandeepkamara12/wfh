@@ -18,7 +18,7 @@ const Table = (props) => {
                     data={props.data}
                     pagination
                     animateRows 
-                    expandableRows
+                    expandableRows={props.expandableRows??true}
                     responsive={true}
                     selectableRows={props.needHeader}
                     customStyles={dashboardTableStyle}

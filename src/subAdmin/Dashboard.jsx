@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { format } from "date-fns";
 import { toast } from "react-toastify";
 
 // Custom Hooks
@@ -15,7 +14,6 @@ import {getDisplayName} from '../utils/displayUtil';
 import { dashboardCardData, classesTeach } from "../const/constant";
 
 //Components
-import Switch from "../components/ui/Switch";
 import Table from "../components/common/Table";
 import TextField from "../components/ui/TextField";
 import Cards from "../components/subadmin/dashboard/Cards";
@@ -29,7 +27,7 @@ import { deleteSectionThunk, getSectionThunk } from "../features/subAdmin/sectio
 import { deleteClassroomThunk, getClassroomThunk } from "../features/subAdmin/classroomSlice";
 
 //Icons
-import { CalendarDays, Copy, EllipsisVertical, Eye, GripVertical, Loader, Mail, Pencil, Phone, Plus, Trash2, UserRound, UserRoundPen } from "lucide-react";
+import { CalendarDays, Copy, EllipsisVertical, Eye, Mail, Pencil, Phone, Trash2, UserRound, UserRoundPen } from "lucide-react";
 import { groupClasses } from "../utils/classUtility";
 
 const base_url = import.meta.env.VITE_API_BASE_URL;
