@@ -31,8 +31,8 @@ const SubAdmin = () => {
                 <>
                 <Drawer handleClose={handleClose} open={open}>
                     {
-                        open === 'teacher' ? <AddTeacher role="teacher" open={open} handleClose={handleClose} />
-                        : open === 'student' ? <AddTeacher role="student" open={open} handleClose={handleClose} />
+                        open === 'teacher' ? <AddTeacher role="teacher" setIsEdit={setIsEdit} isEdit={isEdit} open={open} handleClose={handleClose} />
+                        : open === 'student' ? <AddTeacher role="student" setIsEdit={setIsEdit} isEdit={isEdit} open={open} handleClose={handleClose} />
                         : null
                     }
 
