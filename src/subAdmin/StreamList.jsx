@@ -1,51 +1,83 @@
-import { Clock, Network, Pencil, Trash2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useOutletContext } from "react-router-dom";
+import { toast } from "react-toastify";
+
+//Components
 import Table from "../components/common/Table";
-import { streamData } from "../const/constant";
-import { useIsMobile } from "../hooks/useIsMobile";
+
+//Slices
+import { deleteStreamThunk, getStreamThunk } from "../features/subAdmin/streamSlice";
+
+//Icons
+import { Loader, Pencil, Trash2 } from "lucide-react";
 
 const StreamList = () => {
-  const { isBelow640 } = useIsMobile();
+  const dispatch = useDispatch();
+
+  const [loadingId, setLoadingId] = useState(null);
+  const { handleOpen, setIsEdit } = useOutletContext();
+
+  let streams = useSelector((state) => state.stream.streams);
+
+  useEffect(() => {
+    const fetchStreams = async () => {
+      try {
+        await dispatch(getStreamThunk()).unwrap();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchStreams();
+  }, [])
+
+  const handleDelete = async (id) => {
+    if (id == "") return;
+    try {
+      setLoadingId(id);
+      let result = null;
+      result = await dispatch(deleteStreamThunk({ id })).unwrap()
+      if (result?.success) {
+        toast.dismiss();
+        toast.success(result?.message);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoadingId(null);
+    }
+  };
+
   const columns = [
     {
-      name: "Streams",
+      name: "Delete All",
       cell: row => (
         <div className="flex md:items-center flex-col md:flex-row gap-1 md:gap-2">
-          <span className="text-sm font-semibold text-black leading-4">{row.stream}</span>
-          <span className="tracking-wide pt-0.5 pb-1 px-2 rounded-full text-xs font-semibold bg-navy/10 text-black">
-            {row.id}
-          </span>
+          <span className="text-sm font-semibold text-black leading-4">{row.name}</span>
         </div>
       ),
-      selector: row => row.stream,
+      selector: row => row.name,
       sortable: true
-    },
-    {
-      name: "Created At",
-      omit: isBelow640,
-      cell: row => (
-        <div className="flex items-center gap-1">
-          <Clock className='size-4' />
-          {row.createdAt}
-        </div>
-      ),
-      selector: row => row.createdAt
     },
     {
       name: '',
       cell: row => (
         <div className="flex flex-col gap-3 w-full items-end">
-          <div className="flex flex-col gap-0 items-end sm:hidden">
-            <span>Account Created At:</span>
-            <div className="flex items-center gap-1">
-              <Clock className='size-4' />
-              {row.createdAt}
-            </div>
-          </div>
           <div className="flex flex-wrap items-center justify-end w-full gap-1">
-            <button type="button" className="btn icon_btn">
-              <Trash2 className="size-5 mx-auto" />
+            <button type="button" className="btn icon_btn btn_with_text navy-btn" onClick={() => handleDelete(row?.id)}
+              disabled={loadingId === row?.id}>
+              {loadingId === row?.id ? (<Loader className="loader own-icon" />) : (<Trash2 className="own-icon" />)}
             </button>
-            <button type="button" className="btn icon_btn">
+            <button
+              type="button"
+              className="btn icon_btn btn_with_text navy-btn"
+              onClick={() => {
+                setIsEdit(row);
+                handleOpen('stream');
+              }
+              }
+              disabled={loadingId === row?.id}
+            >
               <Pencil className="size-5 mx-auto" />
             </button>
           </div>
@@ -55,14 +87,17 @@ const StreamList = () => {
   ];
 
   return (
-    <div className="flex flex-col">
-      <div className="overflow-x-auto [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb">
-        <div className="min-w-full inline-block align-middle">
-          <div className="">
-            <Table id="streams" columns={columns} data={streamData} btnText="Add Stream" btnIcon={<Network className="w-5 h-5 mx-auto" />} label="Streams" subLabel="Add Stream, edit and more." />
-          </div>
-        </div>
+    <div className="table-wrapper">
+      <div className="table-inner-wrapper">
+        Streams
       </div>
+      <Table
+        needHeader={true}
+        id="streams"
+        columns={columns}
+        data={streams}
+        expandableRows={false}
+      />
     </div>
   )
 }

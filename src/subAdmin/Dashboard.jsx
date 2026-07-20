@@ -201,14 +201,14 @@ const Dashboard = () => {
               }
             >
               <div className="flex items-center gap-1 p-1">
-                <button className="btn icon_btn">
-                  <Eye className="size-4 mx-auto" />
+                <button className="btn icon_btn navy-btn">
+                  <Eye className="own-icon" />
                 </button>
-                <button className="btn icon_btn">
-                  <Trash2 className="size-4 mx-auto" />
+                <button className="btn icon_btn navy-btn">
+                  <Trash2 className="own-icon" />
                 </button>
-                <button className="btn icon_btn">
-                  <Pencil className="size-4 mx-auto" />
+                <button className="btn icon_btn navy-btn">
+                  <Pencil className="own-icon" />
                 </button>
               </div>
             </FloatingDropdown>

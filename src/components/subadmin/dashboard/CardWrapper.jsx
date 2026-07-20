@@ -6,8 +6,8 @@ const CardWrapper = (props) => {
         <div className="dashboard-card-wrapper">
             <div className="dashboard-card-header">
                 {props.label}
-                <div className="btn icon_btn_small cursor-pointer">
-                    <Plus onClick={() => props.handleOpen(props.label)} className="size-5 shrink-0" />
+                <div className="btn icon_btn_small navy-btn active">
+                    <Plus onClick={() => props.handleOpen(props.label)} className="own-icon" />
                 </div>
             </div>
             <div className="dashboard-card-content-area">{props.children}</div>

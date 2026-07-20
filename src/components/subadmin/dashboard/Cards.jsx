@@ -18,7 +18,7 @@ const Cards = (props) => {
                             <div className="dashboard-card-action-wrapper">
                                 <button
                                     type="button"
-                                    className="btn icon_btn"
+                                    className="btn icon_btn_small navy-btn"
                                     onClick={() => props.handleDelete(dt?.id, props.label)}
                                     disabled={props.loadingId === dt?.id}
                                 >
@@ -26,7 +26,7 @@ const Cards = (props) => {
                                 </button>
                                 <button
                                     type="button"
-                                    className="btn icon_btn"
+                                    className="btn icon_btn_small navy-btn"
                                     onClick={() => {
                                         props.setIsEdit(dt);
                                         props.handleOpen(props.label);

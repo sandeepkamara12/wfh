@@ -34,7 +34,7 @@ const TeacherList = () => {
     const dispatch = useDispatch();
     const allTeachers = useSelector((state) => state.teachers.teachers);
 
-    const {isBelow640, isBelow768, isBelow1024, isBelow1280 } = useIsMobile();
+    const {isBelow640, isBelow1024, isBelow1280 } = useIsMobile();
 
   //Fetch Teachers on load
     useEffect(() => {
@@ -154,14 +154,14 @@ const TeacherList = () => {
                             }
                         >
                             <div className="flex items-center gap-1 p-1">
-                                <button className="btn icon_btn">
-                                    <Eye className="size-4 mx-auto" />
+                                <button className="btn icon_btn navy-btn">
+                                    <Eye className="own-icon" />
                                 </button>
-                                <button className="btn icon_btn">
-                                    <Trash2 className="size-4 mx-auto" />
+                                <button className="btn icon_btn navy-btn">
+                                    <Trash2 className="own-icon" />
                                 </button>
-                                <button className="btn icon_btn">
-                                    <Pencil className="size-4 mx-auto" />
+                                <button className="btn icon_btn navy-btn">
+                                    <Pencil className="own-icon" />
                                 </button>
                             </div>
                         </FloatingDropdown>

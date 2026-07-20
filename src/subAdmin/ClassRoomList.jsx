@@ -61,7 +61,6 @@ const ClassRoomList = () => {
         </div>
       ),
       selector: (row) => row.name,
-      sortable: true,
     },
     {
       name: "",
@@ -99,7 +98,7 @@ const ClassRoomList = () => {
       </div>
       <Table
         needHeader={true}
-        id="teachers"
+        id="classrooms"
         columns={columns}
         data={classrooms}
         expandableRows={false}
