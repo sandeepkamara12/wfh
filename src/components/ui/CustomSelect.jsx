@@ -90,7 +90,7 @@ const CustomSelect = ({ options, selectType, label, value, onChange, placeholder
                 styles={{
                     dropdownIndicator: (base) => ({
                         ...base,
-                        color: "#122c4f"
+                        color: "#ebe6e7"
                     }),
                     indicatorSeparator: (base) => ({
                         ...base,
@@ -98,7 +98,7 @@ const CustomSelect = ({ options, selectType, label, value, onChange, placeholder
                     }),
                     placeholder: (base) => ({
                         ...base,
-                        color: "#122c4f",
+                        color: "#ebe6e7",
                         fontSize: '14px',
                         fontWeight: 500,
                     }),
@@ -106,7 +106,7 @@ const CustomSelect = ({ options, selectType, label, value, onChange, placeholder
                         ...base,
                         minHeight: "auto",
                         height: "auto",
-                        border: '2px solid #122c4f',
+                        border: '1px solid #ebe6e7',
                         padding: '6px 12px'
                     }),
                     valueContainer: (base) => ({

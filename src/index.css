@@ -234,7 +234,7 @@
 }
 
 .react-datepicker__calendar-icon {
-  @apply inset-e-0 top-3.5 py-0! cursor-pointer hover:fill-orange fill-navy;
+  @apply inset-e-4 top-3.5 py-0! px-0! cursor-pointer hover:fill-orange fill-navy;
 }
 
 .react-datepicker__close-icon {

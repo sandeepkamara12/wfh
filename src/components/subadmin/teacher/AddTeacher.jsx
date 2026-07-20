@@ -17,27 +17,12 @@ import PhoneField from "../../ui/PhoneField";
 import OpenCalendar from "../../ui/OpenCalendar";
 import Gender from "../../common/Gender";
 import Switch from "../../ui/Switch";
+import CustomDatePicker from "../../ui/CustomDatePicker";
 
 const AddTeacher = ({ role, open }) => {
     const fileRef = useRef(null);
     const dispatch = useDispatch();
     let user = useSelector(state => state.auth.user);
-
-
-
-    const [activeStep, setActiveStep] = useState(0);
-
-    const stepFields = [
-        ["first_name", "file"], // Step 0
-        ["email", "phone", "dob"], // Step 1
-        ["custom_id"] // Step 2
-    ];
-
-    const steps = [
-        "Basic Info",
-        "Other Info",
-        "Academic Info",
-    ];
 
     const nextStep = async () => {
         const currentFields = stepFields[activeStep];
@@ -88,10 +73,7 @@ const AddTeacher = ({ role, open }) => {
         gender: "male",
         file: null,
         sub_admin_id: user?.id || "",
-        incharge_classroom: "",
-        incharge_section: "",
-        incharge_stream: "",
-        other_classes: [{ id: uuidv4(), classroom: "", stream: "", section: "", subject: "" }]
+        other_classes: [{ id: uuidv4(), classroom: "", stream: "", section: "", subject: "", incharge: false }]
     }
 
     //Validations
@@ -99,7 +81,20 @@ const AddTeacher = ({ role, open }) => {
         first_name: Yup.string().required("First name is required"),
         email: Yup.string().email("Invalid email").required("Email is required"),
         phone: Yup.string().required("Phone is required"),
-        dob: Yup.date().nullable().required("Date of birth is required"),
+        dodob: Yup.date()
+            .nullable()
+            .required("Date of birth is required")
+            .test("age-validation", "Invalid age for selected role", function (value) {
+                const { role } = this.parent;
+                if (!value) return false;
+
+                const age = new Date().getFullYear() - new Date(value).getFullYear();
+
+                if (role === "teacher") return age >= 18;
+                if (role === "student") return age >= 3;
+
+                return true;
+            }),
         gender: Yup.string().required("Gender is required"),
         // spouse_name: Yup.string().when("married", { is: true, then: (schema) => schema.required("Spouse name is required") }),
         // father_name: Yup.string().when(["role", "married"], { is: (role, married) => role === "student" || (role === "teacher" && !married), then: (schema) => schema.required("Father name is required") }),
@@ -189,24 +184,7 @@ const AddTeacher = ({ role, open }) => {
     };
 
     const formik = useFormik({
-        initialValues: {
-            role: role,
-            custom_id: "",
-            first_name: "",
-            last_name: "",
-            email: "",
-            phone: "",
-            married: false,
-            incharge: false,
-            spouse_name: "",
-            father_name: "",
-            mother_name: "",
-            dob: null,
-            gender: "male",
-            file: null,
-            sub_admin_id: user?.id || "",
-            other_classes: [{ id: uuidv4(), classroom: "", stream: "", section: "", subject: "", incharge: false }]
-        },
+        initialValues,
         validationSchema,
         validateOnBlur: false,
         validateOnChange: true,
@@ -221,23 +199,7 @@ const AddTeacher = ({ role, open }) => {
                 if (result.success) {
                     toast.success(result.message);
                     resetForm({
-                        values: {
-                            role: "teacher",
-                            first_name: "",
-                            last_name: "",
-                            email: "",
-                            phone: "",
-                            married: false,
-                            incharge: false,
-                            spouse_name: "",
-                            father_name: "",
-                            mother_name: "",
-                            dob: null,
-                            gender: "male",
-                            file: null,
-                            sub_admin_id: "",
-                            other_classes: [{ classroom: "", stream: "", section: "", subject: "", incharge: false }]
-                        }
+                        values: initialValues
                     });
                 }
                 else {
@@ -249,15 +211,18 @@ const AddTeacher = ({ role, open }) => {
         },
     });
 
-    const maxDate =
-        formik.values.role === "teacher"
-            ? subYears(new Date(), 18)
-            : new Date();
+    const today = new Date();
 
-    const minDate =
-        formik.values.role === "student"
-            ? subYears(new Date(), 25) // optional range
-            : null;
+    let minDate;
+    let maxDate;
+
+    if (formik.values.role === "teacher") {
+        maxDate = subYears(today, 18); // must be 18+
+        minDate = subYears(today, 75); // optional (limit age range)
+    } else if (formik.values.role === "student") {
+        maxDate = subYears(today, 3); // must be 3+
+        minDate = subYears(today, 30); // optional (students max age)
+    }
 
     const onChangeHandler = (date) => {
         formik.setFieldValue("dob", date)
@@ -316,6 +281,7 @@ const AddTeacher = ({ role, open }) => {
 
         formik.setFieldValue("other_classes", updated);
     };
+
     // If backend does NOT need id, remove before API call
     // const cleaned = values.other_classes.map(({ id, ...rest }) => rest);
 
@@ -327,194 +293,142 @@ const AddTeacher = ({ role, open }) => {
 
     return (
         <form onSubmit={formik.handleSubmit} className="h-calc(100% - 68px)">
+            <div className="flex flex-wrap gap-4 items-start px-4 py-6">
+                <ImageUploader fileRef={fileRef} updateImageHandler={handleChange} removeImageHandler={handleRemove} preview={preview} handleImageUploadTrigger={handleImageUploadTrigger} error={formik.touched.file && formik.errors.file} />
+                <div className="w-full flex gap-2">
+                    <div className="w-full md:w-1/2">
+                        <Gender formik={formik} alignment="" label="Choose Gender" />
+                    </div>
+                </div>
+                <div className="flex gap-2 w-full flex-col md:flex-row">
+                    <TextField className="w-full" label="First Name" id="first_name" {...formik.getFieldProps("first_name")} error={formik.touched.first_name && formik.errors.first_name} required={true} />
+                    <TextField className="w-full" label="Last Name" id="last_name" {...formik.getFieldProps("last_name")} error={formik.touched.last_name && formik.errors.last_name} />
+                </div>
+                {
+                    formik.values.role === "teacher" &&
+                    <Switch id="married" formik={formik} onChangeHandler={handleMarried} label={"Are you married?"} checked={formik.values.married} />
+                }
+                <div className="flex gap-2 w-full flex-col md:flex-row">
+                    {
+                        formik.values.role === "teacher" &&
+                        <>
+                            {
+                                formik.values.married &&
+                                <TextField className="" label="Spouse Name" id="spouse_name" {...formik.getFieldProps("spouse_name")} error={formik.touched.spouse_name && formik.errors.spouse_name} />
+                            }
+                        </>
+                    }
+                    {
+                        showParents &&
+                        <>
+                            <TextField label="Father Name" id="father_name" {...formik.getFieldProps("father_name")} />
+                            <TextField label="Mother Name" id="mother_name" {...formik.getFieldProps("mother_name")} />
+                        </>
+                    }
+                </div>
+                <div className="flex gap-2 w-full flex-col md:flex-row">
+                    <EmailField className="w-full" label="Email Address" id="email" {...formik.getFieldProps("email")} error={formik.touched.email && formik.errors.email} required={true} />
+                    <PhoneField className="w-full" label="Phone" id="phone" {...formik.getFieldProps("phone")} error={formik.touched.phone && formik.errors.phone} required={true} />
+                </div>
+                <TextField label={`${formik.values.role === 'teacher' ? 'Teacher Id' : 'Student Id'}`} id="custom_id" {...formik.getFieldProps("custom_id")} error={formik.touched.custom_id && formik.errors.custom_id} required={true} />
+                
 
-            {/* 🔵 Tabs */}
-            <div className="px-4 pb-4 sticky top-0 z-30">
-                <div className="grid grid-cols-4 items-center justify-between">
-                    {steps.map((step, index) => (
-                        <div
-                            key={index}
-                            onClick={() => {
-                                if (index <= activeStep) setActiveStep(index);
-                            }}
-                            className={`flex-1 cursor-pointer relative z-10 last:after:hidden after:absolute after:inset-x-0 after:-translate-y-11 after:border-t-2 after:border-navy after:z-0 ${index < activeStep ? 'after:border-orange' : ''}`}
-                        >
-                            <div className={`z-10 relative w-9 h-9 rounded-full flex items-center justify-center text-white ${index <= activeStep ? "bg-orange" : "bg-navy"}`}>
-                                {index + 1}
+                <div className="w-full">
+                    <label className="inline-flex cursor-pointer items-center gap-2 text-sm font-medium text-black mb-4">
+
+                        {formik.values.role === "teacher" && (
+                            <button
+                                type="button"
+                                onClick={handleAdd}
+                                className="btn icon_btn_small navy-btn"
+                            >
+                                <Plus className="own-icon" />
+                            </button>
+                        )}
+                        {formik.values.role === "teacher" ? "Teach Other Classes?" : "I Study In"}
+                    </label>
+
+                    {formik.values.other_classes.map((item) => (
+                        <div key={item.id} className="pb-8 rounded relative">
+
+                            {/* ✅ delete button */}
+                            {formik.values.role === "teacher" &&
+                                <>
+                                    <Switch id={item.id} type="" formik={formik} onChangeHandler={handleIncharge(item.id)} label={"Are you in charge?"} checked={item.incharge} />
+                                    {
+                                        formik.values.other_classes.length > 1 && (
+                                            <button
+                                                type="button"
+                                                onClick={() => handleRemoveClass(item.id)}
+                                                className="btn icon_btn_remove absolute right-0 -top-1"
+                                            >
+                                                <Trash2 className="size-5" />
+                                            </button>
+                                        )}
+                                </>
+                            }
+
+                            <div className={`grid grid-cols-2 gap-2`}>
+                                <CustomSelect
+                                    options={classOptions}
+                                    label="Classroom"
+                                    isSearchable={false}
+                                    value={item.classroom}
+                                    onChange={(val) =>
+                                        handleClassFieldChange(item?.id, "classroom", val)
+                                    }
+                                />
+
+                                {
+                                    (item?.classroom === '11' || item?.classroom === '12') &&
+                                    (<CustomSelect
+                                        options={streamOptions}
+                                        label="Stream"
+                                        isSearchable={false}
+                                        value={item.stream}
+                                        onChange={(val) =>
+                                            handleClassFieldChange(item?.id, "stream", val)
+                                        }
+                                    />)
+                                }
+
+                                <CustomSelect
+                                    options={sectionOptions}
+                                    label="Section"
+                                    isSearchable={false}
+                                    value={item.section}
+                                    onChange={(val) =>
+                                        handleClassFieldChange(item?.id, "section", val)
+                                    }
+                                />
+
+                                <CustomSelect
+                                    options={subjectOptions}
+                                    label="Subject"
+                                    isSearchable={false}
+                                    value={item.subject}
+                                    onChange={(val) =>
+                                        handleClassFieldChange(item?.id, "subject", val)
+                                    }
+                                />
                             </div>
-                            <p className="text-sm font-semibold mt-2 leading-4">{step}</p>
                         </div>
                     ))}
                 </div>
-            </div>
 
-            <div className="flex flex-wrap gap-4 items-start px-4 py-6">
-                {
-                    activeStep === 0 && (
-                        <>
-                            <ImageUploader fileRef={fileRef} updateImageHandler={handleChange} removeImageHandler={handleRemove} preview={preview} handleImageUploadTrigger={handleImageUploadTrigger} error={formik.touched.file && formik.errors.file} />
-                            <div className="w-full flex gap-2">
-                                <div className="w-full md:w-1/2">
-                                    <Gender formik={formik} alignment="" label="Choose Gender" />
-                                </div>
-                            </div>
-                            {/* <div className="flex gap-2 w-full flex-col md:flex-row"> */}
-                            <TextField className="w-full" label="First Name" id="first_name" {...formik.getFieldProps("first_name")} error={formik.touched.first_name && formik.errors.first_name} required={true} />
-                            <TextField className="w-full" label="Last Name" id="last_name" {...formik.getFieldProps("last_name")} error={formik.touched.last_name && formik.errors.last_name} />
-                            {/* </div> */}
-                            {
-                                formik.values.role === "teacher" &&
-                                <Switch id="married" formik={formik} onChangeHandler={handleMarried} label={"Are you married?"} checked={formik.values.married} />
-                            }
-                            {/* <div className="flex gap-2 w-full flex-col md:flex-row"> */}
-                            {
-                                formik.values.role === "teacher" &&
-                                <>
-                                    {
-                                        formik.values.married &&
-                                        <TextField className="" label="Spouse Name" id="spouse_name" {...formik.getFieldProps("spouse_name")} error={formik.touched.spouse_name && formik.errors.spouse_name} />
-                                    }
-                                </>
-                            }
-                            {
-                                showParents &&
-                                <>
-                                    <TextField label="Father Name" id="father_name" {...formik.getFieldProps("father_name")} />
-                                    <TextField label="Mother Name" id="mother_name" {...formik.getFieldProps("mother_name")} />
-                                </>
-                            }
-                            {/* </div> */}
-                        </>
-                    )
-                }
-                {
-                    activeStep === 1 && (<>
-                        <EmailField className="w-full" label="Email Address" id="email" {...formik.getFieldProps("email")} error={formik.touched.email && formik.errors.email} required={true} />
-                        <PhoneField className="w-full" label="Phone" id="phone" {...formik.getFieldProps("phone")} error={formik.touched.phone && formik.errors.phone} required={true} />
-                        <div className="w-full">
-                            <OpenCalendar selected={formik.values.dob} onChangeHandler={onChangeHandler} maxDate={maxDate} minDate={minDate} name="dob" label="Date of Birth" required={true} error={formik.touched.dob && formik.errors.dob} />
-                        </div>
-                    </>)
-                }
-                {
-                    activeStep === 2 && (
-                        <>
-                            <TextField label={`${formik.values.role === 'teacher' ? 'Teacher Id' : 'Student Id'}`} id="custom_id" {...formik.getFieldProps("custom_id")} error={formik.touched.custom_id && formik.errors.custom_id} required={true} />
+                <div className="w-full">
+                    {/* <OpenCalendar formik={formik} selected={formik.values.dob} onChangeHandler={onChangeHandler} maxDate={maxDate} minDate={minDate} name="dob" label="Date of Birth" required={true} error={formik.touched.dob && formik.errors.dob} />  */}
+                    <CustomDatePicker formik={formik} selected={formik.values.dob} onChangeHandler={onChangeHandler} maxDate={maxDate} minDate={minDate} name="dob" label="Date of Birth" required={true} error={formik.touched.dob && formik.errors.dob} />
+                </div>
 
-                            <div className="w-full">
-                                <label className="inline-flex cursor-pointer items-center gap-2 text-sm font-medium text-black mb-4">
-
-                                    {formik.values.role === "teacher" && (
-                                        <button
-                                            type="button"
-                                            onClick={handleAdd}
-                                            className="btn icon_btn_small"
-                                        >
-                                            <Plus className="size-5" />
-                                        </button>
-                                    )}
-                                    {formik.values.role === "teacher" ? "Teach Other Classes?" : "I Study In"}
-                                </label>
-
-                                {formik.values.other_classes.map((item) => (
-                                    <div key={item.id} className="pb-8 rounded relative">
-
-                                        {/* ✅ delete button */}
-                                        {formik.values.role === "teacher" &&
-                                            <>
-                                                <Switch id={item.id} type="small" formik={formik} onChangeHandler={handleIncharge(item.id)} label={"Are you in charge?"} checked={item.incharge} />
-                                                {
-                                                    formik.values.other_classes.length > 1 && (
-                                                        <button
-                                                            type="button"
-                                                            onClick={() => handleRemoveClass(item.id)}
-                                                            className="btn icon_btn_remove absolute right-0 -top-1"
-                                                        >
-                                                            <Trash2 className="size-5" />
-                                                        </button>
-                                                    )}
-                                            </>
-                                        }
-
-                                        <div className={`grid grid-cols-2 gap-2`}>
-                                            <CustomSelect
-                                                options={classOptions}
-                                                label="Classroom"
-                                                isSearchable={false}
-                                                value={item.classroom}
-                                                onChange={(val) =>
-                                                    handleClassFieldChange(item?.id, "classroom", val)
-                                                }
-                                            />
-
-                                            {
-                                                (item?.classroom === '11' || item?.classroom === '12') &&
-                                                (<CustomSelect
-                                                    options={streamOptions}
-                                                    label="Stream"
-                                                    isSearchable={false}
-                                                    value={item.stream}
-                                                    onChange={(val) =>
-                                                        handleClassFieldChange(item?.id, "stream", val)
-                                                    }
-                                                />)
-                                            }
-
-                                            <CustomSelect
-                                                options={sectionOptions}
-                                                label="Section"
-                                                isSearchable={false}
-                                                value={item.section}
-                                                onChange={(val) =>
-                                                    handleClassFieldChange(item?.id, "section", val)
-                                                }
-                                            />
-
-                                            <CustomSelect
-                                                options={subjectOptions}
-                                                label="Subject"
-                                                isSearchable={false}
-                                                value={item.subject}
-                                                onChange={(val) =>
-                                                    handleClassFieldChange(item?.id, "subject", val)
-                                                }
-                                            />
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-
-                        </>
-                    )
-                }
 
                 <div className="flex justify-between w-full">
-                    <button
-                        type="button"
-                        onClick={prevStep}
-                        disabled={activeStep === 0}
-                        className="btn btn_with_text outline-btn"
-                    >
-                        <Undo2 className="size-5 shrink-0" />
-                        Previous
-                    </button>
-
-                    {activeStep < steps.length - 1 ? (
-                        <button type="button" onClick={nextStep} className="btn btn_with_text navy-btn">
-                            Next
-                            <Redo2 className="size-5 shrink-0" />
-                        </button>
-                    ) : null}
-                    {activeStep === steps.length - 1 ?
-                        (<button type="submit" className="btn btn_with_text">Create {role}</button>)
-                        : null
-                    }
-
+                    <button type="submit" className="btn btn_with_text">Create {role}</button>
                 </div>
 
 
             </div>
-        </form >
+        </form>
     )
 }
 

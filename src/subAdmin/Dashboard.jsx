@@ -242,7 +242,7 @@ const Dashboard = () => {
               <span className="flex items-center gap-1 text-gray-400">
                 <UserRound className="size-4 shrink-0 " />
                 {
-                  data?.married ? 'Spouse Nmae:' : 'Parent Name:'
+                  data?.married ? 'Spouse Name:' : 'Parent Name:'
                 }
               </span>
               <span className="flex items-center gap-1 text-black font-medium">

@@ -22,7 +22,7 @@ const ImageUploader = ({ fileRef, updateImageHandler, removeImageHandler, previe
                 </span>
                 <div className="inline-flex flex-col gap-1">
                     <div className="inline-flex gap-2">
-                        <button type="button" className="btn btn_with_text w-auto" onClick={handleImageUploadTrigger}>
+                        <button type="button" className="btn btn_with_text navy-btn w-auto" onClick={handleImageUploadTrigger}>
                             {/* <ImageUp className='hidden md:block shrink-0 size-4' /> */}
                             Upload Picture
                         </button>
