@@ -300,7 +300,7 @@ const AddTeacher = ({ role, open }) => {
                         <Gender formik={formik} alignment="" label="Choose Gender" />
                     </div>
                 </div>
-                <div className="flex gap-2 w-full flex-col md:flex-row">
+                <div className="flex gap-2 w-full flex-row">
                     <TextField className="w-full" label="First Name" id="first_name" {...formik.getFieldProps("first_name")} error={formik.touched.first_name && formik.errors.first_name} required={true} />
                     <TextField className="w-full" label="Last Name" id="last_name" {...formik.getFieldProps("last_name")} error={formik.touched.last_name && formik.errors.last_name} />
                 </div>
@@ -308,7 +308,7 @@ const AddTeacher = ({ role, open }) => {
                     formik.values.role === "teacher" &&
                     <Switch id="married" formik={formik} onChangeHandler={handleMarried} label={"Are you married?"} checked={formik.values.married} />
                 }
-                <div className="flex gap-2 w-full flex-col md:flex-row">
+                <div className="flex gap-2 w-full flex-row">
                     {
                         formik.values.role === "teacher" &&
                         <>
@@ -326,7 +326,7 @@ const AddTeacher = ({ role, open }) => {
                         </>
                     }
                 </div>
-                <div className="flex gap-2 w-full flex-col md:flex-row">
+                <div className="flex gap-2 w-full flex-row">
                     <EmailField className="w-full" label="Email Address" id="email" {...formik.getFieldProps("email")} error={formik.touched.email && formik.errors.email} required={true} />
                     <PhoneField className="w-full" label="Phone" id="phone" {...formik.getFieldProps("phone")} error={formik.touched.phone && formik.errors.phone} required={true} />
                 </div>
