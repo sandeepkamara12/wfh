@@ -306,8 +306,8 @@ const Dashboard = () => {
             label={item.label}
             count={item.count}
             link={item.link}
-            // onPlusClick={handleOpen}
-            onPlusClick={setIsEdit}
+            onPlusClick={handleOpen}
+            // onPlusClick={setIsEdit}
             id={item.id}
           />
         ))}

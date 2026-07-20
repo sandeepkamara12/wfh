@@ -111,7 +111,7 @@ const AddTeacher = ({ role, open, setIsEdit, isEdit, handleClose }) => {
         onSubmit: async (values, { resetForm }) => {
             const payload = buildPayload(values);
             try {
-                let result;
+                // let result;
 
                 if (isEdit !== null) {
                     // result = await dispatch(
