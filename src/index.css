@@ -229,11 +229,11 @@
   @apply rounded-b! overflow-hidden;
 }
 
-.react-datepicker-wrapper {
-  @apply w-full;
-}
 .react-datepicker-popper {
   z-index: 9999 !important;
+}
+.react-datepicker-wrapper {
+  @apply w-full;
 }
 .react-datepicker__calendar-icon {
   @apply inset-e-4 top-3.5 py-0! px-0! cursor-pointer hover:fill-orange fill-navy;
@@ -278,7 +278,7 @@
 /* Calendar container */
 .custom-calendar {
   overflow: hidden;
-  @apply border-2! border-navy! rounded! w-81.25 max-w-81.25;
+  @apply border-2! border-navy! rounded! w-72 max-w-72;
 }
 
 .custom-calendar .react-datepicker__month {
@@ -295,7 +295,7 @@
 
 .custom-calendar .react-datepicker__day,
 .custom-calendar .react-datepicker__month-container .react-datepicker__day-name {
-  @apply w-full m-0 text-white min-h-10 leading-10 text-center font-semibold text-sm rounded bg-orange;
+  @apply w-full m-0 text-white min-h-8.5 leading-8.5 text-center font-medium text-xs! rounded font-sans;
 }
 
 .custom-calendar .react-datepicker__day.react-datepicker__day--outside-month {

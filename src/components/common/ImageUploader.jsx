@@ -1,4 +1,4 @@
-import { ImageUp, Trash2, UserRound } from 'lucide-react'
+import { Trash2, UserRound } from 'lucide-react'
 
 const ImageUploader = ({ fileRef, updateImageHandler, removeImageHandler, preview, handleImageUploadTrigger, error }) => {
     return (

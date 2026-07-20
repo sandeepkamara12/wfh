@@ -1,6 +1,12 @@
+import { CalendarDays } from 'lucide-react';
+import { useRef } from 'react';
 import DatePicker from 'react-datepicker'
 
-const CustomDatePicker = ({ formik, onChangeHandler, error, minDate, maxDate, selected, label, required = false, needWarning = true, selectedDate, handler }) => {
+const CustomDatePicker = ({ formik, onChangeHandler, error, minDate, maxDate, selected, label, required = false, needWarning = true, selectedDate }) => {
+    const datepickerRef = useRef(null);
+    const handleIconClick = () => {
+        datepickerRef.current.setOpen(true);
+    };
     return (
         <div className={`relative col-span-1 datepicker-wrapper ${selectedDate ? "has-value" : ""}`}>
             <label className="block text-sm font-medium text-black mb-1">{label}  {required ? <span className='text-red-500 ms-1'>*</span> : null}
@@ -11,10 +17,11 @@ const CustomDatePicker = ({ formik, onChangeHandler, error, minDate, maxDate, se
                 </span>
             </label>
             <DatePicker
-                showIcon
+                ref={datepickerRef}
                 isClearable
                 showMonthDropdown
                 showYearDropdown
+                showPopperArrow={false}
                 scrollableYearDropdown
                 minDate={minDate}
                 maxDate={maxDate}
@@ -25,6 +32,13 @@ const CustomDatePicker = ({ formik, onChangeHandler, error, minDate, maxDate, se
                 className="input-field py-3! px-4! "
                 dateFormat="dd-MM-yyyy"
             />
+            <button
+                type="button"
+                onClick={handleIconClick}
+                className="btn icon_btn_small text-black border-none absolute right-2 bottom-2.5"
+            >
+                <CalendarDays className='own-icon' />
+            </button>
             {error && (
                 <p className="text-red-500 text-sm">{error}</p>
             )}
