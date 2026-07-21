@@ -7,7 +7,7 @@ import TextField from "../components/ui/TextField";
 
 const StudentList = () => {
   const { handleOpen } = useOutletContext();
-  const { isBelow640, isBelow1280 } = useIsMobile();
+  const { isBelow640, isBelow768, isBelow1024, isBelow1280 } = useIsMobile();
 
   const columns = [
     {
@@ -35,8 +35,8 @@ const StudentList = () => {
           </div>
         </div>
       ),
-      selector: row => row.name,
-      sortable: true
+      // selector: row => row.name,
+      // sortable: true
     },
     {
       name: "Parent Contact",
@@ -57,7 +57,7 @@ const StudentList = () => {
     {
       name: "Classroom",
       minWidth: "200px",
-      omit: isBelow1280,
+      omit: isBelow768,
       cell: row => (
         <div className="flex flex-wrap flex-col gap-1 text-black">
           <span
@@ -73,7 +73,7 @@ const StudentList = () => {
     {
       name: "Classroom in Charge",
       minWidth: "200px",
-      omit: isBelow1280,
+      omit: isBelow640,
       cell: row => (
         <div className="flex flex-wrap flex-col gap-1 text-black">
           <span
@@ -92,7 +92,7 @@ const StudentList = () => {
     {
       name: "Joined At",
       minWidth: "200px",
-      omit: isBelow1280,
+      omit: isBelow1024,
       cell: (row) => (
         <div className="flex gap-1">
           <CalendarDays className="size-4 shrink-0" />
@@ -166,7 +166,7 @@ const StudentList = () => {
         <span>{data.motherPhone}</span>
       </div>
 
-      <div className="col-span-1">
+      <div className="col-span-1 lg:hidden">
         <span className="flex items-center gap-1 text-gray-400">
           <CalendarDays className="size-4 shrink-0" /> Joined At:
         </span>
@@ -177,7 +177,7 @@ const StudentList = () => {
         </span>
       </div>
 
-      <div className="col-span-1 flex flex-wrap flex-col gap-0 text-black">
+      <div className="col-span-1 flex md:hidden flex-wrap flex-col gap-0 text-black">
         <span className="flex items-center gap-1 text-gray-400">
           <GalleryThumbnails className="size-4 shrink-0 " />
           Classroom:
@@ -188,7 +188,7 @@ const StudentList = () => {
         <span>Non Medical</span>
       </div>
 
-      <div className="col-span-1 flex flex-wrap flex-col gap-0 text-black ">
+      <div className="col-span-1 flex sm:hidden flex-wrap flex-col gap-0 text-black ">
         <span className="flex items-center gap-1 text-gray-400">
           <UserRoundPen className="size-4 shrink-0 " />
           Classroom in Charge:

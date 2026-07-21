@@ -27,7 +27,7 @@ import { deleteSectionThunk, getSectionThunk } from "../features/subAdmin/sectio
 import { deleteClassroomThunk, getClassroomThunk } from "../features/subAdmin/classroomSlice";
 
 //Icons
-import { CalendarDays, Copy, EllipsisVertical, Eye, Mail, Pencil, Phone, Trash2, UserRound, UserRoundPen } from "lucide-react";
+import { CalendarDays, Copy, EllipsisVertical, Eye, Mail, Pencil, Phone, SlidersHorizontal, Trash2, UserRound, UserRoundPen } from "lucide-react";
 import { groupClasses } from "../utils/classUtility";
 
 const base_url = import.meta.env.VITE_API_BASE_URL;
@@ -121,13 +121,15 @@ const Dashboard = () => {
               />
             </span>
             <div className="flex flex-col gap-0">
-              <span className="text-sm font-semibold text-black leading-4">
+              <span className="text-sm font-semibold text-black leading-4 capitalize">
                 {row.first_name} {row.last_name}
               </span>
+                {
+                row.custom_id &&
               <span className="inline-flex items-center tracking-wide gap-x-1.5 rounded text-xs text-gray-400">
-                {row.id}
                 <Copy className="size-3 text-gray-500 mt-0.5" />
               </span>
+              }
             </div>
           </div>
         </div>
@@ -166,7 +168,7 @@ const Dashboard = () => {
       )
     },
     {
-      name: "Joined At:.",
+      name: "Joined At",
       omit: isBelow1280,
       cell: (row) => (
         <div className="flex flex-wrap items-center gap-1">
@@ -308,15 +310,7 @@ const Dashboard = () => {
         <div className="table-wrapper">
           <div className="table-inner-wrapper">
             Classroom In Charge
-            <div className="flex gap-4 items-center relative">
-              <TextField
-                inputClassName="py-1.5!"
-                label=""
-                name="search_incharge"
-                id="search_incharge"
-                ref={filterSearchInchargeRef}
-              />
-            </div>
+            <SlidersHorizontal onClick={() => handleOpen('teacher')} className="size-5 shrink-0" />
           </div>
           <Table
             needHeader={true}

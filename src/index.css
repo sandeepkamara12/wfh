@@ -192,7 +192,7 @@
 }
 
 .rdt_TableCol {
-  @apply text-xs font-semibold uppercase text-black;
+  @apply text-xs font-semibold uppercase text-orange;
 }
 
 .rdt_cellExpander {

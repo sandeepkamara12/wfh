@@ -7,13 +7,15 @@ const CustomDatePicker = ({ formik, onChangeHandler, error, minDate, maxDate, se
     const handleIconClick = () => {
         datepickerRef.current.setOpen(true);
     };
+    const ageMessages = {
+  teacher: "(Teacher must be at least 18 years old)",
+  student: "(Student must be at least 3 years old)",
+};
     return (
         <div className={`relative col-span-1 datepicker-wrapper ${selectedDate ? "has-value" : ""}`}>
             <label className="block text-sm font-medium text-black mb-1">{label}  {required ? <span className='text-red-500 ms-1'>*</span> : null}
                 <span className={`${needWarning ? '' : 'hidden'} text-xs text-red-500`}>
-                    {formik?.values?.role === "teacher"
-                        ? "(Teacher must be at least 18 years old)"
-                        : "(Student must be at least 3 years old)"}
+                    {ageMessages[formik?.values?.role] || ""}
                 </span>
             </label>
             <DatePicker

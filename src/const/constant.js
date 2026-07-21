@@ -137,18 +137,28 @@ export const classOptions = [
   { value: "nursery", label: "Nursery" },
   { value: "lkg", label: "LKG" },
   { value: "ukg", label: "UKG" },
-  { value: "1", label: "1st" },
-  { value: "2", label: "2nd" },
-  { value: "3", label: "3rd" },
-  { value: "4", label: "4th" },
-  { value: "5", label: "5th" },
-  { value: "6", label: "6th" },
-  { value: "7", label: "7th" },
-  { value: "8", label: "8th" },
-  { value: "9", label: "9th" },
-  { value: "10", label: "10th" },
-  { value: "11", label: "11th" },
-  { value: "12", label: "12th" },
+  { value: "I", label: "I" },
+  { value: "II", label: "II" },
+  { value: "III", label: "III" },
+  { value: "IV", label: "IV" },
+  { value: "V", label: "V" },
+  { value: "VI", label: "VII" },
+  { value: "VII", label: "VII" },
+  { value: "VIII", label: "VIII" },
+  { value: "IX", label: "IX" },
+  { value: "X", label: "X" },
+  { value: "XI", label: "XI" },
+  { value: "XII", label: "XII" },
+];
+export const familyOptions = [
+  { value: "has_parent_name", label: "Has Father/Mother Name" },
+  { value: "has_spouse_name", label: "Has Spouse Name" },
+  { value: "missing_info", label: "Missing Info" },
+];
+export const statusOptions = [
+  { value: "active", label: "Active" },
+  { value: "inactive", label: "Inactive" },
+  { value: "leave", label: "Leave" },
 ];
 
 // Shown in dropdown
@@ -531,7 +541,7 @@ export const dashboardCardData = [
     link: "/subadmin/sections",
   },
   {
-    label: "Teacher\nAttendance",
+    label: "Teacher\nAbsence",
     count: "10",
     id: "attendance",
     icon: "UserRoundCheck",

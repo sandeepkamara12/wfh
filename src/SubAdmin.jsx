@@ -7,6 +7,7 @@ import AddSection from './components/subadmin/section/AddSection';
 import AddTeacher from './components/subadmin/teacher/AddTeacher';
 import AddStream from './components/subadmin/stream/AddStream';
 import Modal from './components/ui/Modal';
+import Filter from './components/subadmin/filter/Filter';
 
 const SubAdmin = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -33,6 +34,7 @@ const SubAdmin = () => {
                     {
                         open === 'teacher' ? <AddTeacher role="teacher" setIsEdit={setIsEdit} isEdit={isEdit} open={open} handleClose={handleClose} />
                         : open === 'student' ? <AddTeacher role="student" setIsEdit={setIsEdit} isEdit={isEdit} open={open} handleClose={handleClose} />
+                        : open === 'filter' ? <Filter role="student" setIsEdit={setIsEdit} isEdit={isEdit} open={open} handleClose={handleClose} />
                         : null
                     }
 

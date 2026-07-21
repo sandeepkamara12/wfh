@@ -20,3 +20,4 @@
 20. Need to add month dropdown in open calendar.
 21. Make dropdown common so no need to adjust top spacing.
 22. Need to update the css for expanded table with classnames instead of inline css.
+23. In teacher table we need to get custom_id below the name.
