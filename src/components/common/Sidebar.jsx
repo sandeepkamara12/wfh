@@ -18,8 +18,8 @@ const Sidebar = ({ isOpen, toggleSidebar, handleLogout }) => {
     // -translate-x-full xl:translate-x-0
     return (
         <aside id="hs-pro-sidebar" className={`fixed inset-y-0 left-0 z-50 w-64 h-full bg-navy border-r border-navy transform transition-transform duration-300
-            ${isOpen ? "translate-x-0" : "-translate-x-full"}
             `}>
+                {/* ${isOpen ? "translate-x-0" : "-translate-x-full"} */}
 
             <div className="flex flex-col h-full max-h-full">
                 <div className="block absolute top-2 inset-e-4">

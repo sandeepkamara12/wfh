@@ -124,11 +124,11 @@ const Dashboard = () => {
               <span className="text-sm font-semibold text-black leading-4 capitalize">
                 {row.first_name} {row.last_name}
               </span>
-                {
+              {
                 row.custom_id &&
-              <span className="inline-flex items-center tracking-wide gap-x-1.5 rounded text-xs text-gray-400">
-                <Copy className="size-3 text-gray-500 mt-0.5" />
-              </span>
+                <span className="inline-flex items-center tracking-wide gap-x-1.5 rounded text-xs text-gray-400">
+                  <Copy className="size-3 text-gray-500 mt-0.5" />
+                </span>
               }
             </div>
           </div>
@@ -151,7 +151,7 @@ const Dashboard = () => {
           </a>
         </div>
       ),
-    },   
+    },
     {
       name: "Class In charge",
       omit: isBelow640,
@@ -287,8 +287,10 @@ const Dashboard = () => {
 
   return (
     <div className="grid gap-4">
-      <h2 className="font-bold text-lg">Dashboard</h2>
-
+      <div className="flex flex-col">
+        <h2 className="font-bold text-lg lowercase first-letter:capitalize">Welcome back, <span className="capitalize">Omar</span></h2>
+        <p className="text-sm">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque repellendus, quos eligendi.</p>
+      </div>
       {/* Dashbaord Cards */}
       <div className="dashboard-main-card-wrapper">
         {dashboardCardData.map((item, index) => (
@@ -309,7 +311,9 @@ const Dashboard = () => {
         {/* Classroom In charge */}
         <div className="table-wrapper">
           <div className="table-inner-wrapper">
-            Classroom In Charge
+            <div>
+              <span className="text-orange">72</span> Classroom in charges
+            </div>
             <SlidersHorizontal onClick={() => handleOpen('teacher')} className="size-5 shrink-0" />
           </div>
           <Table

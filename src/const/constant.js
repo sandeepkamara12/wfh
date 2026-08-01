@@ -380,6 +380,7 @@ export const icons = {
   stream:'Network',
   section: 'LayoutGrid',
   login: "Mail",
+  search: "Search",
 };
 
 export const partners = [
