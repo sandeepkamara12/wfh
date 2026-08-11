@@ -55,8 +55,7 @@ export const subAdminSidebarLinks = [
     path: "/subadmin/homework",
     label: "Homework",
     icon: SquareChartGantt,
-  }, // this one is fine
-  { id: 11, path: "/subadmin/settings", label: "Settings", icon: Settings }, // this one is fine
+  },
 ];
 
 export const subAdminBottombarLinks = [
@@ -378,6 +377,7 @@ export const icons = {
   name: "GalleryThumbnails",
   search_incharge: "GalleryThumbnails",
   stream:'Network',
+  classroom:'GalleryThumbnails',
   section: 'LayoutGrid',
   login: "Mail",
 };

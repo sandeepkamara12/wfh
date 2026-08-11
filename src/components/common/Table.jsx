@@ -12,7 +12,7 @@ const Table = (props) => {
 
     return (
         <>
-            <div className={`${props.id}`}>
+            <div className={`${props.id} border-x border-b border-gray-200 rounded `}>
                 <DataTable
                     columns={props.columns}
                     data={props.data}

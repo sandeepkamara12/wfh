@@ -87,8 +87,8 @@ const AddClassroom = ({
         >
           {loading
             ? isEdit
-            ? <><Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" /> Updating</>
-            : <><Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" /> Creating</>
+            ? <><Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" /> Updating Classroom</>
+            : <><Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" /> Creating Classroom</>
             : isEdit
             ? "Update Classroom"
             : "Create Classroom"}

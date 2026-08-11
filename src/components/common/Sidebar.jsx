@@ -1,7 +1,8 @@
 import { Link, useLocation } from "react-router-dom"
 import { studentSidebarLinks, subAdminSidebarLinks, teacherSidebarLinks } from "../../const/constant";
-import { LogOut, X } from "lucide-react";
+import { Bell, ChevronDown, ChevronUp, KeyRound, LogOut, LogOutIcon, Settings, User, UserLock, UserRound, UserRoundCog, X } from "lucide-react";
 import { useSelector } from "react-redux";
+import { useState } from "react";
 
 const Sidebar = ({ isOpen, toggleSidebar, handleLogout }) => {
     const base_url = import.meta.env.VITE_API_BASE_URL;
@@ -14,21 +15,21 @@ const Sidebar = ({ isOpen, toggleSidebar, handleLogout }) => {
     let isMarried = !!user?.married;
     let paddedId = user?.id?.toString().padStart(5, '0');
     let userGeneratedId = user?.role[0] + isMarried + user?.gender[0] + user?.first_name[0] + user?.last_name[0] + paddedId;
-
+    const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
     // -translate-x-full xl:translate-x-0
+    // ${isOpen ? "translate-x-0" : "-translate-x-full"}
     return (
-        <aside id="hs-pro-sidebar" className={`fixed inset-y-0 left-0 z-50 w-64 h-full bg-navy border-r border-navy transform transition-transform duration-300
-            ${isOpen ? "translate-x-0" : "-translate-x-full"}
+        <aside id="hs-pro-sidebar" className={`fixed inset-y-0 left-0 z-50 w-64 h-full bg-navy border-r border-navy transform transition-transform duration-300 translate-x-0
             `}>
 
             <div className="flex flex-col h-full max-h-full">
-                <div className="block absolute top-2 inset-e-4">
+                {/* <div className="block absolute top-2 inset-e-4">
                     <div className="inline-block">
                         <button onClick={() => toggleSidebar()} type="button" className="hs-tooltip-toggle relative w-9 h-9 inline-flex justify-center items-center gap-x-2 border border-white text-white hover:bg-surface-hover focus:bg-surface-hover rounded-full focus:outline-hidden">
                             <X className="size-5" />
                         </button>
                     </div>
-                </div>
+                </div> */}
 
                 <div className="p-5 text-center">
                     <div className="flex w-24 h-24 rounded-full mx-auto mb-2">
@@ -105,15 +106,47 @@ const Sidebar = ({ isOpen, toggleSidebar, handleLogout }) => {
                                         })
 
                             }
-                            <li className="mt-auto mb-3">
-                                <span
-                                    onClick={handleLogout}
-                                    className={`bg-orange text-white flex no-underline transition-all duration-300 ease-in-out py-2 px-3 text-sm rounded hover:bg-orange hover:text-white focus:outline-hidden focus:bg-navy focus:text-white`}>
-                                    <span className="w-5 mr-3">
-                                        <LogOut className="size-5" />
+                            <li className="mt-auto mb-3 relative">
+                                <span onClick={() => setIsProfileMenuOpen(prev => !prev)} className="flex items-center gap-2 bg-white p-2 rounded relative cursor-pointer">
+                                    <span className="bg-orange text-white rounded p-2">
+                                        <Settings className="size-5 shrink-0" />
                                     </span>
-                                    Logout
+                                    <span className="flex flex-col gap-1 text-navy">
+                                        <span className="leading-none font-bold text-sm">Sub Admin</span>
+                                        <span className="leading-none font-semibold text-xs text-gray-700">ID: sdasdasasd</span>
+                                    </span>
+                                    <span className="absolute right-4 text-navy">
+                                        {isProfileMenuOpen ? (
+                                            <ChevronUp className="size-5 shrink-0" />
+                                        ) : (
+                                            <ChevronDown className="size-5 shrink-0" />
+                                        )}
+                                    </span>
                                 </span>
+                                {isProfileMenuOpen && (
+                                    <div className="absolute bottom-full left-0 w-full mb-2 bg-white rounded overflow-hidden py-2">
+                                        <Link className="flex items-center gap-x-2 py-2 px-3 text-sm text-navy font-medium hover:bg-orange hover:text-white no-underline" to="#">
+                                            <UserRound className="size-5 shrink-0" />
+                                            Profile
+                                        </Link>
+                                        <Link className="flex items-center gap-x-2 py-2 px-3 text-sm text-navy font-medium hover:bg-orange hover:text-white no-underline" to="#">
+                                            <Bell className="size-5 shrink-0" />
+                                            Notification
+                                        </Link>
+                                        <Link className="flex items-center gap-x-2 py-2 px-3 text-sm text-navy font-medium hover:bg-orange hover:text-white no-underline" to="#">
+                                            <UserRoundCog className="size-5 shrink-0" />
+                                            Settings
+                                        </Link>
+                                        <Link className="flex items-center gap-x-2 py-2 px-3 text-sm text-navy font-medium hover:bg-orange hover:text-white no-underline" to="#">
+                                            <UserLock className="size-5 shrink-0" />
+                                            Change Password
+                                        </Link>
+                                        <Link className="flex items-center gap-x-2 py-2 px-3 text-sm text-navy font-medium hover:bg-orange hover:text-white no-underline" onClick={handleLogout}>
+                                            <LogOutIcon className="size-5 shrink-0" />
+                                            Logout
+                                        </Link>
+                                    </div>
+                                )}
                             </li>
                         </ul>
                     </nav>

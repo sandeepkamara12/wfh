@@ -1,5 +1,5 @@
 import Table from "../components/common/Table";
-import { Loader, Pencil, Trash2 } from "lucide-react";
+import { Loader, Pencil, Plus, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -95,6 +95,9 @@ const SectionList = () => {
     <div className="table-wrapper">
       <div className="table-inner-wrapper">
         Sections
+         <div>
+          <Plus className="size-5 shrink-0 hover:text-orange cursor-pointer transition-all" onClick={()=>handleOpen('section')} />
+        </div>
       </div>
       <Table
         needHeader={true}

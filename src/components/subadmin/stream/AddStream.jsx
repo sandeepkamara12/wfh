@@ -76,8 +76,8 @@ const AddStream = ({ handleClose, setIsEdit, isEdit }) => {
           >
             {loading
               ? isEdit
-                ? <><Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" /> Updating</>
-                : <><Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" /> Creating</>
+                ? <><Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" /> Updating Stream</>
+                : <><Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" /> Creating Stream</>
               : isEdit
                 ? "Update Stream"
                 : "Create Stream"}

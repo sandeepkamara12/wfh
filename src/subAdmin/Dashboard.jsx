@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 
 // Custom Hooks
 import { useIsMobile } from "../hooks/useIsMobile";
@@ -15,20 +15,21 @@ import { dashboardCardData, classesTeach } from "../const/constant";
 
 //Components
 import Table from "../components/common/Table";
-import TextField from "../components/ui/TextField";
-import Cards from "../components/subadmin/dashboard/Cards";
+// import TextField from "../components/ui/TextField";
+// import Cards from "../components/subadmin/dashboard/Cards";
 import FloatingDropdown from "../components/ui/FloatingDropdown";
 import DashboardCard from "../components/subadmin/dashboard/DashboardCard";
 
 //Slices
 import { getTeacherThunk } from "../features/subAdmin/teacherSlice";
-import { deleteStreamThunk, getStreamThunk } from "../features/subAdmin/streamSlice";
-import { deleteSectionThunk, getSectionThunk } from "../features/subAdmin/sectionSlice";
+// import { deleteStreamThunk, getStreamThunk } from "../features/subAdmin/streamSlice";
+// import { deleteSectionThunk, getSectionThunk } from "../features/subAdmin/sectionSlice";
 import { deleteClassroomThunk, getClassroomThunk } from "../features/subAdmin/classroomSlice";
 
 //Icons
-import { CalendarDays, Copy, EllipsisVertical, Eye, Mail, Pencil, Phone, SlidersHorizontal, Trash2, UserRound, UserRoundPen } from "lucide-react";
+import { CalendarDays, Copy, EllipsisVertical, Eye, Loader, Mail, Pencil, Phone, SlidersHorizontal, Trash2, UserRound, UserRoundPen } from "lucide-react";
 import { groupClasses } from "../utils/classUtility";
+import { toast } from "react-toastify";
 
 const base_url = import.meta.env.VITE_API_BASE_URL;
 
@@ -36,15 +37,16 @@ const Dashboard = () => {
   const dispatch = useDispatch();
 
   const allTeachers = useSelector((state) => state.teachers.teachers);
-  let classrooms = useSelector((state) => state.classroom.classrooms);
-  let sections = useSelector((state) => state.section.sections);
-  let streams = useSelector((state) => state.stream.streams);
+  // let classrooms = useSelector((state) => state.classroom.classrooms);
+  // let sections = useSelector((state) => state.section.sections);
+  // let streams = useSelector((state) => state.stream.streams);
 
   const { handleOpen, setIsEdit } = useOutletContext();
   const { isBelow640, isBelow1024, isBelow1280 } = useIsMobile();
 
-  const filterSearchInchargeRef = useRef(null);
+  // const filterSearchInchargeRef = useRef(null);
   const [loadingId, setLoadingId] = useState(null);
+  let user = useSelector(state => state.auth.user);
 
   //Fetch Teachers on load
   useEffect(() => {
@@ -59,32 +61,32 @@ const Dashboard = () => {
   }, [])
 
   // Get Classrooms, Streams and Sections on component mount
-  useEffect(() => {
-    const fetchClassrooms = async () => {
-      try {
-        await dispatch(getClassroomThunk()).unwrap();
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    const fetchSections = async () => {
-      try {
-        await dispatch(getSectionThunk()).unwrap();
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    const fetchStreams = async () => {
-      try {
-        await dispatch(getStreamThunk()).unwrap();
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchClassrooms();
-    fetchSections();
-    fetchStreams();
-  }, []);
+  // useEffect(() => {
+  //   const fetchClassrooms = async () => {
+  //     try {
+  //       await dispatch(getClassroomThunk()).unwrap();
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   const fetchSections = async () => {
+  //     try {
+  //       await dispatch(getSectionThunk()).unwrap();
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   const fetchStreams = async () => {
+  //     try {
+  //       await dispatch(getStreamThunk()).unwrap();
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   fetchClassrooms();
+  //   fetchSections();
+  //   fetchStreams();
+  // }, []);
 
   // Delete function to delete classroom, stream and section.
   const handleDelete = async (id, deleteType = "") => {
@@ -92,9 +94,9 @@ const Dashboard = () => {
     try {
       setLoadingId(id);
       let result = null;
-      result = deleteType == 'classroom' && await dispatch(deleteClassroomThunk({ id })).unwrap()
-      result = deleteType == 'stream' && await dispatch(deleteStreamThunk({ id })).unwrap()
-      result = deleteType == 'section' && await dispatch(deleteSectionThunk({ id })).unwrap()
+      // result = deleteType == 'classroom' && await dispatch(deleteClassroomThunk({ id })).unwrap()
+      // result = deleteType == 'stream' && await dispatch(deleteStreamThunk({ id })).unwrap()
+      // result = deleteType == 'section' && await dispatch(deleteSectionThunk({ id })).unwrap()
       if (result?.success) {
         toast.dismiss();
         toast.success(result?.message);
@@ -124,11 +126,11 @@ const Dashboard = () => {
               <span className="text-sm font-semibold text-black leading-4 capitalize">
                 {row.first_name} {row.last_name}
               </span>
-                {
+              {
                 row.custom_id &&
-              <span className="inline-flex items-center tracking-wide gap-x-1.5 rounded text-xs text-gray-400">
-                <Copy className="size-3 text-gray-500 mt-0.5" />
-              </span>
+                <span className="inline-flex items-center tracking-wide gap-x-1.5 rounded text-xs text-gray-400">
+                  <Copy className="size-3 text-gray-500 mt-0.5" />
+                </span>
               }
             </div>
           </div>
@@ -151,7 +153,7 @@ const Dashboard = () => {
           </a>
         </div>
       ),
-    },   
+    },
     {
       name: "Class In charge",
       omit: isBelow640,
@@ -179,11 +181,34 @@ const Dashboard = () => {
     },
     {
       name: "",
-      minWidth: "50px",
-      maxWidth: "50px",
-      cell: () => (
+      // minWidth: "50px",
+      // maxWidth: "50px",
+      cell: (row) => (
         <div className="flex flex-col gap-3 w-full items-end">
-          <div className="relative inline-flex">
+          <div className="flex flex-wrap items-center justify-end w-full gap-1">
+            <button className="btn icon_btn navy-btn">
+              <Eye className="own-icon" />
+            </button>
+            <button type="button" className="btn icon_btn btn_with_text navy-btn"
+              onClick={() => handleDelete(row?.id)}
+              disabled={loadingId === row?.id}
+            >
+              {loadingId === row?.id ? (<Loader className="loader own-icon" />) : (<Trash2 className="own-icon" />)}
+            </button>
+            <button
+              type="button"
+              className="btn icon_btn btn_with_text navy-btn"
+              onClick={() => {
+                setIsEdit(row);
+                handleOpen('classroom');
+              }
+              }
+              disabled={loadingId === row?.id}
+            >
+              <Pencil className="size-5 mx-auto" />
+            </button>
+          </div>
+          {/* <div className="relative inline-flex">
             <FloatingDropdown
               trigger={
                 <button className="p-2">
@@ -203,90 +228,95 @@ const Dashboard = () => {
                 </button>
               </div>
             </FloatingDropdown>
-          </div>
+          </div> */}
         </div>
       ),
     }
   ];
 
   // Expanded Columns for table
-  const ExpandedComponent = ({ data }) => {
-    const displayName = getDisplayName(data);
-    return (
-      <div className="grid grid-cols-2 lg:grid-cols-4 py-4 justify-between gap-3 text-sm font-medium w-full items-center">
+  // const ExpandedComponent = ({ data }) => {
+  //   const displayName = getDisplayName(data);
+  //   return (
+  //     <div className="grid grid-cols-2 lg:grid-cols-4 py-4 justify-between gap-3 text-sm font-medium w-full items-center">
 
-        <div className="col-span-2 sm:col-span-1 flex lg:hidden flex-wrap flex-col gap-0">
-          <a className="flex items-center gap-1 text-black font-medium hover:no-underline hover:text-orange" href={`mailto:${data.email}`}>
-            <Mail className='size-4' />
-            {data.email}
-          </a>
-          <a className="flex items-center gap-1 text-black font-medium hover:no-underline hover:text-orange" href={`tel:${data.phone}`}>
-            <Phone className="size-4" />
-            {data.phone}
-          </a>
-        </div>
+  //       <div className="col-span-2 sm:col-span-1 flex lg:hidden flex-wrap flex-col gap-0">
+  //         <a className="flex items-center gap-1 text-black font-medium hover:no-underline hover:text-orange" href={`mailto:${data.email}`}>
+  //           <Mail className='size-4' />
+  //           {data.email}
+  //         </a>
+  //         <a className="flex items-center gap-1 text-black font-medium hover:no-underline hover:text-orange" href={`tel:${data.phone}`}>
+  //           <Phone className="size-4" />
+  //           {data.phone}
+  //         </a>
+  //       </div>
 
-        {
-          displayName &&
-          <div className="col-span-1 flex flex-wrap flex-col gap-0">
-            <>
-              <span className="flex items-center gap-1 text-gray-400">
-                <UserRound className="size-4 shrink-0 " />
-                {
-                  data?.married ? 'Spouse Name:' : 'Parent Name:'
-                }
-              </span>
-              <span className="flex items-center gap-1 text-black font-medium">
-                {displayName}
-              </span>
-            </>
-          </div>
-        }
+  //       {
+  //         displayName &&
+  //         <div className="col-span-1 flex flex-wrap flex-col gap-0">
+  //           <>
+  //             <span className="flex items-center gap-1 text-gray-400">
+  //               <UserRound className="size-4 shrink-0 " />
+  //               {
+  //                 data?.married ? 'Spouse Name:' : 'Parent Name:'
+  //               }
+  //             </span>
+  //             <span className="flex items-center gap-1 text-black font-medium">
+  //               {displayName}
+  //             </span>
+  //           </>
+  //         </div>
+  //       }
 
-        <div className="col-span-1 flex xl:hidden flex-wrap flex-col gap-0">
-          <span className="flex items-center gap-1 text-gray-400">
-            <CalendarDays className="size-4 shrink-0" /> Joined At:
-          </span>
-          <span className="text-black font-medium">
-            {dateFormat(data.created_at, "dd-MMMM-yyyy")}
-          </span>
-        </div>
+  //       <div className="col-span-1 flex xl:hidden flex-wrap flex-col gap-0">
+  //         <span className="flex items-center gap-1 text-gray-400">
+  //           <CalendarDays className="size-4 shrink-0" /> Joined At:
+  //         </span>
+  //         <span className="text-black font-medium">
+  //           {dateFormat(data.created_at, "dd-MMMM-yyyy")}
+  //         </span>
+  //       </div>
 
 
-        <div className="col-span-1 flex sm:hidden flex-wrap flex-col gap-0 text-black ">
-          <span className="flex items-center gap-1 text-gray-400">
-            <UserRoundPen className="size-4 shrink-0 " />
-            Class in Charge:
-          </span>
-          <span className="">XII B</span>
-          <span className="font-medium">Non Medical Maths</span>
-        </div>
+  //       <div className="col-span-1 flex sm:hidden flex-wrap flex-col gap-0 text-black ">
+  //         <span className="flex items-center gap-1 text-gray-400">
+  //           <UserRoundPen className="size-4 shrink-0 " />
+  //           Class in Charge:
+  //         </span>
+  //         <span className="">XII B</span>
+  //         <span className="font-medium">Non Medical Maths</span>
+  //       </div>
 
-        <div className="col-span-2 lg:col-span-4 flex flex-col gap-1">
-          <span className="flex items-center gap-1 text-gray-400">
-            <UserRoundPen className="size-4 shrink-0 " />
-            Teach Other Classes:
-          </span>
-          <div className="flex flex-wrap gap-1">
-            {groupClasses(classesTeach).map((c, i) => (
-              <span
-                key={i}
-                className="inline-block font-medium leading-4 rounded bg-gray-200 px-2 py-1.5"
-              >
-                {c.class} {c.section}
-                {c.stream && ` • ${c.stream}`}
-                {" • "}
-                {c.subjects.join(", ")}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-    )
-  }
+  //       <div className="col-span-2 lg:col-span-4 flex flex-col gap-1">
+  //         <span className="flex items-center gap-1 text-gray-400">
+  //           <UserRoundPen className="size-4 shrink-0 " />
+  //           Teach Other Classes:
+  //         </span>
+  //         <div className="flex flex-wrap gap-1">
+  //           {groupClasses(classesTeach).map((c, i) => (
+  //             <span
+  //               key={i}
+  //               className="inline-block font-medium leading-4 rounded bg-gray-200 px-2 py-1.5"
+  //             >
+  //               {c.class} {c.section}
+  //               {c.stream && ` • ${c.stream}`}
+  //               {" • "}
+  //               {c.subjects.join(", ")}
+  //             </span>
+  //           ))}
+  //         </div>
+  //       </div>
+  //     </div>
+  //   )
+  // }
 
   return (
     <div className="grid gap-4">
+
+      <div>
+        <h2 className="font-bold text-lg capitalize">Welcome {user?.first_name + ' ' + user?.last_name}</h2>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem doloribus.</p>
+      </div>
       <h2 className="font-bold text-lg">Dashboard</h2>
 
       {/* Dashbaord Cards */}
@@ -298,7 +328,6 @@ const Dashboard = () => {
             count={item.count}
             link={item.link}
             onPlusClick={handleOpen}
-            // onPlusClick={setIsEdit}
             id={item.id}
           />
         ))}
@@ -317,18 +346,19 @@ const Dashboard = () => {
             id="teachers"
             columns={columns}
             data={allTeachers}
-            expandableRowsComponent={ExpandedComponent}
+            expandableRows={false}
+          // expandableRowsComponent={ExpandedComponent}
           />
         </div>
 
         {/* Classrooms */}
-        <Cards handleOpen={handleOpen} label="classroom" data={classrooms} handleDelete={handleDelete} loadingId={loadingId} setIsEdit={setIsEdit} />
+        {/* <Cards handleOpen={handleOpen} label="classroom" data={classrooms} handleDelete={handleDelete} loadingId={loadingId} setIsEdit={setIsEdit} /> */}
 
         {/* Streams */}
-        <Cards handleOpen={handleOpen} label="stream" data={streams} handleDelete={handleDelete} loadingId={loadingId} setIsEdit={setIsEdit} />
+        {/* <Cards handleOpen={handleOpen} label="stream" data={streams} handleDelete={handleDelete} loadingId={loadingId} setIsEdit={setIsEdit} /> */}
 
         {/* Sections */}
-        <Cards handleOpen={handleOpen} label="section" data={sections} handleDelete={handleDelete} loadingId={loadingId} setIsEdit={setIsEdit} />
+        {/* <Cards handleOpen={handleOpen} label="section" data={sections} handleDelete={handleDelete} loadingId={loadingId} setIsEdit={setIsEdit} /> */}
 
       </div>
     </div>

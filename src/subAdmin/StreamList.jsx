@@ -10,7 +10,7 @@ import Table from "../components/common/Table";
 import { deleteStreamThunk, getStreamThunk } from "../features/subAdmin/streamSlice";
 
 //Icons
-import { Loader, Pencil, Trash2 } from "lucide-react";
+import { Loader, Pencil, Plus, Trash2 } from "lucide-react";
 
 const StreamList = () => {
   const dispatch = useDispatch();
@@ -90,6 +90,9 @@ const StreamList = () => {
     <div className="table-wrapper">
       <div className="table-inner-wrapper">
         Streams
+         <div>
+          <Plus className="size-5 shrink-0 hover:text-orange cursor-pointer transition-all" onClick={()=>handleOpen('stream')} />
+        </div>
       </div>
       <Table
         needHeader={true}

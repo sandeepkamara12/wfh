@@ -29,7 +29,7 @@ const SidebarLayout = ({ isOpen, toggleSidebar, children }) => {
 
   return (
     <>
-      <Header isOpen={isOpen} toggleSidebar={toggleSidebar} />
+      {/* <Header isOpen={isOpen} toggleSidebar={toggleSidebar} /> */}
       <Sidebar isOpen={isOpen} toggleSidebar={toggleSidebar} 
         links={
           role === "subadmin"
@@ -50,8 +50,8 @@ const SidebarLayout = ({ isOpen, toggleSidebar, children }) => {
         }
         handleLogout={handleLogout}
       />
-      <div className="w-full bg-navy/10 h-[calc(100dvh-56px)]">
-        <div className="px-4 pt-4 pb-24 xl:pb-4 h-full overflow-y-auto">
+      <div className="w-full bg-white h-[calc(100dvh-56px)] ps-64">
+        <div className="px-8 pt-8 pb-24 xl:pb-4 h-full overflow-y-auto">
           {children}
         </div>
       </div>

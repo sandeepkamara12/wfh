@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -22,20 +22,23 @@ import TextField from "../components/ui/TextField";
 import FloatingDropdown from "../components/ui/FloatingDropdown";
 
 //Icons
-import { CalendarDays, Copy, EllipsisVertical, Eye, Mail, Pencil, Phone, SlidersHorizontal, Trash2, UserRound, UserRoundPen } from "lucide-react";
+import { CalendarDays, Copy, EllipsisVertical, Eye, Loader, Mail, Pencil, Phone, Plus, SlidersHorizontal, Trash2, UserRound, UserRoundPen } from "lucide-react";
 import Switch from "../components/ui/Switch";
 import CustomSelect from "../components/ui/CustomSelect";
+// import { deleteClassroomThunk } from "../features/subAdmin/classroomSlice";
+import { toast } from "react-toastify";
 
 
 const base_url = import.meta.env.VITE_API_BASE_URL;
 
 const TeacherList = () => {
-  const { handleOpen } = useOutletContext();
+  const { handleOpen, setIsEdit } = useOutletContext();
 
   const dispatch = useDispatch();
   const allTeachers = useSelector((state) => state.teachers.teachers);
 
   const { isBelow640, isBelow1024, isBelow1280 } = useIsMobile();
+  const [loadingId, setLoadingId] = useState(null);
 
   //Fetch Teachers on load
   useEffect(() => {
@@ -59,6 +62,23 @@ const TeacherList = () => {
         subject: "Math"
       })
     );
+  };
+
+  const handleDelete = async (id) => {
+    if (id == "") return;
+    try {
+      setLoadingId(id);
+      let result = null;
+      // result = await dispatch(deleteClassroomThunk({ id })).unwrap()
+      if (result?.success) {
+        toast.dismiss();
+        toast.success(result?.message);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoadingId(null);
+    }
   };
 
   // Table Columns
@@ -132,11 +152,32 @@ const TeacherList = () => {
     },
     {
       name: "",
-      minWidth: "50px",
-      maxWidth: "50px",
-      cell: () => (
+      // minWidth: "50px",
+      // maxWidth: "50px",
+      cell: (row) => (
         <div className="flex flex-col gap-3 w-full items-end">
-          <div className="relative inline-flex">
+          <div className="flex flex-wrap items-center justify-end w-full gap-1">
+            <button className="btn icon_btn navy-btn">
+              <Eye className="own-icon" />
+            </button>
+            <button type="button" className="btn icon_btn btn_with_text navy-btn" onClick={() => handleDelete(row?.id)}
+              disabled={loadingId === row?.id}>
+              {loadingId === row?.id ? (<Loader className="loader own-icon" />) : (<Trash2 className="own-icon" />)}
+            </button>
+            <button
+              type="button"
+              className="btn icon_btn btn_with_text navy-btn"
+              onClick={() => {
+                setIsEdit(row);
+                handleOpen('classroom');
+              }
+              }
+              disabled={loadingId === row?.id}
+            >
+              <Pencil className="size-5 mx-auto" />
+            </button>
+          </div>
+          {/* <div className="relative inline-flex">
             <FloatingDropdown
               trigger={
                 <button className="p-2">
@@ -156,88 +197,87 @@ const TeacherList = () => {
                 </button>
               </div>
             </FloatingDropdown>
-          </div>
+          </div> */}
         </div>
       ),
     }
   ];
 
   // Expanded Columns for table
-  const ExpandedComponent = ({ data }) => {
-    const displayName = getDisplayName(data);
-    return (
-      <div className="grid grid-cols-2 lg:grid-cols-4 py-4 justify-between gap-3 text-sm font-medium w-full items-center">
+  // const ExpandedComponent = ({ data }) => {
+  //   const displayName = getDisplayName(data);
+  //   return (
+  //     <div className="grid grid-cols-2 lg:grid-cols-4 py-4 justify-between gap-3 text-sm font-medium w-full items-center">
 
-        <div className="col-span-2 sm:col-span-1 flex lg:hidden flex-wrap flex-col gap-0">
-          <a className="flex items-center gap-1 text-black font-medium hover:no-underline hover:text-orange" href={`mailto:${data.email}`}>
-            <Mail className='size-4' />
-            {data.email}
-          </a>
-          <a className="flex items-center gap-1 text-black font-medium hover:no-underline hover:text-orange" href={`tel:${data.phone}`}>
-            <Phone className="size-4" />
-            {data.phone}
-          </a>
-        </div>
+  //       <div className="col-span-2 sm:col-span-1 flex lg:hidden flex-wrap flex-col gap-0">
+  //         <a className="flex items-center gap-1 text-black font-medium hover:no-underline hover:text-orange" href={`mailto:${data.email}`}>
+  //           <Mail className='size-4' />
+  //           {data.email}
+  //         </a>
+  //         <a className="flex items-center gap-1 text-black font-medium hover:no-underline hover:text-orange" href={`tel:${data.phone}`}>
+  //           <Phone className="size-4" />
+  //           {data.phone}
+  //         </a>
+  //       </div>
 
-        {
-          displayName &&
-          <div className="col-span-1 flex flex-wrap flex-col gap-0">
-            <>
-              <span className="flex items-center gap-1 text-gray-400">
-                <UserRound className="size-4 shrink-0 " />
-                {
-                  data?.married ? 'Spouse Name:' : 'Parent Name:'
-                }
-              </span>
-              <span className="flex items-center gap-1 text-black font-medium">
-                {displayName}
-              </span>
-            </>
-          </div>
-        }
+  //       {
+  //         displayName &&
+  //         <div className="col-span-1 flex flex-wrap flex-col gap-0">
+  //           <>
+  //             <span className="flex items-center gap-1 text-gray-400">
+  //               <UserRound className="size-4 shrink-0 " />
+  //               {
+  //                 data?.married ? 'Spouse Name:' : 'Parent Name:'
+  //               }
+  //             </span>
+  //             <span className="flex items-center gap-1 text-black font-medium">
+  //               {displayName}
+  //             </span>
+  //           </>
+  //         </div>
+  //       }
 
-        <div className="col-span-1 flex xl:hidden flex-wrap flex-col gap-0">
-          <span className="flex items-center gap-1 text-gray-400">
-            <CalendarDays className="size-4 shrink-0" /> Joined At:
-          </span>
-          <span className="text-black font-medium">
-            {dateFormat(data.created_at, "dd-MMMM-yyyy")}
-          </span>
-        </div>
+  //       <div className="col-span-1 flex xl:hidden flex-wrap flex-col gap-0">
+  //         <span className="flex items-center gap-1 text-gray-400">
+  //           <CalendarDays className="size-4 shrink-0" /> Joined At:
+  //         </span>
+  //         <span className="text-black font-medium">
+  //           {dateFormat(data.created_at, "dd-MMMM-yyyy")}
+  //         </span>
+  //       </div>
 
 
-        <div className="col-span-1 flex sm:hidden flex-wrap flex-col gap-0 text-black ">
-          <span className="flex items-center gap-1 text-gray-400">
-            <UserRoundPen className="size-4 shrink-0 " />
-            Class in Charge:
-          </span>
-          <span className="">XII B</span>
-          <span className="font-medium">Non Medical Maths</span>
-        </div>
+  //       <div className="col-span-1 flex sm:hidden flex-wrap flex-col gap-0 text-black ">
+  //         <span className="flex items-center gap-1 text-gray-400">
+  //           <UserRoundPen className="size-4 shrink-0 " />
+  //           Class in Charge:
+  //         </span>
+  //         <span className="">XII B</span>
+  //         <span className="font-medium">Non Medical Maths</span>
+  //       </div>
 
-        <div className="col-span-2 lg:col-span-4 flex flex-col gap-1">
-          <span className="flex items-center gap-1 text-gray-400">
-            <UserRoundPen className="size-4 shrink-0 " />
-            Teach Other Classes:
-          </span>
-          <div className="flex flex-wrap gap-1">
-            {groupClasses(classesTeach).map((c, i) => (
-              <span
-                key={i}
-                className="inline-block font-medium leading-4 rounded bg-gray-200 px-2 py-1.5"
-              >
-                {c.class} {c.section}
-                {c.stream && ` • ${c.stream}`}
-                {" • "}
-                {c.subjects.join(", ")}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-    )
-  }
-
+  //       <div className="col-span-2 lg:col-span-4 flex flex-col gap-1">
+  //         <span className="flex items-center gap-1 text-gray-400">
+  //           <UserRoundPen className="size-4 shrink-0 " />
+  //           Teach Other Classes:
+  //         </span>
+  //         <div className="flex flex-wrap gap-1">
+  //           {groupClasses(classesTeach).map((c, i) => (
+  //             <span
+  //               key={i}
+  //               className="inline-block font-medium leading-4 rounded bg-gray-200 px-2 py-1.5"
+  //             >
+  //               {c.class} {c.section}
+  //               {c.stream && ` • ${c.stream}`}
+  //               {" • "}
+  //               {c.subjects.join(", ")}
+  //             </span>
+  //           ))}
+  //         </div>
+  //       </div>
+  //     </div>
+  //   )
+  // }
 
   return (
     <div className="flex flex-col">
@@ -250,29 +290,33 @@ const TeacherList = () => {
             <Switch label="Missing Phone" id="phone_existence" />
             <Switch label="Missing Email" id="email_existence" />
             <CustomSelect
-                options={familyOptions}
-                selectType="classroom"
-                label="Family Filter"
-                placeholder="Has parent or spouse?"
+              options={familyOptions}
+              selectType="classroom"
+              label="Family Filter"
+              placeholder="Has parent or spouse?"
             />
             <CustomSelect
-                options={statusOptions}
-                selectType="classroom"
-                label="Status Filter"
-                placeholder="Active, Inactive or Leave"
+              options={statusOptions}
+              selectType="classroom"
+              label="Status Filter"
+              placeholder="Active, Inactive or Leave"
             />
           </div>
-          <div className="col-span-6 2xl:col-span-3 w-full flex flex-col bg-white rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
+          <div className="col-span-6 2xl:col-span-3 w-full flex flex-col bg-white rounded overflow-hidden">
             <div className="bg-navy py-3 px-4 text-sm font-medium text-white flex justify-between items-center">
               All Teachers
-              <SlidersHorizontal onClick={() => handleOpen('filter')} className="size-5 shrink-0" />
+              <div className="flex flex-wrap items-center gap-4">
+                <SlidersHorizontal onClick={() => handleOpen('filter')} className="size-5 shrink-0" />
+                <Plus className="size-5 shrink-0 hover:text-orange cursor-pointer transition-all" onClick={() => handleOpen('teacher')} />
+              </div>
             </div>
             <Table
               id="teachers"
               columns={columns}
               data={allTeachers}
               needHeader={true}
-              expandableRowsComponent={ExpandedComponent}
+              expandableRows={false}
+            // expandableRowsComponent={ExpandedComponent}
             />
           </div>
         </div>

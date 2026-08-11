@@ -76,8 +76,8 @@ const AddSection = ({ handleClose, setIsEdit, isEdit }) => {
           >
             {loading
               ? isEdit
-                ? <><Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" /> Updating</>
-                : <><Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" /> Creating</>
+                ? <><Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" /> Updating Section</>
+                : <><Loader className="size-5 shrink-0 animate-spin [animation-duration:2s]" /> Creating Section</>
               : isEdit
                 ? "Update Section"
                 : "Create Section"}

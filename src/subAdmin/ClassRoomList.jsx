@@ -10,7 +10,7 @@ import Table from "../components/common/Table";
 import { deleteClassroomThunk, getClassroomThunk} from "../features/subAdmin/classroomSlice";
 
 //Icons
-import { Loader, Pencil, Trash2 } from "lucide-react";
+import { Loader, Pencil, Plus, Trash2 } from "lucide-react";
 
 const ClassRoomList = () => {
   const dispatch = useDispatch();
@@ -95,6 +95,9 @@ const ClassRoomList = () => {
     <div className="table-wrapper">
       <div className="table-inner-wrapper">
         Classrooms
+        <div>
+          <Plus className="size-5 shrink-0 hover:text-orange cursor-pointer transition-all" onClick={()=>handleOpen('classroom')} />
+        </div>
       </div>
       <Table
         needHeader={true}
