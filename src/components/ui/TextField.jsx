@@ -1,8 +1,9 @@
 import { icons } from '../../const/constant';
 import * as Icons from 'lucide-react';
 
-const TextField = ({ label, subHeading, id, error, required = false, inputClassName = "", className = "", ...props }) => {
-    const IconComponent = Icons[icons[label?.toLowerCase()]];
+const TextField = ({ icon, label, subHeading, id, error, required = false, inputClassName = "", className = "", ...props }) => {
+    // const IconComponent = Icons[icons[label?.toLowerCase()]];
+    const IconComponent = Icons[icons[icon?.toLowerCase()]];
     
     return (
         <div className={`${className ? className : 'w-full'}`}>
@@ -15,7 +16,7 @@ const TextField = ({ label, subHeading, id, error, required = false, inputClassN
             }
             <p className='text-xs tracking-wide font-light text-gray-400 mb-1'>{subHeading}</p>
             <div className="relative">
-                <input type="text" {...props} name={id} id={id} className={`${inputClassName ? inputClassName : ''} input-field ${IconComponent ? 'ps-10' : ''} ${error ? 'border-red-500' : ''}`} />
+                <input type="text" {...props} name={id} id={id} className={`${inputClassName ? inputClassName : ''} input-field ${IconComponent ? 'ps-12' : ''} ${error ? 'border-red-500' : ''}`} />
                 <div className="absolute inset-y-0 inset-s-0 flex items-center pointer-events-none z-20 ps-4">
                     {IconComponent && <IconComponent className="own-icon" />}
                 </div>

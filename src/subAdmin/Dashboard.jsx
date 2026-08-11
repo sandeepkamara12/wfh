@@ -338,7 +338,9 @@ const Dashboard = () => {
         {/* Classroom In charge */}
         <div className="table-wrapper">
           <div className="table-inner-wrapper">
-            Classroom In Charge
+            <div>
+              <span className="text-orange">72</span> Classroom in charges
+            </div>
             <SlidersHorizontal onClick={() => handleOpen('teacher')} className="size-5 shrink-0" />
           </div>
           <Table

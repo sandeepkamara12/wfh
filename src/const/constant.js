@@ -380,6 +380,7 @@ export const icons = {
   classroom:'GalleryThumbnails',
   section: 'LayoutGrid',
   login: "Mail",
+  search: "Search",
 };
 
 export const partners = [

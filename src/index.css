@@ -15,6 +15,8 @@
   --breakpoint-xxs: 480px;
   --breakpoint-3xl: 1440px;
   --breakpoint-4xl: 120rem;
+
+  --fifteen: 15px;
 }
 
 :root {
@@ -188,7 +190,7 @@
 }
 
 .rdt_TableCell {
-  @apply py-2 px-2! text-black text-sm;
+  @apply py-4 px-2! text-black text-[15px];
 }
 
 .rdt_TableCol {
@@ -205,7 +207,7 @@
 }
 
 .rdt_expanderRow {
-  @apply px-3 bg-navy/5!;
+  @apply px-3 bg-white border-b border-black/[0.12];
 }
 
 .rdt_cellCheckbox {

@@ -52,7 +52,6 @@ const TeacherList = () => {
     fetchTeachers();
   }, [])
 
-
   //Add a new Teachers
   const handleAdd = () => {
     dispatch(
@@ -96,10 +95,10 @@ const TeacherList = () => {
               />
             </span>
             <div className="flex flex-col gap-0">
-              <span className="text-sm font-semibold text-black leading-4">
+              <span className="text-fifteen font-semibold text-black leading-4">
                 {row.first_name} {row.last_name}
               </span>
-              <span className="inline-flex items-center tracking-wide gap-x-1.5 rounded text-xs text-gray-400">
+              <span className="inline-flex items-center tracking-wide gap-x-1.5 rounded text-sm text-gray-400">
                 {row.id}
                 <Copy className="size-3 text-gray-500 mt-0.5" />
               </span>
@@ -113,11 +112,11 @@ const TeacherList = () => {
       minWidth: "250px",
       omit: isBelow1024,
       cell: row => (
-        <div className="flex flex-wrap flex-col gap-1">
-          <a className="flex items-center gap-1 text-black hover:no-underline hover:text-orange" href={`mailto:${row.email}`}>
+        <div className="flex flex-wrap flex-col gap-2">
+          {/* <a className="flex items-center gap-1 text-black hover:no-underline hover:text-orange" href={`mailto:${row.email}`}>
             <Mail className='size-4' />
             {row.email}
-          </a>
+          </a> */}
           <a className="flex items-center gap-1 text-black hover:no-underline hover:text-orange" href={`tel:${row.phone}`}>
             <Phone className="size-4" />
             {row.phone}
@@ -129,14 +128,14 @@ const TeacherList = () => {
       name: "Class In charge",
       omit: isBelow640,
       cell: () => (
-        <div className="flex flex-wrap flex-col gap-1 text-black">
+        <div className="flex flex-wrap flex-col gap-2 text-black">
           <span
             className="flex items-center gap-1"
           >
-            <UserRoundPen className="size-4 shrink-0 " />
+            {/* <UserRoundPen className="size-4 shrink-0 " /> */}
             III B
           </span>
-          <span>Non Medical Maths</span>
+          <span>Non Medical | Maths</span>
         </div>
       )
     },
@@ -265,7 +264,7 @@ const TeacherList = () => {
   //           {groupClasses(classesTeach).map((c, i) => (
   //             <span
   //               key={i}
-  //               className="inline-block font-medium leading-4 rounded bg-gray-200 px-2 py-1.5"
+  //               className="inline-block font-medium leading-4 rounded bg-gray-100 px-2 py-1.5"
   //             >
   //               {c.class} {c.section}
   //               {c.stream && ` • ${c.stream}`}
@@ -284,23 +283,30 @@ const TeacherList = () => {
       <div className="overflow-x-auto [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb">
         <div className="min-w-full inline-block align-middle">
           <div className="mb-4">
-            <h2 className='font-bold text-lg' onClick={handleAdd}>Search Teachers</h2>
-            <p className="text-sm text-black font-medium">Browse teachers by ID, Name, Classroom, Stream, Section, Subject, Email, and Phone.</p>
-            <TextField label="Search Teacher via First Name, Last Name, Email, Phone & Teacher Id." />
-            <Switch label="Missing Phone" id="phone_existence" />
-            <Switch label="Missing Email" id="email_existence" />
-            <CustomSelect
-              options={familyOptions}
-              selectType="classroom"
-              label="Family Filter"
-              placeholder="Has parent or spouse?"
-            />
-            <CustomSelect
-              options={statusOptions}
-              selectType="classroom"
-              label="Status Filter"
-              placeholder="Active, Inactive or Leave"
-            />
+            <h2 className='font-bold text-xl capitalize text-black' onClick={handleAdd}>Search Teachers</h2>
+            <p className="text-sm text-black font-medium">Search Teacher via First Name, Last Name, Email, Phone & Teacher Id.</p>
+
+            <div className="flex items-end justify-between">
+              <div>
+                <TextField icon="search" label="" placeholder="Search Teacher" />
+              </div>
+              <div className="flex items-end gap-4">
+                <CustomSelect
+                  options={familyOptions}
+                  selectType="classroom"
+                  label="Family Filter"
+                  isSearchable={false}
+                  placeholder="Has parent or spouse?"
+                />
+                <CustomSelect
+                  options={statusOptions}
+                  selectType="classroom"
+                  label="Status Filter"
+                  isSearchable={false}
+                  placeholder="Active, Inactive or Leave"
+                />
+              </div>
+            </div>
           </div>
           <div className="col-span-6 2xl:col-span-3 w-full flex flex-col bg-white rounded overflow-hidden">
             <div className="bg-navy py-3 px-4 text-sm font-medium text-white flex justify-between items-center">

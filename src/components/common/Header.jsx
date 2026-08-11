@@ -15,10 +15,11 @@ const Header = ({ isOpen, toggleSidebar }) => {
     let user = useSelector(state => state.auth.user);
 
     return (
-        <header className="sticky top-0 inset-x-0 flex flex-wrap md:justify-start bg-navy backdrop-blur text-sm px-4 py-2 text-white z-50">
+        <header className="sticky top-0 inset-x-0 flex flex-wrap md:justify-start bg-black/[0.15] text-sm pe-4 ps-72 py-2 text-black z-50">
             <nav className="flex basis-full items-center justify-between w-full mx-auto">
-                <div className="me-5 lg:me-0 flex items-center">
+                <div className="me-5 lg:me-0 flex items-center gap-2">
                     <PanelLeftClose className="size-5 flex" onClick={toggleSidebar} />
+                    <h2 className="font-bold text-lg">Dashboard</h2>
                 </div>
                 {/* <div className="w-full flex items-center justify-end ms-auto md:justify-between gap-x-1 md:gap-x-3"> */}
                 {/* <div className="hidden md:block">

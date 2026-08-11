@@ -1,11 +1,13 @@
-import { BookOpenText, CalendarDays, Copy, EllipsisVertical, Eye, GalleryThumbnails, Loader, Pencil, Phone, Plus, Search, SlidersHorizontal, Trash2, UserRound, UserRoundPen} from "lucide-react";
+import { BookOpenText, CalendarDays, Copy, EllipsisVertical, Eye, GalleryThumbnails, Pencil, Phone, Plus, Search, SlidersHorizontal, Trash2, UserRound, UserRoundPen} from "lucide-react";
 import Table from "../components/common/Table";
 import { useIsMobile } from "../hooks/useIsMobile";
 import FloatingDropdown from "../components/ui/FloatingDropdown";
 import { useOutletContext } from "react-router-dom";
 import TextField from "../components/ui/TextField";
+import Switch from "../components/ui/Switch";
+import CustomSelect from "../components/ui/CustomSelect";
+import { familyOptions, statusOptions } from "../const/constant";
 import { useState } from "react";
-import { toast } from "react-toastify";
 
 const StudentList = () => {
   const { handleOpen } = useOutletContext();
@@ -264,6 +266,27 @@ const StudentList = () => {
           <div className="mb-4">
             <h2 className='font-bold text-lg'>Search Students</h2>
             <p className="text-sm text-black font-medium">Browse students by ID, Name, Classroom, Stream, Section, Email, & Phone.</p>
+            <div className="flex items-center justify-between">
+              <div>
+                <TextField icon="search" label="Search Teacher via First Name, Last Name, Email, Phone & Teacher Id." placeholder="Search Teacher" />
+              </div>
+              <div className="flex items-end gap-4">
+                <CustomSelect
+                  options={familyOptions}
+                  selectType="classroom"
+                  label="Family Filter"
+                  isSearchable={false}
+                  placeholder="Has parent or spouse?"
+                />
+                <CustomSelect
+                  options={statusOptions}
+                  selectType="classroom"
+                  label="Status Filter"
+                  isSearchable={false}
+                  placeholder="Active, Inactive or Leave"
+                />
+              </div>
+            </div>
           </div>
           <div className="col-span-6 2xl:col-span-3 w-full flex flex-col bg-white rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
             <div className="bg-navy py-3 px-4 text-sm font-medium text-white flex justify-between items-center">
@@ -279,6 +302,14 @@ const StudentList = () => {
                   <button className="btn icon_btn_small active "><Search className="size-5 shrink-0" /></button>
                 </div>
               </div> */}
+              <div className="flex gap-2 ">
+                <div className="flex gap-6">
+                <Switch label="Missing Phone" id="phone_existence" />
+                <Switch label="Missing Email" id="email_existence" />
+              <SlidersHorizontal onClick={() => handleOpen('filter')} className="size-5 shrink-0" />
+                  <Plus onClick={() => handleOpen('teacher')} className="size-5 shrink-0" />
+              </div>
+              </div>
             </div>
             <Table
               id="students"
