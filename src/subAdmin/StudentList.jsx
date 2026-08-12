@@ -1,4 +1,4 @@
-import { BookOpenText, CalendarDays, Copy, EllipsisVertical, Eye, GalleryThumbnails, Pencil, Phone, Plus, Search, SlidersHorizontal, Trash2, UserRound, UserRoundPen} from "lucide-react";
+import { BookOpenText, CalendarDays, Copy, EllipsisVertical, Eye, GalleryThumbnails, Loader, Pencil, Phone, Plus, Search, SlidersHorizontal, Trash2, UserRound, UserRoundPen} from "lucide-react";
 import Table from "../components/common/Table";
 import { useIsMobile } from "../hooks/useIsMobile";
 import FloatingDropdown from "../components/ui/FloatingDropdown";
@@ -8,9 +8,10 @@ import Switch from "../components/ui/Switch";
 import CustomSelect from "../components/ui/CustomSelect";
 import { familyOptions, statusOptions } from "../const/constant";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const StudentList = () => {
-  const { handleOpen } = useOutletContext();
+  const { handleOpen, setIsEdit } = useOutletContext();
   const { isBelow640, isBelow768, isBelow1024, isBelow1280 } = useIsMobile();
   const [loadingId, setLoadingId] = useState(null);
 
@@ -85,10 +86,10 @@ const StudentList = () => {
           <span
             className="flex items-center gap-1"
           >
-            <UserRoundPen className="size-4 shrink-0 " />
+            {/* <UserRoundPen className="size-4 shrink-0 " /> */}
             {row.classroom} {row.section}
           </span>
-          <span>Non Medical</span>
+          {/* <span>Non Medical</span> */}
         </div>
       )
     },
@@ -291,24 +292,19 @@ const StudentList = () => {
           <div className="col-span-6 2xl:col-span-3 w-full flex flex-col bg-white rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
             <div className="bg-navy py-3 px-4 text-sm font-medium text-white flex justify-between items-center">
               All Students
-               <div className="flex flex-wrap items-center gap-4">
-                <Search className="size-5 shrink-0" />
-                <SlidersHorizontal onClick={() => handleOpen('filter')} className="size-5 shrink-0" />
-                <Plus className="size-5 shrink-0 hover:text-orange cursor-pointer transition-all" onClick={() => handleOpen('student')} />
-              </div>
+              
               {/* <div className="flex gap-2 ">
                 <div className="flex gap-2">
                   <TextField id="search_teacher" inputClassName="border-white py-1" placeholder="" />
                   <button className="btn icon_btn_small active "><Search className="size-5 shrink-0" /></button>
                 </div>
               </div> */}
-              <div className="flex gap-2 ">
-                <div className="flex gap-6">
-                <Switch label="Missing Phone" id="phone_existence" />
-                <Switch label="Missing Email" id="email_existence" />
-              <SlidersHorizontal onClick={() => handleOpen('filter')} className="size-5 shrink-0" />
-                  <Plus onClick={() => handleOpen('teacher')} className="size-5 shrink-0" />
-              </div>
+              <div className="flex gap-2">
+                {/* <Switch type="small" label="Missing Phone" id="phone_existence" />
+                <Switch type="small" label="Missing Email" id="email_existence" /> */}
+                <Search className="size-5 shrink-0 hover:text-orange cursor-pointer transition-all" />
+                <SlidersHorizontal onClick={() => handleOpen('filter')} className="size-5 shrink-0 hover:text-orange cursor-pointer transition-all" />
+                <Plus className="size-5 shrink-0 hover:text-orange cursor-pointer transition-all" onClick={() => handleOpen('student')} />
               </div>
             </div>
             <Table
