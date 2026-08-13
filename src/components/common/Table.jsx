@@ -17,12 +17,12 @@ const Table = (props) => {
                     columns={props.columns}
                     data={props.data}
                     pagination
-                    animateRows 
-                    expandableRows={props.expandableRows??true}
+                    animateRows
+                    expandableRows={props.expandableRows ?? true}
                     responsive={true}
                     selectableRows={props.needHeader}
                     customStyles={dashboardTableStyle}
-                    paginationPerPage={props.paginationPerPage??5}
+                    paginationPerPage={props.paginationPerPage ?? 5}
                     expandableRowsComponent={props.expandableRowsComponent}
                     paginationComponentOptions={{
                         rowsPerPageText: '',

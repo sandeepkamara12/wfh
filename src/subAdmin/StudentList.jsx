@@ -1,4 +1,4 @@
-import { BookOpenText, CalendarDays, Copy, EllipsisVertical, Eye, GalleryThumbnails, Loader, Pencil, Phone, Plus, Search, SlidersHorizontal, Trash2, UserRound, UserRoundPen} from "lucide-react";
+import { BookOpenText, CalendarDays, Copy, EllipsisVertical, Eye, GalleryThumbnails, Loader, Pencil, Phone, Plus, Search, SlidersHorizontal, Trash2, UserRound, UserRoundPen } from "lucide-react";
 import Table from "../components/common/Table";
 import { useIsMobile } from "../hooks/useIsMobile";
 import FloatingDropdown from "../components/ui/FloatingDropdown";
@@ -7,13 +7,30 @@ import TextField from "../components/ui/TextField";
 import Switch from "../components/ui/Switch";
 import CustomSelect from "../components/ui/CustomSelect";
 import { familyOptions, statusOptions } from "../const/constant";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { dateFormat } from "../utils/dateUtils";
+import { useDispatch, useSelector } from "react-redux";
+import { getStudentThunk } from "../features/subAdmin/studentSlice";
 
 const StudentList = () => {
   const { handleOpen, setIsEdit } = useOutletContext();
   const { isBelow640, isBelow768, isBelow1024, isBelow1280 } = useIsMobile();
   const [loadingId, setLoadingId] = useState(null);
+
+  const dispatch = useDispatch();
+
+ //Fetch Teachers on load
+  useEffect(() => {
+    const fetchTeachers = async () => {
+      try {
+        await dispatch(getStudentThunk()).unwrap();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchTeachers();
+  }, [])
 
   const handleDelete = async (id) => {
     if (id == "") return;
@@ -46,13 +63,13 @@ const StudentList = () => {
                 className="h-full w-full rounded-full max-w-full aspect-square"
               />
             </span>
-            <div className="flex flex-col gap-0">
-              <span className="text-sm font-semibold text-black leading-4">
-                {row.name}
+            <div className="flex flex-col gap-0.5">
+              <span className="text-sm font-semibold text-navy leading-4">
+                {row.first_name} {row.last_name}
               </span>
-              <span className="inline-flex items-center tracking-wide gap-x-1.5 rounded text-xs text-gray-400">
+              <span className="inline-flex items-center tracking-wide gap-x-1 text-xs font-medium text-gray-400 uppercase">
                 {row.id}
-                <Copy className="size-3 text-gray-500 mt-0.5" />
+                <Copy className="size-3 text-gray-500" />
               </span>
             </div>
           </div>
@@ -66,13 +83,13 @@ const StudentList = () => {
       minWidth: "200px",
       omit: isBelow1280,
       cell: row => (
-        <div className="flex flex-wrap flex-col gap-1">
-          <a className="flex items-center gap-1 text-black hover:no-underline hover:text-orange" href={`mailto:${row.email}`}>
-            F: {row.fatherPhone}
-          </a>
-          <a className="flex items-center gap-1 text-black hover:no-underline hover:text-orange" href={`tel:${row.phone}`}>
-            M: {row.motherPhone}
-          </a>
+        <div className="flex flex-wrap flex-col gap-0.5">
+          <div className="flex items-center gap-1">
+            <span className="text-navy font-medium">F:</span> {row.fatherPhone ?? '7986680517'}
+          </div>
+          <div className="flex items-center gap-1">
+            <span className="text-navy font-medium">M:</span> {row.motherPhone ?? '8488750518'}
+          </div>
         </div>
       ),
       selector: row => row.contact
@@ -82,14 +99,8 @@ const StudentList = () => {
       minWidth: "200px",
       omit: isBelow768,
       cell: row => (
-        <div className="flex flex-wrap flex-col gap-1 text-black">
-          <span
-            className="flex items-center gap-1"
-          >
-            {/* <UserRoundPen className="size-4 shrink-0 " /> */}
-            {row.classroom} {row.section}
-          </span>
-          {/* <span>Non Medical</span> */}
+        <div className="flex flex-wrap flex-col gap-0.5">
+          {row.classroom ?? 'III'} {row.section ?? 'A'}
         </div>
       )
     },
@@ -98,16 +109,12 @@ const StudentList = () => {
       minWidth: "200px",
       omit: isBelow640,
       cell: row => (
-        <div className="flex flex-wrap flex-col gap-1 text-black">
-          <span
-            className="flex items-center gap-1"
-          >
-            <UserRoundPen className="size-4 shrink-0 " />
-            {row.classIncharge}
+        <div className="flex flex-wrap flex-col gap-0.5">
+          <span>
+            {row.classIncharge ?? 'Mr. Taranjeet Singh'}
           </span>
-          <a className="flex items-center gap-1 text-black hover:no-underline hover:text-orange" href={`tel:${row.classInchargePhone}`}>
-            <Phone className="size-4 shrink-0" />
-            {row.classInchargePhone}
+          <a className="text-black hover:no-underline hover:text-orange" href={`tel:${row.classInchargePhone}`}>
+            {row.classInchargePhone ?? '8524697310'}
           </a>
         </div>
       )
@@ -117,13 +124,8 @@ const StudentList = () => {
       minWidth: "200px",
       omit: isBelow1024,
       cell: (row) => (
-        <div className="flex gap-1">
-          <CalendarDays className="size-4 shrink-0" />
-          <span
-            className="text-black font-medium"
-          >
-            {row.createdAt}
-          </span>
+        <div className="flex flex-wrap items-center gap-1">
+          {dateFormat(row.createdAt ?? '2026-08-13', "dd MMMM, yyyy")}
         </div>
       )
     },
@@ -186,85 +188,22 @@ const StudentList = () => {
     { id: "#2154879632", classroom: "12th", stream: "Non Medical", section: "C", subject: ["Physics", "Chemistry", "Mathematics", "English"], name: 'Marcus Webb', photo: "/public/student.jpg", fatherEmail: 'christina@site.com', motherEmail: 'christina@site.com', fatherPhone: 7986602514, motherPhone: 7986602514, classIncharge: "Mrs. Sheetal devi", classInchargePhone: 7986680522, motherName: "Mrs. Anita Rani", fatherName: "Mr. Paramjeet", createdAt: "28 Dec, 12:12" },
   ];
 
-
-  // const ExpandedComponent = ({ data }) => (
-  //   <div className="grid grid-cols-2 lg:grid-cols-4 py-4 justify-between gap-3 text-sm font-medium w-full">
-
-  //     <div className="col-span-1 flex flex-col text-black">
-  //       <span className="flex items-center gap-1 text-gray-400 font-medium">
-  //         <UserRound className="size-4 shrink-0 " />
-  //         Father Info:
-  //       </span>
-  //       <span>{data.fatherName}</span>
-  //       <span>{data.fatherEmail}</span>
-  //       <span>{data.fatherPhone}</span>
-  //     </div>
-
-  //     <div className="col-span-1 flex flex-col text-black">
-  //       <span className="flex items-center gap-1 text-gray-400 font-medium">
-  //         <UserRound className="size-4 shrink-0 " />
-  //         Mother Info:
-  //       </span>
-  //       <span>{data.motherName}</span>
-  //       <span>{data.motherEmail}</span>
-  //       <span>{data.motherPhone}</span>
-  //     </div>
-
-  //     <div className="col-span-1 lg:hidden">
-  //       <span className="flex items-center gap-1 text-gray-400">
-  //         <CalendarDays className="size-4 shrink-0" /> Joined At:
-  //       </span>
-  //       <span
-  //         className="text-black font-medium"
-  //       >
-  //         {data.createdAt}
-  //       </span>
-  //     </div>
-
-  //     <div className="col-span-1 flex md:hidden flex-wrap flex-col gap-0 text-black">
-  //       <span className="flex items-center gap-1 text-gray-400">
-  //         <GalleryThumbnails className="size-4 shrink-0 " />
-  //         Classroom:
-  //       </span>
-  //       <span>
-  //         {data.classroom} {data.section}
-  //       </span>
-  //       <span>Non Medical</span>
-  //     </div>
-
-  //     <div className="col-span-1 flex sm:hidden flex-wrap flex-col gap-0 text-black ">
-  //       <span className="flex items-center gap-1 text-gray-400">
-  //         <UserRoundPen className="size-4 shrink-0 " />
-  //         Classroom in Charge:
-  //       </span>
-  //       <span>
-  //         {data.classIncharge}
-  //       </span>
-  //       <span className="text-black" href={`tel:${data.classInchargePhone}`}>
-  //         {data.classInchargePhone}
-  //       </span>
-  //     </div>
-
-  //     <div className="col-span-2 flex flex-col gap-1">
-  //       <span className="flex items-center gap-1 text-gray-400">
-  //         <BookOpenText className="size-4 shrink-0 " />
-  //         Subjects:
-  //       </span>
-  //       <div className="flex flex-wrap gap-1">
-  //         {data.subject?.length > 0 &&
-  //           data.subject.map((sub, index) => (
-  //             <span key={index} className="inline-block font-medium leading-4 rounded bg-gray-200 px-2 py-1.5">{sub}</span>
-  //           ))}
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
+  const allStudents = useSelector((state) => state.students.students);
 
   return (
     <div className="flex flex-col">
       <div className="overflow-x-auto [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb">
         <div className="min-w-full inline-block align-middle">
-          <div className="mb-4">
+          <div className="grid grid-cols-2 gap-4 mb-3">
+            <div>
+              <h2 className='font-bold text-xl capitalize text-navy'>All Students</h2>
+              <p className="text-sm text-gray-500">Filter student via id, name, classroom, stream, section, phone & joined at.</p>
+            </div>
+            <div className="flex items-center justify-end">
+              <TextField icon="search" label="" placeholder="Search Student" className="w-1/2" />
+            </div>
+          </div>
+          {/* <div className="mb-4">
             <h2 className='font-bold text-lg'>Search Students</h2>
             <p className="text-sm text-black font-medium">Browse students by ID, Name, Classroom, Stream, Section, Email, & Phone.</p>
             <div className="flex items-center justify-between">
@@ -288,33 +227,23 @@ const StudentList = () => {
                 />
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="col-span-6 2xl:col-span-3 w-full flex flex-col bg-white rounded border border-white shadow-sm hover:shadow-lg custom_transition overflow-hidden">
-            <div className="bg-navy py-3 px-4 text-sm font-medium text-white flex justify-between items-center">
+            <div className="bg-navy py-3 px-4 font-medium text-fifteen text-white flex justify-between items-center">
               All Students
-              
-              {/* <div className="flex gap-2 ">
-                <div className="flex gap-2">
-                  <TextField id="search_teacher" inputClassName="border-white py-1" placeholder="" />
-                  <button className="btn icon_btn_small active "><Search className="size-5 shrink-0" /></button>
-                </div>
-              </div> */}
-              <div className="flex gap-2">
-                {/* <Switch type="small" label="Missing Phone" id="phone_existence" />
-                <Switch type="small" label="Missing Email" id="email_existence" /> */}
-                <Search className="size-5 shrink-0 hover:text-orange cursor-pointer transition-all" />
-                <SlidersHorizontal onClick={() => handleOpen('filter')} className="size-5 shrink-0 hover:text-orange cursor-pointer transition-all" />
+              <div className="flex flex-wrap items-center gap-2">
                 <Plus className="size-5 shrink-0 hover:text-orange cursor-pointer transition-all" onClick={() => handleOpen('student')} />
+                <Trash2 className="size-5 shrink-0 hover:text-orange cursor-pointer transition-all" disabled />
+                <SlidersHorizontal onClick={() => handleOpen('filter')} className="size-5 shrink-0 hover:text-orange cursor-pointer transition-all" />
               </div>
             </div>
             <Table
               id="students"
               columns={columns}
-              data={data}
+              data={allStudents}
               needHeader={true}
               expandableRows={false}
-              // expandableRowExpanded={() => isBelow640}
-              // expandableRowsComponent={ExpandedComponent}
+              paginationPerPage={10}
             />
           </div>
         </div>

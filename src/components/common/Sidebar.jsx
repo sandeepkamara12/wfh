@@ -33,8 +33,9 @@ const Sidebar = ({ isOpen, toggleSidebar, handleLogout }) => {
                 </div> */}
 
                 <div className="p-5 text-center">
-                    <div className="flex w-24 h-24 rounded-full mx-auto mb-2">
-                        <img className="object-cover w-full h-full rounded-full" src={base_url + '/' + user?.profile_pic} alt="Avatar" />
+                    <div className="flex w-24 h-24 mx-auto mb-2">
+                        {/* <img className="object-cover w-full h-full rounded-full" src={base_url + '/' + user?.profile_pic} alt="Avatar" /> */}
+                        <img className="w-full" src="/logos.png" alt="Avatar" />
                     </div>
 
                     <p className="lg:hidden font-semibold text-white">{user?.first_name + user?.last_name}</p>

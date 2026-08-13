@@ -563,6 +563,48 @@ export const dashboardCardData = [
     link: "/subadmin/subjects",
   },
 ];
+export const classroomCardData = [
+  {
+    label: "Total\nClassrooms",
+    count: "12",
+    id: "classroom",
+    icon: "GalleryThumbnails",
+    link: "/subadmin/classrooms",
+    hideAddBtn:false
+  },
+  {
+    label: "Total\nsections",
+    count: "5",
+    id: "section",
+    icon: "UserRoundPen",
+    link: "/subadmin/teachers",
+    hideAddBtn:false
+  },
+  {
+    label: "Total\nStreams",
+    count: "12",
+    id: "stream",
+    icon: "Globe",
+    link: "/subadmin/streams",
+    hideAddBtn:false
+  },
+  {
+    label: "Total\nTeachers",
+    count: "72",
+    id: "teacher",
+    icon: "UserRoundPen",
+    link: "/subadmin/teachers",
+    hideAddBtn:true
+  },
+  {
+    label: "Total\nStudents",
+    count: "9999",
+    id: "student",
+    icon: "GraduationCap",
+    link: "/subadmin/students",
+    hideAddBtn:true
+  },
+];
 export const romanNumbers = [
   "Nursery",
   "LKG",

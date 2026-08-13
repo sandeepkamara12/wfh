@@ -30,6 +30,7 @@ import { deleteClassroomThunk, getClassroomThunk } from "../features/subAdmin/cl
 import { CalendarDays, Copy, EllipsisVertical, Eye, Loader, Mail, Pencil, Phone, SlidersHorizontal, Trash2, UserRound, UserRoundPen } from "lucide-react";
 import { groupClasses } from "../utils/classUtility";
 import { toast } from "react-toastify";
+import TextField from "../components/ui/TextField";
 
 const base_url = import.meta.env.VITE_API_BASE_URL;
 
@@ -312,12 +313,42 @@ const Dashboard = () => {
 
   return (
     <div className="grid gap-4">
+      <div className="grid grid-cols-2 gap-4 mb-3">
+        <div>
+          <h2 className='font-bold text-xl lowercase first-letter:capitalize text-navy'>Welcome to dashboard Sandeep K.</h2>
+          <p className="text-sm text-gray-500">You can do everything like search, create, update, delete a teacher or student, pending fees & attendance of teacher & students, homework & notes.</p>
+        </div>
+        <div className="flex items-center justify-end">
+          <TextField icon="search" label="" placeholder="Search..." className="w-1/2" />
+        </div>
 
-      <div>
+        {/* <div className="flex items-end justify-between">
+              <div>
+                <TextField icon="search" label="" placeholder="Search Teacher" />
+              </div>
+              <div className="flex items-end gap-4">
+                <CustomSelect
+                  options={familyOptions}
+                  selectType="classroom"
+                  label="Family Filter"
+                  isSearchable={false}
+                  placeholder="Has parent or spouse?"
+                />
+                <CustomSelect
+                  options={statusOptions}
+                  selectType="classroom"
+                  label="Status Filter"
+                  isSearchable={false}
+                  placeholder="Active, Inactive or Leave"
+                />
+              </div>
+            </div> */}
+      </div>
+      {/* <div>
         <h2 className="font-bold text-lg capitalize">Welcome {user?.first_name + ' ' + user?.last_name}</h2>
         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem doloribus.</p>
-      </div>
-      <h2 className="font-bold text-lg">Dashboard</h2>
+      </div> */}
+      {/* <h2 className="font-bold text-lg">Dashboard</h2> */}
 
       {/* Dashbaord Cards */}
       <div className="dashboard-main-card-wrapper">

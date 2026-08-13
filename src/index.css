@@ -25,8 +25,10 @@
   /* Typography */
   /* --font-sans: "Commissioner", sans-serif;
   --font-heading: "Commissioner", sans-serif; */
-  --font-sans: "Google Sans", sans-serif;
-  --font-heading: "Google Sans", sans-serif;
+  --font-sans: "Poppins", sans-serif;
+  --font-heading: "Poppins", sans-serif;
+  /* --font-sans: "Google Sans", sans-serif;
+  --font-heading: "Google Sans", sans-serif; */
 
   /* Spacing */
   --transition: all 0.3s ease;
@@ -54,6 +56,7 @@
     padding-left: env(safe-area-inset-left, 0px);
     padding-right: env(safe-area-inset-right, 0px);
     font-family: var(--font-sans);
+    font-size: var(--fifteen);
     @apply text-black font-sans;
   }
 
@@ -145,7 +148,7 @@
   }
 
   .input-field {
-    @apply rounded bg-white w-full border-1 border-gray-200 py-2.5 sm:py-3 px-4 text-sm text-black placeholder:text-black focus:border-navy focus:outline-none focus-visible:ring-0 disabled:opacity-50 disabled:pointer-events-none;
+    @apply rounded bg-white w-full border border-gray-200 py-2.5 sm:py-3 px-4 text-sm text-navy placeholder:text-gray-500 focus:border-navy focus:outline-none focus-visible:ring-0 disabled:opacity-50 disabled:pointer-events-none;
   }
 }
 
@@ -153,6 +156,9 @@
    UTILITIES LAYER
 ========================= */
 @layer utilities {
+  .text-fifteen {
+    font-size: var(--fifteen);
+  }
 
   /* Text colors using variables */
   .text-primary {
@@ -170,6 +176,9 @@
 }
 
 /*************************************/
+.rdt_noData {
+  @apply text-sm;
+}
 .rdt_headRow {
   min-height: initial!important;
   padding: 6px 0;
@@ -190,7 +199,7 @@
 }
 
 .rdt_TableCell {
-  @apply py-4 px-2! text-black text-[15px];
+  @apply py-2 px-2! text-black text-sm;
 }
 
 .rdt_TableCol {
@@ -735,7 +744,7 @@ input#search_incharge:focus {
 
 /******************Table ******************/
 .table-wrapper {
-  @apply col-span-6 w-full flex flex-col bg-white rounded border border-gray-200 overflow-hidden;
+  @apply col-span-6 w-full flex flex-col bg-white rounded overflow-hidden;
 }
 .table-inner-wrapper {
   @apply bg-navy py-2.5 px-4 text-sm font-medium border-b last:border-none border-gray-200 no-underline text-white flex items-center justify-between;

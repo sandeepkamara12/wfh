@@ -6,6 +6,7 @@ import { combineReducers } from "redux";
 import loginReducer from "./features/auth/loginSlice";
 import teacherReducer from "./features/teachers/teachersSlice";
 import teachersReducer from "./features/subAdmin/teacherSlice";
+import studentsReducer from "./features/subAdmin/studentSlice";
 import roleReducer from "./features/subAdmin/createRoleSlice";
 import classroomReducer from "./features/subAdmin/classroomSlice";
 import sectionReducer from "./features/subAdmin/sectionSlice";
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   classroom: classroomReducer,
   section: sectionReducer,
   stream: streamReducer,
+  students: studentsReducer,
 });
 
 

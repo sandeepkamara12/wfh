@@ -22,6 +22,7 @@ import SubjectList from './subAdmin/SubjectList.jsx';
 import Assignment from './subAdmin/Assignment.jsx';
 import StreamList from './subAdmin/StreamList.jsx';
 import ClassRoomList from './subAdmin/ClassRoomList.jsx';
+import ClassRoomDetail from './subAdmin/ClassRoomDetail.jsx';
 import Homework from './subAdmin/Homework.jsx';
 
 // Teacher Route
@@ -65,7 +66,10 @@ const router = createBrowserRouter([
       { path: "assignments", element: (<Assignment />) },
       { path: "teachers", element: (<TeacherList />) },
       { path: "students", element: (<StudentList />) },
+
       { path: "classrooms", element: (<ClassRoomList />) },
+      { path: "classrooms/:id", element: <ClassRoomDetail /> },
+      
       { path: "streams", element: (<StreamList />) },
       { path: "sections", element: (<SectionList />) },
       { path: "subjects", element: (<SubjectList />) },
