@@ -191,19 +191,17 @@ const TeacherList = () => {
   ];
 
   return (
-    <div className="flex flex-col">
-      <div className="overflow-x-auto [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb">
-        <div className="min-w-full inline-block align-middle">
-           <div className="grid lg:grid-cols-2 gap-4 mb-3">
-            <div>
-              <h2 className='font-bold text-xl capitalize text-navy'>All Teachers</h2>
-              <p className="text-sm text-gray-500">Filter Teacher via first name, last name, phone, teacher id & joined at.</p>
-            </div>
-            <div className="flex items-center lg:justify-end">
-               <TextField icon="search" label="" placeholder="Search Teacher" className="w-full lg:w-2/3" />
-            </div>
+    <div className="grid gap-4">
+      <div className="grid lg:grid-cols-2 gap-4">
+        <div>
+          <h2 className='font-bold text-xl capitalize text-navy'>All Teachers</h2>
+          <p className="text-sm text-gray-500">Filter Teacher via first name, last name, phone, teacher id & joined at.</p>
+        </div>
+        <div className="flex items-center lg:justify-end">
+          <TextField icon="search" label="" placeholder="Search Teacher" className="w-full lg:w-2/3" />
+        </div>
 
-            {/* <div className="flex items-end justify-between">
+        {/* <div className="flex items-end justify-between">
               <div>
                 <TextField icon="search" label="" placeholder="Search Teacher" />
               </div>
@@ -224,25 +222,25 @@ const TeacherList = () => {
                 />
               </div>
             </div> */}
-          </div>
-          <div className="col-span-6 2xl:col-span-3 w-full flex flex-col bg-white rounded overflow-hidden">
-            <div className="bg-navy py-3 px-4 font-medium text-fifteen text-white flex justify-between items-center">
-              All Teachers
-              <div className="flex flex-wrap items-center gap-2">
-                <Plus className="size-5 shrink-0 hover:text-orange cursor-pointer transition-all" onClick={() => handleOpen('teacher')} />
-                <Trash2 className="size-5 shrink-0 hover:text-orange cursor-pointer transition-all" disabled />
-                <SlidersHorizontal onClick={() => handleOpen('filter')} className="size-5 shrink-0 hover:text-orange cursor-pointer transition-all" />
-              </div>
+      </div>
+      <div className="grid grid-cols-6 gap-4">
+        <div className="table-wrapper">
+          <div className="table-inner-wrapper">
+            All Teachers
+            <div className="flex flex-wrap items-center gap-2">
+              <Plus className="size-5 shrink-0 hover:text-orange cursor-pointer transition-all" onClick={() => handleOpen('teacher')} />
+              <Trash2 className="size-5 shrink-0 hover:text-orange cursor-pointer transition-all" disabled />
+              <SlidersHorizontal onClick={() => handleOpen('filter')} className="size-5 shrink-0 hover:text-orange cursor-pointer transition-all" />
             </div>
-            <Table
-              id="teachers"
-              columns={columns}
-              data={allTeachers}
-              needHeader={true}
-              expandableRows={false}
-              paginationPerPage={50}
-            />
           </div>
+          <Table
+            id="teachers"
+            columns={columns}
+            data={allTeachers}
+            needHeader={true}
+            expandableRows={false}
+            paginationPerPage={50}
+          />
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { iconMap } from "../../../const/iconMap";
 
-const DashboardCard = ({ label, count, id, link, onPlusClick, hideAddBtn }) => {
+const DashboardCard = ({ label, count, id, link, needIcon, onPlusClick, hideAddBtn }) => {
     const Icon = iconMap[id] || null;
     const PlusIcon = iconMap['plus'];
 
@@ -16,7 +16,7 @@ const DashboardCard = ({ label, count, id, link, onPlusClick, hideAddBtn }) => {
                 </div>
             }
             <div className="flex flex-col flex-wrap justify-between gap-2">
-                {Icon && <Icon className="size-6 shrink-0 text-orange" />}
+                {(Icon && needIcon) && <Icon className="size-6 shrink-0 text-orange" />}
                 <p className="text-sm capitalize font-medium text-navy leading-4 wrap-break-words whitespace-pre-line">{label}</p>
             </div>
             <h3 className="text-lg font-bold text-orange leading-5">{count}</h3>

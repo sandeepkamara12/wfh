@@ -18,7 +18,7 @@ import { useIsMobile } from "../hooks/useIsMobile";
 
 const ClassRoomList = () => {
   const dispatch = useDispatch();
-const { isBelow640, isBelow768, isBelow1024, isBelow480 } = useIsMobile();
+  const { isBelow640, isBelow768, isBelow1024, isBelow480 } = useIsMobile();
   const [loadingId, setLoadingId] = useState(null);
   const { handleOpen, setIsEdit } = useOutletContext();
 
@@ -142,8 +142,7 @@ const { isBelow640, isBelow768, isBelow1024, isBelow480 } = useIsMobile();
 
   return (
     <div className="grid gap-4">
-
-      <div className="grid lg:grid-cols-2 gap-4 mb-3">
+      <div className="grid lg:grid-cols-2 gap-4">
         <div>
           <h2 className='font-bold text-xl capitalize text-navy'>All Classrooms</h2>
           <p className="text-sm text-gray-500">Manage classrooms, sections, students, teachers and class assignments.</p>

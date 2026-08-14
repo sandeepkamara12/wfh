@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // import { toast } from "react-toastify";
 
@@ -221,7 +221,7 @@ const Dashboard = () => {
 
   return (
     <div className="grid gap-4">
-      <div className="grid lg:grid-cols-2 gap-4 mb-3">
+      <div className="grid lg:grid-cols-2 gap-4 items-start">
         <div>
           <h2 className='font-bold text-xl lowercase first-letter:capitalize text-navy'>Welcome to dashboard Sandeep K.</h2>
           <p className="text-sm text-gray-500">You can do everything like search, create, update, delete a teacher or student, pending fees & attendance of teacher & students, homework & notes.</p>
@@ -259,6 +259,11 @@ const Dashboard = () => {
       {/* <h2 className="font-bold text-lg">Dashboard</h2> */}
 
       {/* Dashbaord Cards */}
+        <div className="flex items-center justify-end gap-3">
+          <Link className="text-sm text-navy underline" to="">Teacher Attendance</Link>
+          <Link className="text-sm text-navy underline" to="">Student Attendance</Link>
+          <Link className="text-sm text-navy underline" to="">Pending Fee</Link>
+        </div>
       <div className="dashboard-main-card-wrapper">
         {dashboardCardData.map((item, index) => (
           <DashboardCard
@@ -269,6 +274,7 @@ const Dashboard = () => {
             onPlusClick={handleOpen}
             id={item.id}
             hideAddBtn={item.hideAddBtn}
+            needIcon={true}
           />
         ))}
       </div>

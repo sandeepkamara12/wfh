@@ -10,6 +10,7 @@ import {
   UserRoundCheck,
   UserRoundPen,
   X,
+  ClipboardList,
 } from "lucide-react";
 
 export const iconMap = {
@@ -20,8 +21,8 @@ export const iconMap = {
   subject: BookOpenText,
   plus: Plus,
   fee:IndianRupee,
-  attendance:UserRoundCheck,
   stream: Network,
   x: X,
-  check: Check
+  check: Check,
+  attendance: ClipboardList
 };

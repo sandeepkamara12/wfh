@@ -17,6 +17,7 @@ import {
   UserRoundPlus,
   LayoutDashboard,
   ArrowLeftRight,
+  ClipboardList,
   Settings,
 } from "lucide-react";
 
@@ -381,6 +382,7 @@ export const icons = {
   section: 'LayoutGrid',
   login: "Mail",
   search: "Search",
+  attendance: "ClipboardList",
 };
 
 export const partners = [
@@ -523,38 +525,47 @@ export const dashboardCardData = [
     hideAddBtn:false
   },
   {
-    label: "Teacher\non leave",
-    count: "72",
-    id: "teacher",
+    label: "Total\nClassrooms",
+    count: "12",
+    id: "classroom",
+    icon: "GalleryThumbnails",
+    link: "/subadmin/classrooms",
+    hideAddBtn:false
+  },
+  {
+    label: "Total\nsections",
+    count: "5",
+    id: "section",
     icon: "UserRoundPen",
     link: "/subadmin/teachers",
-    hideAddBtn:true
+    hideAddBtn:false
   },
   {
-    label: "Student\non Leave",
-    count: "9999",
-    id: "student",
-    icon: "GraduationCap",
-    link: "/subadmin/students",
-    hideAddBtn:true
-  },
-  {
-    label: "Pending\nFee",
-    count: "5",
-    id: "fee",
-    icon: "LayoutGrid",
-    link: "/subadmin/sections",
-    hideAddBtn:true
+    label: "Total\nStreams",
+    count: "12",
+    id: "stream",
+    icon: "Globe",
+    link: "/subadmin/streams",
+    hideAddBtn:false
   },
   // {
-  //   label: "Teacher\nAbsence",
-  //   count: "10",
-  //   id: "teacher",
-  //   icon: "UserRoundCheck",
-  //   link: "/subadmin/subjects",
+  //   label: "All\nAttendance",
+  //   count: "72",
+  //   id: "attendance",
+  //   icon: "ClipboardList",
+  //   link: "/subadmin/teachers",
+  //   hideAddBtn:true
+  // },
+  // {
+  //   label: "Pending\nFee",
+  //   count: "5",
+  //   id: "fee",
+  //   icon: "LayoutGrid",
+  //   link: "/subadmin/sections",
   //   hideAddBtn:true
   // },
 ];
+
 export const classroomCardData = [
   {
     label: "Total\nClassrooms",
@@ -586,7 +597,7 @@ export const classroomCardData = [
     id: "teacher",
     icon: "UserRoundPen",
     link: "/subadmin/teachers",
-    hideAddBtn:true
+    hideAddBtn:false
   },
   {
     label: "Total\nStudents",
@@ -594,9 +605,45 @@ export const classroomCardData = [
     id: "student",
     icon: "GraduationCap",
     link: "/subadmin/students",
-    hideAddBtn:true
+    hideAddBtn:false
   },
 ];
+
+export const singleClassroomCardData = [
+  {
+    label: "Total\nsections",
+    count: "5",
+    id: "section",
+    icon: "UserRoundPen",
+    link: "/subadmin/teachers",
+    hideAddBtn:false
+  },
+  {
+    label: "Total\nStreams",
+    count: "12",
+    id: "stream",
+    icon: "Globe",
+    link: "/subadmin/streams",
+    hideAddBtn:false
+  },
+  {
+    label: "Total\nTeachers",
+    count: "72",
+    id: "teacher",
+    icon: "UserRoundPen",
+    link: "/subadmin/teachers",
+    hideAddBtn:false
+  },
+  {
+    label: "Total\nStudents",
+    count: "9999",
+    id: "student",
+    icon: "GraduationCap",
+    link: "/subadmin/students",
+    hideAddBtn:false
+  },
+];
+
 export const romanNumbers = [
   "Nursery",
   "LKG",
