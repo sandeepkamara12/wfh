@@ -220,7 +220,7 @@
 }
 
 .rdt_cellCheckbox {
-  @apply ps-2! py-2! pe-0!;
+  @apply p-2!;
 }
 
 /* .teachers .rdt_Checkbox,

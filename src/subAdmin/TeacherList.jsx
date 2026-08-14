@@ -84,8 +84,8 @@ const TeacherList = () => {
   const columns = [
     {
       name: "Name",
-      minWidth:'200px',
-      maxWidth:'200px',
+      // minWidth:'200px',
+      // maxWidth:'200px',
       cell: row => (
         <div className="flex justify-between w-full">
           <div className="flex items-center gap-2">

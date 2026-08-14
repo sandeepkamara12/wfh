@@ -52,8 +52,8 @@ const StudentList = () => {
   const columns = [
     {
       name: "Name",
-      minWidth:'200px',
-      maxWidth:'200px',
+      // minWidth:'200px',
+      // maxWidth:'200px',
       // grow: 2,
       cell: row => (
         <div className="flex justify-between w-full">
