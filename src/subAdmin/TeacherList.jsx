@@ -87,7 +87,7 @@ const TeacherList = () => {
       cell: row => (
         <div className="flex justify-between w-full">
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center justify-center size-9 aspect-square rounded-full overflow-hidden bg-navy/10">
+            <span className="inline-flex items-center justify-center size-9 aspect-square rounded-full overflow-hidden bg-navy/10 shrink-0">
               <img
                 src={`${base_url}/${row.profile_pic}`}
                 alt=""
@@ -141,7 +141,7 @@ const TeacherList = () => {
       )
     },
     {
-      name: "Joined At:",
+      name: "Joined At",
       omit: isBelow1280,
       cell: (row) => (
         <div className="flex flex-wrap items-center gap-1">
@@ -207,13 +207,13 @@ const TeacherList = () => {
     <div className="flex flex-col">
       <div className="overflow-x-auto [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb">
         <div className="min-w-full inline-block align-middle">
-          <div className="grid grid-cols-2 gap-4 mb-3">
+           <div className="grid lg:grid-cols-2 gap-4 mb-3">
             <div>
               <h2 className='font-bold text-xl capitalize text-navy'>All Teachers</h2>
               <p className="text-sm text-gray-500">Filter Teacher via first name, last name, phone, teacher id & joined at.</p>
             </div>
-            <div className="flex items-center justify-end">
-               <TextField icon="search" label="" placeholder="Search Teacher" className="w-1/2" />
+            <div className="flex items-center lg:justify-end">
+               <TextField icon="search" label="" placeholder="Search Teacher" className="w-full lg:w-2/3" />
             </div>
 
             {/* <div className="flex items-end justify-between">
