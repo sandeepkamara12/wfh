@@ -20,7 +20,7 @@ const StudentList = () => {
 
   const dispatch = useDispatch();
 
- //Fetch Teachers on load
+  //Fetch Teachers on load
   useEffect(() => {
     const fetchTeachers = async () => {
       try {
@@ -52,9 +52,6 @@ const StudentList = () => {
   const columns = [
     {
       name: "Name",
-      // minWidth:'200px',
-      // maxWidth:'200px',
-      // grow: 2,
       cell: row => (
         <div className="flex justify-between w-full">
           <div className="flex items-center gap-2">
@@ -66,7 +63,7 @@ const StudentList = () => {
               />
             </span>
             <div className="flex flex-col gap-0.5">
-              <span className="text-sm font-semibold text-navy leading-4">
+              <span className="text-sm font-semibold text-navy leading-4 capitalize">
                 {row.first_name} {row.last_name}
               </span>
               <span className="inline-flex items-center tracking-wide gap-x-1 text-xs font-medium text-gray-400 uppercase">
@@ -80,11 +77,9 @@ const StudentList = () => {
       // selector: row => row.name,
       // sortable: true
     },
-   
+
     {
       name: "Classroom",
-      // minWidth: "100px",
-      // maxWidth: "100px",
       omit: isBelow768,
       cell: row => (
         <>
@@ -94,32 +89,26 @@ const StudentList = () => {
     },
     {
       name: "Classroom in Charge",
-      // minWidth: "250px",
-      // maxWidth: "250px",
       omit: isBelow640,
       cell: row => (
         <div className="flex flex-wrap flex-col gap-0.5">
           <span>
             {row.classIncharge ?? 'Mr. Taranjeet Singh'}
           </span>
-          <a className="text-black hover:no-underline hover:text-orange" href={`tel:${row.classInchargePhone}`}>
-            {row.classInchargePhone ?? '8524697310'}
-          </a>
+          <span>{row.classInchargePhone ?? '8524697310'}</span>
         </div>
       )
     },
-     {
+    {
       name: "Parent Contact",
-      // minWidth: "200px",
-      // maxWidth: "200px",
       omit: isBelow1024,
       cell: row => (
         <div className="flex flex-wrap flex-col gap-0.5">
           <div className="flex items-center gap-1">
-            <span className="text-navy font-medium">F:</span> {row.fatherPhone ?? '7986680517'}
+            <span className="text-orange font-medium">F:</span> {row.fatherPhone ?? '7986680517'}
           </div>
           <div className="flex items-center gap-1">
-            <span className="text-navy font-medium">M:</span> {row.motherPhone ?? '8488750518'}
+            <span className="text-orange font-medium">M:</span> {row.motherPhone ?? '8488750518'}
           </div>
         </div>
       ),
@@ -127,10 +116,10 @@ const StudentList = () => {
     },
     {
       name: "Joined At",
-      // minWidth: "200px",
       omit: isBelow1440,
       cell: (row) => (
         <div className="flex flex-wrap items-center gap-1">
+          <CalendarDays className="size-4 shrink-0 text-orange -mt-1" />
           {dateFormat(row.createdAt ?? '2026-08-13', "dd MMMM, yyyy")}
         </div>
       )

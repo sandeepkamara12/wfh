@@ -84,8 +84,6 @@ const TeacherList = () => {
   const columns = [
     {
       name: "Name",
-      // minWidth:'200px',
-      // maxWidth:'200px',
       cell: row => (
         <div className="flex justify-between w-full">
           <div className="flex items-center gap-2">
@@ -97,7 +95,7 @@ const TeacherList = () => {
               />
             </span>
             <div className="flex flex-col gap-0.5">
-              <span className="text-sm font-semibold text-navy leading-4">
+              <span className="text-sm font-semibold text-navy leading-4 capitalize">
                 {row.first_name} {row.last_name}
               </span>
               <span className="inline-flex items-center tracking-wide gap-x-1 text-xs font-medium text-gray-400 uppercase">
@@ -112,32 +110,19 @@ const TeacherList = () => {
     },
     {
       name: "Contact",
-      // minWidth: "250px",
       omit: isBelow1024,
       cell: row => (
-        <div className="flex flex-wrap flex-col gap-2">
-          {/* <a className="flex items-center gap-1 text-black hover:no-underline hover:text-orange" href={`mailto:${row.email}`}>
-            <Mail className='size-4' />
-            {row.email}
-          </a> */}
-          <a className="flex items-center gap-1 text-black hover:no-underline hover:text-orange" href={`tel:${row.phone}`}>
-            {/* <Phone className="size-4" /> */}
-            {row.phone}
-          </a>
-        </div>
+        <>
+          {row.phone}
+        </>
       ),
     },
     {
       name: "Class In charge",
       omit: isBelow640,
       cell: () => (
-        <div className="flex flex-wrap flex-col gap-0.5 text-black">
-          <span
-            className="flex items-center gap-1"
-          >
-            {/* <UserRoundPen className="size-4 shrink-0 " /> */}
-            III B
-          </span>
+        <div className="flex flex-wrap flex-col gap-0.5">
+          <span>III B</span>
           <span>Non Medical | Maths</span>
         </div>
       )
@@ -147,7 +132,7 @@ const TeacherList = () => {
       omit: isBelow1280,
       cell: (row) => (
         <div className="flex flex-wrap items-center gap-1">
-          {/* <CalendarDays className="size-4 shrink-0" /> */}
+          <CalendarDays className="size-4 shrink-0 text-orange -mt-1" />
           {dateFormat(row.created_at, "dd MMMM, yyyy")}
         </div>
       )
