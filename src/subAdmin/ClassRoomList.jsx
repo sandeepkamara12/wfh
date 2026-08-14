@@ -14,10 +14,11 @@ import { Eye, Loader, Pencil, Plus, SlidersHorizontal, Trash2 } from "lucide-rea
 import TextField from "../components/ui/TextField";
 import { classroomCardData } from "../const/constant";
 import DashboardCard from "../components/subadmin/dashboard/DashboardCard";
+import { useIsMobile } from "../hooks/useIsMobile";
 
 const ClassRoomList = () => {
   const dispatch = useDispatch();
-
+const { isBelow640, isBelow768, isBelow1024, isBelow480 } = useIsMobile();
   const [loadingId, setLoadingId] = useState(null);
   const { handleOpen, setIsEdit } = useOutletContext();
 
@@ -57,73 +58,58 @@ const ClassRoomList = () => {
   const columns = [
     {
       name: "Classrooms",
-      // minWidth: "150px",
-      // maxWidth: "150px",
       cell: (row) => (
-        <div className="flex flex-wrap flex-col gap-1 text-black">
-          <Link to={`${row?.id}`}>{row?.name}</Link>
-        </div>
+        <Link to={`${row?.id}`} className="text-navy">{row?.name}</Link>
       ),
       selector: (row) => row.name,
     },
     {
       name: "Sections",
-      // minWidth: "150px",
-      // maxWidth: "150px",
+      omit: isBelow768,
       cell: (row) => (
-        <div className="flex flex-wrap flex-col gap-1 text-black">
-          <span>{row?.sections ?? 5}</span>
-        </div>
+        <span>{row?.sections ?? 5}</span>
       ),
       selector: (row) => row.name,
     },
     {
       name: "Students",
-      // minWidth: "150px",
-      // maxWidth: "150px",
+      omit: isBelow480,
       cell: (row) => (
-        <div className="flex flex-wrap flex-col gap-1 text-black">
-          <span>{row?.students ?? 80}</span>
-        </div>
-      ),
-      selector: (row) => row.name,
-    },
-    {
-      name: "Class Incharge",
-      cell: (row) => (
-        <div className="flex flex-wrap flex-col gap-0.5">
-          <span>
-            {row.classIncharge ?? 'Mr. Taranjeet Singh'}
-          </span>
-          <a className="text-black hover:no-underline hover:text-orange" href={`tel:${row.classInchargePhone}`}>
-            {row.classInchargePhone ?? '8524697310'}
-          </a>
-        </div>
+        <span>{row?.students ?? 80}</span>
       ),
       selector: (row) => row.name,
     },
     {
       name: "Teachers",
-      // minWidth: "150px",
-      // maxWidth: "150px",
+      omit: isBelow640,
       cell: (row) => (
-        <div className="flex flex-wrap flex-col gap-1 text-black">
-          <span>{row?.students ?? 8}</span>
+        <span>{row?.students ?? 8}</span>
+      ),
+      selector: (row) => row.name,
+    },
+    {
+      name: "Class Incharge",
+      omit: isBelow1024,
+      minWidth:'200px',
+      cell: (row) => (
+        <div className="flex flex-wrap flex-col gap-0.5">
+          <span>{row.classIncharge ?? 'Mr. Taranjeet Singh'}</span>
+          <span>{row.classInchargePhone ?? '8524697310'}</span>
         </div>
       ),
       selector: (row) => row.name,
     },
     {
       name: "Status",
+      omit: isBelow1024,
       cell: (row, index) => (
-        <div className="flex flex-wrap flex-col gap-1 text-black">
-          <span>{index % 2 == 1 ? 'Active' : 'Inactive'}</span>
-        </div>
+        <span>{index % 2 == 1 ? 'Active' : 'Inactive'}</span>
       ),
       selector: (row) => row.name,
     },
     {
       name: "",
+      minWidth:'150px',
       cell: (row) => {
         return (
           <div className="flex flex-col gap-3 w-full items-end">
@@ -157,13 +143,13 @@ const ClassRoomList = () => {
   return (
     <div className="grid gap-4">
 
-      <div className="grid grid-cols-2 gap-4 mb-3">
+      <div className="grid lg:grid-cols-2 gap-4 mb-3">
         <div>
           <h2 className='font-bold text-xl capitalize text-navy'>All Classrooms</h2>
           <p className="text-sm text-gray-500">Manage classrooms, sections, students, teachers and class assignments.</p>
         </div>
-        <div className="flex items-center justify-end">
-          <TextField icon="search" label="" placeholder="Search Classrooms" className="w-1/2" />
+        <div className="flex items-center lg:justify-end">
+          <TextField icon="search" label="" placeholder="Search Classrooms" className="w-full lg:w-2/3" />
         </div>
       </div>
 

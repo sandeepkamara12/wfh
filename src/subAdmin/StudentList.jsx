@@ -126,8 +126,6 @@ const StudentList = () => {
     },
     {
       name: "",
-      // minWidth: "150px",
-      // maxWidth: "150px",
       cell: (row) => (
         <div className="flex flex-col gap-3 w-full items-end">
           <div className="flex flex-wrap items-center justify-end w-full gap-1">
