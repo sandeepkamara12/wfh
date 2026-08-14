@@ -15,7 +15,7 @@ import { getStudentThunk } from "../features/subAdmin/studentSlice";
 
 const StudentList = () => {
   const { handleOpen, setIsEdit } = useOutletContext();
-  const { isBelow640, isBelow768, isBelow1024, isBelow1280 } = useIsMobile();
+  const { isBelow640, isBelow768, isBelow1024, isBelow1280, isBelow1440 } = useIsMobile();
   const [loadingId, setLoadingId] = useState(null);
 
   const dispatch = useDispatch();
@@ -52,11 +52,13 @@ const StudentList = () => {
   const columns = [
     {
       name: "Name",
+      minWidth:'200px',
+      maxWidth:'200px',
       // grow: 2,
       cell: row => (
         <div className="flex justify-between w-full">
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center justify-center size-9 aspect-square rounded-full overflow-hidden bg-navy/10">
+            <span className="inline-flex items-center justify-center size-9 aspect-square rounded-full overflow-hidden bg-navy/10 shrink-0">
               <img
                 src={row.photo}
                 alt=""
@@ -78,10 +80,39 @@ const StudentList = () => {
       // selector: row => row.name,
       // sortable: true
     },
+   
     {
+      name: "Classroom",
+      // minWidth: "100px",
+      // maxWidth: "100px",
+      omit: isBelow768,
+      cell: row => (
+        <>
+          {row.classroom ?? 'III'} {row.section ?? 'A'}
+        </>
+      )
+    },
+    {
+      name: "Classroom in Charge",
+      // minWidth: "250px",
+      // maxWidth: "250px",
+      omit: isBelow640,
+      cell: row => (
+        <div className="flex flex-wrap flex-col gap-0.5">
+          <span>
+            {row.classIncharge ?? 'Mr. Taranjeet Singh'}
+          </span>
+          <a className="text-black hover:no-underline hover:text-orange" href={`tel:${row.classInchargePhone}`}>
+            {row.classInchargePhone ?? '8524697310'}
+          </a>
+        </div>
+      )
+    },
+     {
       name: "Parent Contact",
-      minWidth: "200px",
-      omit: isBelow1280,
+      // minWidth: "200px",
+      // maxWidth: "200px",
+      omit: isBelow1024,
       cell: row => (
         <div className="flex flex-wrap flex-col gap-0.5">
           <div className="flex items-center gap-1">
@@ -95,34 +126,9 @@ const StudentList = () => {
       selector: row => row.contact
     },
     {
-      name: "Classroom",
-      minWidth: "200px",
-      omit: isBelow768,
-      cell: row => (
-        <div className="flex flex-wrap flex-col gap-0.5">
-          {row.classroom ?? 'III'} {row.section ?? 'A'}
-        </div>
-      )
-    },
-    {
-      name: "Classroom in Charge",
-      minWidth: "200px",
-      omit: isBelow640,
-      cell: row => (
-        <div className="flex flex-wrap flex-col gap-0.5">
-          <span>
-            {row.classIncharge ?? 'Mr. Taranjeet Singh'}
-          </span>
-          <a className="text-black hover:no-underline hover:text-orange" href={`tel:${row.classInchargePhone}`}>
-            {row.classInchargePhone ?? '8524697310'}
-          </a>
-        </div>
-      )
-    },
-    {
       name: "Joined At",
-      minWidth: "200px",
-      omit: isBelow1024,
+      // minWidth: "200px",
+      omit: isBelow1440,
       cell: (row) => (
         <div className="flex flex-wrap items-center gap-1">
           {dateFormat(row.createdAt ?? '2026-08-13', "dd MMMM, yyyy")}
@@ -131,8 +137,8 @@ const StudentList = () => {
     },
     {
       name: "",
-      // minWidth: "50px",
-      // maxWidth: "50px",
+      // minWidth: "150px",
+      // maxWidth: "150px",
       cell: (row) => (
         <div className="flex flex-col gap-3 w-full items-end">
           <div className="flex flex-wrap items-center justify-end w-full gap-1">
@@ -194,13 +200,13 @@ const StudentList = () => {
     <div className="flex flex-col">
       <div className="overflow-x-auto [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb">
         <div className="min-w-full inline-block align-middle">
-          <div className="grid grid-cols-2 gap-4 mb-3">
+          <div className="grid lg:grid-cols-2 gap-4 mb-3">
             <div>
               <h2 className='font-bold text-xl capitalize text-navy'>All Students</h2>
               <p className="text-sm text-gray-500">Filter student via id, name, classroom, stream, section, phone & joined at.</p>
             </div>
-            <div className="flex items-center justify-end">
-              <TextField icon="search" label="" placeholder="Search Student" className="w-1/2" />
+            <div className="flex items-center lg:justify-end">
+              <TextField icon="search" label="" placeholder="Search Student" className="w-full lg:w-2/3" />
             </div>
           </div>
           {/* <div className="mb-4">
