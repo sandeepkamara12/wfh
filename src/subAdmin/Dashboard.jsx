@@ -360,6 +360,7 @@ const Dashboard = () => {
             link={item.link}
             onPlusClick={handleOpen}
             id={item.id}
+            hideAddBtn={item.hideAddBtn}
           />
         ))}
       </div>

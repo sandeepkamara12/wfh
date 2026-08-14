@@ -512,6 +512,7 @@ export const dashboardCardData = [
     id: "teacher",
     icon: "UserRoundPen",
     link: "/subadmin/teachers",
+    hideAddBtn:false
   },
   {
     label: "Total\nStudents",
@@ -519,49 +520,40 @@ export const dashboardCardData = [
     id: "student",
     icon: "GraduationCap",
     link: "/subadmin/students",
+    hideAddBtn:false
   },
   {
     label: "Teacher\non leave",
     count: "72",
-    id: "teachers",
+    id: "teacher",
     icon: "UserRoundPen",
     link: "/subadmin/teachers",
+    hideAddBtn:true
   },
   {
     label: "Student\non Leave",
     count: "9999",
-    id: "students",
+    id: "student",
     icon: "GraduationCap",
     link: "/subadmin/students",
+    hideAddBtn:true
   },
-  // {
-  //   label: "Total\nClassrooms",
-  //   count: "12",
-  //   id: "classroom",
-  //   icon: "GalleryThumbnails",
-  //   link: "/subadmin/classrooms",
-  // },
-  // {
-  //   label: "Total\nStreams",
-  //   count: "12",
-  //   id: "stream",
-  //   icon: "Globe",
-  //   link: "/subadmin/streams",
-  // },
   {
     label: "Pending\nFee",
     count: "5",
     id: "fee",
     icon: "LayoutGrid",
     link: "/subadmin/sections",
+    hideAddBtn:true
   },
-  {
-    label: "Teacher\nAbsence",
-    count: "10",
-    id: "attendance",
-    icon: "UserRoundCheck",
-    link: "/subadmin/subjects",
-  },
+  // {
+  //   label: "Teacher\nAbsence",
+  //   count: "10",
+  //   id: "teacher",
+  //   icon: "UserRoundCheck",
+  //   link: "/subadmin/subjects",
+  //   hideAddBtn:true
+  // },
 ];
 export const classroomCardData = [
   {
