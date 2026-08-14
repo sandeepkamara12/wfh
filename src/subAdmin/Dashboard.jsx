@@ -313,13 +313,13 @@ const Dashboard = () => {
 
   return (
     <div className="grid gap-4">
-      <div className="grid grid-cols-2 gap-4 mb-3">
+      <div className="grid lg:grid-cols-2 gap-4 mb-3">
         <div>
           <h2 className='font-bold text-xl lowercase first-letter:capitalize text-navy'>Welcome to dashboard Sandeep K.</h2>
           <p className="text-sm text-gray-500">You can do everything like search, create, update, delete a teacher or student, pending fees & attendance of teacher & students, homework & notes.</p>
         </div>
-        <div className="flex items-center justify-end">
-          <TextField icon="search" label="" placeholder="Search..." className="w-1/2" />
+        <div className="flex items-center lg:justify-end">
+          <TextField icon="search" label="" placeholder="Search..." className="w-full lg:w-2/3" />
         </div>
 
         {/* <div className="flex items-end justify-between">
