@@ -300,12 +300,12 @@ export const sectionData = [
 ];
 
 export const subjectData = [
-  { id: "#2154879630", subject: "Mathematics", createdAt: "28 Dec, 12:12" },
-  { id: "#2154879631", subject: "English", createdAt: "28 Dec, 12:12" },
-  { id: "#2154879632", subject: "Science", createdAt: "28 Dec, 12:12" },
-  { id: "#2154879633", subject: "Hindi", createdAt: "28 Dec, 12:12" },
-  { id: "#2154879634", subject: "Physics", createdAt: "28 Dec, 12:12" },
-  { id: "#2154879635", subject: "Chemistry", createdAt: "28 Dec, 12:12" },
+  { id: "2154879630", subject: "Mathematics", createdAt: "28 Dec, 12:12" },
+  { id: "2154879631", subject: "English", createdAt: "28 Dec, 12:12" },
+  { id: "2154879632", subject: "Science", createdAt: "28 Dec, 12:12" },
+  { id: "2154879633", subject: "Hindi", createdAt: "28 Dec, 12:12" },
+  { id: "2154879634", subject: "Physics", createdAt: "28 Dec, 12:12" },
+  { id: "2154879635", subject: "Chemistry", createdAt: "28 Dec, 12:12" },
   {
     id: "#2154879636",
     subject: "Computer Science",

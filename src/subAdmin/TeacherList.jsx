@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 // Custom Hooks
@@ -35,6 +35,7 @@ const TeacherList = () => {
   const { handleOpen, setIsEdit } = useOutletContext();
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const allTeachers = useSelector((state) => state.teachers.teachers);
 
   const { isBelow640, isBelow1024, isBelow1280 } = useIsMobile();
@@ -144,7 +145,7 @@ const TeacherList = () => {
       cell: (row) => (
         <div className="flex flex-col gap-3 w-full items-end">
           <div className="flex flex-wrap items-center justify-end w-full gap-1">
-            <button className="btn icon_btn navy-btn">
+            <button className="btn icon_btn navy-btn" onClick={()=>navigate(`/subadmin/teachers/${row?.id}`)}>
               <Eye className="own-icon" />
             </button>
             <button type="button" className="btn icon_btn btn_with_text navy-btn" onClick={() => handleDelete(row?.id)}

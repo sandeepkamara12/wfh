@@ -32,8 +32,8 @@ const Sidebar = ({ isOpen, toggleSidebar, handleLogout }) => {
                     </div>
                 </div> */}
 
-                <div className="p-5 text-center">
-                    <div className="flex w-24 h-24 mx-auto mb-2">
+                <div className="py-5 px-6">
+                    <div className="flex w-24 h-24 mb-2">
                         {/* <img className="object-cover w-full h-full rounded-full" src={base_url + '/' + user?.profile_pic} alt="Avatar" /> */}
                         <img className="w-full" src="/logos.png" alt="Avatar" />
                     </div>
@@ -42,13 +42,13 @@ const Sidebar = ({ isOpen, toggleSidebar, handleLogout }) => {
 
                     <div className="hidden lg:block">
                         <div className="relative inline-flex">
-                            <button type="button" className="py-1 px-2 inline-flex justify-center items-center gap-x-1 font-semibold rounded text-white hover:text-primary-hover focus:outline-hidden focus:primary-focus disabled:opacity-50 disabled:pointer-events-none" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
+                            <button type="button" className="py-1 inline-flex justify-center items-center gap-x-1 font-semibold rounded text-white hover:text-primary-hover focus:outline-hidden focus:primary-focus disabled:opacity-50 disabled:pointer-events-none" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
                                 {user?.first_name + ' ' + user?.last_name}
                             </button>
                         </div>
                     </div>
 
-                    <p className="text-xs text-white flex flex-wrap items-center justify-center">
+                    <p className="text-xs text-white flex flex-wrap items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4  h-4 mr-1 lucide lucide-user-round-icon lucide-user-round"><circle cx="12" cy="8" r="5" /><path d="M20 21a8 8 0 0 0-16 0" /></svg>
                         <span className="uppercase">{user?.custom_id}</span>
                     </p>

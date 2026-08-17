@@ -59,7 +59,7 @@ const ClassRoomList = () => {
     {
       name: "Classrooms",
       cell: (row) => (
-        <Link to={`${row?.id}`} className="text-navy">{row?.name}</Link>
+        <Link to={`${row?.id}`} className="text-sm font-semibold text-navy leading-4 capitalize no-underline hover:text-orange">{row?.name}</Link>
       ),
       selector: (row) => row.name,
     },
@@ -181,7 +181,6 @@ const ClassRoomList = () => {
             id="classrooms"
             columns={columns}
             data={classrooms}
-            expandableRows={false}
             paginationPerPage={5}
           />
         </div>

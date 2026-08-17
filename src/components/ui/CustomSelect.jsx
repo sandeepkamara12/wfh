@@ -1,7 +1,7 @@
 import { ChevronDown } from "lucide-react";
 import Select from "react-select"
 
-const CustomSelect = ({ options, selectType, label, value, onChange, placeholder = "", className = "", isSearchable = true }) => {
+const CustomSelect = ({ options, selectType, label, value, onBlur, onChange, placeholder = "", className = "", isSearchable = true }) => {
     const CustomOption = (props) => {
         const { selectType } = props.selectProps;
         const Icon = props.data.icon;
@@ -76,8 +76,11 @@ const CustomSelect = ({ options, selectType, label, value, onChange, placeholder
             <label htmlFor="" className="block text-sm font-medium text-black mb-1">{label}</label>
             <Select
                 options={options}
-                value={options.find(opt => opt.value === value) || null}
-                onChange={(selected) => onChange(selected?.value)}
+                value={value||null}
+                onChange={onChange}
+                onBlur={onBlur}
+                // value={options.find(opt => opt.value === value) || null}
+                // onChange={(selected) => onChange(selected?.value)}
                 placeholder={placeholder}
                 selectType={selectType}
                 isSearchable={isSearchable}

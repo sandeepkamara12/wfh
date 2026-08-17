@@ -18,12 +18,12 @@ const Table = (props) => {
                     data={props.data}
                     pagination
                     animateRows
-                    expandableRows={props.expandableRows ?? true}
+                    // expandableRows={props.expandableRows ?? true}
                     responsive={true}
                     selectableRows={props.needHeader}
                     customStyles={dashboardTableStyle}
                     paginationPerPage={props.paginationPerPage ?? 5}
-                    expandableRowsComponent={props.expandableRowsComponent}
+                    // expandableRowsComponent={props.expandableRowsComponent}
                     paginationComponentOptions={{
                         rowsPerPageText: '',
                         noRowsPerPage: true,

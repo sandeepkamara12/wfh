@@ -39,6 +39,7 @@ import { store, persistor } from './store';
 import { PersistGate } from 'redux-persist/integration/react';
 import Role from './subAdmin/Role.jsx';
 import Dashboard from './subAdmin/Dashboard.jsx';
+import ViewTeacher from './components/subadmin/teacher/ViewTeacher.jsx';
 // import { getToken } from './features/auth/loginSlice.js';
 
 const router = createBrowserRouter([
@@ -65,6 +66,7 @@ const router = createBrowserRouter([
       { path: "create-role", element: (<Role />) },
       { path: "assignments", element: (<Assignment />) },
       { path: "teachers", element: (<TeacherList />) },
+        { path: "teachers/:id", element: <ViewTeacher /> },
       { path: "students", element: (<StudentList />) },
 
       { path: "classrooms", element: (<ClassRoomList />) },

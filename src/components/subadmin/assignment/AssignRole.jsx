@@ -23,6 +23,8 @@ import { useOutletContext } from "react-router-dom";
 import { getClassroomThunk } from "../../../features/subAdmin/classroomSlice";
 import { getSectionThunk } from "../../../features/subAdmin/sectionSlice";
 import { getStreamThunk } from "../../../features/subAdmin/streamSlice";
+import axiosInstance from "../../../axiosinstance";
+import { assignRoleThunk } from "../../../features/subAdmin/createRoleSlice";
 
 const AssignRole = () => {
     const { toggleSidebar } = useOutletContext();
@@ -34,6 +36,7 @@ const AssignRole = () => {
     let sections = useSelector(state => state.section.sections);
 
     const { setClassrooms, setSections, setStreams } = useOutletContext();
+    const { loading } = useSelector(state => state.role.loading);
     const dispatch = useDispatch();
 
     // Get Classrooms on component mount
@@ -89,7 +92,7 @@ const AssignRole = () => {
                 assignment,
                 teacher_id: "",
                 student_id: "",
-                classroom_id: "",
+                class_id: "",
                 stream_id: "",
                 section_id: "",
                 subjects: [],
@@ -101,10 +104,11 @@ const AssignRole = () => {
 
     //Validations
     const validationSchema = Yup.object({
-        classroom_id: Yup.string().required("Classroom ID is required"),
+        class_id: Yup.string().required("Classroom ID is required"),
         stream_id: Yup.string().required("Stream ID is required"),
         section_id: Yup.string().required("Section ID is required"),
-        subjects: Yup.array().of(Yup.string()).required("Subjects are required"),
+        subject_id: Yup.string().required("Subject ID is required"),
+        // subjects: Yup.array().of(Yup.string()).required("Subjects are required"),
         teacher_id: Yup.string().when("assignment", {
             is: true,
             then: (schema) => schema.required("Teacher ID is required"),
@@ -118,21 +122,33 @@ const AssignRole = () => {
 
     const formik = useFormik({
         initialValues: {
-            teacher_id: "teacher",
-            classroom_id: "",
+            teacher_id: null,
+            class_id: "",
             stream_id: "",
             section_id: "",
-            subjects: [],
+            subject_id: "",
+            class_incharge: false,
+            session: '2024-2025',
             assignment: true,
-            student_id: "student",
+            // student_id: "student",
             sub_admin_id: user?.id || "",
         },
         validationSchema,
-        onSubmit: async (values, { resetForm }) => { },
-    });
+        onSubmit: async (values, { resetForm }) => {
+            try {
+                const result = await dispatch(
+                    assignRoleThunk(values)
+                );
 
+                console.log(result, "result");
+            } catch (error) {
+                console.log(error);
+            }
+        },
+    });
+    // console.log(formik, 'hi');
     return (
-        <form className="assignment">
+        <form className="assignment" onSubmit={formik.handleSubmit}>
             <div className="grid gap-y-4">
                 {/* <div className="grid grid-cols-2 gap-6"> */}
                 <div className="col-span-2 grid grid-cols-1 gap-6 lg:bg-white lg:p-6 rounded">
@@ -182,7 +198,8 @@ const AssignRole = () => {
                                     onChange={(option) =>
                                         formik.setFieldValue("teacher_id", option?.value || "")
                                     }
-                                    {...formik.getFieldProps("teacher_id")}
+                                    onBlur={() => formik.setFieldTouched("teacher_id", true)}
+                                    // {...formik.getFieldProps("teacher_id")}
                                     error={formik.touched.teacher_id && formik.errors.teacher_id}
                                 />
                             ) : (
@@ -199,7 +216,8 @@ const AssignRole = () => {
                                     onChange={(option) =>
                                         formik.setFieldValue("student_id", option?.value || "")
                                     }
-                                    {...formik.getFieldProps("student_id")}
+                                    onBlur={() => formik.setFieldTouched("student_id", true)}
+                                    // {...formik.getFieldProps("student_id")}
                                     error={formik.touched.student_id && formik.errors.student_id}
                                 />
                             )}
@@ -220,14 +238,13 @@ const AssignRole = () => {
                                 {classrooms?.length > 0 &&
                                     classrooms.map((cls) => (
                                         <RadioCard
-                                            key={`teacher_${cls?.name?.toLowerCase()}`}
-                                            value={`teacher_${cls.name}`}
-                                            checked={formik.values.classroom_id === `teacher_${cls?.name?.toLowerCase()}`}
+                                            value={cls.id}
+                                            name="class_id"
+                                            checked={formik.values.class_id === String(cls?.id)}
                                             onChange={formik.handleChange}
                                             icon={<GalleryThumbnails className="size-5" />}
                                             text={cls.name}
-                                            group="class"
-                                            id={`teacher_${cls?.name?.toLowerCase()}`}
+                                            id={`class-${cls.id}`}
                                         />
                                     ))}
                             </div>
@@ -248,14 +265,13 @@ const AssignRole = () => {
                                     streams?.length > 0 && streams?.map(stream => {
                                         return (
                                             <RadioCard
-                                                key={stream?.id}
-                                                value={`teacher_${stream.name.toLowerCase()}`}
-                                                checked={formik.values.classroom_id === `teacher_${stream.name.toLowerCase()}`}
+                                                value={stream.id}
+                                                checked={formik.values.stream_id === String(stream.id)}
                                                 onChange={formik.handleChange}
                                                 icon={<Network className="size-5" />}
                                                 text={stream?.name}
-                                                group="stream"
-                                                id={`teacher_${stream.name.toLowerCase()}`}
+                                                name="stream_id"
+                                                id={`stream-${stream.id}`}
                                             />
                                         )
                                     })
@@ -278,14 +294,13 @@ const AssignRole = () => {
                                     sections?.length > 0 && sections?.map(section => {
                                         return (
                                             <RadioCard
-                                                key={section?.id}
-                                                value={`teacher_${section.name.toLowerCase()}`}
-                                                checked={formik.values.classroom_id === `teacher_${section.name.toLowerCase()}`}
+                                                value={section.id}
+                                                checked={formik.values.section_id === String(section.id)}
                                                 onChange={formik.handleChange}
                                                 icon={<LayoutGrid className="size-5" />}
                                                 text={section.name}
-                                                group="section"
-                                                id={`teacher_${section.name.toLowerCase()}`}
+                                                name="section_id"
+                                                id={`section-${section.id}`}
                                             />
                                         )
                                     })
@@ -308,25 +323,25 @@ const AssignRole = () => {
                                     subjectData?.length > 0 && subjectData?.map(subject => {
                                         return formik.values.assignment ? (
                                             <RadioCard
-                                                key={subject?.id}
-                                                value={`teacher_${subject.subject}`}
-                                                checked={formik.values.classroom_id === `teacher_${subject.subject}`}
+                                                value={subject.id}
+                                                checked={formik.values.subject_id === String(subject.id)}
                                                 onChange={formik.handleChange}
                                                 icon={<BookOpenText className="size-5" />}
                                                 text={subject.subject}
-                                                group="subject"
-                                                id={`teacher_${subject.subject}`}
+                                                name="subject_id"
+                                                id={`subject-${subject.id}`}
                                             />
                                         ) : (
-                                            <CheckboxCard
-                                                key={subject?.id}
-                                                // id={subject?.id}
-                                                text={subject?.subject}
-                                                group="subject"
-                                                icon={<GraduationCap className="size-5" />}
-                                                checked={formik.values.subjects.includes(subject?.subject)}
-                                                onChange={() => handleChange(subject?.subject)}
-                                            />
+                                            <></>
+                                            // <CheckboxCard
+                                            //     key={subject?.id}
+                                            //     // id={subject?.id}
+                                            //     text={subject?.subject}
+                                            //     group="subject"
+                                            //     icon={<GraduationCap className="size-5" />}
+                                            //     checked={formik.values.subjects.includes(subject?.subject)}
+                                            //     onChange={() => handleChange(subject?.subject)}
+                                            // />
                                         )
                                     })
                                 }
@@ -335,7 +350,7 @@ const AssignRole = () => {
                     </div>
 
                     <div className="col-start-1">
-                        <button type="submit" className="btn btn_with_text w-auto">
+                        <button type="submit" className="btn btn_with_text w-auto" disabled={loading?.assignRole || !(formik.isValid && formik.dirty)}>
                             Assign {formik.values.assignment ? "Teacher" : "Student"}
                         </button>
                     </div>

@@ -17,6 +17,9 @@ const SubAdmin = () => {
     };
     const [open, setOpen] = useState(null);
     const [isEdit, setIsEdit] = useState(null);
+    const [Classrooms, setClassrooms] = useState(null);
+    const [sections, setSections] = useState(null);
+    const [streams, setStreams] = useState(null);
     
     const handleOpen = (type) => {
         setOpen(type);
@@ -51,7 +54,7 @@ const SubAdmin = () => {
                 </Modal>
                 </>
             }
-            <Outlet context={{ isSidebarOpen, toggleSidebar, handleClose, handleOpen, open, setOpen, setIsEdit }} />
+            <Outlet context={{setClassrooms, setSections, setStreams, isSidebarOpen, toggleSidebar, handleClose, handleOpen, open, setOpen, setIsEdit }} />
         </SidebarLayout>
     )
 }
